@@ -14,19 +14,19 @@ export default function SiteFooter() {
                         <div className={"border size-8 rounded-lg inline-flex items-center justify-center"}>
                             <SiteLogo className={"size-6 h-auto"}/>
                         </div>
-                        <p className={"font-medium"}>AI Startup Landing Page</p>
+                        <p className={"font-medium"}>ATLAS</p>
                     </section>
 
 
 
                     <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
-                        ©️ 2024 Spectron Labs, All rights reserved. Built by <a
-                        href={"https://github.com/MrInspection"}
+                        ©️ 2024 QCX, All rights reserved. Built by <a
+                        href={"https://github.com/queuelab/mapgpt"}
                         target="_blank"
                         rel="noreferrer"
                         className="font-medium underline underline-offset-4"
                     >
-                        Moussa
+                        QueueLab
                     </a>
                         .
                     </p>
