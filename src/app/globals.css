@@ -4,24 +4,24 @@
 
 @layer base {
   :root {
-    --background: 20 14.3% 4.1%;
-    --foreground: 60 9.1% 97.8%;
-    --card: 20 14.3% 4.1%;
-    --card-foreground: 60 9.1% 97.8%;
-    --popover: 20 14.3% 4.1%;
-    --popover-foreground: 60 9.1% 97.8%;
-    --primary: 60 9.1% 97.8%;
-    --primary-foreground: 24 9.8% 10%;
-    --secondary: 12 6.5% 15.1%;
-    --secondary-foreground: 60 9.1% 97.8%;
-    --muted: 12 6.5% 15.1%;
-    --muted-foreground: 24 5.4% 63.9%;
-    --accent: 12 6.5% 15.1%;
-    --accent-foreground: 60 9.1% 97.8%;
+    --background: 30 20% 80%; /* P1fef */
+    --foreground: 120 40% 30%; /* P2a8f */
+    --card: 30 20% 80%; /* Pff2c */
+    --card-foreground: 120 40% 30%; /* Pff2c */
+    --popover: 30 20% 80%; /* Pff2c */
+    --popover-foreground: 120 40% 30%; /* Pff2c */
+    --primary: 30 20% 80%; /* Pff2c */
+    --primary-foreground: 120 40% 30%; /* Pff2c */
+    --secondary: 30 20% 80%; /* Pff2c */
+    --secondary-foreground: 120 40% 30%; /* Pff2c */
+    --muted: 30 20% 80%; /* Pff2c */
+    --muted-foreground: 120 40% 30%; /* Pff2c */
+    --accent: 30 20% 80%; /* Pff2c */
+    --accent-foreground: 120 40% 30%; /* Pff2c */
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 60 9.1% 97.8%;
-    --border: 12 6.5% 15.1%;
-    --input: 12 6.5% 15.1%;
+    --destructive-foreground: 120 40% 30%; /* Pff2c */
+    --border: 30 20% 80%; /* Pff2c */
+    --input: 30 20% 80%; /* Pff2c */
     --ring: 24 5.7% 82.9%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;

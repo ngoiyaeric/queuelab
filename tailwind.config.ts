@@ -52,6 +52,14 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        beige: {
+          DEFAULT: "hsl(30, 20%, 80%)",
+          foreground: "hsl(120, 40%, 30%)",
+        },
+        forestGreen: {
+          DEFAULT: "hsl(120, 40%, 30%)",
+          foreground: "hsl(30, 20%, 80%)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
