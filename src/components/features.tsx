@@ -8,7 +8,7 @@ import {ComponentPropsWithoutRef, useEffect, useRef, useState} from "react";
 const tabs = [
     {
         icon: "/assets/lottie/vroom.lottie",
-        title: "User-friendly dashboard",
+        title: "Real-time Data Analysis",
         isNew: false,
         backgroundPositionX: 0,
         backgroundPositionY: 0,
@@ -16,7 +16,7 @@ const tabs = [
     },
     {
         icon: "/assets/lottie/click.lottie",
-        title: "One-click optimization",
+        title: "Advanced Visualization Tools",
         isNew: false,
         backgroundPositionX: 98,
         backgroundPositionY: 100,
@@ -24,7 +24,7 @@ const tabs = [
     },
     {
         icon: "/assets/lottie/stars.lottie",
-        title: "Smart keyword generator",
+        title: "User-friendly Interface",
         isNew: true,
         backgroundPositionX: 100,
         backgroundPositionY: 27,
@@ -152,11 +152,10 @@ export function Features() {
             <section className={"py-20 md:py-24"}>
                 <div className={"container"}>
                     <h2 className={"text-5xl md:text-6xl font-medium text-center tracking-tighter"}>
-                        Elevate your SEO efforts.
+                        Discover the Power of ATLAS.
                     </h2>
                     <p className={"text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5"}>
-                        From small startups to large enterprises, our AI-driven tool has
-                        revolutionized the way businesses approach SEO.
+                        ATLAS offers a comprehensive suite of tools to help you understand and visualize data about our world.
                     </p>
 
                     <div className={"mt-10 grid lg:grid-cols-3 gap-3"}>
