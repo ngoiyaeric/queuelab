@@ -56,7 +56,7 @@ export function CallToAction() {
                                 Achieve clear, impactful results without the complexity.
                             </p>
                             <div className={"flex justify-center mt-8"}>
-                                <ActionButton label={"Join Waitlist for Early Access"}/>
+                                <ActionButton label={"Sign In"}/>
                             </div>
                         </div>
                     </motion.div>
