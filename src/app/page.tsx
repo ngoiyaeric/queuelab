@@ -6,6 +6,7 @@ import {CallToAction} from "@/components/call-to-action";
 import { Features } from "@/components/features";
 import { Testimonials } from "@/components/testimonials";
 import {GithubIndicator} from "@/components/github-indicator";
+import { PricingSection } from "@/components/pricing-section";
 
 export default function Home() {
     return (
@@ -15,6 +16,7 @@ export default function Home() {
             <LogoTicker />
             <Features />
             <Testimonials />
+            <PricingSection />
             <CallToAction />
             <GithubIndicator />
             <SiteFooter />
