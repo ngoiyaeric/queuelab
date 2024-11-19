@@ -21,9 +21,9 @@ export function HeroSection() {
                 transition={{duration: 120, repeat: Infinity, ease: 'linear'}}
                 className={"h-[492px] md:h-[800px] flex items-center overflow-hidden relative [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"}
                 style={{backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY}} ref={sectionRef}>
-                <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(140,69,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"} />
+                <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"} />
                 {/* Planet Logic */}
-                <div className={"absolute size-64 md:size-96 bg-purple-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(50%_50%_at_16.8%_18.3%,white,rgb(184,148,255)_37.7%,rgb(24,0,66))] shadow-[-20px_-20px_50px_rgb(255,255,255,0.5),-20px_-20px_80px_rgb(255,255,255,0.1),0_0_50px_rgb(140,69,255)]"} />
+                <div className={"absolute size-64 md:size-96 bg-blue-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(50%_50%_at_16.8%_18.3%,white,rgb(0,0,255)_37.7%,rgb(24,0,66))] shadow-[-20px_-20px_50px_rgb(255,255,255,0.5),-20px_-20px_80px_rgb(255,255,255,0.1),0_0_50px_rgb(0,0,255)]"} />
                 {/* Rings + Mini planets Logic */}
                 <motion.div
                     style={{translateY: '-50%', translateX: '-50%',}}
@@ -51,7 +51,7 @@ export function HeroSection() {
                 </motion.div>
                 {/* Hero Section Content Logic */}
                 <div className={"container relative mt-16"}>
-                    <h1 className={"text-8xl md:text-[168px] md:leading-none font-semibold bg-white tracking-tighter bg-[radial-gradient(100%_100%_at_top_left,white,white,rgb(74,32,138,0.5))] bg-clip-text text-transparent text-center"}>ATLAS</h1>
+                    <h1 className={"text-8xl md:text-[168px] md:leading-none font-semibold bg-white tracking-tighter bg-[radial-gradient(100%_100%_at_top_left,white,white,rgb(0,0,255,0.5))] bg-clip-text text-transparent text-center"}>ATLAS</h1>
                     <p className={"text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-center"}>ATLAS is an AI-powered Earth intelligence platform that leverages advanced machine learning algorithms to provide real-time insights and analytics about our planet.</p>
                     <div className={"flex justify-center mt-5"}>
                         <ActionButton label={"Sign In"} />
