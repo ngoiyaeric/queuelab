@@ -9,13 +9,13 @@ import { motion } from "framer-motion";
 
 const testimonials = [
     {
-        text: "“This product has completely transformed how I manage my projects and deadlines”",
+        text: "“This product has completely transformed how I manage my trips and travels”",
         name: "Sophia Perez",
         position: "Director, Quantum",
         avatarImg: Avatar1,
     },
     {
-        text: "“These AI tools have completely revolutionized our SEO entire strategy overnight”",
+        text: "“I've always been looking for an all in one earth intelligence platform”",
         name: "Tom Cucherosset",
         position: "Founder, InkGames",
         avatarImg: Avatar2,
@@ -40,7 +40,7 @@ export function Testimonials() {
             <section className={"py-20 md:py-24"}>
                 <div className={"container"}>
                     <h2 className={"text-5xl md:text-6xl font-medium text-center tracking-tighter"}>Beyond Expectations.</h2>
-                    <p className={"text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5"}>Our revolutionary AI SEO tools have transformed our clients&apos; strategies.</p>
+                    <p className={"text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5"}>Our revolutionary AI Earth intelligence platform for exploration and automation.</p>
                     <div className={"flex overflow-hidden mt-10 [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]"}>
                         <motion.div
                             initial={{translateX: '-50%'}}
