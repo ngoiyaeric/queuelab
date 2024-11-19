@@ -3,7 +3,7 @@ import React from 'react';
 const pricingTiers = [
    {
     title: 'Trial',
-    price: '10 Queries/month',
+    price: 'Limited Usage',
     features: ['Internet Search', 'Upload and analyze unlimited files', 'Mapping tools', 'Location Intelligence'],
   },
   {
@@ -33,7 +33,7 @@ export function PricingSection() {
             <div key={tier.title} className="border border-muted p-6 rounded-xl">
               <h3 className="text-2xl font-semibold">{tier.title}</h3>
               <p className="text-4xl font-bold my-4">{tier.price}</p>
-              <ul className="text-white/70 text-lg">
+              <ul className="text-green/70 text-lg">
                 {tier.features.map((feature, index) => (
                   <li key={index} className="mt-2">
                     {feature}
