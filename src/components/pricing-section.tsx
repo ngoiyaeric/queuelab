@@ -1,4 +1,5 @@
 import React from 'react';
+import { ActionButton } from '@/components/action-button';
 
 const pricingTiers = [
    {
@@ -40,6 +41,9 @@ export function PricingSection() {
                   </li>
                 ))}
               </ul>
+              <div className="mt-4">
+                <ActionButton label={`${tier.price} - ${tier.title}`} />
+              </div>
             </div>
           ))}
         </div>
