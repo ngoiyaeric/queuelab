@@ -28,7 +28,7 @@ export default function SiteHeader() {
                             </nav>
                         </section>
                         <section className={"flex max-md:gap-4 items-center"}>
-                            <ActionButton label={"Sign In"} />
+                            <ActionButton label={"Get Started"} />
                             <Sheet open={isOpen} onOpenChange={setIsOpen}>
                                 <SheetTrigger>
                                     <MenuIcon className={"size-9 md:hidden hover:text-white/70 transition"}/>
@@ -38,7 +38,7 @@ export default function SiteHeader() {
                                         <div className={"border size-8 rounded-lg inline-flex items-center justify-center"}>
                                             <SiteLogo className={"size-6 h-auto"}/>
                                         </div>
-                                        <p className={"font-bold"}>AI Startup Landing Page</p>
+                                        <p className={"font-bold"}>QCX</p>
                                     </div>
                                     <div className={"mt-8 mb-4"}>
                                         <nav className={"grid gap-4 items-center text-lg"}>
