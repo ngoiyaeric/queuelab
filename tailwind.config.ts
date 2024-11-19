@@ -60,6 +60,18 @@ const config = {
           DEFAULT: "hsl(120, 40%, 30%)",
           foreground: "hsl(30, 20%, 80%)",
         },
+        natureGreen: {
+          DEFAULT: "hsl(120, 40%, 30%)",
+          foreground: "hsl(30, 20%, 80%)",
+        },
+        natureBrown: {
+          DEFAULT: "hsl(30, 20%, 50%)",
+          foreground: "hsl(120, 40%, 30%)",
+        },
+        natureSky: {
+          DEFAULT: "hsl(200, 70%, 80%)",
+          foreground: "hsl(120, 40%, 30%)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
