@@ -1,20 +1,20 @@
 import React from 'react';
 
 const pricingTiers = [
+   {
+    title: 'Trial',
+    price: '10 Queries/month',
+    features: ['Internet Search', 'Upload and analyze unlimited files', 'Mapping tools', 'Location Intelligence'],
+  },
   {
     title: 'Basic',
-    price: '$10/month',
-    features: ['Feature 1', 'Feature 2', 'Feature 3'],
+    price: '$20/month',
+    features: ['Internet Search', 'Upload and analyze unlimited files', 'Mapping tools', 'Location Intelligence'],
   },
   {
     title: 'Standard',
-    price: '$20/month',
-    features: ['Feature 1', 'Feature 2', 'Feature 3', 'Feature 4'],
-  },
-  {
-    title: 'Premium',
-    price: '$30/month',
-    features: ['Feature 1', 'Feature 2', 'Feature 3', 'Feature 4', 'Feature 5'],
+    price: '$50/month',
+    features: ['Everything in Basic', 'Browser Agents', 'Physics Models'],
   },
 ];
 
