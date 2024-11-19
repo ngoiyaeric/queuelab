@@ -24,7 +24,7 @@ const tabs = [
     },
     {
         icon: "/assets/lottie/stars.lottie",
-        title: "User-friendly Interface",
+        title: "Location Intelligence",
         isNew: true,
         backgroundPositionX: 100,
         backgroundPositionY: 27,
