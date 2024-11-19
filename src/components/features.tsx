@@ -8,7 +8,7 @@ import {ComponentPropsWithoutRef, useEffect, useRef, useState} from "react";
 const tabs = [
     {
         icon: "/assets/lottie/vroom.lottie",
-        title: "Real-time Data Analysis",
+        title: "Evolutionary Search",
         isNew: false,
         backgroundPositionX: 0,
         backgroundPositionY: 0,
