@@ -17,13 +17,13 @@ export default function SiteFooter() {
                         <p className={"font-medium"}>mapgpt</p>
                     </section>
 
-                    <Link href="/privacy-terms" className="text-sm text-muted-foreground hover:underline">
+                    <Link href="https://tally.so/r/wADZ4o" className="text-sm text-muted-foreground hover:underline">
                         Privacy and Terms
                     </Link>
 
                     <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
                         ©️ 2024 QCX, All rights reserved. Built by <a
-                        href={"https://discord.gg/NqGY9EWjWj"}
+                        href={"https://discord.gg/NqGY9EWjW"}
                         target="_blank"
                         rel="noreferrer"
                         className="font-medium underline underline-offset-4"
