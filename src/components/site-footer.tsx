@@ -17,9 +17,9 @@ export default function SiteFooter() {
                         <p className={"font-medium italic"}>atlas</p>
                     </section>
 
+
                     <Link href="/privacy-terms" className="text-sm text-muted-foreground hover:underline">
                         Privacy and Terms
-                    </Link>
 
                     <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
                         ©️ 2024 QCX, All rights reserved. Built by <a
@@ -34,11 +34,24 @@ export default function SiteFooter() {
                     </p>
                     <div>
                         <ul className={"flex justify-center gap-3 text-white/40"}>
-                            <li className={"hover:text-white cursor-pointer"}><X/></li>
-                            <li className={"hover:text-white cursor-pointer"}><Instagram/></li>
-                            <li className={"hover:text-white cursor-pointer"}><Youtube/></li>
-                            <li className={"hover:text-white cursor-pointer"}><Link href="https://x.com/queue_cx">queue_cx</Link></li>
-                            <li className={"hover:text-white cursor-pointer"}><Link href="https://instagram.com/queue.lab">queue.lab</Link></li>
+                            <li className={"hover:text-white cursor-pointer"}>
+                                <div className={"flex flex-col items-center"}>
+                                    <X/>
+                                    <Link href="https://x.com/queue_cx">queue_cx</Link>
+                                </div>
+                            </li>
+                            <li className={"hover:text-white cursor-pointer"}>
+                                <div className={"flex flex-col items-center"}>
+                                    <Instagram/>
+                                    <Link href="https://instagram.com/queue.lab">queue.lab</Link>
+                                </div>
+                            </li>
+                            <li className={"hover:text-white cursor-pointer"}>
+                                <div className={"flex flex-col items-center"}>
+                                    <Youtube/>
+                                    <Link href="https://youtube.com/queue_cx">queue_cx</Link>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
