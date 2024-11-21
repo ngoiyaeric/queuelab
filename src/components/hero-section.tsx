@@ -52,7 +52,7 @@ export function HeroSection() {
                 {/* Hero Section Content Logic */}
                 <div className={"container relative mt-16"}>
                     <h1 className={"text-8xl md:text-[168px] md:leading-none font-semibold italic bg-white tracking-tighter bg-[radial-gradient(100%_100%_at_top_left,white,white,rgb(0,0,255,0.5))] bg-clip-text text-transparent text-center"}>atlas</h1>
-                    <p className={"text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-center"}>ATLAS is an AI-powered Earth intelligence platform that provides real-time insights and analytics about our planet.</p>
+                    <p className={"text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-center"}>ATLAS is a multi-agent Earth intelligence platform that provides real-time insights and analytics about our planet for exploration and automation.</p>
                     <div className={"flex justify-center mt-5"}>
                         <ActionButton label={"Get Started"} />
                     </div>
