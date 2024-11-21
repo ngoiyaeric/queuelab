@@ -19,7 +19,7 @@ const PrivacyTerms = () => {
           We are a Data Controller of your information under the terms of the European General Data Protection Regulation. To better understand your rights under the GDPR, see this resource provided by the UK Information Commissioner's Office.
         </p>
         <p>
-          Queue Enterprise Inc. (hereafter "QCX", "we" or "us") legal basis for collecting and using the personal information described in this Privacy Policy depends on the Personal Information we collect and the specific context in which we collect the information:
+          Queue Enterprise Inc. (hereafter &quot;QCX&quot;, &quot;we&quot; or &quot;us&quot;) legal basis for collecting and using the personal information described in this Privacy Policy depends on the Personal Information we collect and the specific context in which we collect the information:
         </p>
         <ul>
           <li>We need to perform a contract with you</li>
@@ -48,13 +48,13 @@ const PrivacyTerms = () => {
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">Log Files</h2>
         <p>
-        QCX follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services' analytics. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users' movement on the website, and gathering demographic information.
+        QCX follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services&apos; analytics. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users&apos; movement on the website, and gathering demographic information.
         </p>
       </section>
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">Cookies and Web Beacons</h2>
         <p>
-          Like any other website, QCX uses 'cookies'. These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and/or other information.
+          Like any other website, QCX uses &apos;cookies&apos;. These cookies are used to store information including visitors&apos; preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users&apos; experience by customizing our web page content based on visitors&apos; browser type and/or other information.
         </p>
       </section>
       <section className="mb-6">
@@ -73,7 +73,7 @@ const PrivacyTerms = () => {
         <ul>
           <li>We will receive a notification from Gmail when you receive a new email.</li>
           <li>We will parse the email with the help of OpenAI to identify whether it is a travel receipts (for hotels, flights, and other bookings).</li>
-          <li>If after parsing, we determine that the email is for travel, we will create a document on QCX with the confirmation and store the receipt on our servers. Otherwise, we'll delete any temporary data we have about the email.</li>
+          <li>If after parsing, we determine that the email is for travel, we will create a document on QCX with the confirmation and store the receipt on our servers. Otherwise, we&apos;ll delete any temporary data we have about the email.</li>
           <li>We will not store or process any emails other than as outlined above.</li>
         </ul>
         <p>
@@ -92,7 +92,7 @@ const PrivacyTerms = () => {
           If you choose to sign in with Facebook, we will receive your basic profile information (your name, Facebook account ID) which we will use to authenticate you when signing in.
         </p>
         <p>
-          If you grant us permission to get your email address, we will also receive your email which we'll use to contact you with product updates.
+          If you grant us permission to get your email address, we will also receive your email which we&apos;ll use to contact you with product updates.
         </p>
         <p>
           If you grant us permission to see which of your friends also use QCX, we will use that information only to display a list of itineraries/trip plans and other contributions that your Facebook friends have created on QCX.
@@ -110,7 +110,7 @@ const PrivacyTerms = () => {
         </p>
         <h3 className="text-xl font-semibold mb-2">Deleting your data</h3>
         <p>
-          To delete your account and associated user data, you may sign in and visit our settings page, which includes a "Delete account" button. Our system will fully delete your account within two weeks of receiving the request.
+          To delete your account and associated user data, you may sign in and visit our settings page, which includes a &quot;Delete account&quot; button. Our system will fully delete your account within two weeks of receiving the request.
         </p>
         <h3 className="text-xl font-semibold mb-2">Mobile phone number</h3>
         <p>
@@ -123,7 +123,7 @@ const PrivacyTerms = () => {
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">Third Party Advertisers</h2>
         <p>
-          Third-party ad servers or ad networks use technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on QCX, which are sent directly to users' browser. They automatically receive your IP address when this occurs. These technologies are used to measure the effectiveness of their advertising campaigns and/or to personalize the advertising content that you see on websites that you visit.
+          Third-party ad servers or ad networks use technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on QCX, which are sent directly to users&apos; browser. They automatically receive your IP address when this occurs. These technologies are used to measure the effectiveness of their advertising campaigns and/or to personalize the advertising content that you see on websites that you visit.
         </p>
         <p>
           Note that QCX has no access to or control over these cookies that are used by third-party advertisers.
@@ -132,14 +132,14 @@ const PrivacyTerms = () => {
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">Third Party Privacy Policies</h2>
         <p>
-          QCX's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.
+          QCX&apos;s Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.
         </p>
         <p>
-          You can choose to disable cookies through your individual browser options. To know more detailed information about cookie management with specific web browsers, it can be found at the browsers' respective websites.
+          You can choose to disable cookies through your individual browser options. To know more detailed information about cookie management with specific web browsers, it can be found at the browsers&apos; respective websites.
         </p>
       </section>
       <section className="mb-6">
-        <h2 className="text-2xl font-semibold mb-4">Children's Information</h2>
+        <h2 className="text-2xl font-semibold mb-4">Children&apos;s Information</h2>
         <p>
           Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.
         </p>
