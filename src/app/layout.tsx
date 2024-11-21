@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata: Metadata = {
-  title: "MAPGPT",
-  description: "MAPGPT - AI-powered Earth intelligence platform by QCX",
+  title: "QCX",
+  description: "QCX - AI-powered Earth intelligence platform by QCX",
 };
 
 export default function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {

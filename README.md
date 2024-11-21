@@ -1,6 +1,6 @@
-# MAPGPT - AI-powered Earth Intelligence Platform
+# QCX - AI-powered Earth Intelligence Platform
 
-MAPGPT is an Earth intelligence platform developed by QCX part of queuelab. It leverages advanced generative artificial intelligence technology to provide real-time insights and analytics about our planet. Whether you're an explorer, traveler or researcher MAPGPT offers a comprehensive suite of tools to help you explore, visualize and perform automation tasks. 
+QCX is an Earth intelligence platform developed by QCX part of queuelab. It leverages advanced generative artificial intelligence technology to provide real-time insights and analytics about our planet. Whether you're an explorer, traveler or researcher QCX offers a comprehensive suite of tools to help you explore, visualize and perform automation tasks. 
 
 ## Features
 
@@ -15,4 +15,4 @@ QCX is a leading technology company specializing in AI and machine learning solu
 
 ## GitHub Repository
 
-For more information, visit our [GitHub repository](https://github.com/queuelab/mapgpt).
+For more information, visit our [GitHub repository](https://github.com/queuelab/QCX).
