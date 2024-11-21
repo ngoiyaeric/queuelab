@@ -61,7 +61,7 @@ const config = {
           foreground: "hsl(30, 20%, 80%)",
         },
         natureGreen: {
-          DEFAULT: "hsl(120, 40%, 30%)",
+          DEFAULT: "hsl(120, 40%, 80%)",
           foreground: "hsl(30, 20%, 80%)",
         },
         natureBrown: {
