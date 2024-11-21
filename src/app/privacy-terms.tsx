@@ -16,7 +16,7 @@ const PrivacyTerms = () => {
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">General Data Protection Regulation (GDPR)</h2>
         <p>
-          We are a Data Controller of your information under the terms of the European General Data Protection Regulation. To better understand your rights under the GDPR, see this resource provided by the UK Information Commissioner's Office.
+          We are a Data Controller of your information under the terms of the European General Data Protection Regulation. To better understand your rights under the GDPR, see this resource provided by the UK Information Commissioner&apos;s Office.
         </p>
         <p>
           Queue Enterprise Inc. (hereafter &quot;QCX&quot;, &quot;we&quot; or &quot;us&quot;) legal basis for collecting and using the personal information described in this Privacy Policy depends on the Personal Information we collect and the specific context in which we collect the information:
