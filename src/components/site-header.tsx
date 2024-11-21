@@ -22,9 +22,8 @@ export default function SiteHeader() {
                         <section className={"max-md:hidden"}>
                             <nav className={"flex gap-8 items-center text-sm"}>
                                 <Link href={"#"} className={"text-white/70 hover:text-white transition"}>Features</Link>
-                                <Link href={"#"} className={"text-white/70 hover:text-white transition"}>Developers</Link>
                                 <Link href={"#"} className={"text-white/70 hover:text-white transition"}>Pricing</Link>
-                                <Link href={"#"} className={"text-white/70 hover:text-white transition"}>Changelog</Link>
+                                <Link href={"#"} className={"text-white/70 hover:text-white transition"}>Contribute</Link>
                             </nav>
                         </section>
                         <section className={"flex max-md:gap-4 items-center"}>
@@ -47,16 +46,12 @@ export default function SiteHeader() {
                                                 Features
                                             </Link>
                                             <Link href={"#"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
-                                                <CodeXml className={"size-6"} />
-                                                Developers
-                                            </Link>
-                                            <Link href={"#"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
                                                 <Wallet2 className={"size-6"} />
                                                 Pricing
                                             </Link>
                                             <Link href={"#"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
                                                 <Newspaper className={"size-6"} />
-                                                Changelog
+                                                Contribute
                                             </Link>
                                         </nav>
                                     </div>
