@@ -1,13 +1,13 @@
 "use client";
 
-import {DotLottieCommonPlayer, DotLottiePlayer,} from "@dotlottie/react-player";
+import GifPlayer from "./gif-player";
 import ProductImage from "@/assets/product-image.png";
 import {animate, motion, useMotionTemplate, useMotionValue, ValueAnimationTransition,} from "framer-motion";
 import {ComponentPropsWithoutRef, useEffect, useRef, useState} from "react";
 
 const tabs = [
     {
-        icon: "/assets/lottie/vroom.lottie",
+        icon: "/assets/gifs/resolution-search.gif",
         title: "Resolution Search",
         isNew: false,
         backgroundPositionX: 0,
@@ -15,7 +15,7 @@ const tabs = [
         backgroundSizeX: 150,
     },
     {
-        icon: "/assets/lottie/click.lottie",
+        icon: "/assets/gifs/advanced-visualization.gif",
         title: "Advanced Visualization Tools",
         isNew: false,
         backgroundPositionX: 98,
@@ -23,7 +23,7 @@ const tabs = [
         backgroundSizeX: 135,
     },
     {
-        icon: "/assets/lottie/stars.lottie",
+        icon: "/assets/gifs/location-intelligence.gif",
         title: "Location Intelligence",
         isNew: true,
         backgroundPositionX: 100,
@@ -37,7 +37,7 @@ const FeatureTab = (
         ComponentPropsWithoutRef<"div"> & { selected: boolean }
 ) => {
     const tabRef = useRef<HTMLDivElement>(null);
-    const dotLottieRef = useRef<DotLottieCommonPlayer>(null);
+    const gifRef = useRef<HTMLImageElement>(null);
 
     const xPercentage = useMotionValue(0);
     const yPercentage = useMotionValue(0);
@@ -72,9 +72,8 @@ const FeatureTab = (
     }, [props.selected]);
 
     const handleTabHover = () => {
-        if (dotLottieRef.current === null) return;
-        dotLottieRef.current.seek(0);
-        dotLottieRef.current.play();
+        if (gifRef.current === null) return;
+        gifRef.current.src = props.icon;
     };
 
     return (
@@ -96,11 +95,10 @@ const FeatureTab = (
             )}
 
             <div className={"size-12 border border-muted rounded-lg inline-flex items-center justify-center"}>
-                <DotLottiePlayer
+                <GifPlayer
                     src={props.icon}
-                    className={"size-5"}
-                    autoplay
-                    ref={dotLottieRef}
+                    alt={props.title}
+                    ref={gifRef}
                 />
             </div>
             <div className={"font-medium"}>{props.title}</div>
