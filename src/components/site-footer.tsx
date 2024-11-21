@@ -14,7 +14,7 @@ export default function SiteFooter() {
                         <div className={"border size-8 rounded-lg inline-flex items-center justify-center"}>
                             <SiteLogo className={"size-6 h-auto"}/>
                         </div>
-                        <p className={"font-medium"}>atlas</p>
+                        <p className={"font-medium"}>mapgpt</p>
                     </section>
 
                     <Link href="/privacy-terms" className="text-sm text-muted-foreground hover:underline">
