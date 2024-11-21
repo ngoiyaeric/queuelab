@@ -14,7 +14,7 @@ export default function SiteFooter() {
                         <div className={"border size-8 rounded-lg inline-flex items-center justify-center"}>
                             <SiteLogo className={"size-6 h-auto"}/>
                         </div>
-                        <p className={"font-medium"}>ATLAS</p>
+                        <p className={"font-medium italic"}>atlas</p>
                     </section>
 
 
