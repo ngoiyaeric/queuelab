@@ -50,7 +50,7 @@ export function CallToAction() {
                             style={{backgroundImage: `url(${BackgroundGrid.src})`, maskImage: maskImage}} ref={borderedDivRef}/>
                         <div className={"relative"}>
                             <h2 className={"text-5xl tracking-tighter text-center font-medium"}>
-                                AI-driven SEO for everyone
+                                Democratizing Earth intelligence for everyone
                             </h2>
                             <p className={"text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5"}>
                                 Achieve clear, impactful results without the complexity.
