@@ -35,6 +35,8 @@ export default function SiteFooter() {
                             <li className={"hover:text-white cursor-pointer"}><X/></li>
                             <li className={"hover:text-white cursor-pointer"}><Instagram/></li>
                             <li className={"hover:text-white cursor-pointer"}><Youtube/></li>
+                            <li className={"hover:text-white cursor-pointer"}><Link href="https://x.com/queue_cx">queue_cx</Link></li>
+                            <li className={"hover:text-white cursor-pointer"}><Link href="https://instagram.com/queue.lab">queue.lab</Link></li>
                         </ul>
                     </div>
                 </div>
