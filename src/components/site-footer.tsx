@@ -14,7 +14,7 @@ export default function SiteFooter() {
                         <div className={"border size-8 rounded-lg inline-flex items-center justify-center"}>
                             <SiteLogo className={"size-6 h-auto"}/>
                         </div>
-                        <p className={"font-medium italic"}>atlas</p>
+                        <p className={"font-medium"}>atlas</p>
                     </section>
 
 
@@ -37,19 +37,19 @@ export default function SiteFooter() {
                             <li className={"hover:text-white cursor-pointer"}>
                                 <div className={"flex flex-col items-center"}>
                                     <X/>
-                                    <Link href="https://x.com/queue_cx">queue_cx</Link>
+                                    <Link href="https://x.com/queue_cx"></Link>
                                 </div>
                             </li>
                             <li className={"hover:text-white cursor-pointer"}>
                                 <div className={"flex flex-col items-center"}>
                                     <Instagram/>
-                                    <Link href="https://instagram.com/queue.lab">queue.lab</Link>
+                                    <Link href="https://instagram.com/queue.lab"></Link>
                                 </div>
                             </li>
                             <li className={"hover:text-white cursor-pointer"}>
                                 <div className={"flex flex-col items-center"}>
                                     <Youtube/>
-                                    <Link href="https://youtube.com/queue_cx">queue_cx</Link>
+                                    <Link href="https://youtube.com/queue_cx"></Link>
                                 </div>
                             </li>
                         </ul>
