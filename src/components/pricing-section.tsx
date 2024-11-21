@@ -42,7 +42,7 @@ export function PricingSection() {
                 ))}
               </ul>
               <div className="mt-4">
-                <ActionButton label={`${tier.price} - ${tier.title}`} />
+                <ActionButton label={`${tier.price} - ${tier.title}`} href={"https://tally.so/r/wkWqkd"} />
               </div>
             </div>
           ))}
