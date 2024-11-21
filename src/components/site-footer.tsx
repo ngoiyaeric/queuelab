@@ -17,9 +17,9 @@ export default function SiteFooter() {
                         <p className={"font-medium"}>atlas</p>
                     </section>
 
-
                     <Link href="/privacy-terms" className="text-sm text-muted-foreground hover:underline">
                         Privacy and Terms
+                    </Link>
 
                     <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
                         ©️ 2024 QCX, All rights reserved. Built by <a
