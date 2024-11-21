@@ -1,6 +1,6 @@
 # ATLAS - AI-powered Earth Intelligence Platform
 
-ATLAS is an AI-powered Earth intelligence platform developed by QCX. It leverages advanced machine learning algorithms to provide real-time insights and analytics about our planet. Whether you're a researcher, environmentalist, or just curious about the Earth, ATLAS offers a comprehensive suite of tools to help you understand and visualize data about our world.
+ATLAS is an Earth intelligence platform developed by QCX part of queuelab. It leverages advanced generative artificial intelligence technology to provide real-time insights and analytics about our planet. Whether you're an explorer, traveler or researcher ATLAS offers a comprehensive suite of tools to help you explore, visualize and perform automation tasks. 
 
 ## Features
 
