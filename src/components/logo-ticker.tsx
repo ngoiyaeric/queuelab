@@ -8,8 +8,24 @@ import PulseLogo from "@/assets/logo-pulse.png";
 import EchoLogo from "@/assets/logo-echo.png";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export function LogoTicker() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <>
       <section className={"py-20 md:py-24"}>
@@ -24,7 +40,7 @@ export function LogoTicker() {
                       animate={{translateX: '0'}}
                       transition={{
                           repeat: Infinity,
-                          duration: 30,
+                          duration: isMobile ? 60 : 30,
                           ease: "linear",
                       }}
                       className={"flex flex-none gap-14 pr-14 -translate-x-1/2"}>
