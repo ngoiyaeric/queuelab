@@ -8,14 +8,14 @@ const pricingTiers = [
     features: ['Internet Search', 'Upload and analyze unlimited files', 'Mapping tools', 'Location Intelligence'],
   },
   {
-    title: 'Basic',
+    title: 'Standard',
     price: '$20/month',
     features: ['Internet Search', 'Upload and analyze unlimited files', 'Mapping tools', 'Location Intelligence'],
   },
   {
-    title: 'Standard',
+    title: 'Premium',
     price: '$50/month',
-    features: ['Everything in Basic', 'Browser Agents', 'Physics Models'],
+    features: ['Everything in Standard', 'Browser Agents', 'Physics Models'],
   },
 ];
 
