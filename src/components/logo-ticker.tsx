@@ -32,7 +32,7 @@ export function LogoTicker() {
         <div className={"container"}>
           <div className={"flex items-center gap-5"}>
               <div className={"flex-1 md:flex-none"}>
-                  <h2 className={""}>Trusted by our trusted partners</h2>
+                  <h2 className={""}>Our trusted partners</h2>
               </div>
               <div className={"flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]"}>
                   <motion.div
@@ -40,7 +40,7 @@ export function LogoTicker() {
                       animate={{translateX: '0'}}
                       transition={{
                           repeat: Infinity,
-                          duration: isMobile ? 60 : 30,
+                          duration: isMobile ? 30 : 15,
                           ease: "linear",
                       }}
                       className={"flex flex-none gap-14 pr-14 -translate-x-1/2"}>
