@@ -40,7 +40,7 @@ export function LogoTicker() {
                       animate={{translateX: '0'}}
                       transition={{
                           repeat: Infinity,
-                          duration: isMobile ? 30 : 15,
+                          duration: isMobile ? 10 : 5,
                           ease: "linear",
                       }}
                       className={"flex flex-none gap-14 pr-14 -translate-x-1/2"}>
