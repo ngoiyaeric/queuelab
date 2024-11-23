@@ -19,6 +19,32 @@ const nextConfig = {
                 issuer: fileLoaderRule.issuer,
                 resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
                 use: ["@svgr/webpack"],
+            },
+            // Add rule to handle .png files
+            {
+                test: /\.png$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[hash].[ext]',
+                            outputPath: 'static/images',
+                        },
+                    },
+                ],
+            },
+            // Add rule to handle .jpeg files
+            {
+                test: /\.jpeg$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[hash].[ext]',
+                            outputPath: 'static/images',
+                        },
+                    },
+                ],
             }
         );
 
