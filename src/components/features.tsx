@@ -13,7 +13,7 @@ const tabs = [
         backgroundPositionX: 50,
         backgroundPositionY: 50,
         backgroundSizeX: 150,
-        image: "/assets/product-image-1.png",
+        image: "src/assets/product-image-1.png",
     },
     {
         icon: "/assets/lottie/click.lottie",
@@ -22,7 +22,7 @@ const tabs = [
         backgroundPositionX: 50,
         backgroundPositionY: 50,
         backgroundSizeX: 150,
-        image: "/assets/product-image-2.png",
+        image: "src/assets/product-image-2.png",
     },
     {
         icon: "/assets/lottie/stars.lottie",
@@ -31,7 +31,8 @@ const tabs = [
         backgroundPositionX: 50,
         backgroundPositionY: 50,
         backgroundSizeX: 150,
-        image: "/assets/product-image-3.png",
+        image: "src/assets/product-image-3.png",
+        
     },
 ];
 
