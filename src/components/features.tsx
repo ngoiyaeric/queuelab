@@ -10,25 +10,28 @@ const tabs = [
         icon: "/assets/lottie/vroom.lottie",
         title: "Resolution Search",
         isNew: false,
-        backgroundPositionX: 0,
-        backgroundPositionY: 0,
+        backgroundPositionX: 50,
+        backgroundPositionY: 50,
         backgroundSizeX: 150,
+        image: "/assets/product-image-1.png",
     },
     {
         icon: "/assets/lottie/click.lottie",
         title: "Advanced Visualization Tools",
         isNew: false,
-        backgroundPositionX: 98,
-        backgroundPositionY: 100,
-        backgroundSizeX: 135,
+        backgroundPositionX: 50,
+        backgroundPositionY: 50,
+        backgroundSizeX: 150,
+        image: "/assets/product-image-2.png",
     },
     {
         icon: "/assets/lottie/stars.lottie",
         title: "Location Intelligence",
         isNew: true,
-        backgroundPositionX: 100,
-        backgroundPositionY: 27,
-        backgroundSizeX: 177,
+        backgroundPositionX: 50,
+        backgroundPositionY: 50,
+        backgroundSizeX: 150,
+        image: "/assets/product-image-3.png",
     },
 ];
 
@@ -119,6 +122,7 @@ export function Features({ id }: { id: string }) {
     const backgroundPositionX = useMotionValue(tabs[0].backgroundPositionX);
     const backgroundPositionY = useMotionValue(tabs[0].backgroundPositionY);
     const backgroundSizeX = useMotionValue(tabs[0].backgroundSizeX);
+    const productImage = useMotionValue(tabs[0].image);
 
     const backgroundPosition = useMotionTemplate`${backgroundPositionX}% ${backgroundPositionY}%`;
     const backgroundSize = useMotionTemplate`${backgroundSizeX}% auto`;
@@ -143,6 +147,11 @@ export function Features({ id }: { id: string }) {
         animate(
             backgroundPositionY,
             [backgroundPositionY.get(), tabs[index].backgroundPositionY],
+            animateOptions
+        );
+        animate(
+            productImage,
+            [productImage.get(), tabs[index].image],
             animateOptions
         );
     };
@@ -174,7 +183,7 @@ export function Features({ id }: { id: string }) {
                             style={{
                                 backgroundPosition: backgroundPosition.get(),
                                 backgroundSize: backgroundSize.get(),
-                                backgroundImage: `url(${ProductImage.src})`,
+                                backgroundImage: `url(${productImage.get()})`,
                             }}
                         ></div>
                     </motion.div>
