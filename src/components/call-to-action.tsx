@@ -25,7 +25,7 @@ const useRelativeMousePosition = (to: RefObject<HTMLElement>) => {
     return [mouseX, mouseY];
 }
 
-export function CallToAction() {
+export function CallToAction({ id }: { id: string }) {
 
     const sectionRef = useRef<HTMLElement>(null);
     const borderedDivRef = useRef<HTMLDivElement>(null);
@@ -37,7 +37,7 @@ export function CallToAction() {
 
     return (
         <>
-            <section className={"py-20 md:py-24"} ref={sectionRef}>
+            <section className={"py-20 md:py-24"} ref={sectionRef} id={id}>
                 <div className={"container"}>
                     <motion.div
                         animate={{backgroundPositionX: BackgroundStars.width,}}
