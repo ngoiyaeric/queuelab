@@ -14,10 +14,10 @@ export default function Home() {
             <SiteHeader />
             <HeroSection />
             <LogoTicker />
-            <Features />
+            <Features id="features" />
             <Testimonials />
-            <PricingSection />
-            <CallToAction />
+            <PricingSection id="pricing" />
+            <CallToAction id="contribute" />
             <GithubIndicator />
             <SiteFooter />
         </>
