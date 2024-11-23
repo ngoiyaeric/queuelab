@@ -15,7 +15,7 @@ const tabs = [
         backgroundPositionY: 50,
         backgroundSizeX: 150,
         // Keep original extension exactly as saved
-        image: "@/assets/product-image-1.png",
+        image: "/assets/product-image-1.png",
     },
     {
         icon: "/assets/lottie/click.lottie",
@@ -25,7 +25,7 @@ const tabs = [
         backgroundPositionY: 50,
         backgroundSizeX: 150,
         // Keep .PNG if that's how it's saved
-        image: "@/assets/product-image-4.PNG",
+        image: "/assets/product-image-4.PNG",
     },
     {
         icon: "/assets/lottie/stars.lottie",
@@ -35,7 +35,7 @@ const tabs = [
         backgroundPositionY: 50,
         backgroundSizeX: 150,
         // Keep .PNG if that's how it's saved
-        image: "@/assets/product-image-3.PNG",
+        image: "/assets/product-image-3.PNG",
     },
 ];
 
