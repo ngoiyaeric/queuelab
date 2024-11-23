@@ -16,7 +16,7 @@ export default function Home() {
             <LogoTicker />
             <Features />
             <Testimonials />
-            <PricingSection />
+            <PricingSection id="pricing-section" />
             <CallToAction />
             <GithubIndicator />
             <SiteFooter />
