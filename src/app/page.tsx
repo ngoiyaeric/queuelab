@@ -1,11 +1,11 @@
 import SiteHeader from "@/components/site-header";
-import {HeroSection} from "@/components/hero-section";
-import {LogoTicker} from "@/components/logo-ticker";
+import { HeroSection } from "@/components/hero-section";
+import { LogoTicker } from "@/components/logo-ticker";
 import SiteFooter from "@/components/site-footer";
-import {CallToAction} from "@/components/call-to-action";
+import { CallToAction } from "@/components/call-to-action";
 import { Features } from "@/components/features";
 import { Testimonials } from "@/components/testimonials";
-import {GithubIndicator} from "@/components/github-indicator";
+import { GithubIndicator } from "@/components/github-indicator";
 import { PricingSection } from "@/components/pricing-section";
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
             <Features />
             <Testimonials />
             <PricingSection id="pricing-section" />
-            <CallToAction />
+            <CallToAction id="call-to-action" />
             <GithubIndicator />
             <SiteFooter />
         </>
