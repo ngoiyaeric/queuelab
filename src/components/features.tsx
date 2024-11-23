@@ -1,10 +1,11 @@
 "use client";
 
-import {DotLottieCommonPlayer, DotLottiePlayer,} from "@dotlottie/react-player";
-import ProductImage from "@/assets/product-image.png";
-import {animate, motion, useMotionTemplate, useMotionValue, ValueAnimationTransition,} from "framer-motion";
-import {ComponentPropsWithoutRef, useEffect, useRef, useState} from "react";
+import { DotLottiePlayer, DotLottieCommonPlayer } from "@dotlottie/react-player";
+import { animate, motion, useMotionTemplate, useMotionValue, ValueAnimationTransition } from "framer-motion";
+import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
+// Updated tabs with consistent file extensions matching actual files
 const tabs = [
     {
         icon: "/assets/lottie/vroom.lottie",
@@ -13,6 +14,7 @@ const tabs = [
         backgroundPositionX: 50,
         backgroundPositionY: 50,
         backgroundSizeX: 150,
+        // Keep original extension exactly as saved
         image: "/assets/product-image-1.png",
     },
     {
@@ -22,6 +24,7 @@ const tabs = [
         backgroundPositionX: 50,
         backgroundPositionY: 50,
         backgroundSizeX: 150,
+        // Keep .PNG if that's how it's saved
         image: "/assets/product-image-4.PNG",
     },
     {
@@ -31,10 +34,23 @@ const tabs = [
         backgroundPositionX: 50,
         backgroundPositionY: 50,
         backgroundSizeX: 150,
+        // Keep .PNG if that's how it's saved
         image: "/assets/product-image-3.PNG",
-        
     },
 ];
+
+// Helper function to handle image loading errors
+const handleImageError = (e: any) => {
+    const imgElement = e.target as HTMLImageElement;
+    const currentSrc = imgElement.src;
+    
+    // Try alternate extension if current one fails
+    if (currentSrc.endsWith('.PNG')) {
+        imgElement.src = currentSrc.replace('.PNG', '.png');
+    } else if (currentSrc.endsWith('.png')) {
+        imgElement.src = currentSrc.replace('.png', '.PNG');
+    }
+};
 
 const FeatureTab = (
     props: (typeof tabs)[number] &
@@ -53,7 +69,7 @@ const FeatureTab = (
 
         xPercentage.set(0);
         yPercentage.set(0);
-        const {height, width} = tabRef.current?.getBoundingClientRect();
+        const { height, width } = tabRef.current?.getBoundingClientRect();
         const circumference = height * 2 + width * 2;
         const times = [
             0,
@@ -84,32 +100,28 @@ const FeatureTab = (
     return (
         <div
             onMouseEnter={handleTabHover}
-            className={
-                "border border-muted flex items-center p-2.5 gap-2.5 rounded-xl relative cursor-pointer hover:bg-muted/30"
-            }
+            className="border border-muted flex items-center p-2.5 gap-2.5 rounded-xl relative cursor-pointer hover:bg-muted/30"
             ref={tabRef}
             onClick={props.onClick}
         >
             {props.selected && (
                 <motion.div
-                    style={{maskImage}}
-                    className={
-                        "absolute inset-0 -m-px border border-[#A369FF] rounded-xl"
-                    }
+                    style={{ maskImage }}
+                    className="absolute inset-0 -m-px border border-[#A369FF] rounded-xl"
                 />
             )}
 
-            <div className={"size-12 border border-muted rounded-lg inline-flex items-center justify-center"}>
+            <div className="size-12 border border-muted rounded-lg inline-flex items-center justify-center">
                 <DotLottiePlayer
                     src={props.icon}
-                    className={"size-5"}
+                    className="size-5"
                     autoplay
                     ref={dotLottieRef}
                 />
             </div>
-            <div className={"font-medium"}>{props.title}</div>
+            <div className="font-medium">{props.title}</div>
             {props.isNew && (
-                <div className={"text-xs rounded-full text-white px-2 py-0.5 bg-[#7CFC00] font-semibold"}>
+                <div className="text-xs rounded-full text-white px-2 py-0.5 bg-[#7CFC00] font-semibold">
                     New
                 </div>
             )}
@@ -121,22 +133,25 @@ export function Features({ id }: { id: string }) {
     const [selectedTab, setSelectedTab] = useState(0);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [imageLoadError, setImageLoadError] = useState(false);
 
     const backgroundPositionX = useMotionValue(tabs[0].backgroundPositionX);
     const backgroundPositionY = useMotionValue(tabs[0].backgroundPositionY);
     const backgroundSizeX = useMotionValue(tabs[0].backgroundSizeX);
-    const productImage = useMotionValue(tabs[0].image);
+    const currentImage = useMotionValue(tabs[0].image);
 
     const backgroundPosition = useMotionTemplate`${backgroundPositionX}% ${backgroundPositionY}%`;
     const backgroundSize = useMotionTemplate`${backgroundSizeX}% auto`;
 
     const handleSelectTab = (index: number) => {
         setSelectedTab(index);
+        setImageLoadError(false);
 
         const animateOptions: ValueAnimationTransition = {
             duration: 2,
             ease: "easeInOut",
         };
+
         animate(
             backgroundSizeX,
             [backgroundSizeX.get(), 100, tabs[index].backgroundSizeX],
@@ -152,11 +167,7 @@ export function Features({ id }: { id: string }) {
             [backgroundPositionY.get(), tabs[index].backgroundPositionY],
             animateOptions
         );
-        animate(
-            productImage,
-            [productImage.get(), tabs[index].image],
-            animateOptions
-        );
+        currentImage.set(tabs[index].image);
     };
 
     const handleImageClick = (image: string) => {
@@ -166,16 +177,16 @@ export function Features({ id }: { id: string }) {
 
     return (
         <>
-            <section className={"py-20 md:py-24"} id={id}>
-                <div className={"container"}>
-                    <h2 className={"text-5xl md:text-6xl font-medium text-center tracking-tighter"}>
+            <section className="py-20 md:py-24" id={id}>
+                <div className="container">
+                    <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter">
                         Discover the Power of QCX.
                     </h2>
-                    <p className={"text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5"}>
+                    <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
                         QCX offers a comprehensive suite of tools to help you understand and visualize data about our world.
                     </p>
 
-                    <div className={"mt-10 grid lg:grid-cols-3 gap-3"}>
+                    <div className="mt-10 grid lg:grid-cols-3 gap-3">
                         {tabs.map((tab, index) => (
                             <FeatureTab
                                 {...tab}
@@ -185,25 +196,57 @@ export function Features({ id }: { id: string }) {
                             />
                         ))}
                     </div>
-                    <motion.div className={"border border-muted rounded-xl p-2.5 mt-3"}>
-                        <div
-                            className={"aspect-video bg-cover border border-muted rounded-lg"}
-                            style={{
-                                backgroundPosition: backgroundPosition.get(),
-                                backgroundSize: backgroundSize.get(),
-                                backgroundImage: `url(${productImage.get()})`,
-                            }}
-                            onClick={() => handleImageClick(productImage.get())}
-                        ></div>
+                    <motion.div className="border border-muted rounded-xl p-2.5 mt-3">
+                        <div className="relative aspect-video rounded-lg overflow-hidden">
+                            <Image
+                                src={currentImage.get()}
+                                alt={tabs[selectedTab].title}
+                                fill
+                                className="object-cover cursor-pointer"
+                                onClick={() => handleImageClick(currentImage.get())}
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                                priority
+                                onError={(e) => {
+                                    handleImageError(e);
+                                    setImageLoadError(true);
+                                }}
+                            />
+                        </div>
                     </motion.div>
                 </div>
             </section>
-            {isDialogOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-4 rounded-lg">
-                        <img src={selectedImage!} alt="Preview" className="max-w-full max-h-full" />
-                        <button onClick={() => setIsDialogOpen(false)} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
-                            Close
+
+            {isDialogOpen && selectedImage && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                    <div className="relative bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
+                        <div className="relative aspect-video">
+                            <Image
+                                src={selectedImage}
+                                alt="Preview"
+                                fill
+                                className="object-contain"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                                onError={handleImageError}
+                            />
+                        </div>
+                        <button
+                            onClick={() => setIsDialogOpen(false)}
+                            className="absolute top-4 right-4 bg-white/90 hover:bg-white rounded-full p-2 transition-colors"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
                         </button>
                     </div>
                 </div>
