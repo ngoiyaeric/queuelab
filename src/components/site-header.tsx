@@ -21,9 +21,9 @@ export default function SiteHeader() {
                         </Link>
                         <section className={"max-md:hidden"}>
                             <nav className={"flex gap-8 items-center text-sm"}>
-                                <Link href={"#features"} className={"text-white/70 hover:text-white transition"}>Features</Link>
-                                <Link href={"#pricing"} className={"text-white/70 hover:text-white transition"}>Pricing</Link>
-                                <Link href={"#contribute"} className={"text-white/70 hover:text-white transition"}>Contribute</Link>
+                                <Link href={"#"} className={"text-white/70 hover:text-white transition"}>Features</Link>
+                                <Link href={"#"} className={"text-white/70 hover:text-white transition"}>Pricing</Link>
+                                <Link href={"#"} className={"text-white/70 hover:text-white transition"}>Contribute</Link>
                             </nav>
                         </section>
                         <section className={"flex max-md:gap-4 items-center"}>
@@ -41,15 +41,15 @@ export default function SiteHeader() {
                                     </div>
                                     <div className={"mt-8 mb-4"}>
                                         <nav className={"grid gap-4 items-center text-lg"}>
-                                            <Link href={"#features"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
+                                            <Link href={"#"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
                                                 <Feather className={"size-6"} />
                                                 Features
                                             </Link>
-                                            <Link href={"#pricing"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
+                                            <Link href={"#"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
                                                 <Wallet2 className={"size-6"} />
                                                 Pricing
                                             </Link>
-                                            <Link href={"#contribute"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
+                                            <Link href={"#"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
                                                 <Newspaper className={"size-6"} />
                                                 Contribute
                                             </Link>
