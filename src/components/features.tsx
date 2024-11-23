@@ -118,6 +118,8 @@ const FeatureTab = (
 
 export function Features({ id }: { id: string }) {
     const [selectedTab, setSelectedTab] = useState(0);
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const backgroundPositionX = useMotionValue(tabs[0].backgroundPositionX);
     const backgroundPositionY = useMotionValue(tabs[0].backgroundPositionY);
@@ -156,6 +158,11 @@ export function Features({ id }: { id: string }) {
         );
     };
 
+    const handleImageClick = (image: string) => {
+        setSelectedImage(image);
+        setIsDialogOpen(true);
+    };
+
     return (
         <>
             <section className={"py-20 md:py-24"} id={id}>
@@ -185,10 +192,21 @@ export function Features({ id }: { id: string }) {
                                 backgroundSize: backgroundSize.get(),
                                 backgroundImage: `url(${productImage.get()})`,
                             }}
+                            onClick={() => handleImageClick(productImage.get())}
                         ></div>
                     </motion.div>
                 </div>
             </section>
+            {isDialogOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-4 rounded-lg">
+                        <img src={selectedImage!} alt="Preview" className="max-w-full max-h-full" />
+                        <button onClick={() => setIsDialogOpen(false)} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
         </>
     );
 }
