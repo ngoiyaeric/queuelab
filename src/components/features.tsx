@@ -26,7 +26,7 @@ const tabs = [
         backgroundPositionX: 50,
         backgroundPositionY: 50,
         backgroundSizeX: 100,
-        image: productImage4,
+        image: productImage5,
     },
     {
         icon: "/assets/lottie/stars.lottie",
