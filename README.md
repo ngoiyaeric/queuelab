@@ -1,4 +1,4 @@
-# QCX - AI-powered Earth Intelligence Platform
+# QCX - Multi-Agent Earth Intelligence Platform
 
 QCX is an Earth intelligence platform developed by QCX part of queuelab. It leverages advanced generative artificial intelligence technology to provide real-time insights and analytics about our planet. Whether you're an explorer, traveler or researcher QCX offers a comprehensive suite of tools to help you explore, visualize and perform automation tasks. 
 
