@@ -4,8 +4,11 @@ import { DotLottiePlayer, DotLottieCommonPlayer } from "@dotlottie/react-player"
 import { animate, motion, useMotionTemplate, useMotionValue, ValueAnimationTransition } from "framer-motion";
 import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import productImage1 from "@/assets/product-image-1.png"
+import productImage3 from "@/assets/product-image-3.PNG"
+import productImage4 from "@/assets/product-image-4.PNG"
+import productImage5 from "@/assets/product-image-5.PNG"
 
-// Updated tabs with consistent file extensions matching actual files
 const tabs = [
     {
         icon: "/assets/lottie/vroom.lottie",
@@ -13,9 +16,8 @@ const tabs = [
         isNew: false,
         backgroundPositionX: 50,
         backgroundPositionY: 50,
-        backgroundSizeX: 150,
-        // Keep original extension exactly as saved
-        image: "/assets/product-image-1.png",
+        backgroundSizeX: 100,
+        image: productImage1,
     },
     {
         icon: "/assets/lottie/click.lottie",
@@ -23,9 +25,8 @@ const tabs = [
         isNew: false,
         backgroundPositionX: 50,
         backgroundPositionY: 50,
-        backgroundSizeX: 150,
-        // Keep .PNG if that's how it's saved
-        image: "/assets/product-image-4.PNG",
+        backgroundSizeX: 100,
+        image: productImage4,
     },
     {
         icon: "/assets/lottie/stars.lottie",
@@ -33,18 +34,15 @@ const tabs = [
         isNew: true,
         backgroundPositionX: 50,
         backgroundPositionY: 50,
-        backgroundSizeX: 150,
-        // Keep .PNG if that's how it's saved
-        image: "/assets/product-image-3.PNG",
+        backgroundSizeX: 100,
+        image: productImage3,
     },
 ];
 
-// Helper function to handle image loading errors
 const handleImageError = (e: any) => {
     const imgElement = e.target as HTMLImageElement;
     const currentSrc = imgElement.src;
     
-    // Try alternate extension if current one fails
     if (currentSrc.endsWith('.PNG')) {
         imgElement.src = currentSrc.replace('.PNG', '.png');
     } else if (currentSrc.endsWith('.png')) {
@@ -148,13 +146,13 @@ export function Features({ id }: { id: string }) {
         setImageLoadError(false);
 
         const animateOptions: ValueAnimationTransition = {
-            duration: 2,
-            ease: "easeInOut",
+            duration: 1,
+            ease: "easeOut",
         };
 
         animate(
             backgroundSizeX,
-            [backgroundSizeX.get(), 100, tabs[index].backgroundSizeX],
+            [backgroundSizeX.get(), 100],
             animateOptions
         );
         animate(
@@ -202,10 +200,11 @@ export function Features({ id }: { id: string }) {
                                 src={currentImage.get()}
                                 alt={tabs[selectedTab].title}
                                 fill
-                                className="object-cover cursor-pointer"
+                                className="object-contain"
                                 onClick={() => handleImageClick(currentImage.get())}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
                                 priority
+                                quality={100}
                                 onError={(e) => {
                                     handleImageError(e);
                                     setImageLoadError(true);
@@ -226,6 +225,7 @@ export function Features({ id }: { id: string }) {
                                 fill
                                 className="object-contain"
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                                quality={100}
                                 onError={handleImageError}
                             />
                         </div>
