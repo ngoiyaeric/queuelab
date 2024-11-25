@@ -42,7 +42,7 @@ export function PricingSection({ id }: { id: string }) {
                 ))}
               </ul>
               <div className="mt-4">
-                <ActionButton label={`${tier.price} - ${tier.title}`} href={"https://tally.so/r/wkWqkd"} />
+                <ActionButton label={`${tier.price} - ${tier.title}`} href={"https://www.paypal.com/paypalme/queuenorth"} />
               </div>
             </div>
           ))}
