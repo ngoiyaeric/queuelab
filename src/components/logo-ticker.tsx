@@ -2,7 +2,7 @@
 
 import MsLogo from "@/assets/logo-ms.png";
 import GithubLogo from "@/assets/logo-github.png";
-import AwsLogo from "@/assets/logo-aws.png";
+import AwsLogo from "@/assets/logo-aws (1).png";
 import OpenAILogo from "@/assets/logo-openai.png";
 import Image from "next/image";
 import { motion } from "framer-motion";
