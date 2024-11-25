@@ -8,6 +8,7 @@ import productImage1 from "@/assets/product-image-1.png";
 import productImage3 from "@/assets/product-image-3.png";
 import productImage4 from "@/assets/product-image-4.png";
 import productImage5 from "@/assets/product-image-5.png";
+import productImage2 from "@/assets/product-image-2.png";
 
 const tabs = [
   {
@@ -26,7 +27,7 @@ const tabs = [
     backgroundPositionX: 50,
     backgroundPositionY: 50,
     backgroundSizeX: 100,
-    image: productImage5,
+    image: productImage2,
   },
   {
     icon: "/assets/lottie/stars.lottie",
