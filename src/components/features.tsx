@@ -5,9 +5,9 @@ import { animate, motion, useMotionTemplate, useMotionValue, ValueAnimationTrans
 import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import productImage1 from "@/assets/product-image-1.png"
-import productImage3 from "@/assets/product-image-3.PNG"
-import productImage4 from "@/assets/product-image-4.PNG"
-import productImage5 from "@/assets/product-image-5.PNG"
+import productImage3 from "@/assets/product-image-3.png"
+import productImage4 from "@/assets/product-image-4.png"
+import productImage5 from "@/assets/product-image-5.png"
 
 const tabs = [
     {
