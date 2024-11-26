@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router'; // For Next.js
 import { ActionButton } from '@/components/action-button';
 
 const pricingTiers = [
@@ -6,20 +7,38 @@ const pricingTiers = [
     title: 'Trial',
     price: 'Limited Usage',
     features: ['Internet Search', 'Upload and analyze unlimited files', 'Mapping tools', 'Location Intelligence'],
+    paymentRoute: '/checkout/trial',
+    externalPaymentLink: "https://www.paypal.com/ncp/payment/Z47M6SLXWZ2BA"
   },
   {
     title: 'Standard',
     price: '$20/month',
     features: ['Internet Search', 'Upload and analyze unlimited files', 'Mapping tools', 'Location Intelligence'],
+    paymentRoute: '/checkout/standard',
+    externalPaymentLink: "https://www.paypal.com/ncp/payment/V4DU34TVVWY76"
   },
   {
     title: 'Premium',
     price: '$50/month',
     features: ['Everything in Standard', 'Browser Agents', 'Physics Models', 'Exclusive Updates'],
+    paymentRoute: '/checkout/premium',
+    externalPaymentLink: "https://www.paypal.com/ncp/payment/B72MURM7SZ7MN"
   },
 ];
 
 export function PricingSection({ id }: { id: string }) {
+  const router = useRouter(); 
+
+  const handlePurchase = (tier: typeof pricingTiers[0]) => {
+    // Option 1: External link (recommended for PayPal)
+    if (tier.externalPaymentLink) {
+      window.location.href = tier.externalPaymentLink;
+    }
+
+    // Option 2: Internal routing (if you prefer)
+    // router.push(tier.paymentRoute);
+  };
+
   return (
     <section className="py-20 md:py-24" id={id}>
       <div className="container">
@@ -42,7 +61,10 @@ export function PricingSection({ id }: { id: string }) {
                 ))}
               </ul>
               <div className="mt-4">
-                <ActionButton label={`${tier.price} - ${tier.title}`} href={tier.title === 'Standard' ? "https://www.paypal.com/ncp/payment/V4DU34TVVWY76" : tier.title === 'Premium' ? "https://www.paypal.com/ncp/payment/B72MURM7SZ7MN" : "https://www.paypal.com/paypalme/queuenorth"} />
+                <ActionButton 
+                  label={`${tier.price} - ${tier.title}`} 
+                  onClick={() => handlePurchase(tier)}
+                />
               </div>
             </div>
           ))}
