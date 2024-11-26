@@ -11,25 +11,21 @@ const testimonials = [
     {
         text: "“This product has completely transformed how I manage my trips and travels”",
         name: "Sophia Perez",
-        position: "Director, Quantum",
         avatarImg: Avatar1,
     },
     {
         text: "“I've always been looking for an all in one earth intelligence platform”",
         name: "Tom Cucherosset",
-        position: "Founder, InkGames",
         avatarImg: Avatar2,
     },
     {
         text: "“The user interface is so intuitive and easy to use, it has saved us countless hours”",
         name: "Sophia Perez",
-        position: "Product Owner, Innovate",
         avatarImg: Avatar3,
     },
     {
         text: "“Our team's productivity has increased significantly since we started using this tool”",
         name: "Alec Witthen",
-        position: "CTO, Tech Solutions",
         avatarImg: Avatar4,
     },
 ]
@@ -63,7 +59,6 @@ export function Testimonials() {
                                         </div>
                                         <div>
                                             <p>{testimonial.name}</p>
-                                            <p className={"text-white/50 text-sm"}>{testimonial.position}</p>
                                         </div>
                                     </div>
                                 </div>
