@@ -42,7 +42,7 @@ export function PricingSection({ id }: { id: string }) {
                 ))}
               </ul>
               <div className="mt-4">
-                <ActionButton label={`${tier.price} - ${tier.title}`} href={tier.title === 'Standard' ? "https://www.paypal.com/ncp/payment/V4DU34TVVWY76" : tier.title === 'Premium' ? "https://www.paypal.com/ncp/payment/B72MURM7SZ7MN" : "https://www.paypal.com/paypalme/queuenorth"} />
+                <ActionButton label={`${tier.price} - ${tier.title}`} href={tier.title === 'Standard' ? "https://www.paypal.com/ncp/payment/V4DU34TVVWY76" : tier.title === 'Premium' ? "https://www.paypal.com/ncp/payment/B72MURM7SZ7MN" : "https://www.paypal.com/ncp/payment/5K2S6VPMMVUXA"} />
               </div>
             </div>
           ))}
