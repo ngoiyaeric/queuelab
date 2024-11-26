@@ -15,7 +15,7 @@ const pricingTiers = [
     price: '$20/month',
     features: ['Internet Search', 'Upload and analyze unlimited files', 'Mapping tools', 'Location Intelligence'],
     paymentRoute: '/checkout/standard',
-    externalPaymentLink: "https://www.paypal.com/ncp/payment/V4DU34TVVWY76"
+    externalPaymentLink: "https://www.paypal.com/ncp/payment/4V5LUZDH6X98E"
   },
   {
     title: 'Premium',
