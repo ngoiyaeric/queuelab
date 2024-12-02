@@ -53,7 +53,7 @@ export function CallToAction({ id }: { id: string }) {
                                 Democratizing Earth intelligence for everyone
                             </h2>
                             <p className={"text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5"}>
-                                Decentralizing Earth intelligence with an open core.
+                                Decentralizing intelligence with an open core.
                             </p>
                             <div className={"flex justify-center mt-8"}>
                                 <ActionButton label={"Get Started"} href={"https://tally.so/r/wkWqkd"}/>
