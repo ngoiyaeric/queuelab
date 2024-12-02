@@ -155,6 +155,7 @@ export function Features({ id }: { id: string }) {
       animateOptions
     );
     currentImage.set(tabs[index].image);
+    setSelectedImage(tabs[index].image.src); // P8220
   };
 
   const handleImageClick = (image: string) => {
