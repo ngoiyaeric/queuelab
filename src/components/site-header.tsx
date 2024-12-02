@@ -23,7 +23,7 @@ export default function SiteHeader() {
                             <nav className={"flex gap-8 items-center text-sm"}>
                                 <Link href={"#features"} className={"text-white/70 hover:text-white transition"}>Features</Link>
                                 <Link href={"#pricing"} className={"text-white/70 hover:text-white transition"}>Pricing</Link>
-                                <Link href={"#contribute"} className={"text-white/70 hover:text-white transition"}>Contribute</Link>
+                                <Link href={"#open-core"} className={"text-white/70 hover:text-white transition"}>Open Core</Link>
                             </nav>
                         </section>
                         <section className={"flex max-md:gap-4 items-center"}>
@@ -49,9 +49,9 @@ export default function SiteHeader() {
                                                 <Wallet2 className={"size-6"} />
                                                 Pricing
                                             </Link>
-                                            <Link href={"#contribute"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
+                                            <Link href={"#open-core"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
                                                 <Newspaper className={"size-6"} />
-                                                Contribute
+                                                Open Core
                                             </Link>
                                         </nav>
                                     </div>
