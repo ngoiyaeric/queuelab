@@ -15,7 +15,7 @@ const pricingTiers = [
   {
     title: 'Premium',
     price: '$50/month',
-    features: ['Everything in Standard', 'Browser Agents', 'Physics Models', 'Exclusive Updates', 'Environment Aware'],
+    features: ['Everything in Standard', 'Browser Agents', 'Physics Models', 'Environment Aware', 'Exclusive Updates'],
   },
 ];
 
