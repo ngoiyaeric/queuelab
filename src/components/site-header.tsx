@@ -23,7 +23,7 @@ export default function SiteHeader() {
                             <nav className={"flex gap-8 items-center text-sm"}>
                                 <Link href={"#features"} className={"text-white/70 hover:text-white transition"}>Features</Link>
                                 <Link href={"#pricing"} className={"text-white/70 hover:text-white transition"}>Pricing</Link>
-                                <Link href={"#open-core"} className={"text-white/70 hover:text-white transition"}>Open Core</Link>
+                                <Link href={"#open-core"} className={"text-white/70 hover:text-white transition"}>Careers</Link>
                             </nav>
                         </section>
                         <section className={"flex max-md:gap-4 items-center"}>
