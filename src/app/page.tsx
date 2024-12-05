@@ -17,7 +17,7 @@ export default function Home() {
             <Features id="features" />
             <Testimonials />
             <PricingSection id="pricing" />
-            <CallToAction id="open-core" />
+            <CallToAction id="careers" />
             <GithubIndicator />
             <SiteFooter />
         </>
