@@ -15,4 +15,4 @@ QCX is a leading technology company specializing in AI and machine learning solu
 
 ## GitHub Repository
 
-For more information, visit our [GitHub repository](https://github.com/queuelab/QCX).
+For more information, visit our [GitHub repository](https://github.com/queuelab).
