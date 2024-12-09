@@ -56,7 +56,7 @@ export function CallToAction({ id }: { id: string }) {
                                 Decentralizing intelligence with an open core.
                             </p>
                             <div className={"flex justify-center mt-8"}>
-                                <ActionButton label={"Get Started"} href={"https://tally.so/r/wkWqkd"}/>
+                                <ActionButton label={"join"} href={"https://tally.so/r/waZO89"}/>
                             </div>
                         </div>
                     </motion.div>
