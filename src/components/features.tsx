@@ -9,8 +9,6 @@ import productImage3 from "@/assets/product-image-3.png";
 import productImage4 from "@/assets/product-image-4.png";
 import productImage5 from "@/assets/product-image-5.png";
 import productImage2 from "@/assets/product-image-2.png";
-import gifPreview from "@/assets/product-gif.gif"; // P8220
-import { GifPlayer } from "react-gif-player"; // P3b95
 
 const tabs = [
   {
@@ -20,7 +18,7 @@ const tabs = [
     backgroundPositionX: 50,
     backgroundPositionY: 50,
     backgroundSizeX: 100,
-    image: gifPreview, // P8220
+    image: productImage1,
   },
   {
     icon: "/assets/lottie/click.lottie",
@@ -188,21 +186,17 @@ export function Features({ id }: { id: string }) {
           </div>
           <motion.div className="border border-muted rounded-xl p-2.5 mt-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
-              {selectedTab === 0 ? ( // P3b95
-                <GifPlayer gif={gifPreview.src} autoplay /> // P3b95
-              ) : ( // P3b95
-                <Image
-                  src={currentImage.get().src} // Fix: Use `.src` here
-                  alt={tabs[selectedTab].title}
-                  fill
-                  className="object-contain"
-                  onClick={() => handleImageClick(currentImage.get().src)} // Fix: Use `.src` here
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                  priority
-                  quality={100}
-                  onError={handleImageError}
-                />
-              )}
+              <Image
+                src={currentImage.get().src} // Fix: Use `.src` here
+                alt={tabs[selectedTab].title}
+                fill
+                className="object-contain"
+                onClick={() => handleImageClick(currentImage.get().src)} // Fix: Use `.src` here
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                priority
+                quality={100}
+                onError={handleImageError}
+              />
             </div>
           </motion.div>
         </div>
