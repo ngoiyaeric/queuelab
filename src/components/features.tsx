@@ -1,5 +1,6 @@
 "use client";
 
+import { GifPlayer } from "react-gif-player";
 import { DotLottiePlayer, DotLottieCommonPlayer } from "@dotlottie/react-player";
 import { animate, motion, useMotionTemplate, useMotionValue, ValueAnimationTransition } from "framer-motion";
 import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
@@ -19,6 +20,7 @@ const tabs = [
     backgroundPositionY: 50,
     backgroundSizeX: 100,
     image: productImage1,
+    gif: "/assets/product-gif.gif", // Added gif property
   },
   {
     icon: "/assets/lottie/click.lottie",
@@ -186,17 +188,26 @@ export function Features({ id }: { id: string }) {
           </div>
           <motion.div className="border border-muted rounded-xl p-2.5 mt-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
-              <Image
-                src={currentImage.get().src} // Fix: Use `.src` here
-                alt={tabs[selectedTab].title}
-                fill
-                className="object-contain"
-                onClick={() => handleImageClick(currentImage.get().src)} // Fix: Use `.src` here
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                priority
-                quality={100}
-                onError={handleImageError}
-              />
+              {selectedTab === 0 ? (
+                <GifPlayer
+                  gif={tabs[selectedTab].gif}
+                  autoplay
+                  className="object-contain"
+                  onClick={() => handleImageClick(tabs[selectedTab].gif)}
+                />
+              ) : (
+                <Image
+                  src={currentImage.get().src} // Fix: Use `.src` here
+                  alt={tabs[selectedTab].title}
+                  fill
+                  className="object-contain"
+                  onClick={() => handleImageClick(currentImage.get().src)} // Fix: Use `.src` here
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                  priority
+                  quality={100}
+                  onError={handleImageError}
+                />
+              )}
             </div>
           </motion.div>
         </div>
