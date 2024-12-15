@@ -27,7 +27,7 @@ export function PricingSection({ id }: { id: string }) {
           Pricing Plans
         </h2>
         <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
-          Choose the plan that suits you best, pay as you go. 
+          Choose the plan that suits you best, pay as you go after limits. 
         </p>
         <div className="mt-10 grid lg:grid-cols-3 gap-6">
           {pricingTiers.map((tier) => (
