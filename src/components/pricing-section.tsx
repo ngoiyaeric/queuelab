@@ -9,12 +9,12 @@ const pricingTiers = [
   },
   {
     title: 'Standard',
-    price: '$20/month',
+    price: '$21+/month',
     features: ['Internet Search', 'Upload and analyze unlimited files', 'Mapping tools', 'Location Intelligence'],
   },
   {
     title: 'Premium',
-    price: '$50/month',
+    price: '$52+/month',
     features: ['Everything in Standard', 'Browser Agents', 'Physics Models', 'Environment Aware *', 'Exclusive Updates'],
   },
 ];
@@ -27,7 +27,7 @@ export function PricingSection({ id }: { id: string }) {
           Pricing Plans
         </h2>
         <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
-          Choose the plan that suits you best.
+          Choose the plan that suits you best, pay as you go. 
         </p>
         <div className="mt-10 grid lg:grid-cols-3 gap-6">
           {pricingTiers.map((tier) => (
