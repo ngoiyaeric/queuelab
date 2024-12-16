@@ -17,7 +17,7 @@ export function HeroSection() {
         <>
             <motion.section
                 animate={{ backgroundPositionX: BackgroundStars.width }}
-                transition={{ duration: 120, repeat: Infinity, ease: 'linear' }}
+                transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
                 className={"h-[492px] md:h-[800px] flex items-center overflow-hidden relative [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"}
                 style={{ backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY }} ref={sectionRef}>
                 <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"} />
