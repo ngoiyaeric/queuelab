@@ -50,7 +50,7 @@ export function CallToAction({ id }: { id: string }) {
                             style={{backgroundImage: `url(${BackgroundGrid.src})`, maskImage: maskImage}} ref={borderedDivRef}/>
                         <div className={"relative"}>
                             <h2 className={"text-5xl tracking-tighter text-center font-medium"}>
-                                Democratizing Earth intelligence for everyone
+                                Democratizing Location Intelligence for everyone
                             </h2>
                             <p className={"text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5"}>
                                 Decentralizing intelligence with an open core.
