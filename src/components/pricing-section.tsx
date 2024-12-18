@@ -13,7 +13,7 @@ const pricingTiers = [
     features: ['Internet Search', 'Upload and analyze unlimited files', 'Mapping tools', 'Location Intelligence'],
   },
   {
-    title: 'Premium',
+    title: 'Exclusive',
     price: '$52+/month',
     features: ['Everything in Standard', 'Browser Agents', 'Physics Models', 'Environment Aware *', 'Exclusive Updates'],
   },
