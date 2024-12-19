@@ -20,7 +20,7 @@ const pricingTiers = [
   {
     title: 'Enterprise',
     price: 'Contact Us',
-    features: ['Custom Solutions', 'Dedicated Support'],
+    features: [''],
   },
 ];
 
