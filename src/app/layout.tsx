@@ -10,6 +10,9 @@ const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
 export const metadata: Metadata = {
   title: "QCX",
   description: "QCX - AI-powered Location Intelligence platform by QCX",
+  openGraph: {
+    images: ["/src/app/icon.png"]
+  }
 };
 
 export default function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
