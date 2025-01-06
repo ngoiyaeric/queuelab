@@ -17,6 +17,11 @@ const pricingTiers = [
     price: '$52+/month',
     features: ['Everything in Standard', 'Browser Agents', 'Physics Models', 'Environment Aware *', 'Exclusive Updates'],
   },
+  {
+    title: 'Enterprise',
+    price: 'Contact Us',
+    features: ['SLAs', 'Customizations', 'Extensive Support', 'Security'],
+  },
 ];
 
 export function PricingSection({ id }: { id: string }) {
@@ -29,7 +34,7 @@ export function PricingSection({ id }: { id: string }) {
         <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
           Choose the plan that suits you best, pay as you go after limits. 
         </p>
-        <div className="mt-10 grid lg:grid-cols-3 gap-6">
+        <div className="mt-10 grid lg:grid-cols-4 gap-6">
           {pricingTiers.map((tier) => (
             <div key={tier.title} className="border border-muted p-6 rounded-xl">
               <h3 className="text-2xl font-semibold">{tier.title}</h3>
@@ -42,7 +47,11 @@ export function PricingSection({ id }: { id: string }) {
                 ))}
               </ul>
               <div className="mt-4">
-                <ActionButton label={`${tier.price} - ${tier.title}`} href={tier.title === 'Standard' ? "https://www.paypal.com/ncp/payment/V4DU34TVVWY76" : tier.title === 'Premium' ? "https://www.paypal.com/ncp/payment/B72MURM7SZ7MN" : "https://www.paypal.com/ncp/payment/5K2S6VPMMVUXA"} />
+                {tier.title === 'Enterprise' ? (
+                  <ActionButton label="Contact Us" href="mailto:support@queue.cx" />
+                ) : (
+                  <ActionButton label={`${tier.price} - ${tier.title}`} href={tier.title === 'Standard' ? "https://www.paypal.com/ncp/payment/V4DU34TVVWY76" : tier.title === 'Premium' ? "https://www.paypal.com/ncp/payment/B72MURM7SZ7MN" : "https://www.paypal.com/ncp/payment/5K2S6VPMMVUXA"} />
+                )}
               </div>
             </div>
           ))}
