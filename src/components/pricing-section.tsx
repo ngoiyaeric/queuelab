@@ -19,8 +19,8 @@ const pricingTiers = [
   },
   {
     title: 'Enterprise',
-    price: 'Contact Us',
-    features: ['SLAs', 'Customizations', 'Extensive Support', 'Security'],
+    price: '$$$$+/Month',
+    features: ['SLAs', 'Customizations', 'Extensive Support', 'Extensive Security'],
   },
 ];
 
