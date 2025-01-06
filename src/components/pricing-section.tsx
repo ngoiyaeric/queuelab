@@ -9,12 +9,12 @@ const pricingTiers = [
   },
   {
     title: 'Standard',
-    price: '$21+/month',
+    price: '$21+/Month',
     features: ['Internet Search', 'Upload and analyze unlimited files', 'Mapping tools', 'Location Intelligence'],
   },
   {
     title: 'Exclusive',
-    price: '$52+/month',
+    price: '$52+/Month',
     features: ['Everything in Standard', 'Browser Agents', 'Physics Models', 'Environment Aware *', 'Exclusive Updates'],
   },
   {
