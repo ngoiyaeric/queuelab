@@ -7,6 +7,7 @@ import { Features } from "@/components/features";
 import { Testimonials } from "@/components/testimonials";
 import { GithubIndicator } from "@/components/github-indicator";
 import { PricingSection } from "@/components/pricing-section";
+import Research from "./research"; // P8e64
 
 export default function Home() {
     return (
@@ -18,6 +19,7 @@ export default function Home() {
             <Testimonials />
             <PricingSection id="pricing" />
             <CallToAction id="careers" />
+            <Research /> {/* P5d93 */}
             <GithubIndicator />
             <SiteFooter />
         </>
