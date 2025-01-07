@@ -20,7 +20,6 @@ export default function RootLayout({children,}: Readonly<{ children: React.React
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={clsx(inter.className, roboto.className, "antialiased")}>
-        <Research /> {/* Pbae7 */}
         {children}
       </body>
     </html>
