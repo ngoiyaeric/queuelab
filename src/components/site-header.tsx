@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import SiteLogo from "@/assets/logo.svg"
-import {CodeXml, Feather, MenuIcon, Newspaper, Wallet2} from "lucide-react";
+import {Feather, MenuIcon, Newspaper, Wallet2} from "lucide-react";
 import {Sheet, SheetContent, SheetTrigger} from "@/components/ui/sheet"
 import {useState} from "react";
 import {ActionButton} from "@/components/action-button";
@@ -24,7 +24,6 @@ export default function SiteHeader() {
                                 <Link href={"#features"} className={"text-white/70 hover:text-white transition"}>Products</Link>
                                 <Link href={"#pricing"} className={"text-white/70 hover:text-white transition"}>Pricing</Link>
                                 <Link href={"#careers"} className={"text-white/70 hover:text-white transition"}>Research</Link>
-                                <Link href={"https://www.nature.com/"} className={"text-white/70 hover:text-white transition"}>Publications</Link>
                             </nav>
                         </section>
                         <section className={"flex max-md:gap-4 items-center"}>
@@ -53,10 +52,6 @@ export default function SiteHeader() {
                                             <Link href={"#careers"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
                                                 <Newspaper className={"size-6"} />
                                                 Research
-                                            </Link>
-                                            <Link href={"https://www.nature.com/"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
-                                                <CodeXml className={"size-6"} />
-                                                Publications
                                             </Link>
                                         </nav>
                                     </div>
