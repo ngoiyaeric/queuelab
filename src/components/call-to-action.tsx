@@ -50,13 +50,18 @@ export function CallToAction({ id }: { id: string }) {
                             style={{backgroundImage: `url(${BackgroundGrid.src})`, maskImage: maskImage}} ref={borderedDivRef}/>
                         <div className={"relative"}>
                             <h2 className={"text-5xl tracking-tighter text-center font-medium"}>
-                                Democratizing Location Intelligence for everyone
+                                Our Research
                             </h2>
                             <p className={"text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5"}>
-                                Decentralizing intelligence with an open core.
+                                We work on applied research in artificial intelligence on nature and computation. 
+                                Our patent pending research and products on 
+                                Environment Aware Agents: 
+                                Highly Concurrent Multi Agent ochestration framework for extensive context switching and context continuity to be used for physical science research & within our products.
+                                Fluidity Index: 
+                                Next generation multi agent super intelligence bench marks
                             </p>
                             <div className={"flex justify-center mt-8"}>
-                                <ActionButton label={"join QCX"} href={"https://tally.so/r/waZO89"}/>
+                                <ActionButton label={"Our Research"} href={"https://tally.so/r/waZO89"}/>
                             </div>
                         </div>
                     </motion.div>
