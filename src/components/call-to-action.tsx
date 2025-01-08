@@ -54,14 +54,28 @@ export function CallToAction({ id }: { id: string }) {
                             </h2>
                             
                          <p className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
-               We work on applied research in artificial intelligence on nature and computation. 
-              Our patent-pending research and products include: 
-              <strong>Environment Aware Agents </strong> 
-              A highly concurrent multi-agent orchestration framework for extensive context switching and context continuity, designed for physical science research and integration within our products. 
-              <br />
-             <strong>Fluidity Index </strong> 
-             Next-generation multi-agent superintelligence benchmarks.
-</p>
+                          <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+    <p>
+        We work on applied research in artificial intelligence on nature and computation. 
+        Our patent-pending research and products include:
+    </p>
+
+    <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
+        Environment Aware Agents
+    </h2>
+    <p>
+        A highly concurrent multi-agent orchestration framework for extensive context switching 
+        and context continuity, designed for physical science research and integration within our products.
+    </p>
+
+    <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
+        Fluidity Index
+    </h2>
+    <p>
+        Next-generation multi-agent superintelligence benchmarks.
+    </p>
+</div>
+
 
                             
                             <div className={"flex justify-center mt-8"}>
