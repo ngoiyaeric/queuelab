@@ -20,7 +20,7 @@ const pricingTiers = [
   {
     title: 'Enterprise',
     price: '$$$$+/Month',
-    features: ['Service Level Agreements', 'Customizations', 'Extensive Support', 'Extensive Security'],
+    features: ['Service Level Agreements', 'Extensive Copilot', 'Extensive Support', 'Extensive Security'],
   },
 ];
 
