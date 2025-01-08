@@ -53,7 +53,7 @@ export function CallToAction({ id }: { id: string }) {
                                 Our Research
                             </h2>
                             
-                         <p className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+                        
                           <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
     <p>
         We work on applied research in artificial intelligence on nature and computation. 
