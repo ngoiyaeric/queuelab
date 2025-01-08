@@ -9,7 +9,7 @@ const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata: Metadata = {
   title: "QCX",
-  description: "QCX - AI-powered Location Intelligence platform by QCX",
+  description: "QCX - multi-agent intelligence platform for exploration and automation.",
   openGraph: {
     images: ["/src/app/icon.png"]
   }
