@@ -50,13 +50,36 @@ export function CallToAction({ id }: { id: string }) {
                             style={{backgroundImage: `url(${BackgroundGrid.src})`, maskImage: maskImage}} ref={borderedDivRef}/>
                         <div className={"relative"}>
                             <h2 className={"text-5xl tracking-tighter text-center font-medium"}>
-                                Democratizing Location Intelligence for everyone
+                                Our Research
                             </h2>
-                            <p className={"text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5"}>
-                                Decentralizing intelligence with an open core.
-                            </p>
+                            
+                        
+                          <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+    <p>
+        We work on applied research in artificial intelligence on nature and computation. 
+        Our patent-pending research and products include:
+    </p>
+
+    <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
+        Environment Aware Agents
+    </h2>
+    <p>
+        A highly concurrent multi-agent orchestration framework for extensive context switching 
+        and context continuity, designed for physical science research and integration within our products.
+    </p>
+
+    <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
+        Fluidity Index
+    </h2>
+    <p>
+        Next-generation multi-agent superintelligence benchmarks.
+    </p>
+</div>
+
+
+                            
                             <div className={"flex justify-center mt-8"}>
-                                <ActionButton label={"join QCX"} href={"https://tally.so/r/waZO89"}/>
+                                <ActionButton label={"Join QCX"} href={"https://tally.so/r/waZO89"}/>
                             </div>
                         </div>
                     </motion.div>

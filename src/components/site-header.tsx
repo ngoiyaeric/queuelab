@@ -21,10 +21,10 @@ export default function SiteHeader() {
                         </Link>
                         <section className={"max-md:hidden"}>
                             <nav className={"flex gap-8 items-center text-sm"}>
-                                <Link href={"#features"} className={"text-white/70 hover:text-white transition"}>Features</Link>
+                                <Link href={"#features"} className={"text-white/70 hover:text-white transition"}>Products</Link>
                                 <Link href={"#pricing"} className={"text-white/70 hover:text-white transition"}>Pricing</Link>
-                                <Link href={"#careers"} className={"text-white/70 hover:text-white transition"}>Careers</Link>
-                                <Link href={"https://www.nature.com/"} className={"text-white/70 hover:text-white transition"}>Research</Link>
+                                <Link href={"#careers"} className={"text-white/70 hover:text-white transition"}>Research</Link>
+                                <Link href={"https://www.nature.com/"} className={"text-white/70 hover:text-white transition"}>Publications</Link>
                             </nav>
                         </section>
                         <section className={"flex max-md:gap-4 items-center"}>
@@ -44,7 +44,7 @@ export default function SiteHeader() {
                                         <nav className={"grid gap-4 items-center text-lg"}>
                                             <Link href={"#features"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
                                                 <Feather className={"size-6"} />
-                                                Features
+                                                Products
                                             </Link>
                                             <Link href={"#pricing"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
                                                 <Wallet2 className={"size-6"} />
@@ -52,11 +52,11 @@ export default function SiteHeader() {
                                             </Link>
                                             <Link href={"#careers"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
                                                 <Newspaper className={"size-6"} />
-                                                Careers
+                                                Research
                                             </Link>
                                             <Link href={"https://www.nature.com/"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
                                                 <CodeXml className={"size-6"} />
-                                                Research
+                                                Publications
                                             </Link>
                                         </nav>
                                     </div>
