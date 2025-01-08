@@ -52,16 +52,20 @@ export function CallToAction({ id }: { id: string }) {
                             <h2 className={"text-5xl tracking-tighter text-center font-medium"}>
                                 Our Research
                             </h2>
-                            <p className={"text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5"}>
-                                We work on applied research in artificial intelligence on nature and computation. 
-                                Our patent pending research and products on 
-                                Environment Aware Agents: 
-                                Highly Concurrent Multi Agent ochestration framework for extensive context switching and context continuity to be used for physical science research & within our products.
-                                Fluidity Index: 
-                                Next generation multi agent super intelligence bench marks
-                            </p>
+                            
+                         <p className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+               We work on applied research in artificial intelligence on nature and computation. 
+              Our patent-pending research and products include: 
+              <strong>Environment Aware Agents </strong> 
+              A highly concurrent multi-agent orchestration framework for extensive context switching and context continuity, designed for physical science research and integration within our products. 
+              <br />
+             <strong>Fluidity Index </strong> 
+             Next-generation multi-agent superintelligence benchmarks.
+</p>
+
+                            
                             <div className={"flex justify-center mt-8"}>
-                                <ActionButton label={"Our Research"} href={"https://tally.so/r/waZO89"}/>
+                                <ActionButton label={"Join QCX"} href={"https://tally.so/r/waZO89"}/>
                             </div>
                         </div>
                     </motion.div>
