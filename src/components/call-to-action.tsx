@@ -60,7 +60,7 @@ export function CallToAction({ id }: { id: string }) {
         Our patent-pending research and products include:
     </p>
 
-    <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
+    <h2 className="text-5xl tracking-tighter text-center font-medium mt-5">
         Environment Aware Agents
     </h2>
     <p>
@@ -68,7 +68,7 @@ export function CallToAction({ id }: { id: string }) {
         and context continuity, designed for physical science research and integration within our products.
     </p>
 
-    <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
+    <h2 className="text-5xl tracking-tighter text-center font-medium mt-5">
         Fluidity Index
     </h2>
     <p>
