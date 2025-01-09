@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "QCX",
   description: "QCX - multi-agent intelligence platform for exploration and automation.",
   openGraph: {
-    images: ["/src/app/icon.png"]
+    images: ["/src/app/opengraph-image.png"]
   }
 };
 
