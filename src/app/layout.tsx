@@ -8,12 +8,11 @@ const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata: Metadata = {
-  title: "QCX",
+  title: "Quality Computer Experience",
   description: "QCX - multi-agent intelligence platform for exploration and automation.",
   openGraph: {
     images: ["/src/app/opengraph-image.png"]
   }
-};
 
 export default function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
   return (
