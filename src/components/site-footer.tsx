@@ -37,7 +37,7 @@ export default function SiteFooter() {
                             <li className={"hover:text-white cursor-pointer"}>
                                 <div className={"flex flex-col items-center"}>
                                     <X/>
-                                    <Link href="https://x.com/queue_cx"></Link>
+                                    <Link href="https://x.com/tryqcx"></Link>
                                 </div>
                             </li>
                             <li className={"hover:text-white cursor-pointer"}>
