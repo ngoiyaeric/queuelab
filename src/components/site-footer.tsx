@@ -1,4 +1,3 @@
-import X from "@/assets/social-x.svg"
 import SiteLogo from "@/assets/logo.svg";
 import Link from "next/link";
 
@@ -30,16 +29,6 @@ export default function SiteFooter() {
                     </a>
                         .
                     </p>
-                    <div>
-                        <ul className={"flex justify-center gap-3 text-white/40"}>
-                            <li className={"hover:text-white cursor-pointer"}>
-                                <div className={"flex flex-col items-center"}>
-                                    <X/>
-                                    <Link href="https://x.com/tryqcx"></Link>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </footer>
         </>
