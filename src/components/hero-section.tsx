@@ -1,39 +1,31 @@
 "use client"
 
-import { ActionButton } from "./action-button";
-import BackgroundStars from "@/assets/stars.png";
+import { useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import BackgroundStars from "@/assets/stars.png";
 
 export function HeroSection() {
-    // State management for animation and chat input
     const [isAnimating, setIsAnimating] = useState(false);
     const [showChatInput, setShowChatInput] = useState(false);
 
-    const sectionRef = useRef<HTMLElement>(null);
+    const sectionRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: sectionRef,
         offset: ['start end', 'end start']
     });
     const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
 
-    // Function to handle the "Get Started" button click
     const handleGetStartedClick = () => {
         setIsAnimating(true);
         setTimeout(() => {
             setShowChatInput(true);
-            setIsAnimating(false); // Reset animation state after it's complete
-        }, 2000); // Adjust to match the animation duration
+        }, 2000); // Adjust the duration to match the animation
     };
 
-    // Function to handle chat submission
-    const handleChatSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleChatSubmit = (event) => {
         event.preventDefault();
-        const question = (event.target as HTMLFormElement).elements.namedItem('question') as HTMLInputElement;
-        if (question) {
-            window.open(`https://earth.queue.cx/?q=${encodeURIComponent(question.value)}`, '_blank');
-            question.value = ''; // Clear the input field after submission
-        }
+        const question = event.target.elements.question.value;
+        window.open(`https://earth.queue.cx/?q=${encodeURIComponent(question)}`, '_blank');
     };
 
     return (
@@ -61,27 +53,29 @@ export function HeroSection() {
                     transition={{ duration: 1 }}
                 >
                     <h1 className="text-8xl md:text-[168px] md:leading-none font-semibold bg-white tracking-tighter bg-[radial-gradient(100%_100%_at_top_left,white,white,rgb(0,0,255,0.5))] bg-clip-text text-transparent text-center">QCX</h1>
-                    <p className="font-handwriting text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-center italic flex justify-center">is a multi-agent intelligence platform for exploration and automation. Your planetary copilot, everything for your</p>
-                    <span className="text-sm tracking-wider text-[#7CFC00] flex justify-center">QUALITY COMPUTER EXPERIENCE </span>
-                    <div className="flex justify-center mt-5">
-                        <button onClick={handleGetStartedClick} className="relative py-2 px-3 rounded-lg font-medium text-sm bg-gradient-to-b from-[#1a1a1a] to-[#333333] shadow-[0px_0px_12px_#0000FF]">
-                            <div className="absolute inset-0 rounded-lg">
-                                <div className="absolute inset-0 border rounded-lg border-white/20 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
-                                <div className="absolute inset-0 border rounded-lg border-white/40 [mask-image:linear-gradient(to_top,black,transparent)]" />
-                                <div className="absolute inset-0 rounded-lg shadow-[0_0_10px_rgb(0,0,255,0.7)_inset]" />
-                            </div>
-                            <span className="text-[#7CFC00]">Get Started</span>
-                        </button>
+                    <p className="font-handwriting text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-left">is a multi-agent intelligence platform for exploration and automation. Your planetary copilot, everything for your</p>
+                    <span className="text-sm tracking-wider text-[#7CFC00] text-left">QUALITY COMPUTER EXPERIENCE</span>
+                    <div className="flex justify-start mt-5">
+                        {!showChatInput && (
+                            <button onClick={handleGetStartedClick} className="relative py-2 px-3 rounded-lg font-medium text-sm bg-gradient-to-b from-[#1a1a1a] to-[#333333] shadow-[0px_0px_12px_#0000FF]">
+                                <div className="absolute inset-0 rounded-lg">
+                                    <div className="absolute inset-0 border rounded-lg border-white/20 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
+                                    <div className="absolute inset-0 border rounded-lg border-white/40 [mask-image:linear-gradient(to_top,black,transparent)]" />
+                                    <div className="absolute inset-0 rounded-lg shadow-[0_0_10px_rgb(0,0,255,0.7)_inset]" />
+                                </div>
+                                <span className="text-[#7CFC00]">Get Started</span>
+                            </button>
+                        )}
                     </div>
                 </motion.div>
 
                 {showChatInput && (
-                    <div className="container relative mt-16">
-                        <form onSubmit={handleChatSubmit} className="flex justify-center mt-5">
+                    <div className="container relative mt-16 text-left">
+                        <form onSubmit={handleChatSubmit} className="flex justify-start mt-5">
                             <input 
                                 type="text" 
                                 name="question" 
-                                placeholder="Ask a question..." 
+                                defaultValue="Explore" 
                                 className="py-2 px-3 rounded-lg font-medium text-sm bg-gradient-to-b from-[#1a1a1a] to-[#333333] shadow-[0px_0px_12px_#0000FF] text-[#7CFC00]"
                             />
                             <button type="submit" className="ml-2 relative py-2 px-3 rounded-lg font-medium text-sm bg-gradient-to-b from-[#1a1a1a] to-[#333333] shadow-[0px_0px_12px_#0000FF]">
@@ -95,6 +89,18 @@ export function HeroSection() {
                         </form>
                     </div>
                 )}
+
+                {/* Top Right Button */}
+                <div className="absolute top-4 right-4">
+                    <button className="relative py-2 px-3 rounded-lg font-medium text-sm bg-gradient-to-b from-[#1a1a1a] to-[#333333] shadow-[0px_0px_12px_#0000FF]">
+                        <div className="absolute inset-0 rounded-lg">
+                            <div className="absolute inset-0 border rounded-lg border-white/20 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
+                            <div className="absolute inset-0 border rounded-lg border-white/40 [mask-image:linear-gradient(to_top,black,transparent)]" />
+                            <div className="absolute inset-0 rounded-lg shadow-[0_0_10px_rgb(0,0,255,0.7)_inset]" />
+                        </div>
+                        <span className="text-[#7CFC00]">{showChatInput ? 'Sign In' : 'Get Started'}</span>
+                    </button>
+                </div>
             </motion.section>
         </>
     );
