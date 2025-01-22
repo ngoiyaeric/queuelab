@@ -49,6 +49,7 @@ export function HeroSection() {
                     <p className="font-handwriting text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-center italic">is a multi-agent intelligence platform for exploration and automation. Your planetary copilot, everything for your</p>
                     <span className="text-sm tracking-wider text-[#7CFC00] text-center">QUALITY COMPUTER EXPERIENCE</span>
                     <div className="flex justify-center mt-5">
+                        {/* Assuming ActionButton now accepts onClick */}
                         <ActionButton label="Get Started" onClick={handleGetStartedClick} />
                     </div>
                 </div>
