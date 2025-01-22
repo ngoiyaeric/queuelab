@@ -22,10 +22,14 @@ export function HeroSection() {
         }, 2000); // Adjust the duration to match the animation
     };
 
-    const handleChatSubmit = (event) => {
+    // Here we specify the type for the event parameter
+    const handleChatSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const question = event.target.elements.question.value;
-        window.open(`https://earth.queue.cx/?q=${encodeURIComponent(question)}`, '_blank');
+        const question = (event.target as HTMLFormElement).elements.namedItem('question') as HTMLInputElement;
+        if (question) {
+            window.open(`https://earth.queue.cx/?q=${encodeURIComponent(question.value)}`, '_blank');
+            question.value = ''; // Clear the input after submission
+        }
     };
 
     return (
