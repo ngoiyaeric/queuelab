@@ -22,7 +22,6 @@ export function HeroSection() {
         }, 2000); // Adjust the duration to match the animation
     };
 
-    // Here we specify the type for the event parameter
     const handleChatSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const question = (event.target as HTMLFormElement).elements.namedItem('question') as HTMLInputElement;
@@ -49,6 +48,32 @@ export function HeroSection() {
                     animate={isAnimating ? { y: -100 } : {}}
                     transition={{ duration: 2 }}
                 />
+
+                {/* Rings + Mini planets Animation */}
+                <motion.div
+                    style={{ translateY: '-50%', translateX: '-50%' }}
+                    animate={{ rotate: '1turn' }}
+                    transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+                    className="absolute size-[344px] md:size-[580px] border border-white opacity-20 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div className="absolute size-2 bg-white rounded-full top-1/2 left-0 -translate-x-1/2 -translate-y-1/2" />
+                    <div className="absolute size-2 bg-white rounded-full top-0 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                    <div className="absolute size-5 border border-white rounded-full top-1/2 left-full -translate-x-1/2 -translate-y-1/2 inline-flex items-center justify-center">
+                        <div className="size-2 bg-white rounded-full" />
+                    </div>
+                </motion.div>
+                <motion.div
+                    style={{ translateY: '-50%', translateX: '-50%' }}
+                    animate={{ rotate: '-1turn' }}
+                    transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+                    className="absolute size-[444px] md:size-[780px] rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-dashed" />
+                <motion.div
+                    style={{ translateY: '-50%', translateX: '-50%' }}
+                    animate={{ rotate: '1turn' }}
+                    transition={{ duration: 90, repeat: Infinity, ease: 'linear' }}
+                    className="absolute size-[544px] md:size-[980px] rounded-full border border-white opacity-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div className="absolute size-2 bg-white rounded-full top-1/2 left-0 -translate-x-1/2 -translate-y-1/2"/>
+                    <div className="absolute size-2 bg-white rounded-full top-1/2 left-full -translate-x-1/2 -translate-y-1/2"/>
+                </motion.div>
 
                 {/* Hero Section Content with Fade Out Animation */}
                 <motion.div
@@ -93,18 +118,6 @@ export function HeroSection() {
                         </form>
                     </div>
                 )}
-
-                {/* Top Right Button */}
-                <div className="absolute top-4 right-4">
-                    <button className="relative py-2 px-3 rounded-lg font-medium text-sm bg-gradient-to-b from-[#1a1a1a] to-[#333333] shadow-[0px_0px_12px_#0000FF]">
-                        <div className="absolute inset-0 rounded-lg">
-                            <div className="absolute inset-0 border rounded-lg border-white/20 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
-                            <div className="absolute inset-0 border rounded-lg border-white/40 [mask-image:linear-gradient(to_top,black,transparent)]" />
-                            <div className="absolute inset-0 rounded-lg shadow-[0_0_10px_rgb(0,0,255,0.7)_inset]" />
-                        </div>
-                        <span className="text-[#7CFC00]">{showChatInput ? 'Sign In' : 'Get Started'}</span>
-                    </button>
-                </div>
             </motion.section>
         </>
     );
