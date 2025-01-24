@@ -57,7 +57,7 @@ export function CallToAction({ id }: { id: string }) {
                           <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
     <p>
         We work on applied research in artificial intelligence on nature and computation. 
-        Our patent-pending research and products include:
+        Our patent-pending research and products. 
     </p>
 
     <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
@@ -65,7 +65,7 @@ export function CallToAction({ id }: { id: string }) {
     </h2>
     <p>
         A highly concurrent multi-agent orchestration framework for extensive context switching 
-        and context continuity, designed for natural science research and integration within our products.
+        and context continuity, designed for automated natural science research and integration within our products.
     </p>
 
     <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
