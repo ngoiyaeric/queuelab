@@ -27,6 +27,15 @@ const nextConfig = {
 
         return config;
     },
+    async redirects() {
+        return [
+            {
+                source: '/docs',
+                destination: '/404',
+                permanent: false,
+            },
+        ];
+    },
 };
 
 export default nextConfig;
