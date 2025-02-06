@@ -15,7 +15,7 @@ const pricingTiers = [
   {
     title: 'Pro',
     price: '$52+/Month',
-    features: ['Everything in Standard', 'Browser Agents', 'Physics Models', 'Environment Aware *', 'Exclusive Updates', 'Collaborative'],
+    features: ['Everything in Standard', 'Browser Agents', 'Physics Models', 'Environment Aware *', 'Collaborative'],
   },
   {
     title: 'Enterprise',
