@@ -31,7 +31,7 @@ const nextConfig = {
         return [
             {
                 source: '/docs',
-                destination: '/404',
+                //destination: '/docs',
                 permanent: false,
             },
         ];
