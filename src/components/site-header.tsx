@@ -9,6 +9,8 @@ import {ActionButton} from "@/components/action-button";
 
 export default function SiteHeader() {
     const [isOpen, setIsOpen] = useState(false)
+    const isReadsPage = typeof window !== 'undefined' && window.location.pathname === '/reads';
+
     return (
         <>
             <header className={"py-4 border-b max-md:backdrop-blur md:border-none sticky top-0 z-10"}>
@@ -21,9 +23,9 @@ export default function SiteHeader() {
                         </Link>
                         <section className={"max-md:hidden"}>
                             <nav className={"flex gap-8 items-center text-sm"}>
-                                <Link href={"#features"} className={"text-white/70 hover:text-white transition"}>Products</Link>
-                                <Link href={"#pricing"} className={"text-white/70 hover:text-white transition"}>Pricing</Link>
-                                <Link href={"#careers"} className={"text-white/70 hover:text-white transition"}>Research</Link>
+                                <Link href={"#features"} className={`text-white/70 hover:text-white transition ${isReadsPage ? 'pointer-events-none' : ''}`}>Products</Link>
+                                <Link href={"#pricing"} className={`text-white/70 hover:text-white transition ${isReadsPage ? 'pointer-events-none' : ''}`}>Pricing</Link>
+                                <Link href={"#careers"} className={`text-white/70 hover:text-white transition ${isReadsPage ? 'pointer-events-none' : ''}`}>Research</Link>
                                 <Link href={"/reads"} className={"text-white/70 hover:text-white transition"}>Reads</Link>
                             </nav>
                         </section>
@@ -42,15 +44,15 @@ export default function SiteHeader() {
                                     </div>
                                     <div className={"mt-8 mb-4"}>
                                         <nav className={"grid gap-4 items-center text-lg"}>
-                                            <Link href={"#features"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
+                                            <Link href={"#features"} className={`flex items-center gap-3 text-white/70 hover:text-white transition ${isReadsPage ? 'pointer-events-none' : ''}`}>
                                                 <Feather className={"size-6"} />
                                                 Products
                                             </Link>
-                                            <Link href={"#pricing"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
+                                            <Link href={"#pricing"} className={`flex items-center gap-3 text-white/70 hover:text-white transition ${isReadsPage ? 'pointer-events-none' : ''}`}>
                                                 <Wallet2 className={"size-6"} />
                                                 Pricing
                                             </Link>
-                                            <Link href={"#careers"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
+                                            <Link href={"#careers"} className={`flex items-center gap-3 text-white/70 hover:text-white transition ${isReadsPage ? 'pointer-events-none' : ''}`}>
                                                 <Newspaper className={"size-6"} />
                                                 Research
                                             </Link>

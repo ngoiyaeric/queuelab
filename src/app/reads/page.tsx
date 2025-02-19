@@ -9,34 +9,46 @@ export default function ReadsPage() {
             <section className="py-20 md:py-24">
                 <div className="container">
                     <h2 className="text-5xl tracking-tighter text-center font-medium">
-                        Environment Aware 
+                        Our Research
                     </h2>
                     <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
                         <p>
-                            Our human species has been organizing itself in groups for a millennium to enable streamlined coordination and communication for goal planning to ensure survival. We’ve created top-down scales of hierarchies spanning from family units to villages to entire countries and even groups of countries to carry out large-scale long-horizon plans to streamline resource utilization and improve our experience on this planet.
+                            We work on applied research in artificial intelligence on nature and computation.
+                            Our patent-pending research and products.
                         </p>
 
+                        <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
+                            Environment Aware Agents
+                        </h2>
                         <p>
-                            This collective awareness of our environment ensures prompt error correction and predictions of potential threats through extensive inter-agent communication and context switching between sparse knowledge to identify root causes and plan for long-term mitigation for the context continuity and survival of our species. 
-                            
+                            A highly concurrent multi-agent orchestration framework for extensive context switching
+                            and context continuity, designed for automated natural science research and integration within our products.
                         </p>
 
+                        <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
+                            Fluidity Index
+                        </h2>
                         <p>
-                            Our collective intelligence is crucial and paramount to enhancing our individual experience, and we’ve innovated and evolved since then to better propagate and disseminate distributed knowledge. Often, societies that have failed to connect sparse pieces of information to garner knowledge, create oversight on root causes as well as have foresight, have or will perish. This is merely not a matter of collective agreement but propagation of information efficiently enough for conjecture and error correction to influence large-scale and long-horizon solutions.
-                        </p>
-
-                        <p>
-                            Replenishing seems to be a central recurring indicator for flourishing societies, as the knowledge of depleting resources propagated with enough throughput onto the geographically distributed group of people as a result of being environment aware. 
-                        </p>
-
-                        <p>
-                            As we continue to evolve into our digital environment, we diverge further from our physical one—spending increasing amounts of time indoors on our devices and having decreasing access and oversight on our physical environment. Democratizing and intergrating access to environment forecasts and digital replenishing into our explorative systems is a great start to enhancing our experience as we become increasingly interconnected at the digital layer.
+                            Next-generation multi-agent superintelligence benchmarks.
                         </p>
                     </div>
-                </div>  
-            </section> {/* ✅ Closing the section properly */}
-
-        
+                    <div className="mt-8">
+                        <div className="border border-muted p-6 rounded-xl mb-4">
+                            <h3 className="text-2xl font-semibold">Article 1</h3>
+                            <p className="text-lg mt-2">This is a brief description of the first article.</p>
+                        </div>
+                        <div className="border border-muted p-6 rounded-xl mb-4">
+                            <h3 className="text-2xl font-semibold">Article 2</h3>
+                            <p className="text-lg mt-2">This is a brief description of the second article.</p>
+                        </div>
+                        <div className="border border-muted p-6 rounded-xl mb-4">
+                            <h3 className="text-2xl font-semibold">Article 3</h3>
+                            <p className="text-lg mt-2">This is a brief description of the third article.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <CallToAction id="careers" />
             <SiteFooter />
         </>
     );
