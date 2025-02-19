@@ -27,15 +27,15 @@ const nextConfig = {
 
         return config;
     },
-    async redirects() {
-        return [
-            {
-                source: '/docs',
+    //async redirects() {
+        //return [
+            //{
+              //  source: '/docs',
                 //destination: '/docs',
-                permanent: false,
-            },
-        ];
-    },
+                //permanent: false,
+           // },
+      //  ];
+  //  },
 };
 
 export default nextConfig;
