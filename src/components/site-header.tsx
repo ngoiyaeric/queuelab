@@ -24,6 +24,7 @@ export default function SiteHeader() {
                                 <Link href={"#features"} className={"text-white/70 hover:text-white transition"}>Products</Link>
                                 <Link href={"#pricing"} className={"text-white/70 hover:text-white transition"}>Pricing</Link>
                                 <Link href={"#careers"} className={"text-white/70 hover:text-white transition"}>Research</Link>
+                                <Link href={"/reads"} className={"text-white/70 hover:text-white transition"}>Reads</Link>
                             </nav>
                         </section>
                         <section className={"flex max-md:gap-4 items-center"}>
@@ -52,6 +53,10 @@ export default function SiteHeader() {
                                             <Link href={"#careers"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
                                                 <Newspaper className={"size-6"} />
                                                 Research
+                                            </Link>
+                                            <Link href={"/reads"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
+                                                <Newspaper className={"size-6"} />
+                                                Reads
                                             </Link>
                                         </nav>
                                     </div>
