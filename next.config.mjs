@@ -26,7 +26,16 @@ const nextConfig = {
         fileLoaderRule.exclude = /\.svg$/i;
 
         return config;
-    },
+    }
+    //async redirects() {
+        //return [
+            //{
+              //  source: '/docs',
+                //destination: '/docs',
+                //permanent: false,
+           // },
+      //  ];
+  //  },
 };
 
 export default nextConfig;

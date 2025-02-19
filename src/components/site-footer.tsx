@@ -18,6 +18,10 @@ export default function SiteFooter() {
                         Privacy and Terms
                     </Link>
 
+                    <Link href="/docs" className="text-sm text-muted-foreground hover:underline">
+                        Documentation
+                    </Link>
+
                     <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
                         ©️ 2024 QCX, All rights reserved. Built by <a
                         href={"https://discord.gg/NqGY9EWjWj"}

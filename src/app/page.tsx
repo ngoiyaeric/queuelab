@@ -18,6 +18,11 @@ export default function Home() {
             <Testimonials />
             <PricingSection id="pricing" />
             <CallToAction id="careers" />
+            <div className="text-center mt-8">
+                <a href="/docs" className="text-blue-500 hover:underline">
+                    Documentation
+                </a>
+            </div>
             <GithubIndicator />
             <SiteFooter />
         </>
