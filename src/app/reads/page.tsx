@@ -35,7 +35,7 @@ export default function ReadsPage() {
                 </div>  
             </section> {/* ✅ Closing the section properly */}
 
-            <CallToAction id="careers" />
+        
             <SiteFooter />
         </>
     );
