@@ -65,7 +65,7 @@ export function CallToAction({ id }: { id: string }) {
     </h2>
     <p>
         A highly concurrent multi-agent orchestration framework for extensive context switching 
-        and context continuity, designed for automated natural science research and integration within our products.
+        and context continuity, designed for fully automated natural science exploration and integration within our products.
     </p>
 
     <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
