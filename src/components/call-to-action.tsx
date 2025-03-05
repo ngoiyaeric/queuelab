@@ -5,6 +5,7 @@ import BackgroundStars from "@/assets/stars.png";
 import BackgroundGrid from "@/assets/grid-lines.png";
 import {motion, useMotionTemplate, useMotionValue, useScroll, useTransform} from "framer-motion";
 import {RefObject, useEffect, useRef} from "react";
+import Link from "next/link"; // Import Link
 
 {/* Custom Hook for Relative Mouse Position */}
 const useRelativeMousePosition = (to: RefObject<HTMLElement>) => {
@@ -76,10 +77,11 @@ export function CallToAction({ id }: { id: string }) {
     </p>
 </div>
 
-
-                            
                             <div className={"flex justify-center mt-8"}>
                                 <ActionButton label={"Join QCX"} href={"https://tally.so/r/waZO89"}/>
+                            </div>
+                            <div className={"flex justify-center mt-8"}>
+                                <Link href="/#careers" className="text-white/70 hover:text-white transition">Back to Research</Link>
                             </div>
                         </div>
                     </motion.div>
