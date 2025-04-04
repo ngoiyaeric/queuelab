@@ -9,7 +9,6 @@ import { ActionButton } from "@/components/action-button";
 
 export default function SiteHeader() {
     const [isOpen, setIsOpen] = useState(false)
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
     return (
         <>
@@ -23,30 +22,28 @@ export default function SiteHeader() {
                         </Link>
                         <section className={"max-md:hidden"}>
                             <nav className={"flex gap-8 items-center text-sm"}>
-                                <div className="relative">
-                                    <button 
-                                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                <div className="relative group">
+                                    <Link 
+                                        href={"#features"}
                                         className="flex items-center gap-1 text-white/70 hover:text-white transition"
                                     >
                                         Products
-                                        <ChevronDown className={`size-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-                                    </button>
-                                    {isDropdownOpen && (
-                                        <div className="absolute top-full left-0 mt-2 bg-white text-black rounded-md shadow-lg">
-                                            <Link 
-                                                href="https://planet.queue.cx" 
-                                                className="block px-4 py-2 hover:bg-gray-100"
-                                            >
-                                                Planet
-                                            </Link>
-                                            <Link 
-                                                href="https://ea.queue.cx" 
-                                                className="block px-4 py-2 hover:bg-gray-100"
-                                            >
-                                                Agents
-                                            </Link>
-                                        </div>
-                                    )}
+                                        <ChevronDown className="size-4" />
+                                    </Link>
+                                    <div className="absolute top-full left-0 mt-2 bg-white text-black rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                        <Link 
+                                            href="https://planet.queue.cx" 
+                                            className="block px-4 py-2 hover:bg-gray-100"
+                                        >
+                                            Planet
+                                        </Link>
+                                        <Link 
+                                            href="https://ea.queue.cx" 
+                                            className="block px-4 py-2 hover:bg-gray-100"
+                                        >
+                                            Agents
+                                        </Link>
+                                    </div>
                                 </div>
                                 <Link href={"#pricing"} className={"text-white/70 hover:text-white transition"}>Pricing</Link>
                                 <Link href={"#careers"} className={"text-white/70 hover:text-white transition"}>Research</Link>
