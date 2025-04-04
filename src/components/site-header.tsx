@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import SiteLogo from "@/assets/logo.svg"
-import {Feather, MenuIcon, Newspaper, Wallet2} from "lucide-react";
-import {Sheet, SheetContent, SheetTrigger} from "@/components/ui/sheet"
-import {useState} from "react";
-import {ActionButton} from "@/components/action-button";
+import { Feather, MenuIcon, Newspaper, Wallet2, ChevronDown } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { useState } from "react";
+import { ActionButton } from "@/components/action-button";
 
 export default function SiteHeader() {
     const [isOpen, setIsOpen] = useState(false)
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+
     return (
         <>
             <header className={"py-4 border-b max-md:backdrop-blur md:border-none sticky top-0 z-10"}>
@@ -21,7 +23,31 @@ export default function SiteHeader() {
                         </Link>
                         <section className={"max-md:hidden"}>
                             <nav className={"flex gap-8 items-center text-sm"}>
-                                <Link href={"#features"} className={"text-white/70 hover:text-white transition"}>Products</Link>
+                                <div className="relative">
+                                    <button 
+                                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                        className="flex items-center gap-1 text-white/70 hover:text-white transition"
+                                    >
+                                        Products
+                                        <ChevronDown className={`size-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                                    </button>
+                                    {isDropdownOpen && (
+                                        <div className="absolute top-full left-0 mt-2 bg-white text-black rounded-md shadow-lg">
+                                            <Link 
+                                                href="https://planet.queue.cx" 
+                                                className="block px-4 py-2 hover:bg-gray-100"
+                                            >
+                                                Planet
+                                            </Link>
+                                            <Link 
+                                                href="https://ea.queue.cx" 
+                                                className="block px-4 py-2 hover:bg-gray-100"
+                                            >
+                                                Agents
+                                            </Link>
+                                        </div>
+                                    )}
+                                </div>
                                 <Link href={"#pricing"} className={"text-white/70 hover:text-white transition"}>Pricing</Link>
                                 <Link href={"#careers"} className={"text-white/70 hover:text-white transition"}>Research</Link>
                             </nav>
@@ -41,10 +67,20 @@ export default function SiteHeader() {
                                     </div>
                                     <div className={"mt-8 mb-4"}>
                                         <nav className={"grid gap-4 items-center text-lg"}>
-                                            <Link href={"#features"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
-                                                <Feather className={"size-6"} />
-                                                Products
-                                            </Link>
+                                            <div>
+                                                <Link href={"#features"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
+                                                    <Feather className={"size-6"} />
+                                                    Products
+                                                </Link>
+                                                <div className="ml-9 mt-2 grid gap-2">
+                                                    <Link href="https://planet.queue.cx" className="text-white/70 hover:text-white transition">
+                                                        Planet
+                                                    </Link>
+                                                    <Link href="https://ea.queue.cx" className="text-white/70 hover:text-white transition">
+                                                        Agents
+                                                    </Link>
+                                                </div>
+                                            </div>
                                             <Link href={"#pricing"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
                                                 <Wallet2 className={"size-6"} />
                                                 Pricing
