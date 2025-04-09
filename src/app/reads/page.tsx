@@ -20,7 +20,7 @@ export default function ReadsPage() {
                                 We’re an applied research artificial intelligence startup working at the intersection of nature and computation.
                             </p>
                             <p>
-                                Inspired by the queue—a fundamental data structure reflecting the natural flow of life and entropy—our systems thinking is rooted in this concept, driving us to prioritize quality throughout our ecosystem. Quality forms the core of our value proposition, delivering exceptional customer experiences across our computational platforms. We pioneer innovative technologies grounded in nature’s first principles to power our cutting-edge systems.
+                                Inspired by the queue—a fundamental data structure reflecting the natural flow of life and entropy—our systems thinking is rooted in this concept, driving us to prioritize quality throughout our ecosystem. Quality forms the core of our value proposition, delivering exceptional customer experiences across our computational platforms. We pioneer innovative technologies grounded in nature’s first principles to power our cutting-edge systems. Democratizing intelligence to improve our experience. 
                             </p>
                         </div>
                     </details>
