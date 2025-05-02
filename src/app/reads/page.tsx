@@ -10,14 +10,14 @@ export default function ReadsPage() {
                 <div className="container">
                     <details className="mb-8">
                         <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer">
-                            Queue CX
+                            QueueCX
                         </summary>
                         <div className="text-center text-sm text-white/50 mt-2">
-                            April 09, 2025
+                            May 02, 2025
                         </div>
                         <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
                             <p>
-                                We’re an applied research artificial intelligence startup working at the intersection of nature and computation.
+                                We’re an applied artificial intelligence research lab working at the intersection of nature and computation.
                             </p>
                             <p>
                                 Inspired by the queue—a fundamental data structure reflecting the natural flow of life and entropy—our systems thinking is rooted in this concept, driving us to prioritize quality throughout our ecosystem. Quality forms the core of our value proposition, delivering exceptional customer experiences across our computational platforms. We pioneer innovative technologies grounded in nature’s first principles to power our cutting-edge systems. Democratizing intelligence to improve our experience. 
@@ -25,12 +25,13 @@ export default function ReadsPage() {
                         </div>
                     </details>
 
+                    
                     <details className="mb-8">
                         <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer">
                             Environment Aware
                         </summary>
                         <div className="text-center text-sm text-white/50 mt-2">
-                            April 09, 2025
+                            May 02, 2025
                         </div>
                         <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
                             <p>
@@ -47,6 +48,19 @@ export default function ReadsPage() {
                             </p>
                             <p>
                                 As we continue to evolve into our digital environment, we diverge further from our physical one—spending increasing amounts of time indoors on our devices and having decreasing access and oversight on our physical environment - this is fluidity overload. Democratizing and integrating access to environment forecasts and digital replenishing into our explorative systems is a great start to enhancing our experience as we become increasingly interconnected at the digital layer.
+                            </p>
+                        </div>
+                    </details>
+                     <details className="mb-8">
+                        <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer">
+                            Fluidity Index
+                        </summary>
+                        <div className="text-center text-sm text-white/50 mt-2">
+                             0
+                        </div>
+                        <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+                            <p>
+                             0 cost benchmarks
                             </p>
                         </div>
                     </details>
