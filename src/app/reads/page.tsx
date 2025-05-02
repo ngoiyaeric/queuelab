@@ -90,7 +90,6 @@ export default function ReadsPage() {
           <details className="mb-8">
             <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer">
               Fluidity Index
-                💦
             </summary>
             <div className="text-center text-sm text-white/50 mt-2">💦</div>
             <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
