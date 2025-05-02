@@ -54,9 +54,9 @@ export default function SiteHeader() {
                                                 <Wallet2 className="size-6" />
                                                 Pricing
                                             </Link>
-                                            <Link href="#careers" className="flex items-center gap-3 text-white/70 hover:text-white transition">
-                                                <Newspaper className="size-6" />
-                                                Research
+                                            <Link href={"/reads"} className={"flex items-center gap-3 text-white/70 hover:text-white transition"}>
+                                                <BookOpen className={"size-6"} />
+                                                Reads
                                             </Link>
                                             <Link href="/reads" className="flex items-center gap-3 text-white/70 hover:text-white transition">
                                                 <Newspaper className="size-6" />
