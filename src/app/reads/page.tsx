@@ -64,7 +64,7 @@ export default function ReadsPage() {
                 Often, societies that have failed to connect sparse pieces of
                 information to garner knowledge, create oversight on root causes as
                 well as have foresight, have or will perish. This is not a matter
-                of collective agreement but propagation of information efficiently
+                of personally identifiable information but propagation of information efficiently
                 enough for conjecture and error correction to influence large-scale
                 and long-horizon solutions.
               </p>
