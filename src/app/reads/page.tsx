@@ -35,7 +35,7 @@ export default function ReadsPage() {
                         </div>
                         <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
                             <p>
-                                Our human species has been organizing itself in groups for a millennium to enable streamlined coordination and communication for goal planning to ensure survival. We’ve created top-down scales of hierarchies spanning from family units to villages to entire countries and even groups of countries to carry out large-scale long-horizon plans to streamline resource utilization and improve our experience on this planet.
+                                Our human species has been organizing itself in groups to enable streamlined coordination and communication for goal planning to ensure survival. We’ve created top-down scales of hierarchies spanning from family units to villages to entire countries and even groups of countries to carry out large-scale long-horizon plans to streamline resource utilization and improve our experience on this planet.
                             </p>
                             <p>
                                 This collective awareness of our environment ensures prompt error correction and predictions of potential threats through extensive inter-agent communication and context switching between sparse knowledge to identify root causes and plan for long-term mitigation for the context continuity and survival of our species.
