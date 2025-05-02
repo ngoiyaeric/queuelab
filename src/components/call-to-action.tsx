@@ -6,10 +6,10 @@ import BackgroundGrid from "@/assets/grid-lines.png";
 import {motion, useMotionTemplate, useMotionValue, useScroll, useTransform} from "framer-motion";
 import {RefObject, useEffect, useRef} from "react";
 
-interface CallToAction {
+interface CallToActionProps {
     id?: string; // Add the id prop here
-  }
-{/* Custom Hook for Relative Mouse Position */}
+}
+/* Custom Hook for Relative Mouse Position */
 const useRelativeMousePosition = (to: RefObject<HTMLElement>) => {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
@@ -28,7 +28,7 @@ const useRelativeMousePosition = (to: RefObject<HTMLElement>) => {
     return [mouseX, mouseY];
 }
 
-export function CallToAction({ id }: { id: string }) {
+const CallToAction = ({ id }: { id?: string }) => {
 
     const sectionRef = useRef<HTMLElement>(null);
     const borderedDivRef = useRef<HTMLDivElement>(null);
@@ -87,78 +87,10 @@ export function CallToAction({ id }: { id: string }) {
                         </div>
                     </motion.div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
             </section>
         </>
     )
 }
+
+export default CallToAction;
