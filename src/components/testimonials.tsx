@@ -6,6 +6,7 @@ import Avatar3 from "@/assets/avatar-3.png";
 import Avatar4 from "@/assets/avatar-4.png";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import React from "react";
 
 const testimonials = [
     {
@@ -30,10 +31,14 @@ const testimonials = [
     },
 ]
 
-export function Testimonials() {
+interface TestimonialsProps {
+    id?: string;
+}
+
+export function Testimonials({ id }: TestimonialsProps) {
     return (
         <>
-            <section className={"py-20 md:py-24"}>
+            <section id={id} className={"py-20 md:py-24"}>
                 <div className={"container"}>
                     <h2 className={"text-5xl md:text-6xl font-medium text-center tracking-tighter"}>Beyond Expectations.</h2>
                     <p className={"text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5"}>Our revolutionary Location Intelligence platform for exploration and automation at closed beta.</p>

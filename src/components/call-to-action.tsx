@@ -6,6 +6,19 @@ import { Feather, MenuIcon, Newspaper, Wallet2, ChevronDown } from "lucide-react
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useState } from "react";
 import { ActionButton } from "@/components/action-button";
+import React from "react";
+
+interface CallToActionProps {
+  id?: string; // Add the id prop here
+}
+
+const CallToAction: React.FC<CallToActionProps> = ({ id }) => {
+  return (
+    <section id={id} className="call-to-action">
+      {/* ...existing content... */}
+    </section>
+  );
+};
 
 export default function SiteHeader() {
     const [isOpen, setIsOpen] = useState(false)

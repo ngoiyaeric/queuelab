@@ -21,9 +21,9 @@ export default function SiteHeader() {
                         </Link>
                         <section className="max-md:hidden">
                             <nav className="flex gap-8 items-center text-sm">
-                                <Link href="#features" className="text-white/70 hover:text-white transition">Products</Link>
-                                <Link href="#pricing" className="text-white/70 hover:text-white transition">Pricing</Link>
-                                <Link href="#careers" className="text-white/70 hover:text-white transition">Research</Link>
+                                <Link href="/#features" className="text-white/70 hover:text-white transition">Products</Link>
+                                <Link href="/#pricing" className="text-white/70 hover:text-white transition">Pricing</Link>
+                                <Link href="/#careers" className="text-white/70 hover:text-white transition">Research</Link>
                                 <Link href="/reads" className="text-white/70 hover:text-white transition">Reads</Link>
                             </nav>
                         </section>
