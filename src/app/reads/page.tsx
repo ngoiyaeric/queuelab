@@ -1,7 +1,7 @@
 import React from "react";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
-import { CallToAction } from "@/components/call-to-action";
+import CallToAction  from "@/components/call-to-action";
 
 export default function ReadsPage() {
   return (
