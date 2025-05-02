@@ -56,7 +56,7 @@ export default function ReadsPage() {
                             Fluidity Index
                         </summary>
                         <div className="text-center text-sm text-white/50 mt-2">
-                             0
+                             💦
                         </div>
                         <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
                             <p>
