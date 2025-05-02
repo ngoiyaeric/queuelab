@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import SiteLogo from "@/assets/logo.svg";
-import { Feather, MenuIcon, Newspaper, Wallet2 } from "lucide-react";
+import { Feather, MenuIcon, Newspaper, Wallet2, BookOpen } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { ActionButton } from "@/components/action-button";
