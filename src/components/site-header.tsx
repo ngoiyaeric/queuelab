@@ -46,15 +46,15 @@ export default function SiteHeader() {
                                                 <Feather className="size-6" />
                                                 Home
                                             </Link>
-                                            <Link href="#features" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/#features" className="flex items-center gap-3 text-white/70 hover:text-white transition">
                                                 <Feather className="size-6" />
                                                 Products
                                             </Link>
-                                            <Link href="#pricing" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/#pricing" className="flex items-center gap-3 text-white/70 hover:text-white transition">
                                                 <Wallet2 className="size-6" />
                                                 Pricing
                                             </Link>
-                                            <Link href="#careers" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/#careers" className="flex items-center gap-3 text-white/70 hover:text-white transition">
                                                 <Newspaper className="size-6" />
                                                 Research
                                             </Link>
