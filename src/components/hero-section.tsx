@@ -55,7 +55,7 @@ export function HeroSection() {
                     <p className={"font-handwriting text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-center justify-center"}>is a multi-agent intelligence platform for exploration and automation. Your environment aware planetary copilot for your</p> 
                     <span className={"text-sm tracking-wider text-[#7CFC00] flex justify-center"}>QUALITY COMPUTER EXPERIENCES </span>
                     <div className={"flex justify-center mt-5"}>
-                        <ActionButton label={"Open-Core"} href={"https://github.com/QueueLab/QCX/"} />
+                        <ActionButton label={"core"} href={"https://github.com/QueueLab/QCX/"} />
                     </div>
                 </div>
             </motion.section>
