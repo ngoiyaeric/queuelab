@@ -3,7 +3,13 @@
 import { useState, FormEvent } from 'react';
 import { Button } from "@/components/ui/button"; // Assuming you have a Button component
 
-export function InterestForm() {
+interface InterestFormProps {
+  formTitle: string;
+  submissionContext: string;
+  onSuccessCallback?: () => void;
+}
+
+export function InterestForm({ formTitle, submissionContext, onSuccessCallback }: InterestFormProps) {
     const [email, setEmail] = useState('');
     const [identity, setIdentity] = useState('');
     const [message, setMessage] = useState('');
@@ -36,7 +42,7 @@ export function InterestForm() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, identity, message }),
+                body: JSON.stringify({ email, identity, message, submissionContext }),
             });
 
             const result = await response.json();
@@ -46,6 +52,9 @@ export function InterestForm() {
                 setEmail('');
                 setIdentity('');
                 setMessage('');
+                if (onSuccessCallback) {
+                    onSuccessCallback();
+                }
             } else {
                 setError(result.message || "An error occurred while submitting the form.");
             }
@@ -58,7 +67,7 @@ export function InterestForm() {
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6 p-6 md:p-8 bg-gray-800/30 backdrop-blur-sm rounded-lg shadow-xl border border-gray-700/50">
-            <h2 className="text-2xl md:text-3xl font-semibold text-center text-white">QCX Interest Form</h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-center text-white">{formTitle}</h2>
 
             {error && <p className="text-red-400 bg-red-900/30 p-3 rounded-md text-center">{error}</p>}
             {success && <p className="text-green-400 bg-green-900/30 p-3 rounded-md text-center">{success}</p>}

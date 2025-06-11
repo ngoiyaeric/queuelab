@@ -5,10 +5,13 @@ import SiteLogo from "@/assets/logo.svg";
 import { Feather, MenuIcon, Newspaper, Wallet2, BookOpen } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
-import { ActionButton } from "@/components/action-button";
+import { Button } from "@/components/ui/button"; // Added
+import { Modal, ModalContent, ModalTrigger } from "@/components/ui/modal"; // Added
+import { InterestForm } from "@/components/interest-form"; // Added
 
 export default function SiteHeader() {
     const [isOpen, setIsOpen] = useState(false);
+    const [isDemoModalOpen, setIsDemoModalOpen] = useState(false); // Added
     return (
         <>
             <header className="py-4 border-b max-md:backdrop-blur md:border-none sticky top-0 z-10">
@@ -28,7 +31,24 @@ export default function SiteHeader() {
                             </nav>
                         </section>
                         <section className="flex max-md:gap-4 items-center">
-                            <ActionButton label="Book Demo" href="https://tally.so/r/wkWqkd" className="book-demo-button" />
+                            <Modal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
+                                <ModalTrigger asChild>
+                                    <Button variant="default" size="sm" className="book-demo-button">
+                                        Book Demo
+                                    </Button>
+                                </ModalTrigger>
+                                <ModalContent className="bg-gray-900/80 backdrop-blur-md border-gray-700 text-white p-0">
+                                    <InterestForm
+                                        formTitle="Book a Demo"
+                                        submissionContext="Demo Request"
+                                        onSuccessCallback={() => {
+                                            setTimeout(() => {
+                                                setIsDemoModalOpen(false);
+                                            }, 2000);
+                                        }}
+                                    />
+                                </ModalContent>
+                            </Modal>
                             <Sheet open={isOpen} onOpenChange={setIsOpen}>
                                 <SheetTrigger>
                                     <MenuIcon className="size-9 md:hidden hover:text-white/70 transition" />
