@@ -3,6 +3,7 @@
 import { useState, FormEvent } from 'react';
 import { supabase } from '@/lib/supabaseClient'; // Ensure this path is correct
 import { Button } from "@/components/ui/button"; // Assuming Button component exists
+import SiteLogo from "@/assets/logo.svg"; // Assuming this is the correct path to the logo SVG
 
 export function AuthForm() {
     const [isLoginView, setIsLoginView] = useState(true);
@@ -71,9 +72,12 @@ export function AuthForm() {
     };
 
     return (
-        <div className="p-6 md:p-8 bg-gray-800/50 backdrop-blur-sm rounded-lg shadow-xl border border-gray-700/60 text-white w-full max-w-md mx-auto">
+        <div className="p-6 md:p-8 bg-black/30 rounded-lg shadow-xl border border-white/10 text-white w-full max-w-md mx-auto">
+            <div className="flex justify-center mb-6"> {/* Container for centering the logo */}
+                <SiteLogo className="h-12 w-auto text-white" /> {/* Adjust size (h-12) and color if needed. SVGs might inherit text color. */}
+            </div>
             <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6">
-                {isLoginView ? 'Login' : 'Create Account'}
+                {isLoginView ? 'Queue In' : 'Queue Up'}
             </h2>
 
             {error && <p className="mb-4 text-red-400 bg-red-900/40 p-3 rounded-md text-center text-sm">{error}</p>}
@@ -117,9 +121,9 @@ export function AuthForm() {
                 <Button
                     type="submit"
                     disabled={loading}
-                    className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-sky-500 disabled:opacity-60"
+                    className="w-full flex justify-center py-3 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-green-500 disabled:opacity-60 transition-colors duration-150" // Applied light green styling
                 >
-                    {loading ? (isLoginView ? 'Logging in...' : 'Signing up...') : (isLoginView ? 'Login' : 'Sign Up')}
+                    {loading ? (isLoginView ? 'Queueing In...' : 'Queueing Up...') : (isLoginView ? 'Queue In' : 'Queue Up')}
                 </Button>
 
                 <div className="text-center">
@@ -129,13 +133,11 @@ export function AuthForm() {
                             setIsLoginView(!isLoginView);
                             setError(null);
                             setMessage(null);
-                            // setEmail(''); // Optionally clear fields on view toggle
-                            // setPassword('');
                         }}
-                        className="text-sm text-sky-400 hover:text-sky-300 hover:underline focus:outline-none"
+                        className="text-sm text-green-400 hover:text-green-300 hover:underline focus:outline-none" // Changed to green
                         disabled={loading}
                     >
-                        {isLoginView ? 'Need an account? Sign Up' : 'Already have an account? Login'}
+                        {isLoginView ? 'Need an account? Queue Up' : 'Already have an account? Queue In'}
                     </button>
                 </div>
             </form>

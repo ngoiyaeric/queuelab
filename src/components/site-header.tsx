@@ -50,11 +50,14 @@ export default function SiteHeader() {
                             ) : (
                                 <Modal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
                                     <ModalTrigger asChild>
-                                        <Button variant="default" size="sm" className="book-demo-button">
+                                        <Button
+                                            size="sm" // Keep size if appropriate
+                                            className="book-demo-button bg-green-500 hover:bg-green-600 text-white font-medium px-4 py-2 rounded-md transition-colors duration-150" // New styling
+                                        >
                                             Login / Sign Up
                                         </Button>
                                     </ModalTrigger>
-                                    <ModalContent className="bg-gray-900/80 backdrop-blur-md border-gray-700 text-white p-0">
+                                    <ModalContent className="bg-black/60 backdrop-blur-lg border border-white/20 text-white p-0">
                                         <AuthForm /> {/* Replace InterestForm with AuthForm */}
                                     </ModalContent>
                                 </Modal>
