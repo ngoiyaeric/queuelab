@@ -1,6 +1,6 @@
 "use client"
 
-import {ActionButton} from "@/components/action-button";
+import { InterestForm } from "@/components/interest-form"; // Add this import
 import BackgroundStars from "@/assets/stars.png";
 import BackgroundGrid from "@/assets/grid-lines.png";
 import {motion, useMotionTemplate, useMotionValue, useScroll, useTransform} from "framer-motion";
@@ -81,8 +81,9 @@ const CallToAction = ({ id }: { id?: string }) => {
 
 
                             
-                            <div className={"flex justify-center mt-8"}>
-                                <ActionButton label={"Join QCX"} href={"https://tally.so/r/waZO89"}/>
+                            {/* Replace ActionButton with InterestForm */}
+                            <div className={"mt-12 md:mt-16 max-w-2xl mx-auto"}>
+                                <InterestForm />
                             </div>
                         </div>
                     </motion.div>
