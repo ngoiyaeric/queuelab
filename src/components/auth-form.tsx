@@ -1,0 +1,144 @@
+"use client";
+
+import { useState, FormEvent } from 'react';
+import { supabase } from '@/lib/supabaseClient'; // Ensure this path is correct
+import { Button } from "@/components/ui/button"; // Assuming Button component exists
+
+export function AuthForm() {
+    const [isLoginView, setIsLoginView] = useState(true);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState<string | null>(null);
+    const [message, setMessage] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
+
+    const handleAuthAction = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setLoading(true);
+        setError(null);
+        setMessage(null);
+
+        if (!email || !password) {
+            setError("Email and password are required.");
+            setLoading(false);
+            return;
+        }
+
+        // Basic password length check (Supabase has its own password policies too)
+        if (!isLoginView && password.length < 6) {
+            setError("Password should be at least 6 characters.");
+            setLoading(false);
+            return;
+        }
+
+        try {
+            if (isLoginView) {
+                // Login
+                const { error: signInError } = await supabase.auth.signInWithPassword({
+                    email,
+                    password,
+                });
+                if (signInError) throw signInError;
+                setMessage("Logged in successfully!"); // User/session state will be handled by AuthProvider
+                // Modal closure will be handled by AuthProvider detecting session change or via a callback
+            } else {
+                // Sign Up
+                const { data, error: signUpError } = await supabase.auth.signUp({
+                    email,
+                    password,
+                    // options: { emailRedirectTo: window.location.origin } // Optional: for email confirmation redirect
+                });
+                if (signUpError) throw signUpError;
+
+                if (data.user && data.user.identities && data.user.identities.length === 0) {
+                    // This condition might indicate an existing user with unconfirmed email with some providers,
+                    // or if email confirmation is turned off and user is created directly but is not "real" yet.
+                    // For Supabase, if email confirmation is ON, user exists but session is null until confirmed.
+                    // If email confirmation is OFF, user is created and session is typically returned.
+                    setMessage("User already exists or sign up issue. If email confirmation is on, please check your email.");
+                } else if (data.session) {
+                     setMessage("Signed up and logged in successfully!");
+                }
+                 else {
+                    setMessage("Sign up successful! Please check your email to confirm your account.");
+                }
+            }
+        } catch (err: any) {
+            setError(err.error_description || err.message || "An unexpected error occurred.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="p-6 md:p-8 bg-gray-800/50 backdrop-blur-sm rounded-lg shadow-xl border border-gray-700/60 text-white w-full max-w-md mx-auto">
+            <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6">
+                {isLoginView ? 'Login' : 'Create Account'}
+            </h2>
+
+            {error && <p className="mb-4 text-red-400 bg-red-900/40 p-3 rounded-md text-center text-sm">{error}</p>}
+            {message && <p className="mb-4 text-green-400 bg-green-900/40 p-3 rounded-md text-center text-sm">{message}</p>}
+
+            <form onSubmit={handleAuthAction} className="space-y-5">
+                <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                        Email address
+                    </label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className="mt-1 block w-full px-3 py-2.5 bg-gray-700/60 border border-gray-600 rounded-md shadow-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                        placeholder="you@example.com"
+                        disabled={loading}
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        className="mt-1 block w-full px-3 py-2.5 bg-gray-700/60 border border-gray-600 rounded-md shadow-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                        placeholder="••••••••"
+                        disabled={loading}
+                    />
+                </div>
+
+                <Button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-sky-500 disabled:opacity-60"
+                >
+                    {loading ? (isLoginView ? 'Logging in...' : 'Signing up...') : (isLoginView ? 'Login' : 'Sign Up')}
+                </Button>
+
+                <div className="text-center">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setIsLoginView(!isLoginView);
+                            setError(null);
+                            setMessage(null);
+                            // setEmail(''); // Optionally clear fields on view toggle
+                            // setPassword('');
+                        }}
+                        className="text-sm text-sky-400 hover:text-sky-300 hover:underline focus:outline-none"
+                        disabled={loading}
+                    >
+                        {isLoginView ? 'Need an account? Sign Up' : 'Already have an account? Login'}
+                    </button>
+                </div>
+            </form>
+        </div>
+    );
+}

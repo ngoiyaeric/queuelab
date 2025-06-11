@@ -4,14 +4,22 @@ import Link from "next/link";
 import SiteLogo from "@/assets/logo.svg";
 import { Feather, MenuIcon, Newspaper, Wallet2, BookOpen } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useState } from "react";
-import { Button } from "@/components/ui/button"; // Added
-import { Modal, ModalContent, ModalTrigger } from "@/components/ui/modal"; // Added
-import { InterestForm } from "@/components/interest-form"; // Added
+import { useState, useEffect } from "react"; // useEffect Added
+import { Button } from "@/components/ui/button";
+import { Modal, ModalContent, ModalTrigger } from "@/components/ui/modal";
+import { useAuth } from '@/components/auth-provider'; // New import
+import { AuthForm } from '@/components/auth-form';   // New import
 
 export default function SiteHeader() {
     const [isOpen, setIsOpen] = useState(false);
-    const [isDemoModalOpen, setIsDemoModalOpen] = useState(false); // Added
+    const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
+    const { user, loading: authLoading, signOut } = useAuth(); // Get auth state
+
+    useEffect(() => {
+        if (user && isDemoModalOpen) {
+            setIsDemoModalOpen(false);
+        }
+    }, [user, isDemoModalOpen, setIsDemoModalOpen]);
     return (
         <>
             <header className="py-4 border-b max-md:backdrop-blur md:border-none sticky top-0 z-10">
@@ -31,24 +39,26 @@ export default function SiteHeader() {
                             </nav>
                         </section>
                         <section className="flex max-md:gap-4 items-center">
-                            <Modal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
-                                <ModalTrigger asChild>
-                                    <Button variant="default" size="sm" className="book-demo-button">
-                                        Book Demo
-                                    </Button>
-                                </ModalTrigger>
-                                <ModalContent className="bg-gray-900/80 backdrop-blur-md border-gray-700 text-white p-0">
-                                    <InterestForm
-                                        formTitle="Book a Demo"
-                                        submissionContext="Demo Request"
-                                        onSuccessCallback={() => {
-                                            setTimeout(() => {
-                                                setIsDemoModalOpen(false);
-                                            }, 2000);
-                                        }}
-                                    />
-                                </ModalContent>
-                            </Modal>
+                            {authLoading ? (
+                                <Button variant="default" size="sm" className="book-demo-button" disabled>
+                                    Loading...
+                                </Button>
+                            ) : user ? (
+                                <Button variant="outline" size="sm" onClick={signOut} className="logout-button">
+                                    Logout
+                                </Button>
+                            ) : (
+                                <Modal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
+                                    <ModalTrigger asChild>
+                                        <Button variant="default" size="sm" className="book-demo-button">
+                                            Login / Sign Up
+                                        </Button>
+                                    </ModalTrigger>
+                                    <ModalContent className="bg-gray-900/80 backdrop-blur-md border-gray-700 text-white p-0">
+                                        <AuthForm /> {/* Replace InterestForm with AuthForm */}
+                                    </ModalContent>
+                                </Modal>
+                            )}
                             <Sheet open={isOpen} onOpenChange={setIsOpen}>
                                 <SheetTrigger>
                                     <MenuIcon className="size-9 md:hidden hover:text-white/70 transition" />
