@@ -28,7 +28,7 @@ export default function SiteHeader() {
                             </nav>
                         </section>
                         <section className="flex max-md:gap-4 items-center">
-                            <ActionButton label="Book Demo" href="https://tally.so/r/wkWqkd" className="book-demo-button" />
+                            <ActionButton label="Book Demo" onClick={() => window.open('https://tally.so/r/wkWqkd', '_blank', 'width=800,height=600')} className="book-demo-button" />
                             <Sheet open={isOpen} onOpenChange={setIsOpen}>
                                 <SheetTrigger>
                                     <MenuIcon className="size-9 md:hidden hover:text-white/70 transition" />
