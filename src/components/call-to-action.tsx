@@ -83,7 +83,7 @@ const CallToAction = ({ id }: { id?: string }) => {
                             
                             {/* Replace ActionButton with InterestForm */}
                             <div className={"mt-12 md:mt-16 max-w-2xl mx-auto"}>
-                                <InterestForm />
+                                <InterestForm formTitle="Contact Us" submissionContext="General Contact Form" />
                             </div>
                         </div>
                     </motion.div>
