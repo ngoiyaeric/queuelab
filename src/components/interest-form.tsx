@@ -93,7 +93,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
                     How do you identify? <span className="text-red-400">*</span>
                 </label>
                 <div className="mt-2 space-y-2 md:space-y-0 md:flex md:space-x-4">
-                    {['Customer', 'Business', 'Open Source Contributor'].map((option) => (
+                    {['Research', 'Engineering', 'Administration'].map((option) => (
                         <div key={option} className="flex items-center">
                             <input
                                 id={`identity-${option.toLowerCase().replace(' ', '-')}`}
@@ -115,7 +115,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
 
             <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
-                    Feature Request or General Questions <span className="text-red-400">*</span>
+                    Evidence of Exceptional Ability <span className="text-red-400">*</span>
                 </label>
                 <textarea
                     id="message"
