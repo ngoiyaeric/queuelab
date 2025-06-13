@@ -9,7 +9,7 @@ const pricingTiers = [
   },
   {
     title: 'Standard',
-    price: '$21+/Month',
+    price: '$23+/Month',
     features: ['Internet Search', 'Upload and analyze unlimited files', 'Mapping tools', 'Location Intelligence'],
   },
   {
