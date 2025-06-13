@@ -118,7 +118,6 @@ export default function ReadsPage() {
             </div>
           </details>
         </div>
-      </section>
       </motion.section>
       <SiteFooter />
     </React.Fragment>
