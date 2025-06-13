@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef } from "react";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
