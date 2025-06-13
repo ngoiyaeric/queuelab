@@ -14,11 +14,10 @@ export default function ReadsPage() {
     offset: [`start end`, 'end start']
   });
   const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
-  const readsCount = 3; // Manually counted <details> elements
 
   return (
     <React.Fragment>
-      <SiteHeader readsCount={readsCount} />
+      <SiteHeader />
       <motion.section
         ref={sectionRef}
         animate={{ backgroundPositionX: BackgroundStars.width }}
