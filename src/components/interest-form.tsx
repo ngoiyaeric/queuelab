@@ -68,7 +68,14 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
     return (
         <form onSubmit={handleSubmit} className="space-y-6 p-6 md:p-8 bg-gray-800/30 backdrop-blur-sm rounded-lg shadow-xl border border-gray-700/50">
             <h2 className="text-2xl md:text-3xl font-semibold text-center text-white">{formTitle}</h2>
-
+<div className="text-center text-sm text-white/80 tracking-tight px-4 mt-3 mb-4">
+    <p>
+        We’re looking for engineers and researchers that are trying to positively impact the world. Innovators and curious minds of exceptional ability. Fill this form out if you fit the description.
+    </p>
+    <p className="mt-2">
+        If you’re currently a student, we operate a summer open source internship program.
+    </p>
+</div>
             {error && <p className="text-red-400 bg-red-900/30 p-3 rounded-md text-center">{error}</p>}
             {success && <p className="text-green-400 bg-green-900/30 p-3 rounded-md text-center">{success}</p>}
 
@@ -93,7 +100,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
                     How do you identify? <span className="text-red-400">*</span>
                 </label>
                 <div className="mt-2 space-y-2 md:space-y-0 md:flex md:space-x-4">
-                    {['Customer', 'Business', 'Open Source Contributor'].map((option) => (
+                    {['Research', 'Engineering', 'Administration'].map((option) => (
                         <div key={option} className="flex items-center">
                             <input
                                 id={`identity-${option.toLowerCase().replace(' ', '-')}`}
@@ -115,7 +122,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
 
             <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
-                    Feature Request or General Questions <span className="text-red-400">*</span>
+                    Evidence of Exceptional Ability <span className="text-red-400">*</span>
                 </label>
                 <textarea
                     id="message"
