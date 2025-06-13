@@ -77,24 +77,13 @@ const CallToAction = ({ id }: { id?: string }) => {
     <p>
         Next-generation multi-agent superintelligence benchmarks.
     </p>
-   <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
-       <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
-           Talent
-       </h2>
-       <p>
-           We’re looking for engineers and researchers that are trying to positively impact the world. Innovators and curious minds of exceptional ability. Fill this form out if you fit the description.
-       </p>
-       <p className="mt-2">
-           If you’re currently a student, we operate a summer open source internship program.
-       </p>
-   </div>
 </div>
 
 
                             
                             {/* Replace ActionButton with InterestForm */}
                             <div className={"mt-12 md:mt-16 max-w-2xl mx-auto"}>
-                                <InterestForm formTitle="Join QCX" submissionContext="General Contact Form" />
+                                <InterestForm formTitle="Talent" submissionContext="General Contact Form" />
                             </div>
                         </div>
                     </motion.div>
