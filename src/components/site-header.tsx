@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Modal, ModalContent, ModalTrigger } from "@/components/ui/modal";
 import { useAuth } from '@/components/auth-provider'; // New import
 import { AuthForm } from '@/components/auth-form';   // New import
+import { ActionButton } from '@/components/action-button';
 
 export default function SiteHeader() {
     const [isOpen, setIsOpen] = useState(false);
@@ -50,12 +51,7 @@ export default function SiteHeader() {
                             ) : (
                                 <Modal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
                                     <ModalTrigger asChild>
-                                        <Button
-                                            size="sm" // Keep size if appropriate
-                                            className="book-demo-button bg-green-500 hover:bg-green-600 text-white font-medium px-4 py-2 rounded-md transition-colors duration-150" // New styling
-                                        >
-                                            Login / Sign Up
-                                        </Button>
+                                        <ActionButton label="Queue-In/Up" href="#" className="book-demo-button" />
                                     </ModalTrigger>
                                     <ModalContent className="bg-black/60 backdrop-blur-lg border border-white/20 text-white p-0">
                                         <AuthForm /> {/* Replace InterestForm with AuthForm */}
