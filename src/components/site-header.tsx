@@ -11,7 +11,11 @@ import { useAuth } from '@/components/auth-provider'; // New import
 import { AuthForm } from '@/components/auth-form';   // New import
 import { ActionButton } from '@/components/action-button';
 
-export default function SiteHeader() {
+interface SiteHeaderProps {
+  readsCount?: number;
+}
+
+export default function SiteHeader({ readsCount }: SiteHeaderProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
     const { user, loading: authLoading, signOut } = useAuth(); // Get auth state
@@ -36,7 +40,9 @@ export default function SiteHeader() {
                                 <Link href="/#features" className="text-white/70 hover:text-white transition">Products</Link>
                                 <Link href="/#pricing" className="text-white/70 hover:text-white transition">Pricing</Link>
                                 <Link href="/#careers" className="text-white/70 hover:text-white transition">Research</Link>
-                                <Link href="/reads" className="text-white/70 hover:text-white transition">Reads</Link>
+                                <Link href="/reads" className="text-white/70 hover:text-white transition">
+                                  Reads {readsCount && readsCount > 0 ? `(${readsCount})` : ''}
+                                </Link>
                             </nav>
                         </section>
                         <section className="flex max-md:gap-4 items-center">
@@ -89,7 +95,7 @@ export default function SiteHeader() {
                                             </Link>
                                             <Link href="/reads" className="flex items-center gap-3 text-white/70 hover:text-white transition">
                                                 <Newspaper className="size-6" />
-                                                Reads
+                                                Reads {readsCount && readsCount > 0 ? `(${readsCount})` : ''}
                                             </Link>
                                         </nav>
                                     </div>
