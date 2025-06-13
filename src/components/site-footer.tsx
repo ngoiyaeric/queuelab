@@ -17,6 +17,7 @@ export default function SiteFooter() {
                     <Link href="https://tally.so/r/wADZ4o" className="text-sm text-muted-foreground hover:underline">
                         Privacy and Terms
                     </Link>
+                    <Link href="/#careers" className="text-sm text-muted-foreground hover:underline">Research</Link>
 
                     <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
                         ©️ 2024 QCX, All rights reserved. Built by <a
