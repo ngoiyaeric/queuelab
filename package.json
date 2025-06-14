@@ -23,6 +23,7 @@
     "nodemailer": "^7.0.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-p5": "^1.4.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7"
   },
