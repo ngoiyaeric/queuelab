@@ -11,14 +11,14 @@ import { AppPicker } from "@/components/app-picker"
 import { useTheme } from "@/components/theme-provider"
 import { useAuth } from "@/components/auth/auth-provider"
 import { useToast } from "@/hooks/use-toast"
-import { useRouter } from "next/navigation"
+import { useRouter, redirect } from "next/navigation"
 import { Search, Activity, MessageSquare, SettingsIcon, HelpCircle, Download, Sun, Moon, LogOut } from "lucide-react"
 import Image from "next/image"
 
 export default function DashboardPage() {
   const [searchOpen, setSearchOpen] = useState(false)
   const { theme, setTheme } = useTheme()
-  const { user, signOut, loading } = useAuth()
+  const { user, signOut, loading, session } = useAuth()
   const { toast } = useToast()
   const router = useRouter()
 
@@ -56,6 +56,11 @@ export default function DashboardPage() {
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
       </div>
     )
+  }
+
+  if (!session) {
+    redirect("/")
+    return null // or a loading spinner, depending on desired UX
   }
 
   return (
