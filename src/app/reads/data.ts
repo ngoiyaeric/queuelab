@@ -2,7 +2,6 @@ export interface ReadItem {
   title: string;
   date: string;
   content: string[];
-  postCount: number;
 }
 
 export const readsData: ReadItem[] = [
@@ -13,7 +12,6 @@ export const readsData: ReadItem[] = [
       "We’re an applied artificial intelligence research lab working at the intersection of nature and computation.",
       "Inspired by the queue—a fundamental data structure reflecting the natural flow of life and entropy—our systems thinking is rooted in this concept, driving us to prioritize quality throughout our ecosystem. Quality forms the core of our value proposition, delivering exceptional customer experiences across our computational platforms. We pioneer innovative technologies grounded in nature’s first principles to power our cutting-edge systems. Democratizing intelligence to improve our experience.",
     ],
-    postCount: 10,
   },
   {
     title: "Environment Aware",
@@ -25,12 +23,10 @@ export const readsData: ReadItem[] = [
       "Replenishing seems to be a central recurring indicator for flourishing societies, as the knowledge of depleting resources propagated with enough throughput onto the geographically distributed group of people as a result of being environment aware.",
       "As we continue to evolve into our digital environment, we diverge further from our physical one—spending increasing amounts of time indoors on our devices and having decreasing access and oversight on our physical environment - this is fluidity overload. Democratizing and interoperating to environment forecasts and digital replenishing into our explorative and autonomous systems is a great start to enhancing our experience as we become increasingly interconnected at the digital layer.",
     ],
-    postCount: 5,
   },
   {
     title: "Fluidity Index",
     date: "💦",
     content: ["0 cost benchmarks"],
-    postCount: 2,
   },
 ];

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import SiteHeader from "@/components/site-header";
+// SiteHeader import removed
 import SiteFooter from "@/components/site-footer";
 import CallToAction  from "@/components/call-to-action";
 import BackgroundStars from "@/assets/stars.png";
@@ -15,11 +15,11 @@ export default function ReadsPage() {
     offset: [`start end`, 'end start']
   });
   const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
-  const readsCount = readsData.length;
+  // readsCount variable removed
 
   return (
     <React.Fragment>
-      <SiteHeader readsCount={readsCount} />
+      {/* SiteHeader instance removed */}
       <motion.section
         ref={sectionRef}
         animate={{ backgroundPositionX: BackgroundStars.width }}
@@ -36,7 +36,7 @@ export default function ReadsPage() {
           {readsData.map((read, index) => (
             <details key={index} className="mb-8">
               <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
-                {read.title} ({read.postCount} posts)
+                {read.title}
               </summary>
               <div className="text-center text-sm text-white/50 mt-2">
                 {read.date}

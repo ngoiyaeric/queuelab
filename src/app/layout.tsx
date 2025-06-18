@@ -4,6 +4,8 @@ import "./globals.css";
 import { clsx } from "clsx";
 import { Roboto } from "next/font/google";
 import { AuthProvider } from '@/components/auth-provider'; // Added import
+import SiteHeader from "@/components/site-header"; // Added import
+import { readsData } from "./reads/data"; // Added import
 
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
@@ -23,6 +25,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const readsCount = readsData.length; // Added calculation
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -41,6 +44,7 @@ export default function RootLayout({
       </head>
       <body className={clsx(inter.className, roboto.className, "antialiased")}>
         <AuthProvider> {/* Added AuthProvider wrapper */}
+          <SiteHeader readsCount={readsCount} /> {/* Added SiteHeader */}
           {children}
         </AuthProvider>
       </body>
