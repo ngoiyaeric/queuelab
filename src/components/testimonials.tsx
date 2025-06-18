@@ -16,17 +16,17 @@ const testimonials = [
     },
     {
         text: "“I've always been looking for an all in one earth intelligence platform”",
-        name: "Tom Cucherosset",
+        name: "Tom",
         avatarImg: Avatar2,
     },
     {
         text: "“The user interface is so intuitive and easy to use, it has saved us countless hours”",
-        name: "Sophia Perez",
+        name: "Sophia",
         avatarImg: Avatar3,
     },
     {
         text: "“Our team's productivity has increased significantly since we started using this tool”",
-        name: "Alec Witthen",
+        name: "Alec",
         avatarImg: Avatar4,
     },
 ]
