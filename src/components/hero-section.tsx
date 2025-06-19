@@ -94,8 +94,14 @@ export function HeroSection() {
                         animate={{ translateY: ["-2px", "2px", "-2px"] }}
                         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                     >QCX</motion.h1>
-                    <p className={"font-handwriting text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-center justify-center"}>is a multi-agent intelligence platform for exploration and automation. Your environment aware planetary copilot for your</p> 
-                    <span className={"text-sm tracking-wider text-[#7CFC00] flex justify-center"}>QUALITY COMPUTER EXPERIENCES </span>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1, delay: 0.5 }}
+                    >
+                        <p className={"font-handwriting text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-center justify-center"}>is a multi-agent intelligence platform for exploration and automation. Your environment aware planetary copilot for your</p>
+                        <span className={"text-sm tracking-wider text-[#7CFC00] flex justify-center"}>QUALITY COMPUTER EXPERIENCES </span>
+                    </motion.div>
                     <div className={"flex justify-center mt-5"}>
                         <ActionButton label={"core"} href={"https://github.com/QueueLab/QCX/"} />
                     </div>
