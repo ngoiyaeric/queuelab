@@ -3,10 +3,21 @@
 import { ActionButton } from "./action-button";
 import BackgroundStars from "@/assets/stars.png";
 import {motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
-import {useRef} from "react";
+import {useRef, useState, useEffect} from "react"; // Import React for MouseEvent type
 import React from "react"; // Import React for MouseEvent type
+import { Modal, ModalContent, ModalTrigger } from "@/components/ui/modal";
+import { AuthForm } from '@/components/auth-form';
+import { useAuth } from '@/components/auth-provider';
 
 export function HeroSection() {
+    const { user, loading: authLoading } = useAuth();
+    const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
+
+    useEffect(() => {
+        if (user && isDemoModalOpen) {
+            setIsDemoModalOpen(false);
+        }
+    }, [user, isDemoModalOpen, setIsDemoModalOpen]);
 
     const sectionRef = useRef<HTMLElement>(null);
     const sphereRef = useRef<HTMLDivElement>(null);
@@ -97,7 +108,16 @@ export function HeroSection() {
                     <p className={"font-handwriting text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-center justify-center"}>is a multi-agent intelligence platform for exploration and automation. Your environment aware planetary copilot for your</p> 
                     <span className={"text-sm tracking-wider text-[#7CFC00] flex justify-center"}>QUALITY COMPUTER EXPERIENCES </span>
                     <div className={"flex justify-center mt-5"}>
-                        <ActionButton label={"core"} href={"https://github.com/QueueLab/QCX/"} />
+                        {!authLoading && !user && (
+                            <Modal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
+                                <ModalTrigger asChild>
+                                    <ActionButton label="Queue-In/Up" href="#" className="book-demo-button" />
+                                </ModalTrigger>
+                                <ModalContent className="bg-black/60 backdrop-blur-lg border border-white/20 text-white p-0">
+                                    <AuthForm />
+                                </ModalContent>
+                            </Modal>
+                        )}
                     </div>
                 </div>
             </motion.section>

@@ -4,11 +4,10 @@ import Link from "next/link";
 import SiteLogo from "@/assets/logo.svg";
 import { Feather, MenuIcon, Newspaper, Wallet2, BookOpen } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useState, useEffect } from "react"; // useEffect Added
+import { useState, useEffect } from "react"; // useEffect Added for isOpen
 import { Button } from "@/components/ui/button";
-import { Modal, ModalContent, ModalTrigger } from "@/components/ui/modal";
+// Modal, ModalContent, ModalTrigger, AuthForm are no longer needed here
 import { useAuth } from '@/components/auth-provider'; // New import
-import { AuthForm } from '@/components/auth-form';   // New import
 import { ActionButton } from '@/components/action-button';
 
 interface SiteHeaderProps {
@@ -17,14 +16,15 @@ interface SiteHeaderProps {
 
 export default function SiteHeader({ readsCount }: SiteHeaderProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
+    // const [isDemoModalOpen, setIsDemoModalOpen] = useState(false); // No longer needed
     const { user, loading: authLoading, signOut } = useAuth(); // Get auth state
 
-    useEffect(() => {
-        if (user && isDemoModalOpen) {
-            setIsDemoModalOpen(false);
-        }
-    }, [user, isDemoModalOpen, setIsDemoModalOpen]);
+    // useEffect for isDemoModalOpen is no longer needed
+    // useEffect(() => {
+    //     if (user && isDemoModalOpen) {
+    //         setIsDemoModalOpen(false);
+    //     }
+    // }, [user, isDemoModalOpen, setIsDemoModalOpen]);
     return (
         <>
             <header className="py-4 border-b max-md:backdrop-blur md:border-none sticky top-0 z-10">
@@ -55,14 +55,8 @@ export default function SiteHeader({ readsCount }: SiteHeaderProps) {
                                     Logout
                                 </Button>
                             ) : (
-                                <Modal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
-                                    <ModalTrigger asChild>
-                                        <ActionButton label="Queue-In/Up" href="#" className="book-demo-button" />
-                                    </ModalTrigger>
-                                    <ModalContent className="bg-black/60 backdrop-blur-lg border border-white/20 text-white p-0">
-                                        <AuthForm /> {/* Replace InterestForm with AuthForm */}
-                                    </ModalContent>
-                                </Modal>
+                                // Replaced Modal with AuthForm with the GitHub ActionButton
+                                <ActionButton label="core" href="https://github.com/QueueLab/QCX/" className="book-demo-button" />
                             )}
                             <Sheet open={isOpen} onOpenChange={setIsOpen}>
                                 <SheetTrigger>
