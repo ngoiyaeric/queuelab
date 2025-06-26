@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import SiteLogo from "@/assets/logo.svg";
-import { Feather, MenuIcon, Newspaper, Wallet2, BookOpen } from "lucide-react";
+import { Home, Package, MenuIcon, Newspaper, Wallet2, BookOpenText } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect } from "react"; // useEffect Added
 import { Button } from "@/components/ui/button";
@@ -77,24 +77,24 @@ export default function SiteHeader({ readsCount }: SiteHeaderProps) {
                                     </div>
                                     <div className="mt-8 mb-4">
                                         <nav className="grid gap-4 items-center text-lg">
-                                            <Link href="/" className="flex items-center gap-3 text-white/70 hover:text-white transition">
-                                                <Feather className="size-6" />
+                                            <Link href="/" className="flex items-center gap-3 text-white/70 hover:text-white transition" onClick={() => setIsOpen(false)}>
+                                                <Home className="size-6" />
                                                 Home
                                             </Link>
-                                            <Link href="/#features" className="flex items-center gap-3 text-white/70 hover:text-white transition">
-                                                <Feather className="size-6" />
+                                            <Link href="/#features" className="flex items-center gap-3 text-white/70 hover:text-white transition" onClick={() => setIsOpen(false)}>
+                                                <Package className="size-6" />
                                                 Products
                                             </Link>
-                                            <Link href="/#pricing" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/#pricing" className="flex items-center gap-3 text-white/70 hover:text-white transition" onClick={() => setIsOpen(false)}>
                                                 <Wallet2 className="size-6" />
                                                 Pricing
                                             </Link>
-                                            <Link href="/#careers" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/#careers" className="flex items-center gap-3 text-white/70 hover:text-white transition" onClick={() => setIsOpen(false)}>
                                                 <Newspaper className="size-6" />
                                                 Research
                                             </Link>
-                                            <Link href="/reads" className="flex items-center gap-3 text-white/70 hover:text-white transition">
-                                                <Newspaper className="size-6" />
+                                            <Link href="/reads" className="flex items-center gap-3 text-white/70 hover:text-white transition" onClick={() => setIsOpen(false)}>
+                                                <BookOpenText className="size-6" />
                                                 Reads {readsCount && readsCount > 0 ? `(${readsCount})` : ''}
                                             </Link>
                                         </nav>
