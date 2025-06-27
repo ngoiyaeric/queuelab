@@ -156,6 +156,18 @@ export function AuthForm() {
                         </button>
                     </div>
                 </form>
+
+                {loading && (
+                    <div className="mt-6 h-2.5 w-full rounded-full bg-gray-700/60 overflow-hidden">
+                        <div
+                            className="h-2.5 rounded-full bg-sky-500"
+                            style={{
+                                width: `75%`,
+                                animation: 'propel 1s ease-in-out infinite alternate',
+                            }}
+                        ></div>
+                    </div>
+                )}
             </div>
         </div>
     );
