@@ -100,7 +100,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
                     How do you identify? <span className="text-red-400">*</span>
                 </label>
                 <div className="mt-2 space-y-2 md:space-y-0 md:flex md:space-x-4">
-                    {['Research', 'Engineering', 'Administration'].map((option) => (
+                    {['Customer', 'Business', 'Open Source Contributor'].map((option) => (
                         <div key={option} className="flex items-center">
                             <input
                                 id={`identity-${option.toLowerCase().replace(' ', '-')}`}
