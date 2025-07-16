@@ -14,6 +14,18 @@ export function AuthForm() {
     const [message, setMessage] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
+    const handleTwitterLogin = async () => {
+        setLoading(true);
+        setError(null);
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: 'twitter',
+        });
+        if (error) {
+            setError(error.message);
+            setLoading(false);
+        }
+    };
+
     const handleAuthAction = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
@@ -156,6 +168,29 @@ export function AuthForm() {
                         </button>
                     </div>
                 </form>
+
+                <div className="relative my-6">
+                    <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                        <div className="w-full border-t border-gray-600" />
+                    </div>
+                    <div className="relative flex justify-center text-sm">
+                        <span className="px-2 bg-gray-800 text-gray-400">Or continue with</span>
+                    </div>
+                </div>
+
+                <div>
+                    <Button
+                        variant="outline"
+                        className="w-full"
+                        onClick={handleTwitterLogin}
+                        disabled={loading}
+                    >
+                        <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M14.258 23.337l-3.21-3.209 3.21 3.209zm-2.355-3.209l-1.07-1.07 1.07 1.07zM6.39 16.925l-1.07 1.07 1.07-1.07zm-1.527-7.41l1.07-1.07-1.07 1.07zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-1.197 2.656l-.535.535.535-.535zm-.535 6.89l.535-.535-.535.535zm3.732 3.732l.535.535-.535-.535zm.535-7.424l-.535.535.535-.535zM4.863 8.585l-1.07-1.07 1.07 1.07zm14.274 0l1.07-1.07-1.07 1.07zM12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zM11.043 4.656L4.863 10.836l1.527 1.527 6.18-6.18-1.527-1.527zm-1.527 7.424l6.18 6.18 1.527-1.527-6.18-6.18-1.527 1.527zM12.957 4.656l6.18 6.18-1.527 1.527-6.18-6.18 1.527-1.527zm-1.527 7.424l-6.18-6.18-1.527 1.527 6.18 6.18 1.527-1.527z" />
+                        </svg>
+                        Sign in with X
+                    </Button>
+                </div>
             </div>
         </div>
     );
