@@ -14,7 +14,7 @@ const pricingTiers = [
   },
   {
     title: 'Pro',
-    price: '$52+/Month',
+    price: '$$$+/Month',
     features: ['Everything in Standard', 'Browser Agents', 'Physics Models', 'Environment Aware *', 'Collaborative'],
   },
   {
@@ -50,7 +50,7 @@ export function PricingSection({ id }: { id: string }) {
                 {tier.title === 'Enterprise' ? (
                   <ActionButton label="Contact Us" href="https://cal.com/ericngoiya" />
                 ) : (
-                  <ActionButton label={`${tier.price} - ${tier.title}`} href={tier.title === 'Standard' ? "https://www.paypal.com/ncp/payment/V4DU34TVVWY76" : tier.title === 'Pro' ? "https://www.paypal.com/ncp/payment/B72MURM7SZ7MN" : "https://www.paypal.com/ncp/payment/5K2S6VPMMVUXA"} />
+                  <ActionButton label={`${tier.price} - ${tier.title}`} href={tier.title === 'Standard' ? "https://www.paypal.com/ncp/payment/V4DU34TVVWY76" : tier.title === 'Pro' ? "https://www.paypal.com/paypalme/queuenorth" : "https://www.paypal.com/paypalme/queuenorth"} />
                 )}
               </div>
             </div>
