@@ -45,13 +45,13 @@ export default function ReadsPage() {
           backgroundImage: `url(${BackgroundStars.src})`,
           backgroundPositionY,
         }}
-        className="relative overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
+        className={`relative overflow-hidden ${theme === 'light' ? '' : '[mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]'}`}
       >
         <div className={`absolute inset-0 ${theme === 'light' ? 'bg-natureBeige' : 'bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]'}`} />
         {/* The div below used to be the <section> tag. We move its padding classes here and make it relative. */}
         <div className="container py-20 md:py-24 relative">
           <details className="mb-8">
-            <summary className={`text-5xl tracking-tighter text-center font-medium cursor-pointer border p-4 rounded-lg ${theme === 'light' ? 'border-natureGreenLight hover:bg-natureGreenLight/10' : 'border-white/20 hover:bg-white/5'}`}>
+            <summary className={`text-5xl tracking-tighter text-center font-medium cursor-pointer border p-4 rounded-lg ${theme === 'light' ? 'text-natureGreenLight border-natureGreenLight hover:bg-natureGreenLight/10' : 'text-white/70 border-white/20 hover:bg-white/5'}`}>
               QueueCX
             </summary>
             <div className={`text-center text-sm mt-2 ${theme === 'light' ? 'text-natureGreenLight' : 'text-white/50'}`}>
@@ -76,7 +76,7 @@ export default function ReadsPage() {
           </details>
 
           <details className="mb-8">
-            <summary className={`text-5xl tracking-tighter text-center font-medium cursor-pointer border p-4 rounded-lg ${theme === 'light' ? 'border-natureGreenLight hover:bg-natureGreenLight/10' : 'border-white/20 hover:bg-white/5'}`}>
+            <summary className={`text-5xl tracking-tighter text-center font-medium cursor-pointer border p-4 rounded-lg ${theme === 'light' ? 'text-natureGreenLight border-natureGreenLight hover:bg-natureGreenLight/10' : 'text-white/70 border-white/20 hover:bg-white/5'}`}>
               Environment Aware
             </summary>
             <div className={`text-center text-sm mt-2 ${theme === 'light' ? 'text-natureGreenLight' : 'text-white/50'}`}>
@@ -129,7 +129,7 @@ export default function ReadsPage() {
           </details>
 
           <details className="mb-8">
-            <summary className={`text-5xl tracking-tighter text-center font-medium cursor-pointer border p-4 rounded-lg ${theme === 'light' ? 'border-natureGreenLight hover:bg-natureGreenLight/10' : 'border-white/20 hover:bg-white/5'}`}>
+            <summary className={`text-5xl tracking-tighter text-center font-medium cursor-pointer border p-4 rounded-lg ${theme === 'light' ? 'text-natureGreenLight border-natureGreenLight hover:bg-natureGreenLight/10' : 'text-white/70 border-white/20 hover:bg-white/5'}`}>
               Fluidity Index
             </summary>
             <div className={`text-center text-sm mt-2 ${theme === 'light' ? 'text-natureGreenLight' : 'text-white/50'}`}>💦</div>
