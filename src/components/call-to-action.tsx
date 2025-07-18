@@ -4,7 +4,7 @@ import { InterestForm } from "@/components/interest-form"; // Add this import
 import BackgroundStars from "@/assets/stars.png";
 import BackgroundGrid from "@/assets/grid-lines.png";
 import {motion, useMotionTemplate, useMotionValue, useScroll, useTransform} from "framer-motion";
-import {RefObject, useEffect, useRef} from "react";
+import {RefObject, useEffect, useRef, useState} from "react";
 
 interface CallToActionProps {
     id?: string; // Add the id prop here
