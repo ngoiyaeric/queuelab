@@ -75,7 +75,7 @@ export function HeroSection() {
                 transition={{duration: 120, repeat: Infinity, ease: 'linear'}}
                 className={"h-[492px] md:h-[800px] flex items-center overflow-hidden relative [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"}
                 style={{backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY}} ref={sectionRef}>
-                <div className={`absolute inset-0 ${theme === 'light' ? 'bg-transparent' : 'bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]'}`} />
+                <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"} />
                 {/* Planet Logic */}
                 {theme === 'light' ? (
                     <Image
@@ -95,30 +95,30 @@ export function HeroSection() {
                     style={{translateY: '-50%', translateX: '-50%',}}
                     animate={{rotate: '1turn'}}
                     transition={{duration: 60, repeat: Infinity, ease: 'linear'}}
-                    className={`absolute size-[344px] md:size-[580px] border ${theme === 'light' ? 'border-natureGreenLight' : 'border-white'} opacity-20 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}>
-                    <div className={`absolute size-2 ${theme === 'light' ? 'bg-natureGreenLight' : 'bg-white'} rounded-full top-1/2 left-0 -translate-x-1/2 -translate-y-1/2`} />
-                    <div className={`absolute size-2 ${theme === 'light' ? 'bg-natureGreenLight' : 'bg-white'} rounded-full top-0 left-1/2 -translate-x-1/2 -translate-y-1/2`} />
-                    <div className={`absolute size-5 border ${theme === 'light' ? 'border-natureGreenLight' : 'border-white'} rounded-full top-1/2 left-full -translate-x-1/2 -translate-y-1/2 inline-flex items-center justify-center`}>
-                        <div className={`size-2 ${theme === 'light' ? 'bg-natureGreenLight' : 'bg-white'} rounded-full`} />
+                    className={"absolute size-[344px] md:size-[580px] border border-white opacity-20 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"}>
+                    <div className={"absolute size-2 bg-white rounded-full top-1/2 left-0 -translate-x-1/2 -translate-y-1/2"} />
+                    <div className={"absolute size-2 bg-white rounded-full top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"} />
+                    <div className={"absolute size-5 border border-white rounded-full top-1/2 left-full -translate-x-1/2 -translate-y-1/2 inline-flex items-center justify-center"}>
+                        <div className={"size-2 bg-white rounded-full"} />
                     </div>
                 </motion.div>
                 <motion.div
                     style={{translateY: '-50%', translateX: '-50%',}}
                     animate={{rotate: '-1turn'}}
                     transition={{duration: 60, repeat: Infinity, ease: 'linear'}}
-                    className={`absolute size-[444px] md:size-[780px] rounded-full border ${theme === 'light' ? 'border-natureGreenLight' : 'border-white'}/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-dashed`} />
+                    className={"absolute size-[444px] md:size-[780px] rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-dashed"} />
                 <motion.div
                     style={{translateY: '-50%', translateX: '-50%',}}
                     animate={{rotate: '1turn'}}
                     transition={{duration: 90, repeat: Infinity, ease: 'linear'}}
-                    className={`absolute size-[544px] md:size-[980px] rounded-full border ${theme === 'light' ? 'border-natureGreenLight' : 'border-white'} opacity-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}>
-                    <div className={`absolute size-2 ${theme === 'light' ? 'bg-natureGreenLight' : 'bg-white'} rounded-full top-1/2 left-0 -translate-x-1/2 -translate-y-1/2`}/>
-                    <div className={`absolute size-2 ${theme === 'light' ? 'bg-natureGreenLight' : 'bg-white'} rounded-full top-1/2 left-full -translate-x-1/2 -translate-y-1/2`}/>
+                    className={"absolute size-[544px] md:size-[980px] rounded-full border border-white opacity-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"}>
+                    <div className={"absolute size-2 bg-white rounded-full top-1/2 left-0 -translate-x-1/2 -translate-y-1/2"}/>
+                    <div className={"absolute size-2 bg-white rounded-full top-1/2 left-full -translate-x-1/2 -translate-y-1/2"}/>
                 </motion.div>
                 {/* Hero Section Content Logic */}
                 <div className={"container relative mt-16"}>
-                    <h1 className={`text-8xl md:text-[168px] md:leading-none font-semibold tracking-tighter text-center ${theme === 'light' ? 'text-natureGreenLight' : 'bg-white bg-clip-text text-transparent bg-[radial-gradient(100%_100%_at_top_left,rgba(255,255,255,0.8),rgba(255,255,255,0.7),rgba(0,0,255,0.3))] [text-shadow:2px_2px_4px_rgba(0,0,0,0.4),_-1px_-1px_2px_rgba(255,255,255,0.3),_0_0_10px_rgba(0,0,255,0.5)]'}`}>QCX</h1>
-                    <p className={`font-handwriting text-lg md:text-xl max-w-xl mx-auto ${theme === 'light' ? 'text-natureGreenLight' : 'text-white/70'} mt-5 text-center justify-center`}>is a multi-agent intelligence platform for exploration and automation. Your environment aware planetary copilot for your</p>
+                    <h1 className={"text-8xl md:text-[168px] md:leading-none font-semibold bg-white tracking-tighter bg-clip-text text-transparent text-center bg-[radial-gradient(100%_100%_at_top_left,rgba(255,255,255,0.8),rgba(255,255,255,0.7),rgba(0,0,255,0.3))] [text-shadow:2px_2px_4px_rgba(0,0,0,0.4),_-1px_-1px_2px_rgba(255,255,255,0.3),_0_0_10px_rgba(0,0,255,0.5)]"}>QCX</h1>
+                    <p className={"font-handwriting text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-center justify-center"}>is a multi-agent intelligence platform for exploration and automation. Your environment aware planetary copilot for your</p>
                     <span className={"text-sm tracking-wider text-[#7CFC00] flex justify-center"}>QUALITY COMPUTER EXPERIENCES </span>
                     <div className={"flex justify-center mt-5"}>
                         <ActionButton label={"core"} href={"https://github.com/QueueLab/QCX/"} />

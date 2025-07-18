@@ -7,8 +7,10 @@ export default function ThemeSwitcher() {
   const [theme, setTheme] = useState("dark");
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "dark";
-    setTheme(savedTheme);
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
   }, []);
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export default function ThemeSwitcher() {
   };
 
   return (
-    <button onClick={toggleTheme} className={`${theme === 'light' ? 'text-natureGreenLight' : 'text-white/70'} hover:text-natureGreenLight transition`}>
+    <button onClick={toggleTheme} className="text-white/70 hover:text-white transition">
       {theme === "light" ? <Moon className="size-6" /> : <Sun className="size-6" />}
     </button>
   );
