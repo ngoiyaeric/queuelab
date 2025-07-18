@@ -45,7 +45,7 @@ export default function ReadsPage() {
           backgroundImage: `url(${BackgroundStars.src})`,
           backgroundPositionY,
         }}
-        className="relative overflow-hidden"
+        className="relative overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
       >
         <div className={`absolute inset-0 ${theme === 'light' ? 'bg-natureBeige' : 'bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]'}`} />
         {/* The div below used to be the <section> tag. We move its padding classes here and make it relative. */}
