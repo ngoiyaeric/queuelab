@@ -140,7 +140,7 @@ export function AuthForm() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
-                            className={`mt-1 block w-full px-3 py-2.5 rounded-md shadow-sm ${theme === 'light' ? 'bg-natureWhite border-natureGreenLight text-natureGreenLight placeholder-natureGreenLight/70 focus:ring-natureGreenLight focus:border-natureGreenLight' : 'bg-gray-700/60 border-gray-600 text-white placeholder-gray-400 focus:ring-sky-500 focus:border-sky-500'} sm:text-sm`}
+                            className={`mt-1 block w-full px-3 py-2.5 rounded-md shadow-sm ${theme === 'light' ? 'bg-natureGreenLight/10 border-natureGreenLight text-natureGreenLight placeholder-natureGreenLight/70 focus:ring-natureGreenLight focus:border-natureGreenLight' : 'bg-gray-700/60 border-gray-600 text-white placeholder-gray-400 focus:ring-sky-500 focus:border-sky-500'} sm:text-sm`}
                             placeholder="you@example.com"
                             disabled={loading}
                         />
@@ -157,7 +157,7 @@ export function AuthForm() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            className={`mt-1 block w-full px-3 py-2.5 rounded-md shadow-sm ${theme === 'light' ? 'bg-natureWhite border-natureGreenLight text-natureGreenLight placeholder-natureGreenLight/70 focus:ring-natureGreenLight focus:border-natureGreenLight' : 'bg-gray-700/60 border-gray-600 text-white placeholder-gray-400 focus:ring-sky-500 focus:border-sky-500'} sm:text-sm`}
+                            className={`mt-1 block w-full px-3 py-2.5 rounded-md shadow-sm ${theme === 'light' ? 'bg-natureGreenLight/10 border-natureGreenLight text-natureGreenLight placeholder-natureGreenLight/70 focus:ring-natureGreenLight focus:border-natureGreenLight' : 'bg-gray-700/60 border-gray-600 text-white placeholder-gray-400 focus:ring-sky-500 focus:border-sky-500'} sm:text-sm`}
                             placeholder="••••••••"
                             disabled={loading}
                         />

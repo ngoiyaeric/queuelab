@@ -120,12 +120,14 @@ export function HeroSection() {
                     <div className={`absolute size-2 ${theme === 'light' ? 'bg-natureGreenLight' : 'bg-white'} rounded-full top-1/2 left-full -translate-x-1/2 -translate-y-1/2`}/>
                 </motion.div>
                 {/* Hero Section Content Logic */}
-                <div className={"container relative mt-16"}>
+                <div className="container relative flex flex-col items-center justify-center h-full">
                     <h1 className={`text-8xl md:text-[168px] md:leading-none font-semibold tracking-tighter text-center ${theme === 'light' ? 'text-natureGreenLight' : 'bg-white bg-clip-text text-transparent bg-[radial-gradient(100%_100%_at_top_left,rgba(255,255,255,0.8),rgba(255,255,255,0.7),rgba(0,0,255,0.3))] [text-shadow:2px_2px_4px_rgba(0,0,0,0.4),_-1px_-1px_2px_rgba(255,255,255,0.3),_0_0_10px_rgba(0,0,255,0.5)]'}`}>QCX</h1>
-                    <p className={`font-handwriting text-lg md:text-xl max-w-xl mx-auto ${theme === 'light' ? 'text-natureGreenLight' : 'text-white/70'} mt-5 text-center justify-center`}>is a multi-agent intelligence platform for exploration and automation. Your environment aware planetary copilot for your</p>
-                    <span className={"text-sm tracking-wider text-[#7CFC00] flex justify-center"}>QUALITY COMPUTER EXPERIENCES </span>
-                    <div className={"flex justify-center mt-5"}>
-                        <ActionButton label={"core"} href={"https://github.com/QueueLab/QCX/"} />
+                    <div className="mt-auto">
+                        <p className={`font-handwriting text-lg md:text-xl max-w-xl mx-auto ${theme === 'light' ? 'text-natureGreenLight' : 'text-white/70'} mt-5 text-center justify-center`}>is a multi-agent intelligence platform for exploration and automation. Your environment aware planetary copilot for your</p>
+                        <span className={"text-sm tracking-wider text-[#7CFC00] flex justify-center"}>QUALITY COMPUTER EXPERIENCES </span>
+                        <div className={"flex justify-center mt-5"}>
+                            <ActionButton label={"core"} href={"https://github.com/QueueLab/QCX/"} />
+                        </div>
                     </div>
                 </div>
             </motion.section>
