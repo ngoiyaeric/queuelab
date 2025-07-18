@@ -104,7 +104,7 @@ export function AuthForm() {
 
     return (
         <div
-            className={`relative overflow-hidden p-6 md:p-8 rounded-lg shadow-xl w-full max-w-md mx-auto [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] ${theme === 'light' ? 'bg-natureBeige border-natureGreenLight text-natureGreenLight' : 'border-white/10 text-white'}`} // Modified
+            className={`relative overflow-hidden p-6 md:p-8 rounded-lg shadow-xl w-full max-w-md mx-auto ${theme === 'light' ? 'bg-natureBeige border-natureGreenLight text-natureGreenLight' : 'border-white/10 text-white'}`} // Modified
             style={{ // Added
                 backgroundImage: theme === 'dark' ? `url(${BackgroundStars.src})` : 'none',
                 backgroundPositionY: 'center',
@@ -140,7 +140,7 @@ export function AuthForm() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
-                            className={`mt-1 block w-full px-3 py-2.5 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 sm:text-sm ${theme === 'light' ? 'bg-natureWhite border-natureGreenLight text-natureGreenLight focus:ring-natureGreenLight focus:border-natureGreenLight' : 'bg-gray-700/60 border-gray-600 text-white focus:ring-sky-500 focus:border-sky-500'}`}
+                            className={`mt-1 block w-full px-3 py-2.5 rounded-md shadow-sm ${theme === 'light' ? 'bg-natureWhite border-natureGreenLight text-natureGreenLight placeholder-natureGreenLight/70 focus:ring-natureGreenLight focus:border-natureGreenLight' : 'bg-gray-700/60 border-gray-600 text-white placeholder-gray-400 focus:ring-sky-500 focus:border-sky-500'} sm:text-sm`}
                             placeholder="you@example.com"
                             disabled={loading}
                         />
@@ -157,7 +157,7 @@ export function AuthForm() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            className={`mt-1 block w-full px-3 py-2.5 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 sm:text-sm ${theme === 'light' ? 'bg-natureWhite border-natureGreenLight text-natureGreenLight focus:ring-natureGreenLight focus:border-natureGreenLight' : 'bg-gray-700/60 border-gray-600 text-white focus:ring-sky-500 focus:border-sky-500'}`}
+                            className={`mt-1 block w-full px-3 py-2.5 rounded-md shadow-sm ${theme === 'light' ? 'bg-natureWhite border-natureGreenLight text-natureGreenLight placeholder-natureGreenLight/70 focus:ring-natureGreenLight focus:border-natureGreenLight' : 'bg-gray-700/60 border-gray-600 text-white placeholder-gray-400 focus:ring-sky-500 focus:border-sky-500'} sm:text-sm`}
                             placeholder="••••••••"
                             disabled={loading}
                         />
@@ -166,7 +166,7 @@ export function AuthForm() {
                     <Button
                         type="submit"
                         disabled={loading}
-                        className={`w-full flex justify-center py-3 px-4 rounded-md shadow-sm text-sm font-medium ${theme === 'light' ? 'text-natureWhite bg-natureGreenLight hover:bg-natureGreenLight/90 focus:ring-natureGreenLight' : 'text-white bg-green-500 hover:bg-green-600 focus:ring-green-500'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-60 transition-colors duration-150`}
+                        className={`w-full flex justify-center py-3 px-4 rounded-md shadow-sm text-sm font-medium ${theme === 'light' ? 'text-natureWhite bg-natureGreenLight hover:bg-natureGreenLight/90 focus:ring-natureGreenLight' : 'text-white bg-green-500 hover:bg-green-600 focus:ring-green-500'} focus:outline-none focus:ring-2 focus:ring-offset-2 ${theme === 'light' ? 'focus:ring-offset-natureBeige' : 'focus:ring-offset-gray-800'} disabled:opacity-60 transition-colors duration-150`}
                     >
                         {loading ? (isLoginView ? 'Queueing In...' : 'Queueing Up...') : (isLoginView ? 'Queue In' : 'Queue Up')}
                     </Button>

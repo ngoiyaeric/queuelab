@@ -29,9 +29,26 @@ const useRelativeMousePosition = (to: RefObject<HTMLElement>) => {
 }
 
 const CallToAction = ({ id }: { id?: string }) => {
-
+    const [theme, setTheme] = useState("dark");
     const sectionRef = useRef<HTMLElement>(null);
     const borderedDivRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        setTheme(savedTheme);
+
+        const observer = new MutationObserver(() => {
+            const newTheme = localStorage.getItem("theme") || "dark";
+            setTheme(newTheme);
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        return () => observer.disconnect();
+    }, []);
     const { scrollYProgress } = useScroll({target: sectionRef, offset: [`start end`, 'end start']})
     const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300])
 
@@ -45,25 +62,25 @@ const CallToAction = ({ id }: { id?: string }) => {
                     <motion.div
                         animate={{backgroundPositionX: BackgroundStars.width,}}
                         transition={{duration: 120, repeat: Infinity, ease: 'linear'}}
-                        className={"border border-muted py-24 px-6 rounded-xl overflow-hidden relative group"}
+                        className={`border py-24 px-6 rounded-xl overflow-hidden relative group ${theme === 'light' ? 'border-natureGreenLight' : 'border-muted'}`}
                         style={{backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY}}>
-                        <div className={"absolute inset-0 bg-[rgb(0,0,255)] bg-blend-overlay [mask-image:radial-gradient(50%_50%_at_50%_35%,black,transparent)] group-hover:opacity-0 transition duration-700"} style={{backgroundImage: `url(${BackgroundGrid.src})`}}/>
+                        <div className={`absolute inset-0 ${theme === 'light' ? 'bg-natureBeige' : 'bg-[rgb(0,0,255)]'} bg-blend-overlay [mask-image:radial-gradient(50%_50%_at_50%_35%,black,transparent)] group-hover:opacity-0 transition duration-700`} style={{backgroundImage: `url(${BackgroundGrid.src})`}}/>
                         <motion.div
-                            className={"absolute inset-0 bg-[rgb(0,0,255)] bg-blend-overlay opacity-0 group-hover:opacity-100 transition duration-700"}
+                            className={`absolute inset-0 ${theme === 'light' ? 'bg-natureBeige' : 'bg-[rgb(0,0,255)]'} bg-blend-overlay opacity-0 group-hover:opacity-100 transition duration-700`}
                             style={{backgroundImage: `url(${BackgroundGrid.src})`, maskImage: maskImage}} ref={borderedDivRef}/>
                         <div className={"relative"}>
-                            <h2 className={"text-5xl tracking-tighter text-center font-medium"}>
+                            <h2 className={`text-5xl tracking-tighter text-center font-medium ${theme === 'light' ? 'text-natureGreenLight' : ''}`}>
                                 Our Research
                             </h2>
                             
                         
-                          <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+                          <div className={`text-center text-lg md:text-xl ${theme === 'light' ? 'text-natureGreenLight' : 'text-white/70'} tracking-tight px-4 mt-5`}>
     <p>
         We work on applied research in artificial intelligence on nature and computation. 
         Our patent-pending research and products. 
     </p>
 
-    <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
+    <h2 className={`text-xl md:text-2xl ${theme === 'light' ? 'text-natureGreenLight' : 'text-white'} font-bold mt-5`}>
         Environment Aware Agents
     </h2>
     <p>
@@ -71,7 +88,7 @@ const CallToAction = ({ id }: { id?: string }) => {
         and context continuity, designed for fully automated natural science exploration and integration within our products.
     </p>
 
-    <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
+    <h2 className={`text-xl md:text-2xl ${theme === 'light' ? 'text-natureGreenLight' : 'text-white'} font-bold mt-5`}>
         Fluidity Index
     </h2>
     <p>
