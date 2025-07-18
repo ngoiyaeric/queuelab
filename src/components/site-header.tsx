@@ -20,6 +20,24 @@ export default function SiteHeader({ readsCount }: SiteHeaderProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
     const { user, loading: authLoading, signOut } = useAuth(); // Get auth state
+    const [theme, setTheme] = useState("dark");
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        setTheme(savedTheme);
+
+        const observer = new MutationObserver(() => {
+            const newTheme = localStorage.getItem("theme") || "dark";
+            setTheme(newTheme);
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
         if (user && isDemoModalOpen) {
@@ -38,16 +56,15 @@ export default function SiteHeader({ readsCount }: SiteHeaderProps) {
                         </Link>
                         <section className="max-md:hidden">
                             <nav className="flex gap-8 items-center text-sm">
-                                <Link href="/#features" className="text-white/70 hover:text-white transition">Products</Link>
-                                <Link href="/#pricing" className="text-white/70 hover:text-white transition">Pricing</Link>
-                                <Link href="/#careers" className="text-white/70 hover:text-white transition">Research</Link>
-                                <Link href="/reads" className="text-white/70 hover:text-white transition">
+                                <Link href="/#features" className={`${theme === 'light' ? 'text-natureGreenLight' : 'text-white/70'} hover:text-natureGreenLight transition`}>Products</Link>
+                                <Link href="/#pricing" className={`${theme === 'light' ? 'text-natureGreenLight' : 'text-white/70'} hover:text-natureGreenLight transition`}>Pricing</Link>
+                                <Link href="/#careers" className={`${theme === 'light' ? 'text-natureGreenLight' : 'text-white/70'} hover:text-natureGreenLight transition`}>Research</Link>
+                                <Link href="/reads" className={`${theme === 'light' ? 'text-natureGreenLight' : 'text-white/70'} hover:text-natureGreenLight transition`}>
                                   Reads {readsCount && readsCount > 0 ? `(${readsCount})` : ''}
                                 </Link>
                             </nav>
                         </section>
                         <section className="flex max-md:gap-4 items-center">
-                            <ThemeSwitcher />
                             {authLoading ? (
                                 <Button variant="default" size="sm" className="book-demo-button" disabled>
                                     Loading...
@@ -68,7 +85,7 @@ export default function SiteHeader({ readsCount }: SiteHeaderProps) {
                             )}
                             <Sheet open={isOpen} onOpenChange={setIsOpen}>
                                 <SheetTrigger>
-                                    <MenuIcon className="size-9 md:hidden hover:text-white/70 transition" />
+                                    <MenuIcon className={`size-9 md:hidden ${theme === 'light' ? 'hover:text-natureGreenLight' : 'hover:text-white/70'} transition`} />
                                 </SheetTrigger>
                                 <SheetContent side="top" className="p-8">
                                     <div className="inline-flex items-center center gap-3">
