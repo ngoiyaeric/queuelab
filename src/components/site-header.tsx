@@ -10,6 +10,7 @@ import { Modal, ModalContent, ModalTrigger } from "@/components/ui/modal";
 import { useAuth } from '@/components/auth-provider'; // New import
 import { AuthForm } from '@/components/auth-form';   // New import
 import { ActionButton } from '@/components/action-button';
+import ThemeSwitcher from './theme-switcher';
 
 interface SiteHeaderProps {
   readsCount?: number;
@@ -46,6 +47,7 @@ export default function SiteHeader({ readsCount }: SiteHeaderProps) {
                             </nav>
                         </section>
                         <section className="flex max-md:gap-4 items-center">
+                            <ThemeSwitcher />
                             {authLoading ? (
                                 <Button variant="default" size="sm" className="book-demo-button" disabled>
                                     Loading...

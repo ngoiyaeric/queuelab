@@ -3,13 +3,33 @@
 import { ActionButton } from "./action-button";
 import BackgroundStars from "@/assets/stars.png";
 import {motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
-import {useRef} from "react";
+import {useRef, useState, useEffect} from "react";
 import React from "react"; // Import React for MouseEvent type
+import Image from "next/image";
+import GlobeImage from "@/assets/globe.png";
 
 export function HeroSection() {
 
+    const [theme, setTheme] = useState("dark");
     const sectionRef = useRef<HTMLElement>(null);
     const sphereRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        setTheme(savedTheme);
+
+        const observer = new MutationObserver(() => {
+            const newTheme = localStorage.getItem("theme") || "dark";
+            setTheme(newTheme);
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        return () => observer.disconnect();
+    }, []);
 
     const cursorXRelative = useMotionValue(0);
     const cursorYRelative = useMotionValue(0);
@@ -57,11 +77,19 @@ export function HeroSection() {
                 style={{backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY}} ref={sectionRef}>
                 <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"} />
                 {/* Planet Logic */}
-                <motion.div
-                    ref={sphereRef}
-                    className={"absolute size-64 md:size-96 bg-blue-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[-20px_-20px_50px_rgb(255,255,255,0.5),-20px_-20px_80px_rgb(255,255,255,0.1),0_0_50px_rgb(0,0,255)]"}
-                    style={{ background: sphereBackground }}
-                />
+                {theme === 'light' ? (
+                    <Image
+                        src={GlobeImage}
+                        alt="Globe"
+                        className="absolute size-64 md:size-96 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                    />
+                ) : (
+                    <motion.div
+                        ref={sphereRef}
+                        className={"absolute size-64 md:size-96 bg-blue-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[-20px_-20px_50px_rgb(255,255,255,0.5),-20px_-20px_80px_rgb(255,255,255,0.1),0_0_50px_rgb(0,0,255)]"}
+                        style={{ background: sphereBackground }}
+                    />
+                )}
                 {/* Rings + Mini planets Logic */}
                 <motion.div
                     style={{translateY: '-50%', translateX: '-50%',}}
