@@ -4,6 +4,7 @@ import { DotLottiePlayer, DotLottieCommonPlayer } from "@dotlottie/react-player"
 import { animate, motion, useMotionTemplate, useMotionValue, ValueAnimationTransition } from "framer-motion";
 import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import VimeoPlayer from "./vimeo-player";
 import productGif from "@/assets/product-gif.gif";
 import productImage3 from "@/assets/product-image-3.png";
 import productImage4 from "@/assets/product-image-4.png";
@@ -19,6 +20,7 @@ const tabs = [
     backgroundPositionY: 50,
     backgroundSizeX: 100,
     image: productGif,
+    component: VimeoPlayer,
   },
   {
     icon: "/assets/lottie/click.lottie",
@@ -186,17 +188,21 @@ export function Features({ id }: { id: string }) {
           </div>
           <motion.div className="border border-muted rounded-xl p-2.5 mt-3">
             <div className="relative aspect-video rounded-lg overflow-hidden">
-              <Image
-                src={currentImage.get().src} // Fix: Use `.src` here
-                alt={tabs[selectedTab].title}
-                fill
-                className="object-contain"
-                onClick={() => handleImageClick(currentImage.get().src)} // Fix: Use `.src` here
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                priority
-                quality={100}
-                onError={handleImageError}
-              />
+              {tabs[selectedTab].component ? (
+                <VimeoPlayer />
+              ) : (
+                <Image
+                  src={currentImage.get().src} // Fix: Use `.src` here
+                  alt={tabs[selectedTab].title}
+                  fill
+                  className="object-contain"
+                  onClick={() => handleImageClick(currentImage.get().src)} // Fix: Use `.src` here
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                  priority
+                  quality={100}
+                  onError={handleImageError}
+                />
+              )}
             </div>
           </motion.div>
         </div>
