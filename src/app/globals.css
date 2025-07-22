@@ -35,6 +35,39 @@
     --computation-blue: 210 60% 70%;
     --computation-gray: 220 20% 60%;
   }
+
+  .light {
+    --background: 48 33% 98%;
+    --foreground: 120 40% 30%;
+    --card: 45 33% 94%;
+    --card-foreground: 120 40% 30%;
+    --popover: 45 33% 94%;
+    --popover-foreground: 120 40% 30%;
+    --primary: 45 33% 94%;
+    --primary-foreground: 120 40% 30%;
+    --secondary: 45 33% 94%;
+    --secondary-foreground: 120 40% 30%;
+    --muted: 45 33% 94%;
+    --muted-foreground: 120 40% 30%;
+    --accent: 45 33% 94%;
+    --accent-foreground: 120 40% 30%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 120 40% 30%;
+    --border: 45 33% 94%;
+    --input: 45 33% 94%;
+    --ring: 120 40% 30%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --radius: 0.5rem;
+    --nature-green: 120 40% 30%;
+    --nature-brown: 30 20% 50%;
+    --nature-sky: 200 70% 80%;
+    --computation-blue: 210 60% 70%;
+    --computation-gray: 220 20% 60%;
+  }
 }
 
 @layer base {

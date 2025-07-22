@@ -52,24 +52,16 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        beige: {
-          DEFAULT: "hsl(30, 20%, 80%)",
-          foreground: "hsl(120, 40%, 30%)",
-        },
-        forestGreen: {
+        natureGreenLight: {
           DEFAULT: "hsl(120, 40%, 30%)",
-          foreground: "hsl(30, 20%, 80%)",
+          foreground: "hsl(48, 33%, 98%)",
         },
-        natureGreen: {
-          DEFAULT: "hsl(120, 40%, 80%)",
-          foreground: "hsl(30, 20%, 80%)",
-        },
-        natureBrown: {
-          DEFAULT: "hsl(30, 20%, 50%)",
+        natureBeige: {
+          DEFAULT: "hsl(45, 33%, 94%)",
           foreground: "hsl(120, 40%, 30%)",
         },
-        natureSky: {
-          DEFAULT: "hsl(200, 70%, 80%)",
+        natureWhite: {
+          DEFAULT: "hsl(48, 33%, 98%)",
           foreground: "hsl(120, 40%, 30%)",
         },
       },

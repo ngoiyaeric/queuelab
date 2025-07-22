@@ -6,7 +6,7 @@ import Avatar3 from "@/assets/avatar-3.png";
 import Avatar4 from "@/assets/avatar-4.png";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const testimonials = [
     {
@@ -36,12 +36,31 @@ interface TestimonialsProps {
 }
 
 export function Testimonials({ id }: TestimonialsProps) {
+    const [theme, setTheme] = useState("dark");
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        setTheme(savedTheme);
+
+        const observer = new MutationObserver(() => {
+            const newTheme = localStorage.getItem("theme") || "dark";
+            setTheme(newTheme);
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        return () => observer.disconnect();
+    }, []);
+
     return (
         <>
             <section id={id} className={"py-20 md:py-24"}>
                 <div className={"container"}>
-                    <h2 className={"text-5xl md:text-6xl font-medium text-center tracking-tighter"}>Beyond Expectations.</h2>
-                    <p className={"text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5"}>Our revolutionary Location Intelligence platform for exploration and automation at closed beta.</p>
+                    <h2 className={`text-5xl md:text-6xl font-medium text-center tracking-tighter ${theme === 'light' ? 'text-natureGreenLight' : ''}`}>Beyond Expectations.</h2>
+                    <p className={`${theme === 'light' ? 'text-natureGreenLight' : 'text-white/70'} text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5`}>Our revolutionary Location Intelligence platform for exploration and automation at closed beta.</p>
                     <div className={"flex overflow-hidden mt-10 [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]"}>
                         <motion.div
                             initial={{translateX: '-50%'}}
@@ -54,16 +73,16 @@ export function Testimonials({ id }: TestimonialsProps) {
                             className={"flex flex-none gap-5"}>
                             {[...testimonials ,...testimonials].map((testimonial, index) => (
                                 <div key={index}
-                                     className={"border border-muted p-6 md:p-10 rounded-xl bg-[linear-gradient(to_bottom_left,rgb(0,0,255,0.3),black)] max-w-xs md:max-w-md flex-none"}>
-                                    <p className={"text-lg md:text-2xl tracking-tight"}>{testimonial.text}</p>
+                                     className={`border p-6 md:p-10 rounded-xl max-w-xs md:max-w-md flex-none ${theme === 'light' ? 'bg-natureBeige border-natureGreenLight' : 'bg-[linear-gradient(to_bottom_left,rgb(0,0,255,0.3),black)] border-muted'}`}>
+                                    <p className={`text-lg md:text-2xl tracking-tight ${theme === 'light' ? 'text-natureGreenLight' : ''}`}>{testimonial.text}</p>
                                     <div className={"flex items-center gap-3 mt-5"}>
                                         <div
-                                            className={"relative after:content-[''] after:absolute after:inset-0 after:bg-[rgb(0,0,255)] after:mix-blend-soft-light after:rounded-lg before:content-[''] before:absolute before:inset-0 before:border before:border-white/30 before:z-10 before:rounded-lg"}>
+                                            className={`relative after:content-[''] after:absolute after:inset-0 after:rounded-lg before:content-[''] before:absolute before:inset-0 before:z-10 before:rounded-lg ${theme === 'light' ? 'after:bg-natureGreenLight/30 before:border-natureGreenLight/30' : 'after:bg-[rgb(0,0,255)] after:mix-blend-soft-light before:border-white/30'}`}>
                                             <Image src={testimonial.avatarImg} alt={`${testimonial.name}`}
                                                    className={"size-11 rounded-lg grayscale"}/>
                                         </div>
                                         <div>
-                                            <p>{testimonial.name}</p>
+                                            <p className={`${theme === 'light' ? 'text-natureGreenLight' : ''}`}>{testimonial.name}</p>
                                         </div>
                                     </div>
                                 </div>

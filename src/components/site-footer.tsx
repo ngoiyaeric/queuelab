@@ -1,5 +1,6 @@
 import SiteLogo from "@/assets/logo.svg";
 import Link from "next/link";
+import ThemeSwitcher from "./theme-switcher";
 
 export default function SiteFooter() {
     return (
@@ -17,6 +18,8 @@ export default function SiteFooter() {
                     <Link href="https://tally.so/r/wADZ4o" className="text-sm text-muted-foreground hover:underline">
                         Privacy and Terms
                     </Link>
+
+                    <ThemeSwitcher />
 
                     <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
                         ©️ 2025 QueueCX, Inc. All rights reserved. Built by <a
