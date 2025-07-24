@@ -14,18 +14,6 @@ export function AuthForm() {
     const [message, setMessage] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const handleTwitterLogin = async () => {
-        setLoading(true);
-        setError(null);
-        const { error } = await supabase.auth.signInWithOAuth({
-            provider: 'twitter',
-        });
-        if (error) {
-            setError(error.message);
-            setLoading(false);
-        }
-    };
-
     const handleAuthAction = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
@@ -168,29 +156,6 @@ export function AuthForm() {
                         </button>
                     </div>
                 </form>
-
-                <div className="relative my-6">
-                    <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                        <div className="w-full border-t border-gray-600" />
-                    </div>
-                    <div className="relative flex justify-center text-sm">
-                        <span className="px-2 bg-gray-800 text-gray-400">Or continue with</span>
-                    </div>
-                </div>
-
-                <div>
-                    <Button
-                        variant="outline"
-                        className="w-full"
-                        onClick={handleTwitterLogin}
-                        disabled={loading}
-                    >
-                        <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                        </svg>
-                        
-                    </Button>
-                </div>
             </div>
         </div>
     );
