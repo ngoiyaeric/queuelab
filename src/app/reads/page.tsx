@@ -41,7 +41,7 @@ export default function ReadsPage() {
             </div>
             <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
               <p>
-                We’re an applied artificial intelligence research lab working at
+                We’re an applied artificial general intelligence research lab working at
                 the intersection of nature and computation.
               </p>
               <p>
