@@ -141,6 +141,28 @@ export function AuthForm() {
                         {loading ? (isLoginView ? 'Queueing In...' : 'Queueing Up...') : (isLoginView ? 'Queue In' : 'Queue Up')}
                     </Button>
 
+                    {/* 
+                    // Code for the X button
+                    <Button
+                        className="absolute top-4 right-4"
+                        onClick={handleClose}
+                    >
+                        X
+                    </Button>
+                    */}
+
+                    {/* 
+                    // Code for the "continue with" wording
+                    <div className="relative my-6">
+                        <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                            <div className="w-full border-t border-gray-600" />
+                        </div>
+                        <div className="relative flex justify-center text-sm">
+                            <span className="px-2 bg-gray-800 text-gray-400">Or continue with</span>
+                        </div>
+                    </div>
+                    */}
+
                     <div className="text-center">
                         <button
                             type="button"
