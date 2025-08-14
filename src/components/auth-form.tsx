@@ -14,17 +14,17 @@ export function AuthForm() {
     const [message, setMessage] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const handleTwitterLogin = async () => {
-        setLoading(true);
-        setError(null);
-        const { error } = await supabase.auth.signInWithOAuth({
-            provider: 'twitter',
-        });
-        if (error) {
-            setError(error.message);
-            setLoading(false);
-        }
-    };
+    // const handleTwitterLogin = async () => {
+    //     setLoading(true);
+    //     setError(null);
+    //     const { error } = await supabase.auth.signInWithOAuth({
+    //         provider: 'twitter',
+    //     });
+    //     if (error) {
+    //         setError(error.message);
+    //         setLoading(false);
+    //     }
+    // };
 
     const handleAuthAction = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -182,13 +182,13 @@ export function AuthForm() {
                     <Button
                         variant="outline"
                         className="w-full"
-                        onClick={handleTwitterLogin}
-                        disabled={loading}
+                        asChild
                     >
-                        <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                        </svg>
-                        
+                        <a href="https://x.com/tryqcx" target="_blank" rel="noopener noreferrer">
+                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                        </a>
                     </Button>
                 </div>
             </div>
