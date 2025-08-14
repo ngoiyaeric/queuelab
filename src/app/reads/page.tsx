@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import CallToAction  from "@/components/call-to-action";
@@ -15,6 +15,24 @@ export default function ReadsPage() {
   });
   const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
   const readsCount = 3; // Manually counted <details> elements
+  const [theme, setTheme] = useState("dark");
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        setTheme(savedTheme);
+
+        const observer = new MutationObserver(() => {
+            const newTheme = localStorage.getItem("theme") || "dark";
+            setTheme(newTheme);
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        return () => observer.disconnect();
+    }, []);
 
   return (
     <React.Fragment>
@@ -27,19 +45,19 @@ export default function ReadsPage() {
           backgroundImage: `url(${BackgroundStars.src})`,
           backgroundPositionY,
         }}
-        className="relative overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
+        className={`relative overflow-hidden ${theme === 'light' ? '' : '[mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]'}`}
       >
-        <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"} />
+        <div className={`absolute inset-0 ${theme === 'light' ? 'bg-natureBeige' : 'bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]'}`} />
         {/* The div below used to be the <section> tag. We move its padding classes here and make it relative. */}
         <div className="container py-20 md:py-24 relative">
           <details className="mb-8">
-            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
+            <summary className={`text-5xl tracking-tighter text-center font-medium cursor-pointer border p-4 rounded-lg ${theme === 'light' ? 'text-natureGreenLight border-natureGreenLight hover:bg-natureGreenLight/10' : 'text-white/70 border-white/20 hover:bg-white/5'}`}>
               QueueCX
             </summary>
-            <div className="text-center text-sm text-white/50 mt-2">
+            <div className={`text-center text-sm mt-2 ${theme === 'light' ? 'text-natureGreenLight' : 'text-white/50'}`}>
               May 02, 2025
             </div>
-            <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+            <div className={`text-center text-lg md:text-xl ${theme === 'light' ? 'text-natureGreenLight' : 'text-white/70'} tracking-tight px-4 mt-5`}>
               <p>
                 We’re an applied artificial general intelligence research lab working at
                 the intersection of nature and computation.
@@ -58,13 +76,13 @@ export default function ReadsPage() {
           </details>
 
           <details className="mb-8">
-            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
+            <summary className={`text-5xl tracking-tighter text-center font-medium cursor-pointer border p-4 rounded-lg ${theme === 'light' ? 'text-natureGreenLight border-natureGreenLight hover:bg-natureGreenLight/10' : 'text-white/70 border-white/20 hover:bg-white/5'}`}>
               Environment Aware
             </summary>
-            <div className="text-center text-sm text-white/50 mt-2">
+            <div className={`text-center text-sm mt-2 ${theme === 'light' ? 'text-natureGreenLight' : 'text-white/50'}`}>
               May 02, 2025
             </div>
-            <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+            <div className={`text-center text-lg md:text-xl ${theme === 'light' ? 'text-natureGreenLight' : 'text-white/70'} tracking-tight px-4 mt-5`}>
               <p>
                 Our human species has been organizing itself in groups to enable
                 streamlined coordination and communication for goal planning to
@@ -111,11 +129,11 @@ export default function ReadsPage() {
           </details>
 
           <details className="mb-8">
-            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
+            <summary className={`text-5xl tracking-tighter text-center font-medium cursor-pointer border p-4 rounded-lg ${theme === 'light' ? 'text-natureGreenLight border-natureGreenLight hover:bg-natureGreenLight/10' : 'text-white/70 border-white/20 hover:bg-white/5'}`}>
               Fluidity Index
             </summary>
-            <div className="text-center text-sm text-white/50 mt-2">💦</div>
-            <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+            <div className={`text-center text-sm mt-2 ${theme === 'light' ? 'text-natureGreenLight' : 'text-white/50'}`}>💦</div>
+            <div className={`text-center text-lg md:text-xl ${theme === 'light' ? 'text-natureGreenLight' : 'text-white/70'} tracking-tight px-4 mt-5`}>
               <p>0 cost benchmarks</p>
             </div>
           </details>
