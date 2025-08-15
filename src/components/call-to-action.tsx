@@ -40,7 +40,7 @@ const CallToAction = ({ id }: { id?: string }) => {
 
     return (
         <>
-            <section className={"py-20 md:py-24"} ref={sectionRef} id={id}>
+            <section className={"py-20 md:py-24"} ref={sectionRef} id="research-section">
                 <div className={"container"}>
                     <motion.div
                         animate={{backgroundPositionX: BackgroundStars.width,}}
@@ -83,7 +83,7 @@ const CallToAction = ({ id }: { id?: string }) => {
                             
                             {/* Replace ActionButton with InterestForm */}
                             <div className={"mt-12 md:mt-16 max-w-2xl mx-auto"}>
-                                <InterestForm formTitle="Talent" submissionContext="General Contact Form" />
+                                <InterestForm formTitle="Contact Us" submissionContext="General Contact Form" />
                             </div>
                         </div>
                     </motion.div>

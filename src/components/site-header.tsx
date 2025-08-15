@@ -40,9 +40,19 @@ export default function SiteHeader({ readsCount }: SiteHeaderProps) {
                                 <Link href="/#features" className="text-white/70 hover:text-white transition">Products</Link>
                                 <Link href="/#pricing" className="text-white/70 hover:text-white transition">Pricing</Link>
                                 <Link href="/careers" className="text-white/70 hover:text-white transition">Careers</Link>
-                                <Link href="/reads" className="text-white/70 hover:text-white transition">
-                                  Reads {readsCount && readsCount > 0 ? `(${readsCount})` : ''}
-                                </Link>
+                                <div className="relative group">
+                                    <button className="text-white/70 hover:text-white transition flex items-center gap-1">
+                                        Our Research
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </button>
+                                    <div className="absolute hidden group-hover:block bg-black/60 backdrop-blur-lg border border-white/20 rounded-lg mt-2 py-2 w-48">
+                                        <Link href="/#research-section" className="block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-white/10">Environment Aware Agents</Link>
+                                        <Link href="/#research-section" className="block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-white/10">Fluidity Index</Link>
+                                        <Link href="/reads" className="block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-white/10">
+                                            Reads {readsCount && readsCount > 0 ? `(${readsCount})` : ''}
+                                        </Link>
+                                    </div>
+                                </div>
                             </nav>
                         </section>
                         <section className="flex max-md:gap-4 items-center">
@@ -93,8 +103,11 @@ export default function SiteHeader({ readsCount }: SiteHeaderProps) {
                                                 <Newspaper className="size-6" />
                                                 Careers
                                             </Link>
-                                            <Link href="/reads" className="flex items-center gap-3 text-white/70 hover:text-white transition">
-                                                <Newspaper className="size-6" />
+                                            <Link href="/#research-section" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                                <BookOpen className="size-6" />
+                                                Our Research
+                                            </Link>
+                                            <Link href="/reads" className="flex items-center gap-3 text-white/70 hover:text-white transition pl-9">
                                                 Reads {readsCount && readsCount > 0 ? `(${readsCount})` : ''}
                                             </Link>
                                         </nav>
