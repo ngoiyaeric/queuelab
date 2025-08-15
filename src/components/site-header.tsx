@@ -39,7 +39,7 @@ export default function SiteHeader({ readsCount }: SiteHeaderProps) {
                             <nav className="flex gap-8 items-center text-sm">
                                 <Link href="/#features" className="text-white/70 hover:text-white transition">Products</Link>
                                 <Link href="/#pricing" className="text-white/70 hover:text-white transition">Pricing</Link>
-                                <Link href="/#careers" className="text-white/70 hover:text-white transition">Research</Link>
+                                <Link href="/careers" className="text-white/70 hover:text-white transition">Careers</Link>
                                 <Link href="/reads" className="text-white/70 hover:text-white transition">
                                   Reads {readsCount && readsCount > 0 ? `(${readsCount})` : ''}
                                 </Link>
@@ -89,9 +89,9 @@ export default function SiteHeader({ readsCount }: SiteHeaderProps) {
                                                 <Wallet2 className="size-6" />
                                                 Pricing
                                             </Link>
-                                            <Link href="/#careers" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/careers" className="flex items-center gap-3 text-white/70 hover:text-white transition">
                                                 <Newspaper className="size-6" />
-                                                Research
+                                                Careers
                                             </Link>
                                             <Link href="/reads" className="flex items-center gap-3 text-white/70 hover:text-white transition">
                                                 <Newspaper className="size-6" />
