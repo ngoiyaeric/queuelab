@@ -44,7 +44,7 @@ export function HeroSection() {
     const sphereBackground = useTransform(
         [gradientX, gradientY],
         ([latestGradientX, latestGradientY]) =>
-            `radial-gradient(50% 50% at ${latestGradientX}% ${latestGradientY}%, white, rgb(0,0,255) 37.7%, rgb(24,0,66))`
+            `radial-gradient(50% 50% at ${latestGradientX}% ${latestGradientY}%, white, rgb(128,0,128) 37.7%, rgb(24,0,66))`
     );
 
     return (
@@ -55,11 +55,11 @@ export function HeroSection() {
                 transition={{duration: 120, repeat: Infinity, ease: 'linear'}}
                 className={"h-[492px] md:h-[800px] flex items-center overflow-hidden relative [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"}
                 style={{backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY}} ref={sectionRef}>
-                <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"} />
+                <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(128,0,128,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"} />
                 {/* Planet Logic */}
                 <motion.div
                     ref={sphereRef}
-                    className={"absolute size-64 md:size-96 bg-blue-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[-20px_-20px_50px_rgb(255,255,255,0.5),-20px_-20px_80px_rgb(255,255,255,0.1),0_0_50px_rgb(0,0,255)]"}
+                    className={"absolute size-64 md:size-96 bg-purple-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[-20px_-20px_50px_rgb(255,255,255,0.5),-20px_-20px_80px_rgb(255,255,255,0.1),0_0_50px_rgb(128,0,128)]"}
                     style={{ background: sphereBackground }}
                 />
                 {/* Rings + Mini planets Logic */}
@@ -89,7 +89,7 @@ export function HeroSection() {
                 </motion.div>
                 {/* Hero Section Content Logic */}
                 <div className={"container relative mt-16"}>
-                    <h1 className={"text-8xl md:text-[168px] md:leading-none font-semibold bg-white tracking-tighter bg-clip-text text-transparent text-center bg-[radial-gradient(100%_100%_at_top_left,rgba(255,255,255,0.8),rgba(255,255,255,0.7),rgba(0,0,255,0.3))] [text-shadow:2px_2px_4px_rgba(0,0,0,0.4),_-1px_-1px_2px_rgba(255,255,255,0.3),_0_0_10px_rgba(0,0,255,0.5)]"}>QCX</h1>
+                    <h1 className={"text-8xl md:text-[168px] md:leading-none font-semibold bg-white tracking-tighter bg-clip-text text-transparent text-center bg-[radial-gradient(100%_100%_at_top_left,rgba(255,255,255,0.8),rgba(255,255,255,0.7),rgba(128,0,128,0.3))] [text-shadow:2px_2px_4px_rgba(0,0,0,0.4),_-1px_-1px_2px_rgba(255,255,255,0.3),_0_0_10px_rgba(128,0,128,0.5)]"}>QCX</h1>
                     <p className={"font-handwriting text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-center justify-center"}>is a multi-agent intelligence platform for exploration and automation. Your environment aware planet computer for your</p> 
                     <span className={"text-sm tracking-wider text-[#7CFC00] flex justify-center"}>QUALITY COMPUTER EXPERIENCES </span>
                     <div className={"flex justify-center mt-5"}>
