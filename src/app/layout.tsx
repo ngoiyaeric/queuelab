@@ -4,6 +4,7 @@ import "./globals.css";
 import { clsx } from "clsx";
 import { Roboto } from "next/font/google";
 import { AuthProvider } from '@/components/auth-provider'; // Added import
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body className={clsx(inter.className, roboto.className, "antialiased")}>
         <AuthProvider> {/* Added AuthProvider wrapper */}
           {children}
+          <Analytics />
         </AuthProvider>
       </body>
     </html>
