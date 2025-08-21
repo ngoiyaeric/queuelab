@@ -2,6 +2,7 @@
 
 import MsLogo from "@/assets/logo-ms.png";
 import GithubLogo from "@/assets/logo-github.png";
+import NvidiaLogo from "@/assets/nvidia.png";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -40,8 +41,8 @@ export function LogoTicker() {
                           ease: "linear",
                       }}
                       className={"flex flex-none gap-14 pr-14 -translate-x-1/2"}>
-                      {[MsLogo, GithubLogo, MsLogo, GithubLogo].map((logo, index) => (
-                          <Image src={logo} alt={`${logo}`} key={index} className={"h-6 w-auto"}/>
+                      {[MsLogo, GithubLogo, NvidiaLogo, MsLogo, GithubLogo, NvidiaLogo].map((logo, index) => (
+                          <Image src={logo} alt={`partner-logo-${index}`} key={index} className={"h-6 w-auto"}/>
                       ))}
                   </motion.div>
               </div>
