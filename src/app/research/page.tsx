@@ -14,7 +14,7 @@ export default function ResearchPage() {
     offset: [`start end`, 'end start']
   });
   const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
-  const researchCount = 4; // Manually counted <details> elements
+  const researchCount = 3; // Manually counted <details> elements
 
   return (
     <React.Fragment>
@@ -117,13 +117,8 @@ export default function ResearchPage() {
             <div className="text-center text-sm text-white/50 mt-2">💦</div>
             <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
               <p>0 cost benchmarks</p>
+              <p>Next Generation Super-intelligence benchmarks</p>
             </div>
-          </details>
-
-          <details className="mb-8">
-            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
-              Next Generation Super-intelligence benchmarks
-            </summary>
           </details>
         </div>
       </motion.section>
