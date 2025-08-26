@@ -116,7 +116,6 @@ export default function ResearchPage() {
             </summary>
             <div className="text-center text-sm text-white/50 mt-2">💦</div>
             <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
-              <p>0 cost benchmarks</p>
               <p>Next Generation Super-intelligence benchmarks</p>
             </div>
           </details>
