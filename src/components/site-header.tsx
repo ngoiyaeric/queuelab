@@ -12,10 +12,10 @@ import { AuthForm } from '@/components/auth-form';   // New import
 import { ActionButton } from '@/components/action-button';
 
 interface SiteHeaderProps {
-  readsCount?: number;
+  researchCount?: number;
 }
 
-export default function SiteHeader({ readsCount }: SiteHeaderProps) {
+export default function SiteHeader({ researchCount }: SiteHeaderProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
     const { user, loading: authLoading, signOut } = useAuth(); // Get auth state
@@ -40,8 +40,8 @@ export default function SiteHeader({ readsCount }: SiteHeaderProps) {
                                 <Link href="/#features" className="text-white/70 hover:text-white transition">Products</Link>
                                 <Link href="/#pricing" className="text-white/70 hover:text-white transition">Pricing</Link>
                                 <Link href="/careers" className="text-white/70 hover:text-white transition">Careers</Link>
-                                <Link href="/reads" className="text-white/70 hover:text-white transition">
-                                  Reads {readsCount && readsCount > 0 ? `(${readsCount})` : ''}
+                                <Link href="/research" className="text-white/70 hover:text-white transition">
+                                  Research {researchCount && researchCount > 0 ? `(${researchCount})` : ''}
                                 </Link>
                             </nav>
                         </section>
@@ -94,9 +94,9 @@ export default function SiteHeader({ readsCount }: SiteHeaderProps) {
                                                 <Newspaper className="size-6" />
                                                 Careers
                                             </Link>
-                                            <Link href="/reads" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/research" className="flex items-center gap-3 text-white/70 hover:text-white transition">
                                                 <Newspaper className="size-6" />
-                                                Reads {readsCount && readsCount > 0 ? `(${readsCount})` : ''}
+                                                Research {researchCount && researchCount > 0 ? `(${researchCount})` : ''}
                                             </Link>
                                         </nav>
                                     </div>
