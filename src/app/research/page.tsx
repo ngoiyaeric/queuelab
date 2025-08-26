@@ -7,18 +7,18 @@ import CallToAction  from "@/components/call-to-action";
 import BackgroundStars from "@/assets/stars.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-export default function ReadsPage() {
+export default function ResearchPage() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: [`start end`, 'end start']
   });
   const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
-  const readsCount = 3; // Manually counted <details> elements
+  const researchCount = 3; // Manually counted <details> elements
 
   return (
     <React.Fragment>
-      <SiteHeader readsCount={readsCount} />
+      <SiteHeader researchCount={researchCount} />
       <motion.section
         ref={sectionRef}
         animate={{ backgroundPositionX: BackgroundStars.width }}
