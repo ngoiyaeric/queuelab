@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import SiteLogo from "@/assets/logo.svg";
-import { Feather, MenuIcon, Newspaper, Wallet2, BookOpen } from "lucide-react";
+import { Feather, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect } from "react"; // useEffect Added
 import { Button } from "@/components/ui/button";
@@ -64,7 +64,12 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                     </ModalContent>
                                 </Modal>
                             )} */}
-                            <ActionButton label="Queue Up" href="https://www.qcx.world" className="book-demo-button" />
+                            <div className="flex items-center gap-2">
+                                <ActionButton label="Queue Up" href="https://www.qcx.world" className="book-demo-button" />
+                                <Link href="https://cal.com/ericngoiya" target="_blank">
+                                    <Calendar className="size-9 p-2 border rounded-lg hover:text-white/70 transition" />
+                                </Link>
+                            </div>
                             <Sheet open={isOpen} onOpenChange={setIsOpen}>
                                 <SheetTrigger>
                                     <MenuIcon className="size-9 md:hidden hover:text-white/70 transition" />
