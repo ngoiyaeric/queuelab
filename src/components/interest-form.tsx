@@ -1,7 +1,10 @@
 "use client";
 
-import { useState, FormEvent } from 'react';
-import { Button } from "@/components/ui/button"; // Assuming you have a Button component
+import { useState, FormEvent, useEffect } from 'react';
+import { Button } from "@/components/ui/button";
+import Cookies from 'js-cookie';
+
+const FORM_COOKIE_KEY = 'interestForm';
 
 interface InterestFormProps {
   formTitle: string;
@@ -17,6 +20,21 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
 
+    useEffect(() => {
+        const savedForm = Cookies.get(FORM_COOKIE_KEY);
+        if (savedForm) {
+            const { email, identity, message } = JSON.parse(savedForm);
+            setEmail(email || '');
+            setIdentity(identity || '');
+            setMessage(message || '');
+        }
+    }, []);
+
+    useEffect(() => {
+        const formState = { email, identity, message };
+        Cookies.set(FORM_COOKIE_KEY, JSON.stringify(formState), { expires: 7 }); // Persist for 7 days
+    }, [email, identity, message]);
+
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setSubmitting(true);
@@ -29,7 +47,6 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
             return;
         }
 
-        // Basic email validation
         if (!/\S+@\S+\.\S+/.test(email)) {
             setError("Please enter a valid email address.");
             setSubmitting(false);
@@ -52,6 +69,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
                 setEmail('');
                 setIdentity('');
                 setMessage('');
+                Cookies.remove(FORM_COOKIE_KEY); // Clear cookie on success
                 if (onSuccessCallback) {
                     onSuccessCallback();
                 }

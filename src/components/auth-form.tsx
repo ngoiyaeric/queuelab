@@ -1,30 +1,19 @@
 "use client";
 
 import { useState, FormEvent } from 'react';
-import { supabase } from '@/lib/supabaseClient'; // Ensure this path is correct
-import { Button } from "@/components/ui/button"; // Assuming Button component exists
-import SiteLogo from "@/assets/logo.svg"; // Assuming this is the correct path to the logo SVG
-import BackgroundStars from "@/assets/stars.png"; // Added
+import { useAuth } from '@/components/auth-provider'; // Import useAuth
+import { Button } from "@/components/ui/button";
+import SiteLogo from "@/assets/logo.svg";
+import BackgroundStars from "@/assets/stars.png";
 
 export function AuthForm() {
+    const { supabase } = useAuth(); // Get supabase from context
     const [isLoginView, setIsLoginView] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
-
-    // const handleTwitterLogin = async () => {
-    //     setLoading(true);
-    //     setError(null);
-    //     const { error } = await supabase.auth.signInWithOAuth({
-    //         provider: 'twitter',
-    //     });
-    //     if (error) {
-    //         setError(error.message);
-    //         setLoading(false);
-    //     }
-    // };
 
     const handleAuthAction = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -38,7 +27,6 @@ export function AuthForm() {
             return;
         }
 
-        // Basic password length check (Supabase has its own password policies too)
         if (!isLoginView && password.length < 6) {
             setError("Password should be at least 6 characters.");
             setLoading(false);
@@ -47,33 +35,24 @@ export function AuthForm() {
 
         try {
             if (isLoginView) {
-                // Login
                 const { error: signInError } = await supabase.auth.signInWithPassword({
                     email,
                     password,
                 });
                 if (signInError) throw signInError;
-                setMessage("Logged in successfully!"); // User/session state will be handled by AuthProvider
-                // Modal closure will be handled by AuthProvider detecting session change or via a callback
+                setMessage("Logged in successfully!");
             } else {
-                // Sign Up
                 const { data, error: signUpError } = await supabase.auth.signUp({
                     email,
                     password,
-                    // options: { emailRedirectTo: window.location.origin } // Optional: for email confirmation redirect
                 });
                 if (signUpError) throw signUpError;
 
                 if (data.user && data.user.identities && data.user.identities.length === 0) {
-                    // This condition might indicate an existing user with unconfirmed email with some providers,
-                    // or if email confirmation is turned off and user is created directly but is not "real" yet.
-                    // For Supabase, if email confirmation is ON, user exists but session is null until confirmed.
-                    // If email confirmation is OFF, user is created and session is typically returned.
                     setMessage("User already exists or sign up issue. If email confirmation is on, please check your email.");
                 } else if (data.session) {
-                     setMessage("Signed up and logged in successfully!");
-                }
-                 else {
+                    setMessage("Signed up and logged in successfully!");
+                } else {
                     setMessage("Sign up successful! Please check your email to confirm your account.");
                 }
             }
