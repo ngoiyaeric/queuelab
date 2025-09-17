@@ -5,6 +5,14 @@ import React from "react";
 
 const testimonials = [
     {
+        text: "“Map inside a map feature for our geotechnical projects”",
+        name: "Kozhaya, dar.com",
+    },
+    {
+        text: "“Low cost crop yields for our credit scoring”",
+        name: "Harvey @ bsa.ai",
+    },
+    {
         text: "“Really love the search experience”",
         name: "Neemaeli",
     },
