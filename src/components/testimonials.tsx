@@ -36,7 +36,7 @@ export function Testimonials({ id }: TestimonialsProps) {
             <section id={id} className={"py-20 md:py-24"}>
                 <div className={"container"}>
                     <h2 className={"text-5xl md:text-6xl font-medium text-center tracking-tighter"}>Beyond Expectations.</h2>
-                    <p className={"text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5"}>Our revolutionary Location Intelligence platform for exploration and automation at closed beta.</p>
+                    <p className={"text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5"}>Our environment aware planet computer is enterprise focused, democratizing intelligence to improve our experience</p>
                     <div className={"flex overflow-hidden mt-10 [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]"}>
                         <motion.div
                             initial={{translateX: '-50%'}}
