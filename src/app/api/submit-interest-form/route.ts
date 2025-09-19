@@ -7,7 +7,7 @@ const isValidEmail = (email: string): boolean => {
 };
 
 const isValidIdentity = (identity: string): boolean => {
-  return ['Research', 'Engineering', 'Administration', 'Customer', 'Business', 'Open Source Contributor'].includes(identity);
+  return ['Customer', 'Business', 'Open Source Contributor'].includes(identity);
 };
 
 const isValidMessage = (message: string): boolean => {
@@ -85,17 +85,20 @@ export async function POST(request: NextRequest) {
       `,
     };
 
-    // --- Send Mail (Mocked for Development) ---
+    // --- Send Mail ---
     try {
-      // MOCK: In a real environment, this would send an email.
-      // For this test, we'll simulate a successful submission without sending an actual email.
-      // await transporter.sendMail(mailOptions);
-      console.log("Mock email sent successfully with options:", mailOptions);
+      await transporter.sendMail(mailOptions);
       return NextResponse.json({ message: 'Form submitted successfully! We will be in touch.' }, { status: 200 });
     } catch (mailError: any) {
-      // This catch block will not be reached in the mocked version unless there's an issue with the mock itself.
-      console.error('Error in mocked email sending:', mailError);
-      return NextResponse.json({ message: 'An error occurred during the mocked submission.', details: mailError.message || 'No details' }, { status: 500 });
+      console.error('Error sending email:', mailError);
+      // It's good practice to check the error type and message for more specific user feedback
+      let errorMessage = 'An error occurred while sending your message.';
+      if (mailError.code === 'EENVELOPE') {
+          errorMessage = "Error with sender/recipient email addresses. Please check and try again.";
+      } else if (mailError.code === 'ECONNREFUSED' || mailError.code === 'ETIMEDOUT') {
+          errorMessage = "Could not connect to the email server. Please try again later.";
+      }
+      return NextResponse.json({ message: errorMessage, details: mailError.message || 'No details' }, { status: 500 });
     }
 
   } catch (error: any) {
