@@ -53,29 +53,16 @@ const CallToAction = ({ id }: { id?: string }) => {
                             style={{backgroundImage: `url(${BackgroundGrid.src})`, maskImage: maskImage}} ref={borderedDivRef}/>
                         <div className={"relative"}>
                             <h2 className={"text-5xl tracking-tighter text-center font-medium"}>
-                                Our Research
+                                Contact Us
                             </h2>
                             
                         
                           <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
     <p>
-        We work on applied research in artificial intelligence on nature and computation. 
-        Our patent-pending research and products. 
+        We are dedicated to providing the best customer experience. We believe in the power of open source and community collaboration.
     </p>
-
-    <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
-        Environment Aware Agents
-    </h2>
     <p>
-        A highly concurrent multi-agent orchestration framework for extensive context switching 
-        and context continuity, designed for fully automated natural science exploration and integration within our products.
-    </p>
-
-    <h2 className="text-xl md:text-2xl text-white font-bold mt-5">
-        Fluidity Index
-    </h2>
-    <p>
-        Next-generation multi-agent superintelligence benchmarks.
+        Democratizing intelligence to improve our experience.
     </p>
 </div>
 
@@ -83,7 +70,7 @@ const CallToAction = ({ id }: { id?: string }) => {
                             
                             {/* Replace ActionButton with InterestForm */}
                             <div className={"mt-12 md:mt-16 max-w-2xl mx-auto"}>
-                                <InterestForm formTitle="Talent" submissionContext="General Contact Form" />
+                                <InterestForm formTitle="Contact Us" submissionContext="General Contact Form" />
                             </div>
                         </div>
                     </motion.div>
