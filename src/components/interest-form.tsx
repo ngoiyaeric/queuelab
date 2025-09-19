@@ -70,7 +70,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
             <h2 className="text-2xl md:text-3xl font-semibold text-center text-white">{formTitle}</h2>
 <div className="text-center text-sm text-white/80 tracking-tight px-4 mt-3 mb-4">
     <p>
-        Have a question or want to work with us? Fill out the form below and we'll get back to you as soon as possible.
+        Have a question or want to work with us? Fill out the form below and we&apos;ll get back to you as soon as possible.
     </p>
 </div>
             {error && <p className="text-red-400 bg-red-900/30 p-3 rounded-md text-center">{error}</p>}
