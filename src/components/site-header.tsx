@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link";
-import SiteLogo from "@/assets/logo.svg";
 import { Feather, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect } from "react"; // useEffect Added
@@ -32,7 +31,7 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                     <div className="flex items-center justify-between md:border md:p-2.5 md:rounded-xl max-w-2xl mx-auto md:backdrop-blur">
                         <Link href="/">
                             <div className="border size-10 rounded-lg inline-flex items-center justify-center block">
-                                <SiteLogo className="size-8 h-auto" />
+                                <img src="/assets/lottie/inverted-image.png" alt="logo" className="size-8 h-auto" />
                             </div>
                         </Link>
                         <section className="max-md:hidden">
@@ -77,7 +76,7 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                 <SheetContent side="top" className="p-8">
                                     <div className="inline-flex items-center center gap-3">
                                         <div className="border size-8 rounded-lg inline-flex items-center justify-center">
-                                            <SiteLogo className="size-6 h-auto" />
+                                            <img src="/assets/lottie/inverted-image.png" alt="logo" className="size-6 h-auto" />
                                         </div>
                                         <p className="font-bold">QCX</p>
                                     </div>
