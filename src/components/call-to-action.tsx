@@ -53,7 +53,7 @@ const CallToAction = ({ id }: { id?: string }) => {
                             style={{backgroundImage: `url(${BackgroundGrid.src})`, maskImage: maskImage}} ref={borderedDivRef}/>
                         <div className={"relative"}>
                             <h2 className={"text-5xl tracking-tighter text-center font-medium"}>
-                                Contact Us
+                                Engage With Us
                             </h2>
                             
                         
@@ -70,7 +70,7 @@ const CallToAction = ({ id }: { id?: string }) => {
                             
                             {/* Replace ActionButton with InterestForm */}
                             <div className={"mt-12 md:mt-16 max-w-2xl mx-auto"}>
-                                <InterestForm formTitle="Contact Form" submissionContext="General Contact Form" />
+                                <InterestForm formTitle="Engage With Us" submissionContext="General Contact Form" />
                             </div>
                         </div>
                     </motion.div>
