@@ -55,7 +55,7 @@ export function HeroSection() {
                 style={{backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY}} ref={sectionRef}>
                 <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"} />
                 
-                {/* Sphere with QCX text - only visible when animation is not showing */}
+                {/* Sphere - only visible when animation is not showing */}
                 {!isAnimationVisible && (
                     <>
                         <motion.div
@@ -64,14 +64,7 @@ export function HeroSection() {
                             data-testid="sphere"
                             className={"absolute size-64 md:size-96 bg-blue-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[-20px_-20px_50px_rgb(255,255,255,0.5),-20px_-20px_80px_rgb(255,255,255,0.1),0_0_50px_rgb(0,0,255)] cursor-pointer z-10"}
                             style={{ background: sphereBackground }}
-                        >
-                            {/* QCX text on the sphere */}
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter bg-clip-text text-transparent bg-[radial-gradient(100%_100%_at_top_left,rgba(255,255,255,1),rgba(255,255,255,0.9))] [text-shadow:2px_2px_8px_rgba(0,0,0,0.8)]">
-                                    QCX
-                                </h2>
-                            </div>
-                        </motion.div>
+                        />
                         
                         {/* Rings + Mini planets - only visible when animation is not showing */}
                         <motion.div
@@ -108,8 +101,8 @@ export function HeroSection() {
                     </div>
                 )}
                 
-                {/* Hero Section Content Logic */}
-                <div className={"container relative mt-16"}>
+                {/* Hero Section Content Logic - z-20 brings QCX text in front of sphere */}
+                <div className={"container relative mt-16 z-20"}>
                     <h1 className={"text-8xl md:text-[168px] md:leading-none font-semibold bg-white tracking-tighter bg-clip-text text-transparent text-center bg-[radial-gradient(100%_100%_at_top_left,rgba(255,255,255,0.8),rgba(255,255,255,0.7),rgba(0,0,255,0.3))] [text-shadow:2px_2px_4px_rgba(0,0,0,0.4),_-1px_-1px_2px_rgba(255,255,255,0.3),_0_0_10px_rgba(0,0,255,0.5)]"}>QCX</h1>
                     <p className={"font-handwriting text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-center justify-center"}>is a multi-agent intelligence platform for exploration and automation. Your environment aware planet computer for your</p> 
                     <span className={"text-sm tracking-wider text-[#7CFC00] flex justify-center"}>QUALITY COMPUTER EXPERIENCES </span>
