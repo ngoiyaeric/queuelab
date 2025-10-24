@@ -63,7 +63,7 @@ export function HeroSection() {
                     ref={sphereRef}
                     onClick={() => setIsAnimationVisible(true)}
                     data-testid="sphere"
-                    className={"absolute size-64 md:size-96 bg-blue-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[-20px_-20px_50px_rgb(255,255,255,0.5),-20px_-20px_80px_rgb(255,255,255,0.1),0_0_50px_rgb(0,0,255)] cursor-pointer"}
+                    className={"absolute size-64 md:size-96 bg-blue-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[-20px_-20px_50px_rgb(255,255,255,0.5),-20px_-20px_80px_rgb(255,255,255,0.1),0_0_50px_rgb(0,0,255)] cursor-pointer z-10"}
                     style={{ background: sphereBackground }}
                 />
                 {isAnimationVisible && (
