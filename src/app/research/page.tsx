@@ -115,7 +115,7 @@ export default function ResearchPage() {
               Fluidity Index
             </summary>
             <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
-              <p>Next Generation Super-intelligence benchmarks</p>
+              <p><a href="https://arxiv.org/abs/2510.20636v1">Next-Generation Super-intelligence benchmarks</a></p>
             </div>
           </details>
         </div>
