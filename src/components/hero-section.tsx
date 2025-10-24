@@ -1,13 +1,15 @@
 "use client"
 
+import MapAnimation from "./map-animation";
 import { ActionButton } from "./action-button";
 import BackgroundStars from "@/assets/stars.png";
 import {motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import React from "react"; // Import React for MouseEvent type
 
 export function HeroSection() {
 
+    const [isAnimationVisible, setIsAnimationVisible] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
     const sphereRef = useRef<HTMLDivElement>(null);
 
@@ -59,9 +61,16 @@ export function HeroSection() {
                 {/* Planet Logic */}
                 <motion.div
                     ref={sphereRef}
-                    className={"absolute size-64 md:size-96 bg-blue-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[-20px_-20px_50px_rgb(255,255,255,0.5),-20px_-20px_80px_rgb(255,255,255,0.1),0_0_50px_rgb(0,0,255)]"}
+                    onClick={() => setIsAnimationVisible(true)}
+                    data-testid="sphere"
+                    className={"absolute size-64 md:size-96 bg-blue-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[-20px_-20px_50px_rgb(255,255,255,0.5),-20px_-20px_80px_rgb(255,255,255,0.1),0_0_50px_rgb(0,0,255)] cursor-pointer"}
                     style={{ background: sphereBackground }}
                 />
+                {isAnimationVisible && (
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-full h-full">
+                        <MapAnimation />
+                    </div>
+                )}
                 {/* Rings + Mini planets Logic */}
                 <motion.div
                     style={{translateY: '-50%', translateX: '-50%',}}
