@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import SiteLogo from "@/assets/logo.svg";
-import { Feather, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar, Star } from "lucide-react";
+import { Feather, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect } from "react"; // useEffect Added
 import { Button } from "@/components/ui/button";
@@ -40,9 +40,8 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                 <Link href="/#features" className="text-white/70 hover:text-white transition">Products</Link>
                                 <Link href="/#pricing" className="text-white/70 hover:text-white transition">Pricing</Link>
                                 <Link href="/careers" className="text-white/70 hover:text-white transition">Careers</Link>
-                                <Link href="https://buy.stripe.com/3cIbJ10hF8ebaIQ5l3" target="_blank" className="text-white/70 hover:text-white transition flex items-center gap-1">
-                                  Research {researchCount && researchCount > 0 ? `(${researchCount})` : ''}
-                                  <Star className="size-4 text-yellow-400 fill-yellow-400" />
+                                <Link href="/research" className="text-white/70 hover:text-white transition">
+                                  Research {researchCount && researchCount > 0 ? `(${researchCount}*)` : ''}
                                 </Link>
                             </nav>
                         </section>
@@ -100,10 +99,9 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                                 <Newspaper className="size-6" />
                                                 Careers
                                             </Link>
-                                            <Link href="https://buy.stripe.com/3cIbJ10hF8ebaIQ5l3" target="_blank" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/research" className="flex items-center gap-3 text-white/70 hover:text-white transition">
                                                 <Newspaper className="size-6" />
-                                                Research {researchCount && researchCount > 0 ? `(${researchCount})` : ''}
-                                                <Star className="size-4 text-yellow-400 fill-yellow-400" />
+                                                Research {researchCount && researchCount > 0 ? `(${researchCount}*)` : ''}
                                             </Link>
                                         </nav>
                                     </div>

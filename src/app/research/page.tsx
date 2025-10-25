@@ -33,7 +33,10 @@ export default function ResearchPage() {
         {/* The div below used to be the <section> tag. We move its padding classes here and make it relative. */}
         <div className="container py-20 md:py-24 relative">
           <details className="mb-8">
-            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
+            <summary
+              className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5"
+              onClick={() => window.open('https://buy.stripe.com/3cIbJ10hF8ebaIQ5l3asg01', '_blank')}
+            >
               QueueCX
             </summary>
             <div className="text-center text-sm text-white/50 mt-2">
@@ -58,7 +61,10 @@ export default function ResearchPage() {
           </details>
 
           <details className="mb-8">
-            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
+            <summary
+              className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5"
+              onClick={() => window.open('https://buy.stripe.com/3cIbJ10hF8ebaIQ5l3asg01', '_blank')}
+            >
               Environment Aware
             </summary>
             <div className="text-center text-sm text-white/50 mt-2">
