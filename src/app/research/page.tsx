@@ -14,7 +14,7 @@ export default function ResearchPage() {
     offset: [`start end`, 'end start']
   });
   const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
-  const researchCount = 3; // Manually counted <details> elements
+  const researchCount = 3;
 
   return (
     <React.Fragment>
@@ -30,13 +30,9 @@ export default function ResearchPage() {
         className="relative overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
       >
         <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"} />
-        {/* The div below used to be the <section> tag. We move its padding classes here and make it relative. */}
         <div className="container py-20 md:py-24 relative">
           <details className="mb-8">
-            <summary
-              className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5"
-              onClick={() => window.open('https://buy.stripe.com/3cIbJ10hF8ebaIQ5l3asg01', '_blank')}
-            >
+            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
               QueueCX
             </summary>
             <div className="text-center text-sm text-white/50 mt-2">
@@ -44,7 +40,7 @@ export default function ResearchPage() {
             </div>
             <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
               <p>
-                We’re an applied artificial general intelligence research lab working at
+                We're an applied artificial general intelligence research lab working at
                 the intersection of nature and computation.
               </p>
               <p>
@@ -54,17 +50,14 @@ export default function ResearchPage() {
                 ecosystem. Quality forms the core of our value proposition,
                 delivering exceptional customer experiences across our
                 computational platforms. We pioneer innovative technologies
-                grounded in nature’s first principles to power our cutting-edge
+                grounded in nature's first principles to power our cutting-edge
                 systems. Democratizing intelligence to improve our experience.
               </p>
             </div>
           </details>
 
           <details className="mb-8">
-            <summary
-              className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5"
-              onClick={() => window.open('https://buy.stripe.com/3cIbJ10hF8ebaIQ5l3asg01', '_blank')}
-            >
+            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
               Environment Aware
             </summary>
             <div className="text-center text-sm text-white/50 mt-2">
@@ -74,7 +67,7 @@ export default function ResearchPage() {
               <p>
                 Our human species has been organizing itself in groups to enable
                 streamlined coordination and communication for goal planning to
-                ensure survival. We’ve created top-down scales of hierarchies
+                ensure survival. We've created top-down scales of hierarchies
                 spanning from families, villages, countries and even groups of
                 countries to carry out large-scale long-horizon plans to streamline
                 resource utilization and improve our experience on this planet.
@@ -88,7 +81,7 @@ export default function ResearchPage() {
               </p>
               <p>
                 Our collective intelligence is crucial and paramount to enhancing
-                our individual experience, and we’ve innovated and evolved since
+                our individual experience, and we've innovated and evolved since
                 then to better propagate and disseminate distributed knowledge.
                 Often, societies that have failed to connect sparse pieces of
                 information to garner knowledge, create oversight on root causes as
@@ -117,7 +110,10 @@ export default function ResearchPage() {
           </details>
 
           <details className="mb-8">
-            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
+            <summary
+              className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5"
+              onClick={() => window.open('https://buy.stripe.com/3cIbJ10hF8ebaIQ5l3asg01', '_blank')}
+            >
               Fluidity Index
             </summary>
             <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
