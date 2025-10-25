@@ -4,11 +4,11 @@ import Link from "next/link";
 import SiteLogo from "@/assets/logo.svg";
 import { Feather, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useState, useEffect } from "react"; // useEffect Added
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Modal, ModalContent, ModalTrigger } from "@/components/ui/modal";
-import { useAuth } from '@/components/auth-provider'; // New import
-import { AuthForm } from '@/components/auth-form';   // New import
+import { useAuth } from '@/components/auth-provider';
+import { AuthForm } from '@/components/auth-form';
 import { ActionButton } from '@/components/action-button';
 
 interface SiteHeaderProps {
@@ -18,13 +18,27 @@ interface SiteHeaderProps {
 export default function SiteHeader({ researchCount }: SiteHeaderProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
-    const { user, loading: authLoading, signOut } = useAuth(); // Get auth state
+    const [researchClicked, setResearchClicked] = useState(false);
+    const { user, loading: authLoading, signOut } = useAuth();
+
+    // Load the clicked state from localStorage on mount
+    useEffect(() => {
+        const clicked = localStorage.getItem('researchClicked') === 'true';
+        setResearchClicked(clicked);
+    }, []);
+
+    // Handle Research link click
+    const handleResearchClick = () => {
+        localStorage.setItem('researchClicked', 'true');
+        setResearchClicked(true);
+    };
 
     useEffect(() => {
         if (user && isDemoModalOpen) {
             setIsDemoModalOpen(false);
         }
     }, [user, isDemoModalOpen, setIsDemoModalOpen]);
+
     return (
         <>
             <header className="py-4 border-b max-md:backdrop-blur md:border-none sticky top-0 z-10">
@@ -40,30 +54,12 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                 <Link href="/#features" className="text-white/70 hover:text-white transition">Products</Link>
                                 <Link href="/#pricing" className="text-white/70 hover:text-white transition">Pricing</Link>
                                 <Link href="/careers" className="text-white/70 hover:text-white transition">Careers</Link>
-                                <Link href="/research" className="text-white/70 hover:text-white transition">
-                                  Research {researchCount && researchCount > 0 ? `(${researchCount}*)` : ''}
+                                <Link href="/research" onClick={handleResearchClick} className="text-white/70 hover:text-white transition">
+                                  Research {researchCount && researchCount > 0 ? `(${researchCount}${!researchClicked ? '*' : ''})` : ''}
                                 </Link>
                             </nav>
                         </section>
                         <section className="flex max-md:gap-4 items-center">
-                            {/* {authLoading ? (
-                                <Button variant="default" size="sm" className="book-demo-button" disabled>
-                                    Loading...
-                                </Button>
-                            ) : user ? (
-                                <Button variant="outline" size="sm" onClick={signOut} className="logout-button">
-                                    Logout
-                                </Button>
-                            ) : (
-                                <Modal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
-                                    <ModalTrigger asChild>
-                                        <ActionButton label="Queue-In/Up" href="#" className="book-demo-button" />
-                                    </ModalTrigger>
-                                    <ModalContent className="bg-black/60 backdrop-blur-lg border border-white/20 text-white p-0">
-                                        <AuthForm />
-                                    </ModalContent>
-                                </Modal>
-                            )} */}
                             <div className="flex items-center gap-2">
                                 <ActionButton label="Queue Up" href="https://www.qcx.world" className="book-demo-button" />
                                 <Link href="https://cal.com/ericngoiya" target="_blank">
@@ -99,9 +95,9 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                                 <Newspaper className="size-6" />
                                                 Careers
                                             </Link>
-                                            <Link href="/research" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/research" onClick={handleResearchClick} className="flex items-center gap-3 text-white/70 hover:text-white transition">
                                                 <Newspaper className="size-6" />
-                                                Research {researchCount && researchCount > 0 ? `(${researchCount}*)` : ''}
+                                                Research {researchCount && researchCount > 0 ? `(${researchCount}${!researchClicked ? '*' : ''})` : ''}
                                             </Link>
                                         </nav>
                                     </div>
