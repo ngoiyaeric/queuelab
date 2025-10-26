@@ -50,7 +50,7 @@ export function PricingSection({ id }: { id: string }) {
                 {tier.title === 'Enterprise' ? (
                   <ActionButton label="Contact Us" href="https://cal.com/ericngoiya" />
                 ) : (
-                  <ActionButton label={`${tier.price} - ${tier.title}`} href={tier.title === 'Standard' ? "https://buy.stripe.com/3cIaEX3tRcur9EM7tbasg00" : tier.title === 'Pro' ? "https://buy.stripe.com/3cIaEX3tRcur9EM7tbasg00" : "https://buy.stripe.com/3cIaEX3tRcur9EM7tbasg00"} />
+                  <ActionButton label={`${tier.price} - ${tier.title}`} href={tier.title === 'Standard' ? "https://buy.stripe.com/3cIaEX3tRcur9EM7tbasg00" : tier.title === 'Pro' ? "https://buy.stripe.com/14A3cv7K72TR3go14Nasg02" : "https://buy.stripe.com/8x28wPe8vamjaIQ4gZasg03"} />
                 )}
               </div>
             </div>
