@@ -3,8 +3,12 @@
 > next dev
 
   ▲ Next.js 14.2.28
-  - Local:        http://localhost:3005
+  - Local:        http://localhost:3000
   - Environments: .env
 
  ✓ Starting...
- ✓ Ready in 3s
+ ✓ Ready in 2.2s
+ ○ Compiling / ...
+ ✓ Compiled / in 5.3s (1580 modules)
+ GET / 200 in 6260ms
+ ✓ Compiled in 1116ms (767 modules)

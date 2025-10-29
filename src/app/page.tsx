@@ -1,3 +1,5 @@
+"use client";
+
 import SiteHeader from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
 import { LogoTicker } from "@/components/logo-ticker";
@@ -8,12 +10,17 @@ import { Testimonials } from "@/components/testimonials";
 import { GithubIndicator } from "@/components/github-indicator";
 import { PricingSection } from "@/components/pricing-section";
 import Link from "next/link";
+import { useState } from "react";
+import { QcxBuild } from "@/components/qcx-build";
 
 export default function Home() {
+    const [isAnimationVisible, setIsAnimationVisible] = useState(false);
+
     return (
         <>
             <SiteHeader />
-            <HeroSection />
+            <HeroSection isAnimationVisible={isAnimationVisible} setIsAnimationVisible={setIsAnimationVisible} />
+            {isAnimationVisible && <QcxBuild id="qcx-build" />}
             <LogoTicker />
             <Features id="features" />
             <Testimonials id = "pricing"/>
