@@ -43,6 +43,7 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                 <Link href="/research" className="text-white/70 hover:text-white transition">
                                   Research {researchCount && researchCount > 0 ? `(${researchCount})` : ''}
                                 </Link>
+                                <Link href="https://github.com/Quantum-Cross/white-paper" className="text-white/70 hover:text-white transition">White Paper</Link>
                             </nav>
                         </section>
                         <section className="flex max-md:gap-4 items-center">
@@ -102,6 +103,10 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                             <Link href="/research" className="flex items-center gap-3 text-white/70 hover:text-white transition">
                                                 <Newspaper className="size-6" />
                                                 Research {researchCount && researchCount > 0 ? `(${researchCount})` : ''}
+                                            </Link>
+                                            <Link href="https://github.com/Quantum-Cross/white-paper" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                                <BookOpen className="size-6" />
+                                                White Paper
                                             </Link>
                                         </nav>
                                     </div>
