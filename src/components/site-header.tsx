@@ -46,7 +46,7 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                             </nav>
                         </section>
                         <section className="flex max-md:gap-4 items-center">
-                            {/* {authLoading ? (
+                            {authLoading ? (
                                 <Button variant="default" size="sm" className="book-demo-button" disabled>
                                     Loading...
                                 </Button>
@@ -57,15 +57,16 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                             ) : (
                                 <Modal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
                                     <ModalTrigger asChild>
-                                        <ActionButton label="Queue-In/Up" href="#" className="book-demo-button" />
+                                        <div onDoubleClick={() => setIsDemoModalOpen(true)}>
+                                            <ActionButton label="Queue Up" href="https://www.qcx.world" target="_blank" className="book-demo-button" />
+                                        </div>
                                     </ModalTrigger>
                                     <ModalContent className="bg-black/60 backdrop-blur-lg border border-white/20 text-white p-0">
                                         <AuthForm />
                                     </ModalContent>
                                 </Modal>
-                            )} */}
+                            )}
                             <div className="flex items-center gap-2">
-                                <ActionButton label="Queue Up" href="https://www.qcx.world" className="book-demo-button" />
                                 <Link href="https://cal.com/ericngoiya" target="_blank">
                                     <Calendar className="size-9 p-2 border rounded-lg hover:text-white/70 transition" />
                                 </Link>
