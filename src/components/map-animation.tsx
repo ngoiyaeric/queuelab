@@ -38,9 +38,9 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
     <div 
       onClick={onClose} 
       className="w-full h-full flex items-center justify-center cursor-pointer"
-      style={{ background: 'rgba(0, 0, 50, 0.95)' }}
+      style={{ background: 'black' }}
     >
-      <svg width="80%" height="80%" viewBox="0 0 900 600">
+      <svg width="100%" height="100%" viewBox="0 0 900 600">
         <defs>
           <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="4" result="coloredBlur" />
