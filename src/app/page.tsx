@@ -13,6 +13,9 @@ export default function Home() {
     return (
         <>
             <SiteHeader />
+            <div className="season-font">
+                <h1>Artificial General Intelligence</h1>
+            </div>
             <HeroSection />
             <LogoTicker />
             <Features id="features" />

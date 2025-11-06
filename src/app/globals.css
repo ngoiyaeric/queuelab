@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/season');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -51,4 +53,12 @@
   body {
     zoom: 0.75;
   }
+}
+
+.season-font {
+  font-family: 'Season', sans-serif;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 1.5rem;
 }
