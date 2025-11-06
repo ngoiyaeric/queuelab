@@ -32,7 +32,7 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                     <div className="flex items-center justify-between md:border md:p-2.5 md:rounded-xl max-w-2xl mx-auto md:backdrop-blur">
                         <Link href="/">
                             <div className="border size-10 rounded-lg inline-flex items-center justify-center block">
-                                <SiteLogo className="size-8 h-auto" />
+                                <SiteLogo className="size-8 h-auto text-white" />
                             </div>
                         </Link>
                         <section className="max-md:hidden">
@@ -78,7 +78,7 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                 <SheetContent side="top" className="p-8">
                                     <div className="inline-flex items-center center gap-3">
                                         <div className="border size-8 rounded-lg inline-flex items-center justify-center">
-                                            <SiteLogo className="size-6 h-auto" />
+                                            <SiteLogo className="size-6 h-auto text-white" />
                                         </div>
                                         <p className="font-bold">QCX</p>
                                     </div>
