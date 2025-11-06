@@ -14,7 +14,9 @@ export default function Home() {
         <>
             <SiteHeader />
             <div className="season-font">
-                <h1>Artificial General Intelligence</h1>
+                <Link href="https://arxiv.org/abs/2510.20636" target="_blank" rel="noopener noreferrer">
+                    <h1>Artificial General Intelligence</h1>
+                </Link>
             </div>
             <HeroSection />
             <LogoTicker />
