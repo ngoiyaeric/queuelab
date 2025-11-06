@@ -9,17 +9,17 @@ interface MapAnimationProps {
 
 const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
   const paths = [
-    "M100 100 C 200 200, 300 0, 400 100 S 500 200, 600 100",
-    "M200 500 C 300 400, 400 600, 500 500 S 600 400, 700 500",
-    "M100 100 L 200 500",
-    "M400 100 L 500 500",
-    "M600 100 L 700 500",
-    "M100 300 C 300 100, 400 500, 600 300",
-    "M800 200 C 700 300, 600 100, 500 200 S 400 300, 300 200",
-    "M850 450 C 750 350, 650 550, 550 450 S 450 350, 350 450",
-    "M800 200 L 850 450",
-    "M500 200 L 550 450",
-    "M300 200 L 350 450",
+    "M150 150 C 300 300, 450 0, 600 150 S 750 300, 900 150",
+    "M300 750 C 450 600, 600 900, 750 750 S 900 600, 1050 750",
+    "M150 150 L 300 750",
+    "M600 150 L 750 750",
+    "M900 150 L 1050 750",
+    "M150 450 C 450 150, 600 750, 900 450",
+    "M1050 300 C 900 450, 750 150, 600 300 S 450 450, 300 300",
+    "M1125 675 C 975 525, 825 825, 675 675 S 525 525, 375 675",
+    "M1050 300 L 1125 675",
+    "M750 300 L 825 675",
+    "M450 300 L 525 675",
   ];
 
   const pathVariants = {
@@ -37,10 +37,10 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
   return (
     <div 
       onClick={onClose} 
-      className="w-full h-full flex items-center justify-center cursor-pointer"
+      className="w-full h-full flex items-center justify-center cursor-pointer p-8"
       style={{ background: 'rgba(0, 0, 50, 0.95)' }}
     >
-      <svg width="80%" height="80%" viewBox="0 0 900 600" style={{ maxWidth: '800px', maxHeight: '600px' }}>
+      <svg width="100%" height="100%" viewBox="0 0 1200 800">
         <defs>
           <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="4" result="coloredBlur" />

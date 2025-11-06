@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import SiteLogo from "@/assets/logo.svg";
-import { Feather, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar } from "lucide-react";
+import { Feather, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar, Search } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect } from "react"; // useEffect Added
 import { Button } from "@/components/ui/button";
@@ -30,11 +30,14 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
             <header className="py-4 border-b max-md:backdrop-blur md:border-none sticky top-0 z-10">
                 <div className="container max-md:px-4">
                     <div className="flex items-center justify-between md:border md:p-2.5 md:rounded-xl max-w-2xl mx-auto md:backdrop-blur">
-                        <Link href="/">
-                            <div className="border size-10 rounded-lg inline-flex items-center justify-center block">
-                                <SiteLogo className="size-8 h-auto" />
-                            </div>
-                        </Link>
+                        <div className="flex items-center gap-4">
+                            <Search className="size-5" />
+                            <Link href="/">
+                                <div className="border size-10 rounded-lg inline-flex items-center justify-center block">
+                                    <SiteLogo className="size-8 h-auto" />
+                                </div>
+                            </Link>
+                        </div>
                         <section className="max-md:hidden">
                             <nav className="flex gap-8 items-center text-sm">
                                 <Link href="/#features" className="text-white/70 hover:text-white transition">Products</Link>
@@ -57,9 +60,11 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                             ) : (
                                 <Modal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
                                     <ModalTrigger asChild>
-                                        <div onDoubleClick={() => setIsDemoModalOpen(true)}>
-                                            <ActionButton label="Queue Up" href="https://www.qcx.world" target="_blank" className="book-demo-button" />
-                                        </div>
+                                        <ActionButton label="Queue Up" href="https://www.qcx.world" target="_blank" className="book-demo-button" onClick={(e) => {
+                                            e.preventDefault();
+                                            setIsDemoModalOpen(true);
+                                            window.open("https://www.qcx.world", "_blank");
+                                        }} />
                                     </ModalTrigger>
                                     <ModalContent className="bg-black/60 backdrop-blur-lg border border-white/20 text-white p-0">
                                         <AuthForm />
@@ -101,8 +106,8 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                                 Careers
                                             </Link>
                                             <Link href="/research" className="flex items-center gap-3 text-white/70 hover:text-white transition">
-                                                <Newspaper className="size-6" />
-                                                Research {researchCount && researchCount > 0 ? `(${researchCount})` : ''}
+                                                <BookOpen className="size-6" />
+                                                Research
                                             </Link>
                                         </nav>
                                     </div>
