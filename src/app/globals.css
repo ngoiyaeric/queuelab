@@ -56,8 +56,8 @@
 }
 
 .season-font {
-  font-family: 'Bell MT', serif;
-  color: white;
+  font-family: 'Inter', sans-serif;
+  color: hsla(0, 0%, 100%, 0.7);
   text-align: center;
   padding: 1rem 0;
   font-size: 0.8rem;

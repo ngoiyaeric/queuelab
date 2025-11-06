@@ -38,7 +38,7 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
     <div 
       onClick={onClose} 
       className="w-full h-full flex items-center justify-center cursor-pointer"
-      style={{ background: 'black' }}
+      style={{ background: 'transparent' }}
     >
       <svg width="100%" height="100%" viewBox="0 0 900 600">
         <defs>
@@ -55,7 +55,7 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
             key={`path-${i}`}
             d={path}
             fill="transparent"
-            stroke="#4c7cff"
+            stroke="hsl(220, 70%, 50%, 0.5)"
             strokeWidth="2"
             custom={i}
             variants={pathVariants}
