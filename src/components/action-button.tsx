@@ -5,10 +5,11 @@ import React from "react"; // Import React for JSX spread and ButtonHTMLAttribut
 interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   href?: string;
+  target?: string;
   // className is part of ButtonHTMLAttributes but can be explicitly listed for clarity if needed
 }
 
-export function ActionButton({ label, href, className, type = "button", ...props }: ActionButtonProps) {
+export function ActionButton({ label, href, target, className, type = "button", ...props }: ActionButtonProps) {
   // Internal classes for the button's consistent appearance
   const buttonInternalClass = "relative py-2 px-3 rounded-lg font-medium text-sm bg-gradient-to-b from-[#1a1a1a] to-[#333333] shadow-[0px_0px_12px_#0000FF]";
 
@@ -28,7 +29,7 @@ export function ActionButton({ label, href, className, type = "button", ...props
   // This is for actual navigation.
   if (href && href !== "#") {
     return (
-      <Link href={href} className={className} passHref>
+      <Link href={href} className={className} passHref target={target} rel={target === "_blank" ? "noopener noreferrer" : undefined}>
         {/* passHref ensures the <a> tag gets the href, important for accessibility and SEO */}
         {/* The `className` from ActionButtonProps applies to the Link element */}
         <button className={buttonInternalClass} type={type} {...props}>

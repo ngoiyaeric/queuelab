@@ -97,7 +97,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
                     What is the nature of your inquiry? <span className="text-red-400">*</span>
                 </label>
                 <div className="mt-2 space-y-2 md:space-y-0 md:flex md:space-x-4">
-                    {['General Inquiry', 'Product Support', 'Media Inquiry'].map((option) => (
+                    {['Data acquisition', 'Enterprise Consultations', 'Customer Support'].map((option) => (
                         <div key={option} className="flex items-center">
                             <input
                                 id={`identity-${option.toLowerCase().replace(' ', '-')}`}
