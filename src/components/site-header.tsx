@@ -57,9 +57,11 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                             ) : (
                                 <Modal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
                                     <ModalTrigger asChild>
-                                        <div onDoubleClick={() => setIsDemoModalOpen(true)}>
-                                            <ActionButton label="Queue Up" href="https://www.qcx.world" target="_blank" className="book-demo-button" />
-                                        </div>
+                                        <ActionButton label="Queue Up" href="https://www.qcx.world" target="_blank" className="book-demo-button" onClick={(e) => {
+                                            e.preventDefault();
+                                            setIsDemoModalOpen(true);
+                                            window.open("https://www.qcx.world", "_blank");
+                                        }} />
                                     </ModalTrigger>
                                     <ModalContent className="bg-black/60 backdrop-blur-lg border border-white/20 text-white p-0">
                                         <AuthForm />
@@ -101,8 +103,8 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                                 Careers
                                             </Link>
                                             <Link href="/research" className="flex items-center gap-3 text-white/70 hover:text-white transition">
-                                                <Newspaper className="size-6" />
-                                                Research {researchCount && researchCount > 0 ? `(${researchCount})` : ''}
+                                                <BookOpen className="size-6" />
+                                                Research
                                             </Link>
                                         </nav>
                                     </div>

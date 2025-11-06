@@ -40,7 +40,7 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
       className="w-full h-full flex items-center justify-center cursor-pointer"
       style={{ background: 'rgba(0, 0, 50, 0.95)' }}
     >
-      <svg width="80%" height="80%" viewBox="0 0 900 600" style={{ maxWidth: '800px', maxHeight: '600px' }}>
+      <svg width="80%" height="80%" viewBox="0 0 900 600">
         <defs>
           <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="4" result="coloredBlur" />
@@ -55,7 +55,7 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
             key={`path-${i}`}
             d={path}
             fill="transparent"
-            stroke="#1e3a8a"
+            stroke="#4c7cff"
             strokeWidth="2"
             custom={i}
             variants={pathVariants}
@@ -68,7 +68,7 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
           <motion.circle
             key={`spark-${i}`}
             r="4"
-            fill="#60a5fa"
+            fill="#ffffff"
             style={{ filter: 'url(#glow)' }}
           >
             <animateMotion
