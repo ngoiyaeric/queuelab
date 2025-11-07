@@ -11,10 +11,10 @@ const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata: Metadata = {
   title: "Artificial General Intelligence",
-  description: "QCX - multi-agent intelligence platform for exploration and automation.",
+  description: "QCX - Quality Computers Experience",
   openGraph: {
     title: "Artificial General Intelligence",
-    description: "QCX - multi-agent intelligence platform for exploration and automation.",
+    description: "QCX - Quality Computers Experience",
     images: "/opengraph-image.jpg", // Relative path to the image
     url: "https://www.queue.cx", // Updated to queue.cx
     type: "website",
