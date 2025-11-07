@@ -10,10 +10,10 @@ const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata: Metadata = {
-  title: "Lab",
+  title: "Artificial General Intelligence",
   description: "QCX - multi-agent intelligence platform for exploration and automation.",
   openGraph: {
-    title: "Lab",
+    title: "Artificial General Intelligence",
     description: "QCX - multi-agent intelligence platform for exploration and automation.",
     images: "/opengraph-image.jpg", // Relative path to the image
     url: "https://www.queue.cx", // Updated to queue.cx
