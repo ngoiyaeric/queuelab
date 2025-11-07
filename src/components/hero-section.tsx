@@ -138,7 +138,7 @@ export function HeroSection() {
                             QUALITY COMPUTER EXPERIENCES
                         </span>
                         <div className={"flex justify-center mt-5"}>
-                            <ActionButton label={"core"} href={"https://github.com/QueueLab/QCX/"} />
+                            <ActionButton label={"core"} href={"https://www.qcx.world"} />
                         </div>
                     </motion.div>
                 )}
