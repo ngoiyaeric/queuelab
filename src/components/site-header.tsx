@@ -45,6 +45,7 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                 <Link href="/research" className="text-white/70 hover:text-white transition">
                                   Research {researchCount && researchCount > 0 ? `(${researchCount})` : ''}
                                 </Link>
+                                <Link href="https://climate.stripe.com/3OeWSf" className="text-white/70 hover:text-white transition" target="_blank">Climate</Link>
                             </nav>
                         </section>
                         <section className="flex max-md:gap-4 items-center">
@@ -107,6 +108,10 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                             <Link href="/research" className="flex items-center gap-3 text-white/70 hover:text-white transition">
                                                 <BookOpen className="size-6" />
                                                 Research
+                                            </Link>
+                                            <Link href="https://climate.stripe.com/3OeWSf" className="flex items-center gap-3 text-white/70 hover:text-white transition" target="_blank">
+                                                <Feather className="size-6" />
+                                                Climate
                                             </Link>
                                         </nav>
                                     </div>
