@@ -19,7 +19,7 @@ export default function IntercomMessenger() {
 
     // Clean up function to shut down Intercom when the component unmounts
     return () => {
-      Intercom('shutdown');
+      (Intercom as any)('shutdown');
     };
   }, []);
 
