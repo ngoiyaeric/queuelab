@@ -35,8 +35,8 @@ const copilots: CopilotCard[] = [
   },
 ];
 
-function CopilotCardComponent({ card, index }: { card: CopilotCard; index: number }) {
-  const ref = useRef(null);
+function CopilotCardComponent({ card }: { card: CopilotCard }) {
+  const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start end', 'end start'],
@@ -158,7 +158,7 @@ function AnimatedBackground() {
 }
 
 export function FramerCopilotSection() {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
@@ -207,7 +207,7 @@ export function FramerCopilotSection() {
           className="grid grid-cols-1 md:grid-cols-3 gap-8"
         >
           {copilots.map((card, index) => (
-            <CopilotCardComponent key={index} card={card} index={index} />
+            <CopilotCardComponent key={index} card={card} />
           ))}
         </motion.div>
       </div>
