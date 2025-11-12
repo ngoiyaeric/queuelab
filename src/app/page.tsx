@@ -7,6 +7,7 @@ import { Features } from "@/components/features";
 import { Testimonials } from "@/components/testimonials";
 import { GithubIndicator } from "@/components/github-indicator";
 import { PricingSection } from "@/components/pricing-section";
+import { FramerCopilotSection } from "@/components/framer-copilots-section";
 import Link from "next/link";
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
             <HeroSection />
             <LogoTicker />
             <Features id="features" />
+            <FramerCopilotSection />
             <Testimonials id = "pricing"/>
             <PricingSection id="pricing" />
             <CallToAction id="call-to-action" />

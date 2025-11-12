@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 interface CopilotCard {
   title: string;
@@ -13,24 +13,24 @@ interface CopilotCard {
 
 const copilots: CopilotCard[] = [
   {
-    title: 'Agricultural Copilots',
-    description: 'Optimize crop yields and farm management with AI-powered insights',
-    icon: '🌾',
-    color: 'from-emerald-400 to-green-500',
+    title: "Agricultural Copilots",
+    description: "Optimize crop yields and farm management with AI-powered insights",
+    icon: "🌾",
+    color: "from-emerald-400 to-green-500",
     delay: 0,
   },
   {
-    title: 'Mining Copilots',
-    description: 'Enhance extraction efficiency and resource optimization',
-    icon: '⛏️',
-    color: 'from-blue-400 to-cyan-500',
+    title: "Mining Copilots",
+    description: "Enhance extraction efficiency and resource optimization",
+    icon: "⛏️",
+    color: "from-blue-400 to-cyan-500",
     delay: 0.2,
   },
   {
-    title: 'Defense Copilots - Disaster Response',
-    description: 'Rapid response coordination and emergency management systems',
-    icon: '🛡️',
-    color: 'from-blue-500 to-indigo-600',
+    title: "Defense Copilots - Disaster Response",
+    description: "Rapid response coordination and emergency management systems",
+    icon: "🛡️",
+    color: "from-blue-500 to-indigo-600",
     delay: 0.4,
   },
 ];
@@ -157,7 +157,7 @@ function AnimatedBackground() {
   );
 }
 
-export default function FramerCopilotSection() {
+export function FramerCopilotSection() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
