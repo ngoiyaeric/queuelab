@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 interface CopilotCard {
   title: string;
@@ -35,48 +34,33 @@ const copilots: CopilotCard[] = [
   },
 ];
 
-function CopilotCardComponent({ card, index }: { card: CopilotCard; index: number }) {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0.5]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.9]);
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [45, 0, -20]);
-  const y = useTransform(scrollYProgress, [0, 0.5, 1], [100, 0, -50]);
-
+function CopilotCardComponent({ card }: { card: CopilotCard }) {
   return (
     <motion.div
-      ref={ref}
-      style={{
-        opacity,
-        scale,
-        y,
-        rotateX,
-        perspective: 1200,
-      }}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: card.delay }}
+      viewport={{ once: true, margin: "-100px" }}
       className="relative group"
     >
-      <div className="relative bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 border border-slate-700 overflow-hidden h-full">
+      <div className="relative bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 border border-slate-700 overflow-hidden h-full hover:border-blue-500 transition-colors duration-300">
         <div className={`absolute inset-0 bg-gradient-to-br ${card.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
 
         <motion.div
           className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-green-400 to-cyan-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"
           animate={{
-            backgroundPosition: ['0% 0%', '100% 100%'],
+            backgroundPosition: ["0% 0%", "100% 100%"],
           }}
           transition={{
             duration: 3,
             repeat: Infinity,
-            repeatType: 'reverse',
+            repeatType: "reverse",
           }}
         />
 
         <div className="relative z-10">
           <motion.div
-            className="text-5xl mb-4"
+            className="text-5xl mb-4 inline-block"
             animate={{
               y: [0, -10, 0],
               rotateZ: [0, 5, -5, 0],
@@ -101,9 +85,9 @@ function CopilotCardComponent({ card, index }: { card: CopilotCard; index: numbe
           <motion.div
             className="h-1 bg-gradient-to-r from-blue-400 to-green-400 rounded-full"
             initial={{ width: 0 }}
-            whileInView={{ width: '100%' }}
+            whileInView={{ width: "100%" }}
             transition={{ duration: 0.8, delay: card.delay }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           />
         </div>
       </div>
@@ -123,9 +107,9 @@ function AnimatedBackground() {
         transition={{
           duration: 8,
           repeat: Infinity,
-          repeatType: 'reverse',
+          repeatType: "reverse",
         }}
-        style={{ top: '10%', left: '10%' }}
+        style={{ top: "10%", left: "10%" }}
       />
       <motion.div
         className="absolute w-96 h-96 bg-green-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
@@ -136,9 +120,9 @@ function AnimatedBackground() {
         transition={{
           duration: 10,
           repeat: Infinity,
-          repeatType: 'reverse',
+          repeatType: "reverse",
         }}
-        style={{ top: '50%', right: '10%' }}
+        style={{ top: "50%", right: "10%" }}
       />
       <motion.div
         className="absolute w-96 h-96 bg-cyan-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
@@ -149,34 +133,25 @@ function AnimatedBackground() {
         transition={{
           duration: 12,
           repeat: Infinity,
-          repeatType: 'reverse',
+          repeatType: "reverse",
         }}
-        style={{ bottom: '10%', left: '50%' }}
+        style={{ bottom: "10%", left: "50%" }}
       />
     </div>
   );
 }
 
 export function FramerCopilotSection() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
-
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.3]);
-  const titleScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
-
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white overflow-hidden py-20">
+    <div className="relative min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white overflow-hidden py-20">
       <AnimatedBackground />
 
       <div className="relative z-10 px-4 max-w-6xl mx-auto">
         <motion.div
-          style={{
-            opacity: titleOpacity,
-            scale: titleScale,
-          }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
           className="text-center mb-16"
         >
           <motion.h2
@@ -207,7 +182,7 @@ export function FramerCopilotSection() {
           className="grid grid-cols-1 md:grid-cols-3 gap-8"
         >
           {copilots.map((card, index) => (
-            <CopilotCardComponent key={index} card={card} index={index} />
+            <CopilotCardComponent key={index} card={card} />
           ))}
         </motion.div>
       </div>
