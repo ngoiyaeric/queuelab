@@ -26,7 +26,7 @@ const copilots: CopilotCard[] = [
     delay: 0.2,
   },
   {
-    title: "Defense Copilots - Disaster Response",
+    title: "Disaster Response Copilots",
     description: "Rapid response coordination and emergency management systems",
     icon: "🛡️",
     color: "from-blue-500 to-indigo-600",
