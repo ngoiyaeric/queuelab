@@ -13,7 +13,7 @@ interface CopilotCard {
 const copilots: CopilotCard[] = [
   {
     title: "Agricultural Copilots",
-    description: "Optimize crop yields and farm management with AI-powered insights",
+    description: "Optimize crop yields and farm management with moodel powered insights",
     icon: "🌾",
     color: "from-emerald-400 to-green-500",
     delay: 0,
