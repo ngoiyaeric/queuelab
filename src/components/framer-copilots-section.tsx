@@ -143,7 +143,7 @@ function AnimatedBackground() {
 
 export function FramerCopilotSection() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white overflow-hidden py-20">
+    <div className="relative min-h-screen bg-black text-white overflow-hidden py-20">
       <AnimatedBackground />
 
       <div className="relative z-10 px-4 max-w-6xl mx-auto">
