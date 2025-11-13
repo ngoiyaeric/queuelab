@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SiteLogo from "@/assets/logo.svg";
 import QIcon from "@/assets/logo-q-icon.png";
-import { Feather, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar } from "lucide-react";
+import { Home, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar, Globe, CloudSun } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect } from "react"; // useEffect Added
 import { Button } from "@/components/ui/button";
@@ -90,11 +90,11 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                     <div className="mt-8 mb-4">
                                         <nav className="grid gap-4 items-center text-lg">
                                             <Link href="/" className="flex items-center gap-3 text-white/70 hover:text-white transition">
-                                                <Feather className="size-6" />
+                                                <Home className="size-6" />
                                                 Home
                                             </Link>
                                             <Link href="/#features" className="flex items-center gap-3 text-white/70 hover:text-white transition">
-                                                <Feather className="size-6" />
+                                                <Globe className="size-6" />
                                                 Products
                                             </Link>
                                             <Link href="/#pricing" className="flex items-center gap-3 text-white/70 hover:text-white transition">
@@ -110,7 +110,7 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                                 Research
                                             </Link>
                                             <Link href="https://climate.stripe.com/3OeWSf" className="flex items-center gap-3 text-white/70 hover:text-white transition" target="_blank">
-                                                <Feather className="size-6" />
+                                                <CloudSun className="size-6" />
                                                 Climate
                                             </Link>
                                         </nav>
