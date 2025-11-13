@@ -161,7 +161,7 @@ export function FramerCopilotSection() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            What you can build on QCX
+            What you can build with QCX
           </motion.h2>
           <motion.p
             className="text-xl text-slate-300 max-w-2xl mx-auto"
@@ -170,7 +170,7 @@ export function FramerCopilotSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Explore powerful AI-driven solutions
+            Explore powerful earth foundational model driven solutions on our planet computer.
           </motion.p>
         </motion.div>
 
