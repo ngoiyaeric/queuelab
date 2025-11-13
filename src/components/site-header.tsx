@@ -29,7 +29,7 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
     }, [user, isDemoModalOpen, setIsDemoModalOpen]);
     return (
         <>
-            <header className="py-4 border-b max-md:backdrop-blur md:border-none sticky top-0 z-10">
+            <header className="py-4 border-b max-md:backdrop-blur md:border-none sticky top-0 z-50">
                 <div className="container max-md:px-4">
                     <div className="flex items-center justify-between md:border md:p-2.5 md:rounded-xl max-w-2xl mx-auto md:backdrop-blur">
                         <Link href="/">
