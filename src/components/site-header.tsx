@@ -63,7 +63,6 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                         <ActionButton label="Queue Up" href="https://www.qcx.world" target="_blank" className="book-demo-button" onClick={(e) => {
                                             e.preventDefault();
                                             setIsDemoModalOpen(true);
-                                            window.open("https://www.qcx.world", "_blank");
                                         }} />
                                     </ModalTrigger>
                                     <ModalContent className="bg-black/60 backdrop-blur-lg border border-white/20 text-white p-0">
