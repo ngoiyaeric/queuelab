@@ -7,18 +7,18 @@ import CallToAction  from "@/components/call-to-action";
 import BackgroundStars from "@/assets/stars.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-export default function ResearchPage() {
+export default function RDPage() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: [`start end`, 'end start']
   });
   const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
-  const researchCount = 3; // Manually counted <details> elements
+  const rdCount = 3; // Manually counted <details> elements
 
   return (
     <React.Fragment>
-      <SiteHeader researchCount={researchCount} />
+      <SiteHeader rdCount={rdCount} />
       <motion.section
         ref={sectionRef}
         animate={{ backgroundPositionX: BackgroundStars.width }}
@@ -41,7 +41,7 @@ export default function ResearchPage() {
             </div>
             <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
               <p>
-                We’re an applied artificial general intelligence research lab working at
+                We’re an applied artificial general intelligence R&D lab working at
                 the intersection of nature and computation.
               </p>
               <p>

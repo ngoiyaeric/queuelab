@@ -14,10 +14,10 @@ import { AuthForm } from '@/components/auth-form';   // New import
 import { ActionButton } from '@/components/action-button';
 
 interface SiteHeaderProps {
-  researchCount?: number;
+  rdCount?: number;
 }
 
-export default function SiteHeader({ researchCount }: SiteHeaderProps) {
+export default function SiteHeader({ rdCount }: SiteHeaderProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
     const { user, loading: authLoading, signOut } = useAuth(); // Get auth state
@@ -42,8 +42,8 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                 <Link href="/#features" className="text-white/70 hover:text-white transition">Products</Link>
                                 <Link href="/#pricing" className="text-white/70 hover:text-white transition">Pricing</Link>
                                 <Link href="/careers" className="text-white/70 hover:text-white transition">Careers</Link>
-                                <Link href="/research" className="text-white/70 hover:text-white transition">
-                                  Research {researchCount && researchCount > 0 ? `(${researchCount})` : ''}
+                                <Link href="/rd" className="text-white/70 hover:text-white transition">
+                                  R&D {rdCount && rdCount > 0 ? `(${rdCount})` : ''}
                                 </Link>
                                 <Link href="https://climate.stripe.com/3OeWSf" className="text-white/70 hover:text-white transition" target="_blank">Climate</Link>
                             </nav>
@@ -104,9 +104,9 @@ export default function SiteHeader({ researchCount }: SiteHeaderProps) {
                                                 <Newspaper className="size-6" />
                                                 Careers
                                             </Link>
-                                            <Link href="/research" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/rd" className="flex items-center gap-3 text-white/70 hover:text-white transition">
                                                 <BookOpen className="size-6" />
-                                                Research
+                                                R&D
                                             </Link>
                                             <Link href="https://climate.stripe.com/3OeWSf" className="flex items-center gap-3 text-white/70 hover:text-white transition" target="_blank">
                                                 <CloudSun className="size-6" />

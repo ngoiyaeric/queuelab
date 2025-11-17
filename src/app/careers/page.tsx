@@ -63,7 +63,7 @@ export default function CareersPage() {
 
             <details className="mb-8">
               <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
-                Research Engineer
+                R&D Engineer
               </summary>
               <div className="text-center text-sm text-white/50 mt-2">
                 Remote
@@ -71,15 +71,15 @@ export default function CareersPage() {
               <div className="text-left text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
                 <p className="font-bold">About the role:</p>
                 <p>
-                  We are looking for a research engineer to join our team and help us push the boundaries of artificial intelligence. You will be responsible for designing and conducting experiments, and for developing new models and algorithms.
+                  We are looking for a R&D engineer to join our team and help us push the boundaries of artificial intelligence. You will be responsible for designing and conducting experiments, and for developing new models and algorithms.
                 </p>
                 <br/>
                 <p className="font-bold">Responsibilities:</p>
                 <ul className="list-disc list-inside">
                   <li>Design and conduct experiments.</li>
                   <li>Develop new models and algorithms.</li>
-                  <li>Publish research papers and present at conferences.</li>
-                  <li>Collaborate with other researchers and engineers.</li>
+                  <li>Publish R&D papers and present at conferences.</li>
+                  <li>Collaborate with other R&D and engineers.</li>
                 </ul>
               </div>
             </details>
