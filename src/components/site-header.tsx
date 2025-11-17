@@ -12,6 +12,7 @@ import { Modal, ModalContent, ModalTrigger } from "@/components/ui/modal";
 import { useAuth } from '@/components/auth-provider'; // New import
 import { AuthForm } from '@/components/auth-form';   // New import
 import { ActionButton } from '@/components/action-button';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 interface SiteHeaderProps {
   rdCount?: number;
@@ -71,6 +72,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                 </Modal>
                             )}
                             <div className="flex items-center gap-2">
+                                <ThemeToggle />
                                 <Link href="https://cal.com/ericngoiya" target="_blank">
                                     <Calendar className="size-9 p-2 border rounded-lg hover:text-white/70 transition" />
                                 </Link>

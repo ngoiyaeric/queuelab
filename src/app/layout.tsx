@@ -4,6 +4,7 @@ import "./globals.css";
 import { clsx } from "clsx";
 import { Roboto } from "next/font/google";
 import { AuthProvider } from '@/components/auth-provider'; // Added import
+import { ThemeProvider } from '@/components/theme-provider';
 import { Analytics } from "@vercel/analytics/react"
 import IntercomMessenger from '@/components/IntercomMessenger';
 
@@ -26,16 +27,18 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="light">
       <head>
 
       </head>
       <body className={clsx(inter.className, roboto.className, "antialiased")}>
-        <AuthProvider> {/* Added AuthProvider wrapper */}
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          <AuthProvider> {/* Added AuthProvider wrapper */}
           {children}
           <IntercomMessenger />
           <Analytics />
         </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
