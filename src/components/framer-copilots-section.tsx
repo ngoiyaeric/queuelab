@@ -170,7 +170,7 @@ export function FramerCopilotSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Explore powerful earth foundational model driven solutions on our planet computer.
+            Explore powerful earth observation foundational model driven solutions on our planet computer.
           </motion.p>
         </motion.div>
 
