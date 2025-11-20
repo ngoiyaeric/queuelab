@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient'; // Ensure this path is correct
 import { Button } from "@/components/ui/button"; // Assuming Button component exists
+import { useRouter } from 'next/navigation';
 import SiteLogo from "@/assets/logo.svg"; // Assuming this is the correct path to the logo SVG
 import BackgroundStars from "@/assets/stars.png"; // Added
 
 export function AuthForm() {
+    const router = useRouter();
     const [isLoginView, setIsLoginView] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -53,8 +55,13 @@ export function AuthForm() {
                     password,
                 });
                 if (signInError) throw signInError;
-                setMessage("Logged in successfully!"); // User/session state will be handled by AuthProvider
-                // Modal closure will be handled by AuthProvider detecting session change or via a callback
+                setMessage("Logged in successfully! Redirecting to dashboard...");
+                
+                // Redirect to dashboard after successful login
+                const dashboardUrl = process.env.NEXT_PUBLIC_DASHBOARD_URL || 'http://localhost:3001';
+                setTimeout(() => {
+                    window.location.href = dashboardUrl + '/dashboard';
+                }, 1500);
             } else {
                 // Sign Up
                 const { data, error: signUpError } = await supabase.auth.signUp({
