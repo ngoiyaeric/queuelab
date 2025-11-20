@@ -31,7 +31,7 @@ export function PricingSection({ id }: { id: string }) {
         <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter">
           Pricing Plans
         </h2>
-        <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
+        <p className="text-foreground/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
           Choose the plan that suits you best, pay as you go after limits. 
         </p>
         <div className="mt-10 grid lg:grid-cols-4 gap-6">
@@ -39,7 +39,7 @@ export function PricingSection({ id }: { id: string }) {
             <div key={tier.title} className="border border-muted p-6 rounded-xl">
               <h3 className="text-2xl font-semibold">{tier.title}</h3>
               <p className="text-4xl font-bold my-4">{tier.price}</p>
-              <ul className="text-[#7CFC00] text-lg">
+              <ul className="text-foreground text-lg">
                 {tier.features.map((feature, index) => (
                   <li key={index} className="mt-2">
                     {feature}

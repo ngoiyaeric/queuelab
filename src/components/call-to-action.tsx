@@ -57,7 +57,7 @@ const CallToAction = ({ id }: { id?: string }) => {
                             </h2>
                             
                         
-                          <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+                          <div className="text-center text-lg md:text-xl text-foreground/70 tracking-tight px-4 mt-5">
     <p>
         We are dedicated to providing the best customer experience. We believe in the power of open source and community collaboration.
     </p>
