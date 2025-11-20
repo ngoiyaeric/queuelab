@@ -11,7 +11,7 @@ interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
 
 export function ActionButton({ label, href, target, className, type = "button", ...props }: ActionButtonProps) {
   // Internal classes for the button's consistent appearance
-  const buttonInternalClass = "relative py-2 px-3 rounded-lg font-medium text-sm bg-gradient-to-b from-[#1a1a1a] to-[#333333] shadow-[0px_0px_12px_#0000FF]";
+  const buttonInternalClass = "relative py-2 px-3 rounded-lg font-medium text-sm bg-gradient-to-b from-gray-900 to-gray-700 shadow-[0px_0px_12px_rgba(0,0,0,0.5)] dark:from-gray-100 dark:to-gray-300 dark:shadow-[0px_0px_12px_rgba(255,255,255,0.5)]";
 
   // JSX for the visual elements inside the button (icons, text, etc.)
   const buttonVisuals = (
@@ -21,7 +21,7 @@ export function ActionButton({ label, href, target, className, type = "button", 
         <div className={"absolute inset-0 border rounded-lg border-white/40 [mask-image:linear-gradient(to_top,black,transparent)]"} />
         <div className={"absolute inset-0 rounded-lg shadow-[0_0_10px_rgb(0,0,255,0.7)_inset]"} />
       </div>
-      <span className={"text-[#7CFC00]"}>{label}</span>
+      <span className={"text-foreground"}>{label}</span>
     </>
   );
 

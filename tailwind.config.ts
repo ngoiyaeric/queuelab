@@ -53,24 +53,24 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
         beige: {
-          DEFAULT: "hsl(30, 20%, 80%)",
-          foreground: "hsl(120, 40%, 30%)",
+          DEFAULT: "hsl(0, 0%, 85%)",
+          foreground: "hsl(0, 0%, 15%)",
         },
         forestGreen: {
-          DEFAULT: "hsl(120, 40%, 30%)",
-          foreground: "hsl(30, 20%, 80%)",
+          DEFAULT: "hsl(0, 0%, 30%)",
+          foreground: "hsl(0, 0%, 85%)",
         },
         natureGreen: {
-          DEFAULT: "hsl(120, 40%, 80%)",
-          foreground: "hsl(30, 20%, 80%)",
+          DEFAULT: "hsl(0, 0%, 70%)",
+          foreground: "hsl(0, 0%, 85%)",
         },
         natureBrown: {
-          DEFAULT: "hsl(30, 20%, 50%)",
-          foreground: "hsl(120, 40%, 30%)",
+          DEFAULT: "hsl(0, 0%, 50%)",
+          foreground: "hsl(0, 0%, 30%)",
         },
         natureSky: {
-          DEFAULT: "hsl(200, 70%, 80%)",
-          foreground: "hsl(120, 40%, 30%)",
+          DEFAULT: "hsl(0, 0%, 70%)",
+          foreground: "hsl(0, 0%, 30%)",
         },
       },
       borderRadius: {

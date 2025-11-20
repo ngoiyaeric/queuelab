@@ -31,20 +31,20 @@ export default function CareersPage() {
         <div className="container py-20 md:py-24 relative">
           <div className="text-center">
             <h1 className="text-5xl tracking-tighter font-medium">Careers</h1>
-            <p className="text-lg md:text-xl text-white/70 tracking-tight mt-4">
+            <p className="text-lg md:text-xl text-foreground/70 tracking-tight mt-4">
               Join us in building the future of intelligence.
             </p>
           </div>
 
           <div className="mt-12">
             <details className="mb-8">
-              <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
+              <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer border border-foreground/20 p-4 rounded-lg hover:bg-foreground/5">
                 Software Engineer
               </summary>
-              <div className="text-center text-sm text-white/50 mt-2">
+              <div className="text-center text-sm text-foreground/50 mt-2">
                 Remote
               </div>
-              <div className="text-left text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+              <div className="text-left text-lg md:text-xl text-foreground/70 tracking-tight px-4 mt-5">
                 <p className="font-bold">About the role:</p>
                 <p>
                   We are looking for a talented software engineer to join our team and help us build the next generation of our platform. You will be responsible for designing, developing, and deploying high-quality software solutions.
@@ -62,13 +62,13 @@ export default function CareersPage() {
 
 
             <details className="mb-8">
-              <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
+              <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer border border-foreground/20 p-4 rounded-lg hover:bg-foreground/5">
                 R&D Engineer
               </summary>
-              <div className="text-center text-sm text-white/50 mt-2">
+              <div className="text-center text-sm text-foreground/50 mt-2">
                 Remote
               </div>
-              <div className="text-left text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+              <div className="text-left text-lg md:text-xl text-foreground/70 tracking-tight px-4 mt-5">
                 <p className="font-bold">About the role:</p>
                 <p>
                   We are looking for a R&D engineer to join our team and help us push the boundaries of artificial intelligence. You will be responsible for designing and conducting experiments, and for developing new models and algorithms.
