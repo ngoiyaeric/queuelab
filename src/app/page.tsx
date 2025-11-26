@@ -23,7 +23,7 @@ export default function Home() {
             <LogoTicker />
             <Features id="features" />
             <FramerCopilotSection />
-            <Testimonials id = "pricing"/>
+            <Testimonials id = "testimonials"/>
             <PricingSection id="pricing" />
             <CallToAction id="call-to-action" />
             <GithubIndicator />
