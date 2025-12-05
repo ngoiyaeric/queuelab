@@ -26,7 +26,7 @@ const testimonials = [
     },
     {
         text: "“Can you achieve this for Surveillance cams ?”",
-        name: "Maxwell Maduka @ Terra Industries",
+        name: "Maxwell @ Terra Industries",
     },
 ]
 
