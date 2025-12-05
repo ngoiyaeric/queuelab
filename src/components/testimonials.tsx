@@ -24,6 +24,10 @@ const testimonials = [
         text: "“A planet-focused, science-driven tool with clear reporting is exactly what our stakeholders need”",
         name: "ANH Academy",
     },
+    {
+        text: "“Can you achieve this for Surveillance cams ?”",
+        name: "Maxwell Maduka @ Terra Industries",
+    },
 ]
 
 interface TestimonialsProps {
