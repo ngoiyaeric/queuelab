@@ -17,10 +17,6 @@ const testimonials = [
         name: "Neemaeli",
     },
     {
-        text: "“The foundational model gives our business exactly what it needs.”",
-        name: "Kimogele, Niwa.ltd",
-    },
-    {
         text: "“A planet-focused, science-driven tool with clear reporting is exactly what our stakeholders need”",
         name: "ANH Academy",
     },
