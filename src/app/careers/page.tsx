@@ -132,7 +132,7 @@ export default function CareersPage() {
               <div className="text-left text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
                 <p className="font-bold">About the role:</p>
                 <p>
-                  We are looking for a R&D engineer to join our team and help us push the boundaries of artificial intelligence. You will be responsible for designing and conducting experiments, and for developing new models and algorithms.
+                  We are looking for a R&D engineer to join our team and help us push the boundaries of artificial general intelligence. You will be responsible for designing and conducting experiments, and for developing new models and algorithms.
                 </p>
                 <br/>
                 <p className="font-bold">Responsibilities:</p>
