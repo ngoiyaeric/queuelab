@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
+import TeamSection from "@/components/team-section";
 import BackgroundStars from "@/assets/stars.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -86,6 +87,7 @@ export default function CareersPage() {
           </div>
         </div>
       </motion.section>
+      <TeamSection />
       <SiteFooter />
     </React.Fragment>
   );
