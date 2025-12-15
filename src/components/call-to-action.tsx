@@ -1,6 +1,6 @@
 "use client"
 
-// import { InterestForm } from "@/components/interest-form"; // Add this import
+import { InterestForm } from "@/components/interest-form"; // Add this import
 import BackgroundStars from "@/assets/stars.png";
 import BackgroundGrid from "@/assets/grid-lines.png";
 import {motion, useMotionTemplate, useMotionValue, useScroll, useTransform} from "framer-motion";
@@ -69,9 +69,9 @@ const CallToAction = ({ id }: { id?: string }) => {
 
                             
                             {/* Replace ActionButton with InterestForm */}
-                            {/* <div className={"mt-12 md:mt-16 max-w-2xl mx-auto"}>
+                            <div className={"mt-12 md:mt-16 max-w-2xl mx-auto"}>
                                 <InterestForm formTitle="Contact Form" submissionContext="General Contact Form" />
-                            </div> */}
+                            </div>
                         </div>
                     </motion.div>
 
