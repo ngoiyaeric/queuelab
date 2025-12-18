@@ -20,7 +20,7 @@ interface SiteHeaderProps {
 export default function SiteHeader({ rdCount }: SiteHeaderProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
-    const { user, loading: authLoading, signOut } = useAuth(); // Get auth state
+    const { user, initializing: authLoading, signOut } = useAuth(); // Get auth state
 
     useEffect(() => {
         if (user && isDemoModalOpen) {

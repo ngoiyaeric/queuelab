@@ -1,14 +1,14 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { supabase } from '@/lib/supabaseClient'; // Ensure this path is correct
+import { supabase } from '@/lib/supabaseClient'; 
 import type { Session, User } from '@supabase/supabase-js';
 
 interface AuthContextType {
   session: Session | null;
   user: User | null;
-  loading: boolean; // To indicate initial session loading
-  signOut: () => Promise<void>; // Add signOut function to context
+  initializing: boolean; 
+  signOut: () => Promise<void>; 
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -16,16 +16,15 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true); // Start loading true for initial session check
+  const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
-    // Get initial session
     const fetchSession = async () => {
       try {
         const { data: { session: currentSession }, error } = await supabase.auth.getSession();
         if (error) {
           console.error("Error fetching initial session:", error);
-          setLoading(false);
+          setInitializing(false);
           return;
         }
 
@@ -34,21 +33,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       } catch (e) {
         console.error("Exception fetching initial session:", e);
       } finally {
-        setLoading(false);
+        setInitializing(false);
       }
     };
 
     fetchSession();
 
-    // Listen for auth state changes
     const { data: authListener } = supabase.auth.onAuthStateChange(async (event, newSession) => {
       console.log('Supabase auth event:', event, newSession);
       setSession(newSession);
       setUser(newSession?.user ?? null);
-      setLoading(false); // Ensure loading is false after any auth event
+      setInitializing(false); 
     });
 
-    // Cleanup listener on component unmount
     return () => {
       if (authListener && typeof authListener.subscription?.unsubscribe === 'function') {
         authListener.subscription.unsubscribe();
@@ -57,27 +54,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const signOut = async () => {
-    setLoading(true); // Optionally set loading true during sign out
+    setInitializing(true);
     try {
       const { error } = await supabase.auth.signOut();
       if (error) {
         console.error("Error signing out:", error.message);
-        // Potentially set an error state here for UI feedback
-      } else {
-        // Session and user will be set to null by onAuthStateChange
-      }
+      } 
     } catch (e) {
         console.error("Exception during sign out:", e);
-    } finally {
-        // setLoading(false); // onAuthStateChange will set loading to false
-    }
+    } 
   };
 
 
   const value = {
     session,
     user,
-    loading,
+    initializing,
     signOut,
   };
 
