@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import SiteHeader from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";

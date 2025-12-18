@@ -19,6 +19,9 @@ export function AuthForm() {
         setError(null);
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
+            options: {
+                redirectTo: `${window.location.origin}/dashboard`
+            }
         });
         if (error) {
             setError(error.message);
@@ -54,7 +57,7 @@ export function AuthForm() {
                 });
                 if (signInError) throw signInError;
                 setMessage("Logged in successfully!"); // User/session state will be handled by AuthProvider
-                // Modal closure will be handled by AuthProvider detecting session change or via a callback
+                window.location.href = '/dashboard';
             } else {
                 // Sign Up
                 const { data, error: signUpError } = await supabase.auth.signUp({

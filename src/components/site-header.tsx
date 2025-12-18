@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SiteLogo from "@/assets/logo.svg";
 import QIcon from "@/assets/logo-q-icon.png";
-import { Home, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar, Globe, CloudSun } from "lucide-react";
+import { Home, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar, Globe, CloudSun, LayoutDashboard } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect } from "react"; // useEffect Added
 import { Button } from "@/components/ui/button";
@@ -39,6 +39,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                         </Link>
                         <section className="max-md:hidden">
                             <nav className="flex gap-8 items-center text-sm">
+                                {user && <Link href="/dashboard" className="text-white/70 hover:text-white transition">Dashboard</Link>}
                                 <Link href="/#features" className="text-white/70 hover:text-white transition">Products</Link>
                                 <Link href="/#pricing" className="text-white/70 hover:text-white transition">Pricing</Link>
                                 <Link href="/careers" className="text-white/70 hover:text-white transition">Careers</Link>
@@ -54,9 +55,25 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                     Loading...
                                 </Button>
                             ) : user ? (
-                                <Button variant="outline" size="sm" onClick={signOut} className="logout-button">
-                                    Logout
-                                </Button>
+                                <>
+                                    {user.user_metadata.avatar_url && (
+                                        <Image
+                                            src={user.user_metadata.avatar_url}
+                                            alt="User avatar"
+                                            width={32}
+                                            height={32}
+                                            className="rounded-full"
+                                        />
+                                    )}
+                                    <Link href="/dashboard">
+                                        <Button variant="ghost" size="sm">
+                                            Dashboard
+                                        </Button>
+                                    </Link>
+                                    <Button variant="outline" size="sm" onClick={signOut} className="logout-button">
+                                        Logout
+                                    </Button>
+                                </>
                             ) : (
                                 <Modal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
                                     <ModalTrigger asChild>
@@ -86,11 +103,28 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                         </div>
                                         <p className="font-bold">QCX</p>
                                     </div>
+                                    {user && (
+                                        <div className="mt-4 flex items-center gap-3">
+                                            {user.user_metadata.avatar_url && (
+                                                <Image
+                                                    src={user.user_metadata.avatar_url}
+                                                    alt="User avatar"
+                                                    width={40}
+                                                    height={40}
+                                                    className="rounded-full"
+                                                />
+                                            )}
+                                            <div>
+                                                <p className="font-semibold">{user.user_metadata.full_name}</p>
+                                                <p className="text-sm text-white/70">{user.email}</p>
+                                            </div>
+                                        </div>
+                                    )}
                                     <div className="mt-8 mb-4">
                                         <nav className="grid gap-4 items-center text-lg">
-                                            <Link href="/" className="flex items-center gap-3 text-white/70 hover:text-white transition">
-                                                <Home className="size-6" />
-                                                Home
+                                            <Link href={user ? "/dashboard" : "/"} className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                                {user ? <LayoutDashboard className="size-6" /> : <Home className="size-6" />}
+                                                {user ? "Dashboard" : "Home"}
                                             </Link>
                                             <Link href="/#features" className="flex items-center gap-3 text-white/70 hover:text-white transition">
                                                 <Globe className="size-6" />
