@@ -1,8 +1,9 @@
 "use client"
 
-import MsLogo from "@/assets/logo-ms.png";
 import GithubLogo from "@/assets/logo-github.png";
-import NvidiaLogo from "@/assets/nvidia.png";
+import NvidiaLogo from "@/assets/nvidia-transparent.png";
+import GoogleLogo from "@/assets/CloudforStartups-3.png";
+import MicrosoftStartupLogo from "@/assets/microsoft-for-startups-transparent.png";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -25,7 +26,7 @@ export function LogoTicker() {
 
   return (
     <>
-      {/* <section className={"py-20 md:py-24"}>
+      <section className={"py-20 md:py-24"}>
         <div className={"container"}>
           <div className={"flex items-center gap-5"}>
               <div className={"flex-1 md:flex-none"}>
@@ -41,14 +42,14 @@ export function LogoTicker() {
                           ease: "linear",
                       }}
                       className={"flex flex-none gap-14 pr-14 -translate-x-1/2"}>
-                      {[MsLogo, GithubLogo, NvidiaLogo, MsLogo, GithubLogo, NvidiaLogo].map((logo, index) => (
+                      {[MicrosoftStartupLogo, GithubLogo, NvidiaLogo, GoogleLogo, MicrosoftStartupLogo, GithubLogo, NvidiaLogo, GoogleLogo].map((logo, index) => (
                           <Image src={logo} alt={`partner-logo-${index}`} key={index} className={"h-6 w-auto"}/>
                       ))}
                   </motion.div>
               </div>
           </div>
         </div>
-      </section> */}
+      </section>
     </>
   );
 }
