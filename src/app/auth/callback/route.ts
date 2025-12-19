@@ -1,21 +1,26 @@
-import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabaseClient';
+import { NextResponse } from \'next/server\';
+import { createClient } from \'@/lib/supabaseServer\';
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
-  const code = searchParams.get('code');
+  const code = searchParams.get(\'code\');
 
   if (code) {
     try {
-      await supabase.auth.exchangeCodeForSession(code);
+      const supabase = await createClient();
+      const { error } = await supabase.auth.exchangeCodeForSession(code);
+      
+      if (error) {
+        console.error(\'Error exchanging code for session:\', error);
+        return NextResponse.redirect(`${origin}/auth/error`);
+      }
+      
       return NextResponse.redirect(`${origin}/dashboard`);
     } catch (error) {
-      console.error('Error exchanging code for session:', error);
-      // Redirect to an error page or show an error message
+      console.error(\'Error in callback:\', error);
       return NextResponse.redirect(`${origin}/auth/error`);
     }
   }
 
-  // Redirect if no code is provided
   return NextResponse.redirect(`${origin}/`);
 }
