@@ -62,7 +62,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       } 
     } catch (e) {
         console.error("Exception during sign out:", e);
-    } 
+    } finally {
+        setInitializing(false);
+    }
   };
 
 

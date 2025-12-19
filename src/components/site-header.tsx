@@ -56,7 +56,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                 </Button>
                             ) : user ? (
                                 <>
-                                    {user.user_metadata.avatar_url && (
+                                    {user.user_metadata?.avatar_url && (
                                         <Image
                                             src={user.user_metadata.avatar_url}
                                             alt="User avatar"
@@ -105,7 +105,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                     </div>
                                     {user && (
                                         <div className="mt-4 flex items-center gap-3">
-                                            {user.user_metadata.avatar_url && (
+                                            {user.user_metadata?.avatar_url && (
                                                 <Image
                                                     src={user.user_metadata.avatar_url}
                                                     alt="User avatar"
