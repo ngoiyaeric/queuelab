@@ -15,7 +15,7 @@ export async function GET(request: Request) {
         return NextResponse.redirect(`${origin}/auth/error`);
       }
       
-      return NextResponse.redirect(`${origin}/dashboard`);
+      return NextResponse.redirect('https://app.queue.cx/dashboard');
     } catch (error) {
       console.error('Error in callback:', error);
       return NextResponse.redirect(`${origin}/auth/error`);
