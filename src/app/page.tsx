@@ -13,9 +13,9 @@ import { FramerCopilotSection } from "@/components/framer-copilots-section";
 import Link from "next/link";
 import { useAuth } from "@/components/auth-provider";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 
-export default function Home() {
+function HomeContent() {
   const { user, initializing } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -63,5 +63,17 @@ export default function Home() {
       <GithubIndicator />
       <SiteFooter />
     </>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center h-screen">
+        <p>Loading...</p>
+      </div>
+    }>
+      <HomeContent />
+    </Suspense>
   );
 }
