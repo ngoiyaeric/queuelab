@@ -73,7 +73,11 @@ export function DropdownMenuTrigger({
   }, [isOpen, setIsOpen]);
 
   return (
-    <div ref={triggerRef} onClick={() => setIsOpen(!isOpen)}>
+    <div 
+      ref={triggerRef} 
+      onClick={() => setIsOpen(!isOpen)}
+      className="transition-transform duration-200 hover:scale-105 active:scale-95"
+    >
       {children}
     </div>
   );
@@ -84,9 +88,19 @@ export function DropdownMenuContent({
   align = "end",
   className,
 }: DropdownMenuContentProps) {
-  const { isOpen, setIsOpen } = React.useContext(DropdownMenuContext);
+  const { isOpen } = React.useContext(DropdownMenuContext);
+  const [mounted, setMounted] = React.useState(false);
 
-  if (!isOpen) return null;
+  React.useEffect(() => {
+    if (isOpen) {
+      setMounted(true);
+    } else {
+      const timer = setTimeout(() => setMounted(false), 200);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
+  if (!mounted && !isOpen) return null;
 
   const alignmentClasses = {
     start: "left-0",
@@ -97,7 +111,10 @@ export function DropdownMenuContent({
   return (
     <div
       className={cn(
-        "absolute z-50 mt-2 min-w-[12rem] overflow-hidden rounded-md border border-white/10 bg-gray-900/95 backdrop-blur-lg p-1 shadow-lg",
+        "absolute z-50 mt-2 min-w-[12rem] overflow-hidden rounded-md border border-white/10 bg-gray-900/95 backdrop-blur-lg p-1 shadow-lg transition-all duration-200 origin-top-right",
+        isOpen 
+          ? "opacity-100 scale-100 translate-y-0" 
+          : "opacity-0 scale-95 -translate-y-2 pointer-events-none",
         alignmentClasses[align],
         className
       )}
@@ -123,7 +140,7 @@ export function DropdownMenuItem({
     <button
       onClick={handleClick}
       className={cn(
-        "relative flex w-full cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none transition-colors hover:bg-white/10 focus:bg-white/10 focus:text-white",
+        "relative flex w-full cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none transition-all duration-150 hover:bg-white/10 hover:translate-x-1 focus:bg-white/10 focus:text-white active:scale-95",
         className
       )}
     >

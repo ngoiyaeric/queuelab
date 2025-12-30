@@ -70,17 +70,17 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                 <>
                                     <DropdownMenu>
                                         <DropdownMenuTrigger>
-                                            <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition">
+                                            <div className="flex items-center gap-2 cursor-pointer group">
                                                 {user.user_metadata?.avatar_url ? (
                                                     <Image
                                                         src={user.user_metadata.avatar_url}
                                                         alt="User avatar"
                                                         width={40}
                                                         height={40}
-                                                        className="rounded-full border-2 border-white/20"
+                                                        className="rounded-full border-2 border-white/20 transition-all duration-300 group-hover:border-white/40 group-hover:shadow-lg group-hover:shadow-blue-500/50"
                                                     />
                                                 ) : (
-                                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold border-2 border-white/20">
+                                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold border-2 border-white/20 transition-all duration-300 group-hover:border-white/40 group-hover:shadow-lg group-hover:shadow-purple-500/50">
                                                         {user.email?.[0]?.toUpperCase() || 'U'}
                                                     </div>
                                                 )}
@@ -105,9 +105,9 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                                 <span>base</span>
                                             </DropdownMenuItem>
                                             <DropdownMenuSeparator />
-                                            <DropdownMenuItem onClick={handleSignOut} className="text-red-400 hover:text-red-300">
-                                                <LogOut className="mr-2 h-4 w-4" />
-                                                <span>Queue Out</span>
+                                            <DropdownMenuItem onClick={handleSignOut} className="text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200">
+                                                <LogOut className="mr-2 h-4 w-4 transition-transform duration-200 group-hover:rotate-12" />
+                                                <span className="font-medium">Queue Out</span>
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
