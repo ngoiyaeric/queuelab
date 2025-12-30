@@ -12,18 +12,21 @@ import { PricingSection } from "@/components/pricing-section";
 import { FramerCopilotSection } from "@/components/framer-copilots-section";
 import Link from "next/link";
 import { useAuth } from "@/components/auth-provider";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Home() {
   const { user, initializing } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const hasOAuthCode = searchParams.get('code');
 
   useEffect(() => {
-    if (!initializing && user) {
+    // Don't redirect if there's an OAuth code (let the callback handle it)
+    if (!initializing && user && !hasOAuthCode) {
       router.push("/dashboard");
     }
-  }, [user, initializing, router]);
+  }, [user, initializing, hasOAuthCode, router]);
 
   if (initializing) {
     return (
@@ -33,7 +36,8 @@ export default function Home() {
     );
   }
 
-  if (user) {
+  // Don't show null if there's an OAuth code being processed
+  if (user && !hasOAuthCode) {
     return null;
   }
 
