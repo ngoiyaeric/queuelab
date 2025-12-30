@@ -19,10 +19,11 @@ export function AuthForm() {
     const handleGoogleLogin = async () => {
         setLoading(true);
         setError(null);
+        const redirectUrl = `${window.location.origin}/auth/callback`;
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-                redirectTo: 'https://app.queue.cx/auth/callback'
+                redirectTo: redirectUrl
             }
         });
         if (error) {
