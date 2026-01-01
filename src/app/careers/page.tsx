@@ -58,7 +58,7 @@ export default function CareersPage() {
                     <p className="text-lg text-white/70 mb-4">Chief Executive Officer</p>
                     {isBioExpanded && (
                       <p className="text-sm text-white/60 mb-6 text-center max-w-md">
-                        Eric Ngoiya is a Tanzanian graduate scientist and researcher. Eric participated in Genesys GPT-2 hackathons in 2019 and wrote code on the nano satellite cubesat mission at Lassonde School of Engineering for Climate Observations. Eric is lead author of a cited scientific publication Fluidity Index: Next Generation Super-Intelligence Benchmarks research.
+                        Eric Ngoiya is a graduate scientist and researcher. Eric participated in Genesys GPT-2 hackathons in 2019 and wrote code on the nano satellite cubesat mission at Lassonde School of Engineering for Climate Observations. Eric is lead author of a cited scientific publication Fluidity Index: Next Generation Super-Intelligence Benchmarks research.
                       </p>
                     )}
                     <button
