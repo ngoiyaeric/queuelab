@@ -17,6 +17,8 @@ export default function CareersPage() {
   const [isBioExpanded, setIsBioExpanded] = useState(false);
   const fullBio = "Eric Ngoiya is a graduate scientist and researcher. Eric participated in Genesys GPT-2 hackathons in 2019 and wrote code on the nano satellite cubesat mission at Lassonde School of Engineering for Earth Observations. Eric is lead author of a cited scientific publication Fluidity Index: Next Generation Super-Intelligence Benchmarks research.";
 
+  const [isBioExpanded, setIsBioExpanded] = useState(false);
+
   return (
     <React.Fragment>
       <SiteHeader />
@@ -56,16 +58,17 @@ export default function CareersPage() {
                     </div>
                     <h3 className="text-2xl font-medium tracking-tight mb-2">Eric Ngoiya</h3>
                     <p className="text-lg text-white/70 mb-4">Chief Executive Officer</p>
-                    <div className="text-sm text-white/60 mb-6 text-center max-w-md">
-                      <div>
-                        {isBioExpanded ? fullBio : `${fullBio.substring(0, 100)}...`}
-                      </div>
-                      <div className="mt-2">
-                        <button onClick={() => setIsBioExpanded(!isBioExpanded)} className="text-blue-400 hover:underline">
-                          {isBioExpanded ? 'Read less' : 'Read more'}
-                        </button>
-                      </div>
-                    </div>
+                    {isBioExpanded && (
+                      <p className="text-sm text-white/60 mb-6 text-center max-w-md">
+                        Eric Ngoiya is an East African graduate scientist and researcher. Eric participated in Genesys GPT-2 hackathons in 2019 and wrote code on the nano satellite cubesat mission at Lassonde School of Engineering for Climate Observations. Eric is lead author of a cited scientific publication Fluidity Index: Next Generation Super-Intelligence Benchmarks research.
+                      </p>
+                    )}
+                    <button
+                      onClick={() => setIsBioExpanded(!isBioExpanded)}
+                      className="text-sm text-white/70 hover:text-white transition-colors underline"
+                    >
+                      {isBioExpanded ? "See less" : "See more"}
+                    </button>
                     <div className="flex gap-4">
                       <a
                         href="https://www.linkedin.com/in/ereqdesign"
