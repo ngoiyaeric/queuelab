@@ -14,21 +14,24 @@ export default function SiteFooter() {
                         <p className={"font-medium"}>QCX</p>
                     </section>
 
-                    <Link href="https://tally.so/r/wADZ4o" className="text-sm text-muted-foreground hover:underline">
-                        Privacy and Terms
-                    </Link>
+                    <div className="flex flex-col items-center gap-4 md:flex-row md:gap-2 md:items-baseline">
+                        <Link href="https://tally.so/r/wADZ4o" className="text-sm text-muted-foreground hover:underline">
+                            Privacy and Terms
+                        </Link>
 
-                    <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
-                        ©️ 2025 QueueCX, Inc. All rights reserved. Built by <a
-                        href={"https://discord.gg/NqGY9EWjWj"}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="font-medium underline underline-offset-4"
-                    >
-                        QueueLab
-                    </a>
-                        .
-                    </p>
+                        <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
+                            ©️ 2025 QueueCX, Inc. All rights reserved. Built by <a
+                            href={"https://discord.gg/NqGY9EWjWj"}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="font-medium underline underline-offset-4"
+                        >
+                            QueueLab
+                        </a>
+                            .
+                        </p>
+                    </div>
+                    <p className="text-sm text-muted-foreground">CLASSIFIED RESEARCH</p>
                 </div>
             </footer>
         </>
