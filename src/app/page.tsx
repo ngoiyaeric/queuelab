@@ -8,17 +8,13 @@ import { Testimonials } from "@/components/testimonials";
 import { GithubIndicator } from "@/components/github-indicator";
 import { PricingSection } from "@/components/pricing-section";
 import { FramerCopilotSection } from "@/components/framer-copilots-section";
-import Link from "next/link";
+import { AnimatedText } from "@/components/animated-text";
 
 export default function Home() {
     return (
         <>
             <SiteHeader />
-            <div className="season-font">
-                <Link href="https://arxiv.org/abs/2510.20636" target="_blank" rel="noopener noreferrer">
-                    <h1>Artificial General Intelligence</h1>
-                </Link>
-            </div>
+            <AnimatedText />
             <HeroSection />
             <LogoTicker />
             <Features id="features" />
