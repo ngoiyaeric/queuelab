@@ -45,7 +45,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                 <Link href="/rd" className="text-white/70 hover:text-white transition">
                                   Reads {rdCount && rdCount > 0 ? `(${rdCount})` : ''}
                                 </Link>
-                                <Link href="https://climate.stripe.com/3OeWSf" className="text-white/70 hover:text-white transition" target="_blank">Climate</Link>
+                                <Link href="https://climate.stripe.com/3OeWSf" className="text-white/70 hover:text-white transition" target="_blank">Environment</Link>
                             </nav>
                         </section>
                         <section className="flex max-md:gap-4 items-center">
