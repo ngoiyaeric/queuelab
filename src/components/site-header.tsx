@@ -5,6 +5,7 @@ import Image from "next/image";
 import SiteLogo from "@/assets/logo.svg";
 import QIcon from "@/assets/logo-q-icon.png";
 import { Home, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar, Globe, CloudSun } from "lucide-react";
+import { ThemeToggle } from "./theme-toggle";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect } from "react"; // useEffect Added
 import { Button } from "@/components/ui/button";
@@ -34,7 +35,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                     <div className="flex items-center justify-between md:border md:p-2.5 md:rounded-xl max-w-2xl mx-auto md:backdrop-blur bg-background/80">
                         <Link href="/">
                             <div className="border border-foreground/20 size-10 rounded-lg inline-flex items-center justify-center block">
-                                <Image src={QIcon} alt="QCX Logo" width={32} height={32} className="size-8 h-auto brightness-0" />
+                                <Image src={QIcon} alt="QCX Logo" width={32} height={32} className="size-8 h-auto brightness-0 dark:invert" />
                             </div>
                         </Link>
                         <section className="max-md:hidden">
@@ -71,6 +72,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                 </Modal>
                             )}
                             <div className="flex items-center gap-2">
+                                <ThemeToggle />
                                 <Link href="https://cal.com/ericngoiya" target="_blank">
                                     <Calendar className="size-9 p-2 border border-foreground/20 rounded-lg hover:text-foreground/70 transition" />
                                 </Link>
@@ -80,11 +82,14 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                     <MenuIcon className="size-9 md:hidden hover:text-foreground/70 transition" />
                                 </SheetTrigger>
                                 <SheetContent side="top" className="p-8 bg-background border-foreground/20">
-                                    <div className="inline-flex items-center center gap-3">
-                                        <div className="border border-foreground/20 size-8 rounded-lg inline-flex items-center justify-center">
-                                            <Image src={QIcon} alt="QCX Logo" width={24} height={24} className="size-6 h-auto brightness-0" />
+                                    <div className="flex items-center justify-between">
+                                        <div className="inline-flex items-center center gap-3">
+                                            <div className="border border-foreground/20 size-8 rounded-lg inline-flex items-center justify-center">
+                                                <Image src={QIcon} alt="QCX Logo" width={24} height={24} className="size-6 h-auto brightness-0 dark:invert" />
+                                            </div>
+                                            <p className="font-bold text-foreground">QCX</p>
                                         </div>
-                                        <p className="font-bold text-foreground">QCX</p>
+                                        <ThemeToggle />
                                     </div>
                                     <div className="mt-8 mb-4">
                                         <nav className="grid gap-4 items-center text-lg">
