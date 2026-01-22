@@ -13,8 +13,9 @@ export const AnimatedText = () => {
     const words = textToShow.split(" ");
 
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        if (isDefinitionVisible) {
-            e.preventDefault();
+        e.preventDefault();
+        if (!isDefinitionVisible) {
+            window.open("https://arxiv.org/abs/2510.20636", "_blank", "noopener,noreferrer");
         }
         setIsDefinitionVisible(!isDefinitionVisible);
     };
