@@ -1,5 +1,3 @@
-"use client"
-
 "use client";
 
 import { Icon } from "@iconify/react";
@@ -39,7 +37,7 @@ export function LogoTicker() {
             </div>
             <div
               className={
-                "flex-1 w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]"
+                "flex-1 w-full overflow-hidden border border-red-500"
               }
             >
               <motion.div
@@ -50,14 +48,12 @@ export function LogoTicker() {
                   duration: isMobile ? 10 : 5,
                   ease: "linear",
                 }}
-                className={"flex flex-none gap-14 pr-14"}
+                className={"flex flex-none gap-14 pr-14 w-max bg-blue-900/20"}
               >
                 {logos.map((logo, index) => (
-                  <Icon
-                    icon={logo}
-                    key={index}
-                    className={"h-8 w-auto"}
-                  />
+                  <div key={index} className="h-8 w-20 bg-white/20 border border-white flex items-center justify-center text-[10px] text-white">
+                    Logo {index}
+                  </div>
                 ))}
               </motion.div>
             </div>
