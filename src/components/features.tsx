@@ -100,23 +100,23 @@ const FeatureTab = (
   return (
     <div
       onMouseEnter={handleTabHover}
-      className="border border-muted flex items-center p-2.5 gap-2.5 rounded-xl relative cursor-pointer hover:bg-muted/30"
+      className="border border-foreground/20 flex items-center p-2.5 gap-2.5 rounded-xl relative cursor-pointer hover:bg-foreground/5"
       ref={tabRef}
       onClick={props.onClick}
     >
       {props.selected && (
         <motion.div
           style={{ maskImage }}
-          className="absolute inset-0 -m-px border border-[#A369FF] rounded-xl"
+          className="absolute inset-0 -m-px border border-primary rounded-xl"
         />
       )}
 
-      <div className="size-12 border border-muted rounded-lg inline-flex items-center justify-center">
-        <DotLottiePlayer src={props.icon} className="size-5" autoplay ref={dotLottieRef} />
+      <div className="size-12 border border-foreground/20 rounded-lg inline-flex items-center justify-center">
+        <DotLottiePlayer src={props.icon} className="size-5 invert brightness-0" autoplay ref={dotLottieRef} />
       </div>
-      <div className="font-medium">{props.title}</div>
+      <div className="font-medium text-foreground">{props.title}</div>
       {props.isNew && (
-        <div className="text-xs rounded-full text-white px-2 py-0.5 bg-[#7CFC00] font-semibold">
+        <div className="text-xs rounded-full text-primary-foreground px-2 py-0.5 bg-primary font-semibold">
           New
         </div>
       )}
@@ -167,12 +167,12 @@ export function Features({ id }: { id: string }) {
 
   return (
     <>
-      <section className="py-20 md:py-24 bg-black" id={id}>
+      <section className="py-20 md:py-24 bg-background" id={id}>
         <div className="container">
-          <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter">
+          <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter text-foreground">
             Discover the Power of QCX.
           </h2>
-          <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
+          <p className="text-foreground/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
             QCX offers a comprehensive suite of tools to help you understand and visualize data about our world.
           </p>
 
@@ -186,8 +186,8 @@ export function Features({ id }: { id: string }) {
               />
             ))}
           </div>
-          <motion.div className="border border-muted rounded-xl p-2.5 mt-3">
-            <div className="relative aspect-video rounded-lg overflow-hidden">
+          <motion.div className="border border-foreground/20 rounded-xl p-2.5 mt-3">
+            <div className="relative aspect-video rounded-lg overflow-hidden bg-foreground/5">
               {tabs[selectedTab].component ? (
                 <VimeoPlayer />
               ) : (
@@ -209,8 +209,8 @@ export function Features({ id }: { id: string }) {
       </section>
 
       {isDialogOpen && selectedImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="relative bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/50 p-4">
+          <div className="relative bg-background rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden border border-foreground/20">
             <div className="relative aspect-video">
               <Image
                 src={selectedImage}
@@ -224,11 +224,11 @@ export function Features({ id }: { id: string }) {
             </div>
             <button
               onClick={() => setIsDialogOpen(false)}
-              className="absolute top-4 right-4 bg-white/90 hover:bg-white rounded-full p-2 transition-colors"
+              className="absolute top-4 right-4 bg-background/90 hover:bg-background rounded-full p-2 transition-colors border border-foreground/20"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="h-6 w-6 text-foreground"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
