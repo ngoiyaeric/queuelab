@@ -110,7 +110,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                             </Link>
                                             <Link href="https://climate.stripe.com/3OeWSf" className="flex items-center gap-3 text-white/70 hover:text-white transition" target="_blank">
                                                 <CloudSun className="size-6" />
-                                                Climate
+                                                Environment
                                             </Link>
                                         </nav>
                                     </div>

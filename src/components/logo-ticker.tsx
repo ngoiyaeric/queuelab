@@ -33,13 +33,13 @@ export function LogoTicker() {
     <>
       <section className={"py-20 md:py-24"}>
         <div className={"container"}>
-          <div className={"flex items-center gap-5"}>
-            <div className={"flex-1 md:flex-none"}>
+          <div className={"flex flex-col md:flex-row items-center gap-5"}>
+            <div className={"flex-none"}>
               <h2 className={""}>Our trusted partners</h2>
             </div>
             <div
               className={
-                "flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]"
+                "flex-1 w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]"
               }
             >
               <motion.div
@@ -50,7 +50,7 @@ export function LogoTicker() {
                   duration: isMobile ? 10 : 5,
                   ease: "linear",
                 }}
-                className={"flex flex-none gap-14 pr-14 -translate-x-1/2"}
+                className={"flex flex-none gap-14 pr-14"}
               >
                 {logos.map((logo, index) => (
                   <Icon
