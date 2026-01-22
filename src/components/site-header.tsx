@@ -5,6 +5,7 @@ import Image from "next/image";
 import SiteLogo from "@/assets/logo.svg";
 import QIcon from "@/assets/logo-q-icon.png";
 import { Home, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar, Globe, CloudSun } from "lucide-react";
+import { ThemeToggle } from "./theme-toggle";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect } from "react"; // useEffect Added
 import { Button } from "@/components/ui/button";
@@ -31,21 +32,21 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
         <>
             <header className="py-4 border-b max-md:backdrop-blur md:border-none sticky top-0 z-50">
                 <div className="container max-md:px-4">
-                    <div className="flex items-center justify-between md:border md:p-2.5 md:rounded-xl max-w-2xl mx-auto md:backdrop-blur">
+                    <div className="flex items-center justify-between md:border md:p-2.5 md:rounded-xl max-w-2xl mx-auto md:backdrop-blur bg-background/80">
                         <Link href="/">
-                            <div className="border size-10 rounded-lg inline-flex items-center justify-center block">
-                                <Image src={QIcon} alt="QCX Logo" width={32} height={32} className="size-8 h-auto" />
+                            <div className="border border-foreground/20 size-10 rounded-lg inline-flex items-center justify-center block">
+                                <Image src={QIcon} alt="QCX Logo" width={32} height={32} className="size-8 h-auto brightness-0 dark:invert" />
                             </div>
                         </Link>
                         <section className="max-md:hidden">
                             <nav className="flex gap-8 items-center text-sm">
-                                <Link href="/#features" className="text-white/70 hover:text-white transition">Products</Link>
-                                <Link href="/#pricing" className="text-white/70 hover:text-white transition">Pricing</Link>
-                                <Link href="/careers" className="text-white/70 hover:text-white transition">Careers</Link>
-                                <Link href="/rd" className="text-white/70 hover:text-white transition">
+                                <Link href="/#features" className="text-foreground/70 hover:text-foreground transition">Products</Link>
+                                <Link href="/#pricing" className="text-foreground/70 hover:text-foreground transition">Pricing</Link>
+                                <Link href="/careers" className="text-foreground/70 hover:text-foreground transition">Careers</Link>
+                                <Link href="/rd" className="text-foreground/70 hover:text-foreground transition">
                                   Reads {rdCount && rdCount > 0 ? `(${rdCount})` : ''}
                                 </Link>
-                                <Link href="https://climate.stripe.com/3OeWSf" className="text-white/70 hover:text-white transition" target="_blank">Environment</Link>
+                                <Link href="https://climate.stripe.com/3OeWSf" className="text-foreground/70 hover:text-foreground transition" target="_blank">Environment</Link>
                             </nav>
                         </section>
                         <section className="flex max-md:gap-4 items-center">
@@ -65,50 +66,54 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                             setIsDemoModalOpen(true);
                                         }} />
                                     </ModalTrigger>
-                                    <ModalContent className="bg-black/60 backdrop-blur-lg border border-white/20 text-white p-0">
+                                    <ModalContent className="bg-background/90 backdrop-blur-lg border border-foreground/20 text-foreground p-0">
                                         <AuthForm />
                                     </ModalContent>
                                 </Modal>
                             )}
                             <div className="flex items-center gap-2">
+                                <ThemeToggle />
                                 <Link href="https://cal.com/ericngoiya" target="_blank">
-                                    <Calendar className="size-9 p-2 border rounded-lg hover:text-white/70 transition" />
+                                    <Calendar className="size-9 p-2 border border-foreground/20 rounded-lg hover:text-foreground/70 transition" />
                                 </Link>
                             </div>
                             <Sheet open={isOpen} onOpenChange={setIsOpen}>
                                 <SheetTrigger>
-                                    <MenuIcon className="size-9 md:hidden hover:text-white/70 transition" />
+                                    <MenuIcon className="size-9 md:hidden hover:text-foreground/70 transition" />
                                 </SheetTrigger>
-                                <SheetContent side="top" className="p-8">
-                                    <div className="inline-flex items-center center gap-3">
-                                        <div className="border size-8 rounded-lg inline-flex items-center justify-center">
-                                            <Image src={QIcon} alt="QCX Logo" width={24} height={24} className="size-6 h-auto" />
+                                <SheetContent side="top" className="p-8 bg-background border-foreground/20">
+                                    <div className="flex items-center justify-between">
+                                        <div className="inline-flex items-center center gap-3">
+                                            <div className="border border-foreground/20 size-8 rounded-lg inline-flex items-center justify-center">
+                                                <Image src={QIcon} alt="QCX Logo" width={24} height={24} className="size-6 h-auto brightness-0 dark:invert" />
+                                            </div>
+                                            <p className="font-bold text-foreground">QCX</p>
                                         </div>
-                                        <p className="font-bold">QCX</p>
+                                        <ThemeToggle />
                                     </div>
                                     <div className="mt-8 mb-4">
                                         <nav className="grid gap-4 items-center text-lg">
-                                            <Link href="/" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/" className="flex items-center gap-3 text-foreground/70 hover:text-foreground transition" onClick={() => setIsOpen(false)}>
                                                 <Home className="size-6" />
                                                 Home
                                             </Link>
-                                            <Link href="/#features" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/#features" className="flex items-center gap-3 text-foreground/70 hover:text-foreground transition" onClick={() => setIsOpen(false)}>
                                                 <Globe className="size-6" />
                                                 Products
                                             </Link>
-                                            <Link href="/#pricing" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/#pricing" className="flex items-center gap-3 text-foreground/70 hover:text-foreground transition" onClick={() => setIsOpen(false)}>
                                                 <Wallet2 className="size-6" />
                                                 Pricing
                                             </Link>
-                                            <Link href="/careers" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/careers" className="flex items-center gap-3 text-foreground/70 hover:text-foreground transition" onClick={() => setIsOpen(false)}>
                                                 <Newspaper className="size-6" />
                                                 Careers
                                             </Link>
-                                            <Link href="/rd" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/rd" className="flex items-center gap-3 text-foreground/70 hover:text-foreground transition" onClick={() => setIsOpen(false)}>
                                                 <BookOpen className="size-6" />
                                                 Reads
                                             </Link>
-                                            <Link href="https://climate.stripe.com/3OeWSf" className="flex items-center gap-3 text-white/70 hover:text-white transition" target="_blank">
+                                            <Link href="https://climate.stripe.com/3OeWSf" className="flex items-center gap-3 text-foreground/70 hover:text-foreground transition" target="_blank" onClick={() => setIsOpen(false)}>
                                                 <CloudSun className="size-6" />
                                                 Environment
                                             </Link>

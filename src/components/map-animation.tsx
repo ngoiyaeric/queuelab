@@ -55,7 +55,7 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
             key={`path-${i}`}
             d={path}
             fill="transparent"
-            stroke="hsl(220, 70%, 50%, 0.5)"
+            stroke="hsl(78, 25%, 41%, 0.5)"
             strokeWidth="2"
             custom={i}
             variants={pathVariants}
@@ -68,7 +68,8 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
           <motion.circle
             key={`spark-${i}`}
             r="4"
-            fill="#ffffff"
+            fill="currentColor"
+            className="text-foreground"
             style={{ filter: 'url(#glow)' }}
           >
             <animateMotion

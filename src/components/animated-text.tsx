@@ -49,9 +49,9 @@ export const AnimatedText = () => {
     };
 
     return (
-        <div className="season-font text-center p-4">
+        <div className="season-font text-center p-4 bg-background">
             <Link href="https://arxiv.org/abs/2510.20636" target="_blank" rel="noopener noreferrer" onClick={handleClick}>
-                <h1>
+                <h1 className="text-foreground">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={textToShow}

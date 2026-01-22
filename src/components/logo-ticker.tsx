@@ -55,7 +55,7 @@ export function LogoTicker() {
                     icon={logo}
                     key={index}
                     height={32}
-                    className={"w-auto"}
+                    className={"w-auto grayscale brightness-0 opacity-70"}
                   />
                 ))}
               </motion.div>

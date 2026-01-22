@@ -3,7 +3,6 @@
 import React, { useRef, useState } from "react";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
-import BackgroundStars from "@/assets/stars.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
@@ -20,21 +19,14 @@ export default function CareersPage() {
   return (
     <React.Fragment>
       <SiteHeader />
-      <motion.section
+      <section
         ref={sectionRef}
-        animate={{ backgroundPositionX: BackgroundStars.width }}
-        transition={{ duration: 120, repeat: Infinity, ease: 'linear' }}
-        style={{
-          backgroundImage: `url(${BackgroundStars.src})`,
-          backgroundPositionY,
-        }}
-        className="relative overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
+        className="relative overflow-hidden bg-background text-foreground"
       >
-        <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"} />
         <div className="container py-20 md:py-24 relative">
           <div className="text-center">
             <h1 className="text-5xl tracking-tighter font-medium">Careers</h1>
-            <p className="text-lg md:text-xl text-white/70 tracking-tight mt-4">
+            <p className="text-lg md:text-xl text-foreground/70 tracking-tight mt-4">
               Join us in building the future of intelligence.
             </p>
           </div>
@@ -44,7 +36,7 @@ export default function CareersPage() {
             <h2 className="text-4xl tracking-tighter font-medium text-center mb-12">Our Team</h2>
             <div className="flex justify-center">
               <div className="max-w-sm">
-                <div className="border border-white/20 rounded-lg p-8 hover:bg-white/5 transition-colors">
+                <div className="border border-foreground/20 rounded-lg p-8 hover:bg-foreground/5 transition-colors">
                   <div className="flex flex-col items-center">
                     <div className="relative w-40 h-40 mb-6">
                       <Image
@@ -55,15 +47,15 @@ export default function CareersPage() {
                       />
                     </div>
                     <h3 className="text-2xl font-medium tracking-tight mb-2">Eric Ngoiya</h3>
-                    <p className="text-lg text-white/70 mb-4">Chief Executive Officer</p>
+                    <p className="text-lg text-foreground/70 mb-4">Chief Executive Officer</p>
                     {isBioExpanded && (
-                      <p className="text-sm text-white/60 mb-6 text-center max-w-md">
+                      <p className="text-sm text-foreground/60 mb-6 text-center max-w-md">
                         Eric Ngoiya is an East African graduate scientist and researcher. Eric participated in Genesys GPT-2 hackathons in 2019 and wrote code on the nano satellite cubesat mission at Lassonde School of Engineering for Environment Observations. Eric is lead author of a cited scientific publication Fluidity Index: Next Generation Super-Intelligence Benchmarks research.
                       </p>
                     )}
                     <button
                       onClick={() => setIsBioExpanded(!isBioExpanded)}
-                      className="text-sm text-white/70 hover:text-white transition-colors underline"
+                      className="text-sm text-foreground/70 hover:text-foreground transition-colors underline"
                     >
                       {isBioExpanded ? "See less" : "See more"}
                     </button>
@@ -72,7 +64,7 @@ export default function CareersPage() {
                         href="https://www.linkedin.com/in/ereqdesign"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white/70 hover:text-white transition-colors"
+                        className="text-foreground/70 hover:text-foreground transition-colors"
                         aria-label="LinkedIn"
                       >
                         <svg
@@ -88,7 +80,7 @@ export default function CareersPage() {
                         href="https://www.x.com/ereqdesign"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white/70 hover:text-white transition-colors"
+                        className="text-foreground/70 hover:text-foreground transition-colors"
                         aria-label="X (Twitter)"
                       >
                         <svg
@@ -107,15 +99,15 @@ export default function CareersPage() {
             </div>
           </div>
 
-          <div className="mt-12">
+          <div className="mt-12 max-w-3xl mx-auto">
             <details className="mb-8">
-              <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
+              <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer border border-foreground/20 p-4 rounded-lg hover:bg-foreground/5">
                 Software Engineer
               </summary>
-              <div className="text-center text-sm text-white/50 mt-2">
+              <div className="text-center text-sm text-foreground/50 mt-2">
                 Remote
               </div>
-              <div className="text-left text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+              <div className="text-left text-lg md:text-xl text-foreground/70 tracking-tight px-4 mt-5">
                 <p className="font-bold">About the role:</p>
                 <p>
                   We are looking for a talented software engineer to join our team and help us build the next generation of our platform. You will be responsible for designing, developing, and deploying high-quality software solutions.
@@ -133,13 +125,13 @@ export default function CareersPage() {
 
 
             <details className="mb-8">
-              <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
+              <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer border border-foreground/20 p-4 rounded-lg hover:bg-foreground/5">
                 R&D Engineer
               </summary>
-              <div className="text-center text-sm text-white/50 mt-2">
+              <div className="text-center text-sm text-foreground/50 mt-2">
                 Remote
               </div>
-              <div className="text-left text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+              <div className="text-left text-lg md:text-xl text-foreground/70 tracking-tight px-4 mt-5">
                 <p className="font-bold">About the role:</p>
                 <p>
                   We are looking for a R&D engineer to join our team and help us push the boundaries of artificial general intelligence. You will be responsible for designing and conducting experiments, and for developing new models and algorithms.
@@ -156,7 +148,7 @@ export default function CareersPage() {
             </details>
           </div>
         </div>
-      </motion.section>
+      </section>
       <SiteFooter />
     </React.Fragment>
   );
