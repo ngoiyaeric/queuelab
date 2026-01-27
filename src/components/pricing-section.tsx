@@ -13,7 +13,7 @@ const pricingTiers = [
     features: ['Internet Search', 'Upload and analyze unlimited files', 'Mapping tools', 'Location Intelligence'],
   },
   {
-    title: 'Go',
+    title: 'Pro',
     price: '$$$+/Month',
     features: ['Everything in Standard', 'Browser Agents', 'Physics Models', 'Environment Aware *', 'Collaborative'],
   },
