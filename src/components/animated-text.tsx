@@ -12,16 +12,8 @@ export const AnimatedText = () => {
     const textToShow = isDefinitionVisible ? definitionText : originalText;
     const words = textToShow.split(" ");
 
-    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        if (!isDefinitionVisible) {
-            // Let the default link behavior open the tab (non-blocking)
-            // and toggle the definition visible
-            setIsDefinitionVisible(true);
-        } else {
-            // Prevent the link from opening again when toggling back
-            e.preventDefault();
-            setIsDefinitionVisible(false);
-        }
+    const handleToggle = () => {
+        setIsDefinitionVisible(!isDefinitionVisible);
     };
 
     const containerVariants = {
@@ -54,30 +46,47 @@ export const AnimatedText = () => {
 
     return (
         <div className="season-font text-center p-4">
-            <Link href="https://arxiv.org/abs/2510.20636" target="_blank" rel="noopener noreferrer" onClick={handleClick}>
-                <h1>
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={textToShow}
-                            variants={containerVariants}
-                            initial="hidden"
-                            animate="visible"
-                            exit="hidden"
-                            style={{ display: "inline-block" }}
-                        >
-                            {words.map((word, i) => (
-                                <motion.span
-                                    key={i}
-                                    variants={wordVariants}
-                                    style={{ display: "inline-block", marginRight: "0.5em" }}
+            <h1
+                onClick={handleToggle}
+                className="cursor-pointer select-none"
+            >
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={textToShow}
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        style={{ display: "inline-block" }}
+                    >
+                        {words.map((word, i) => (
+                            <motion.span
+                                key={i}
+                                variants={wordVariants}
+                                style={{ display: "inline-block", marginRight: "0.5em" }}
+                            >
+                                {word}
+                            </motion.span>
+                        ))}
+                        {isDefinitionVisible && (
+                             <motion.span
+                                variants={wordVariants}
+                                style={{ display: "inline-block" }}
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                <Link
+                                    href="https://arxiv.org/abs/2510.20636"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-white/40 hover:text-white/70 underline underline-offset-4 transition-colors"
                                 >
-                                    {word}
-                                </motion.span>
-                            ))}
-                        </motion.div>
-                    </AnimatePresence>
-                </h1>
-            </Link>
+                                    [arXiv]
+                                </Link>
+                            </motion.span>
+                        )}
+                    </motion.div>
+                </AnimatePresence>
+            </h1>
         </div>
     );
 };
