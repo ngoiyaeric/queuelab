@@ -13,11 +13,15 @@ export const AnimatedText = () => {
     const words = textToShow.split(" ");
 
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault();
         if (!isDefinitionVisible) {
-            window.open("https://arxiv.org/abs/2510.20636", "_blank", "noopener,noreferrer");
+            // Let the default link behavior open the tab (non-blocking)
+            // and toggle the definition visible
+            setIsDefinitionVisible(true);
+        } else {
+            // Prevent the link from opening again when toggling back
+            e.preventDefault();
+            setIsDefinitionVisible(false);
         }
-        setIsDefinitionVisible(!isDefinitionVisible);
     };
 
     const containerVariants = {
