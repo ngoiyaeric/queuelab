@@ -74,14 +74,7 @@ export const AnimatedText = () => {
                                 style={{ display: "inline-block" }}
                                 onClick={(e) => e.stopPropagation()}
                             >
-                                <Link
-                                    href="https://arxiv.org/abs/2510.20636"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-white/40 hover:text-white/70 underline underline-offset-4 transition-colors"
-                                >
-                                    [arXiv]
-                                </Link>
+                               
                             </motion.span>
                         )}
                     </motion.div>
