@@ -1,4 +1,5 @@
-import SiteLogo from "@/assets/logo.svg";
+import Image from "next/image";
+import QIcon from "@/assets/logo-q-icon.png";
 import Link from "next/link";
 
 export default function SiteFooter() {
@@ -9,7 +10,7 @@ export default function SiteFooter() {
 
                     <section className={"flex items-center gap-3"}>
                         <div className={"border size-8 rounded-lg inline-flex items-center justify-center"}>
-                            <SiteLogo className={"size-6 h-auto"}/>
+                            <Image src={QIcon} alt="QCX Logo" width={24} height={24} className="size-6 h-auto" />
                         </div>
                         <p className={"font-medium"}>QCX</p>
                     </section>
