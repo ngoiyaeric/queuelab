@@ -14,6 +14,8 @@ export default function CareersPage() {
     offset: [`start end`, 'end start']
   });
   const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
+  const [isBioExpanded, setIsBioExpanded] = useState(false);
+  const fullBio = "Eric Ngoiya is a graduate scientist and researcher. Eric participated in Genesys GPT-2 hackathons in 2019 and wrote code on the nano satellite cubesat mission at Lassonde School of Engineering for Earth Observations. Eric is lead author of a cited scientific publication Fluidity Index: Next Generation Super-Intelligence Benchmarks research.";
 
   const [isBioExpanded, setIsBioExpanded] = useState(false);
 
