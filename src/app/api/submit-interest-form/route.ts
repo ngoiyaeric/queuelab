@@ -7,7 +7,7 @@ const isValidEmail = (email: string): boolean => {
 };
 
 const isValidIdentity = (identity: string): boolean => {
-  return ['Customer', 'Business', 'Open Source Contributor'].includes(identity);
+  return ['Enterprise Consultations', 'Customer Support'].includes(identity);
 };
 
 const isValidMessage = (message: string): boolean => {
