@@ -39,30 +39,44 @@ export default function WhitePaper() {
           <div className="text-white/80 space-y-10 text-lg leading-relaxed">
             <section>
               <p>
-                This document outlines the technical architecture and foundational principles of QueueCX, Inc.
-                Our research focuses on the interoperation of heterogeneous data points without compression,
-                aiming to achieve a more fluid and intelligent digital ecosystem.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">Technical Vision</h2>
-              <p>
-                QueueCX is built on the philosophy of &quot;nature-inspired computation,&quot; where data flows are treated with the same fluidity and efficiency as
-                physical processes. We pioneer innovative technologies grounded in nature&apos;s first principles to power our cutting-edge systems.
+                We build general intelligence interfaces for our system that are currently in market with <a href="https://www.qcx.world" target="_blank" className="text-white underline underline-offset-4 hover:text-white/80 transition-colors">www.qcx.world</a> being our premier product with enterprise pilots currently in route and hundreds of open source community members and contributors working on it everyday.
               </p>
               <p className="mt-4">
-                Our core research addresses the challenges of data interoperation in increasingly complex environments,
-                ensuring that information propagates efficiently for conjecture and error correction.
+                This quarter our core is exiting beta, and going to market with 20+ enterprise contracts across East Africa.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">Foundation</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">Research: Fluidity Index</h2>
               <p>
-                Inspired by the queue—a fundamental data structure reflecting the natural flow of life and entropy—our systems thinking
-                is rooted in this concept, driving us to prioritize quality throughout our ecosystem.
+                Our first research paper; &quot;Fluidity Index: Next-Generation Super-Intelligence benchmarks&quot; was to understand intelligence through orders of adaptability and their efficiency. Our proceeding paper builds on this for applications in new knowledge creation.
               </p>
+              <p className="mt-4">
+                This will help to understand intelligence on the inner workings of new knowledge creation in relation to the intelligence&apos;s energy utilization efficiency — its &quot;fluidity.&quot; In practicality, this lays the theoretical aspects of intelligence alignment and guardrails through the energy utilization efficiency as the interpretability of these models at post training.
+              </p>
+            </section>
+
+            <section className="border-t border-white/10 pt-10">
+              <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">Scientific Citations</h2>
+              <p>
+                Our work has been scientifically cited in numerous outlets, including:
+              </p>
+              <ul className="list-disc pl-6 space-y-4 mt-4 text-white/70">
+                <li>
+                  <strong className="text-white">Emergent Mind:</strong> Cross-domain Metrics, Unified Metric, Fluidity Index.
+                  <div className="mt-2 space-y-1 flex flex-col">
+                    <a href="https://www.emergentmind.com/topics/fluidity-index-8e4e1d3a-67f7-4437-a642-3c471dbc81f2" target="_blank" className="text-white/60 underline hover:text-white transition-colors text-sm break-all">Topic: Fluidity Index (8e4e)</a>
+                    <a href="https://www.emergentmind.com/topics/fluidity-index-fi" target="_blank" className="text-white/60 underline hover:text-white transition-colors text-sm break-all">Topic: Fluidity Index (FI)</a>
+                    <a href="https://www.emergentmind.com/papers/2510.20636" target="_blank" className="text-white/60 underline hover:text-white transition-colors text-sm break-all">Paper: 2510.20636</a>
+                  </div>
+                </li>
+                <li>
+                  <strong className="text-white">Turing Post:</strong> Analysis and discussion of our benchmarking methodology.
+                  <div className="mt-2">
+                    <a href="https://x.com/TheTuringPost/status/1982551827209134128" target="_blank" className="text-white/60 underline hover:text-white transition-colors text-sm break-all">View Post on X</a>
+                  </div>
+                </li>
+              </ul>
             </section>
 
             <section className="border-t border-white/10 pt-10">
