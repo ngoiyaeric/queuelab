@@ -30,9 +30,13 @@ export default function WhitePaper() {
         <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.2)_15%,rgb(14,0,36,0.3)_78%,transparent)]"} />
         <div className="container py-20 md:py-24 relative max-w-4xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h1 className="text-5xl tracking-tighter font-medium text-white">Official Technical White Paper</h1>
+            <h1 className="text-5xl tracking-tighter font-medium text-white">
+              <a href="https://docsend.com/view/bc46fvfr4z2ga2aw" target="_blank" className="hover:text-white/80 transition-colors">
+                Official Technical White Paper
+              </a>
+            </h1>
             <p className="text-lg md:text-xl text-white/70 tracking-tight mt-4">
-              Detailed technical specifications and vision of QueueCX systems.
+              Recent Outpost: Q1: 2026
             </p>
           </div>
 
