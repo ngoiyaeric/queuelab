@@ -16,8 +16,8 @@ export default function SiteFooter() {
                     </section>
 
                     <div className="flex flex-col items-center gap-4 md:flex-row md:gap-2 md:items-baseline">
-                        <Link href="https://tally.so/r/wADZ4o" className="text-sm text-muted-foreground hover:underline">
-                            Privacy and Terms
+                        <Link href="/privacy" className="text-sm text-muted-foreground hover:underline">
+                            Privacy
                         </Link>
 
                         <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
