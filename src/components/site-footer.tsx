@@ -15,9 +15,12 @@ export default function SiteFooter() {
                         <p className={"font-medium"}>QCX</p>
                     </section>
 
-                    <div className="flex flex-col items-center gap-4 md:flex-row md:gap-2 md:items-baseline">
+                    <div className="flex flex-col items-center gap-4 md:flex-row md:gap-4 md:items-baseline">
                         <Link href="/privacy" className="text-sm text-muted-foreground hover:underline">
                             Privacy
+                        </Link>
+                        <Link href="/white-paper" className="text-sm text-muted-foreground hover:underline">
+                            White Paper
                         </Link>
 
                         <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
