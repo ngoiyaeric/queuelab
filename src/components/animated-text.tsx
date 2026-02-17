@@ -1,19 +1,28 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const AnimatedText = () => {
     const [isDefinitionVisible, setIsDefinitionVisible] = useState(false);
+    const [isAnimationComplete, setIsAnimationComplete] = useState(false);
+    const router = useRouter();
+
     const originalText = "Artificial General Intelligence";
     const definitionText = "Artificial General Intelligence is a system describing the interoperation of increasingly heterogenous data points without compression.";
 
     const textToShow = isDefinitionVisible ? definitionText : originalText;
     const words = textToShow.split(" ");
 
-    const handleToggle = () => {
-        setIsDefinitionVisible(!isDefinitionVisible);
+    const handleClick = () => {
+        if (isDefinitionVisible && isAnimationComplete) {
+            router.push("/white-paper");
+        } else {
+            setIsDefinitionVisible(!isDefinitionVisible);
+            setIsAnimationComplete(false);
+        }
     };
 
     const containerVariants = {
@@ -47,7 +56,7 @@ export const AnimatedText = () => {
     return (
         <div className="season-font text-center p-4">
             <h1
-                onClick={handleToggle}
+                onClick={handleClick}
                 className="cursor-pointer select-none"
             >
                 <AnimatePresence mode="wait">
@@ -57,6 +66,11 @@ export const AnimatedText = () => {
                         initial="hidden"
                         animate="visible"
                         exit="hidden"
+                        onAnimationComplete={() => {
+                            if (isDefinitionVisible) {
+                                setIsAnimationComplete(true);
+                            }
+                        }}
                         style={{ display: "inline-block" }}
                     >
                         {words.map((word, i) => (
@@ -68,15 +82,6 @@ export const AnimatedText = () => {
                                 {word}
                             </motion.span>
                         ))}
-                        {isDefinitionVisible && (
-                             <motion.span
-                                variants={wordVariants}
-                                style={{ display: "inline-block" }}
-                                onClick={(e) => e.stopPropagation()}
-                            >
-                               
-                            </motion.span>
-                        )}
                     </motion.div>
                 </AnimatePresence>
             </h1>
