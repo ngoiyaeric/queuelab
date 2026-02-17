@@ -1,21 +1,33 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
-import { motion } from "framer-motion";
+import BackgroundStars from "@/assets/stars.png";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function WhitePaper() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
+
   return (
     <React.Fragment>
       <SiteHeader />
       <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="min-h-screen bg-[#0A0A0A] relative overflow-hidden"
+        ref={sectionRef}
+        animate={{ backgroundPositionX: BackgroundStars.width }}
+        transition={{ duration: 120, repeat: Infinity, ease: 'linear' }}
+        style={{
+          backgroundImage: `url(${BackgroundStars.src})`,
+          backgroundPositionY,
+        }}
+        className="relative overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] bg-background"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,0,255,0.1),transparent)]" />
-        <div className="absolute inset-0 border-x border-white/5 mx-auto max-w-7xl [mask-image:linear-gradient(to_bottom,black,transparent)]" />
+        <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.2)_15%,rgb(14,0,36,0.3)_78%,transparent)]"} />
         <div className="container py-20 md:py-24 relative max-w-4xl mx-auto px-6">
           <div className="text-center mb-16">
             <h1 className="text-5xl tracking-tighter font-medium text-white">Official Technical White Paper</h1>
