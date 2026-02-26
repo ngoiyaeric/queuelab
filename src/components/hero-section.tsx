@@ -3,10 +3,11 @@
 import MapAnimation from "./map-animation";
 import { ActionButton } from "./action-button";
 import BackgroundStars from "@/assets/stars.png";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from "framer-motion";
 import { useRef, useState } from "react";
 import React from "react";
 import WebGLGlobe from "./webgl-globe";
+import { AnimatedText } from "./animated-text";
 
 export function HeroSection() {
     const [isAnimationVisible, setIsAnimationVisible] = useState(false);
@@ -16,9 +17,9 @@ export function HeroSection() {
     const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
 
     useMotionValueEvent(scrollY, "change", (latest) => {
-        if (latest > 50 && !isAnimationVisible) {
+        if (latest > 300 && !isAnimationVisible) {
             setIsAnimationVisible(true);
-        } else if (latest < 50 && isAnimationVisible) {
+        } else if (latest < 300 && isAnimationVisible) {
             setIsAnimationVisible(false);
         }
     });
@@ -40,7 +41,11 @@ export function HeroSection() {
                     data-testid="webgl-globe-container"
                 >
                     <div className="w-full h-full pointer-events-auto">
-                        <WebGLGlobe onClick={() => setIsAnimationVisible(true)} className="w-full h-full" />
+                        <WebGLGlobe
+                            onClick={() => setIsAnimationVisible(true)}
+                            className="w-full h-full"
+                            scrollY={scrollY}
+                        />
                     </div>
                 </div>
             )}
@@ -53,14 +58,18 @@ export function HeroSection() {
             )}
 
             {/* Hero Section Content */}
-            <div className={"container relative z-20 pointer-events-none"}>
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none">
+                {/* Animated Text */}
+                {!isAnimationVisible && (
+                    <div className="pointer-events-auto mb-4 md:mb-8">
+                        <AnimatedText />
+                    </div>
+                )}
+
                 <motion.h1
                     className={"text-8xl md:text-[168px] md:leading-none font-semibold bg-white tracking-tighter bg-clip-text text-transparent text-center bg-[radial-gradient(100%_100%_at_top_left,rgba(255,255,255,0.8),rgba(255,255,255,0.7),rgba(0,0,255,0.3))] [text-shadow:2px_2px_4px_rgba(0,0,0,0.4),_-1px_-1px_2px_rgba(255,255,255,0.3),_0_0_10px_rgba(0,0,255,0.5)]"}
                     style={{
-                        position: !isAnimationVisible ? 'absolute' : 'static',
-                        top: '50%',
-                        left: '50%',
-                        transform: !isAnimationVisible ? 'translate(-50%, -50%)' : 'none',
+                        display: isAnimationVisible ? 'none' : 'block',
                     }}
                 >
                     QCX
@@ -74,13 +83,16 @@ export function HeroSection() {
                         transition={{ duration: 0.5, delay: 0.3 }}
                         className="text-center pointer-events-auto"
                     >
-                        <p className={"font-handwriting text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5"}>
+                        <h1 className="text-8xl md:text-[168px] md:leading-none font-semibold bg-white tracking-tighter bg-clip-text text-transparent text-center bg-[radial-gradient(100%_100%_at_top_left,rgba(255,255,255,0.8),rgba(255,255,255,0.7),rgba(0,0,255,0.3))] opacity-20 blur-sm absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                            QCX
+                        </h1>
+                        <p className={"font-handwriting text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 relative z-10"}>
                             is a multi-agent intelligence platform for exploration and automation. Your environment aware planet computer for your
                         </p>
-                        <span className={"text-sm tracking-wider text-[#7CFC00] block mt-2"}>
+                        <span className={"text-sm tracking-wider text-[#7CFC00] block mt-2 relative z-10"}>
                             QUALITY COMPUTER EXPERIENCES
                         </span>
-                        <div className={"flex justify-center mt-5"}>
+                        <div className={"flex justify-center mt-5 relative z-10"}>
                             <ActionButton label={"core"} href={"https://www.qcx.world"} />
                         </div>
                     </motion.div>
