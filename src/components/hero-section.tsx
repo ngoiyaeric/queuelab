@@ -17,9 +17,9 @@ export function HeroSection() {
     const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
 
     useMotionValueEvent(scrollY, "change", (latest) => {
-        if (latest > 300 && !isAnimationVisible) {
+        if (latest > 50 && !isAnimationVisible) {
             setIsAnimationVisible(true);
-        } else if (latest < 300 && isAnimationVisible) {
+        } else if (latest < 50 && isAnimationVisible) {
             setIsAnimationVisible(false);
         }
     });
@@ -44,7 +44,6 @@ export function HeroSection() {
                         <WebGLGlobe
                             onClick={() => setIsAnimationVisible(true)}
                             className="w-full h-full"
-                            scrollY={scrollY}
                         />
                     </div>
                 </div>

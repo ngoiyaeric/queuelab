@@ -5,14 +5,20 @@ import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import BackgroundStars from "@/assets/stars.png";
 import { motion, useScroll, useTransform } from "framer-motion";
+import WebGLGlobe from "@/components/webgl-globe";
 
 export default function WhitePaper() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Track scroll for background parallax (relative to section)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
   });
   const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
+
+  // Track global scroll for globe animations
+  const { scrollY } = useScroll();
 
   return (
     <React.Fragment>
@@ -28,7 +34,18 @@ export default function WhitePaper() {
         className="relative overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] bg-background"
       >
         <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.2)_15%,rgb(14,0,36,0.3)_78%,transparent)]"} />
-        <div className="container py-20 md:py-24 relative max-w-4xl mx-auto px-6">
+
+        {/* WebGL Globe Background - Positioned at top, scroll driven */}
+        <div className="absolute top-0 left-0 w-full h-[800px] pointer-events-none z-0 flex items-center justify-center opacity-50">
+             <div className="w-full h-full pointer-events-auto">
+                <WebGLGlobe
+                    className="w-full h-full"
+                    scrollY={scrollY}
+                />
+            </div>
+        </div>
+
+        <div className="container py-20 md:py-24 relative max-w-4xl mx-auto px-6 z-10">
           <div className="text-center mb-16">
             <h1 className="text-5xl tracking-tighter font-medium text-white">
               <a href="https://docsend.com/view/bc46fvfr4z2ga2aw" target="_blank" className="hover:text-white/80 transition-colors">
