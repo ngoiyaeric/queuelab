@@ -52,6 +52,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Merged colors from HEAD and main
         natureGreenLight: {
           DEFAULT: "hsl(120, 40%, 30%)",
           foreground: "hsl(48, 33%, 98%)",
@@ -62,6 +63,26 @@ const config = {
         },
         natureWhite: {
           DEFAULT: "hsl(48, 33%, 98%)",
+          foreground: "hsl(120, 40%, 30%)",
+        },
+        beige: {
+          DEFAULT: "hsl(30, 20%, 80%)",
+          foreground: "hsl(120, 40%, 30%)",
+        },
+        forestGreen: {
+          DEFAULT: "hsl(120, 40%, 30%)",
+          foreground: "hsl(30, 20%, 80%)",
+        },
+        natureGreen: {
+          DEFAULT: "hsl(120, 40%, 80%)",
+          foreground: "hsl(30, 20%, 80%)",
+        },
+        natureBrown: {
+          DEFAULT: "hsl(30, 20%, 50%)",
+          foreground: "hsl(120, 40%, 30%)",
+        },
+        natureSky: {
+          DEFAULT: "hsl(200, 70%, 80%)",
           foreground: "hsl(120, 40%, 30%)",
         },
       },

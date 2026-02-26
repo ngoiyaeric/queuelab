@@ -3,7 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { clsx } from "clsx";
 import { Roboto } from "next/font/google";
-import { AuthProvider } from '@/components/auth-provider'; // Added import
+import { AuthProvider } from '@/components/auth-provider';
+import { Analytics } from "@vercel/analytics/react"
+import IntercomMessenger from '@/components/IntercomMessenger';
 
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
@@ -14,8 +16,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Lab",
     description: "QCX - multi-agent intelligence platform for exploration and automation.",
-    images: "/opengraph-image.png", // Relative path to the image
-    url: "https://www.queue.cx", // Updated to queue.cx
+    images: "/opengraph-image.png",
+    url: "https://www.queue.cx",
     type: "website",
   },
 };
@@ -33,15 +35,17 @@ export default function RootLayout({
         />
         <meta
           property="og:image"
-          content="/opengraph-image.png" // Relative path to the image
+          content="/opengraph-image.png"
         />
         <meta property="og:url" content="https://www.queue.cx" />
         <meta property="og:type" content="website" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       </head>
       <body className={clsx(inter.className, roboto.className, "antialiased")}>
-        <AuthProvider> {/* Added AuthProvider wrapper */}
+        <AuthProvider>
           {children}
+          <IntercomMessenger />
+          <Analytics />
         </AuthProvider>
       </body>
     </html>
