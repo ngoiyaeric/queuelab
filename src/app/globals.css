@@ -79,3 +79,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+@media (min-width: 1024px) {
+  body {
+    zoom: 0.75;
+  }
+}
+
+.season-font {
+  font-family: 'Inter', sans-serif;
+  color: hsla(0, 0%, 100%, 0.7);
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.8rem;
+}
