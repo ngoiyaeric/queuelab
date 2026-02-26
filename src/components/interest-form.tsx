@@ -7,9 +7,10 @@ interface InterestFormProps {
   formTitle: string;
   submissionContext: string;
   onSuccessCallback?: () => void;
+  theme?: string; // Added theme prop
 }
 
-export function InterestForm({ formTitle, submissionContext, onSuccessCallback }: InterestFormProps) {
+export function InterestForm({ formTitle, submissionContext, onSuccessCallback, theme = "dark" }: InterestFormProps) {
     const [email, setEmail] = useState('');
     const [identity, setIdentity] = useState('');
     const [message, setMessage] = useState('');
@@ -66,9 +67,10 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6 p-6 md:p-8 bg-gray-800/30 backdrop-blur-sm rounded-lg shadow-xl border border-gray-700/50">
-            <h2 className="text-2xl md:text-3xl font-semibold text-center text-white">{formTitle}</h2>
-<div className="text-center text-sm text-white/80 tracking-tight px-4 mt-3 mb-4">
+        <form onSubmit={handleSubmit}
+              className={`space-y-6 p-6 md:p-8 backdrop-blur-sm rounded-lg shadow-xl border ${theme === 'light' ? 'bg-natureBeige border-natureGreenLight' : 'bg-gray-800/30 border-gray-700/50'}`}>
+            <h2 className={`text-2xl md:text-3xl font-semibold text-center ${theme === 'light' ? 'text-natureGreenLight' : 'text-white'}`}>{formTitle}</h2>
+<div className={`text-center text-sm tracking-tight px-4 mt-3 mb-4 ${theme === 'light' ? 'text-natureGreenLight' : 'text-white/80'}`}>
     <p>
         We’re looking for engineers and researchers that are trying to positively impact the world. Innovators and curious minds of exceptional ability. Fill this form out if you fit the description.
     </p>
@@ -80,7 +82,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
             {success && <p className="text-green-400 bg-green-900/30 p-3 rounded-md text-center">{success}</p>}
 
             <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="email" className={`block text-sm font-medium mb-1 ${theme === 'light' ? 'text-natureGreenLight' : 'text-gray-300'}`}>
                     What is your email address? <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -90,13 +92,13 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="mt-1 block w-full px-3 py-2 bg-gray-700/50 border border-gray-600 rounded-md shadow-sm text-white placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                    className={`mt-1 block w-full px-3 py-2 rounded-md shadow-sm border focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm ${theme === 'light' ? 'bg-white/80 border-natureGreenLight text-natureGreenLight placeholder-natureGreenLight/50' : 'bg-gray-700/50 border-gray-600 text-white placeholder-gray-400'}`}
                     placeholder="you@example.com"
                 />
             </div>
 
             <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className={`block text-sm font-medium mb-1 ${theme === 'light' ? 'text-natureGreenLight' : 'text-gray-300'}`}>
                     How do you identify? <span className="text-red-400">*</span>
                 </label>
                 <div className="mt-2 space-y-2 md:space-y-0 md:flex md:space-x-4">
@@ -110,9 +112,9 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
                                 checked={identity === option}
                                 onChange={(e) => setIdentity(e.target.value)}
                                 required
-                                className="focus:ring-sky-500 h-4 w-4 text-sky-600 border-gray-500 bg-gray-700"
+                                className={`focus:ring-sky-500 h-4 w-4 text-sky-600 border-gray-500 ${theme === 'light' ? 'bg-white border-natureGreenLight' : 'bg-gray-700'}`}
                             />
-                            <label htmlFor={`identity-${option.toLowerCase().replace(' ', '-')}`} className="ml-2 block text-sm text-gray-300">
+                            <label htmlFor={`identity-${option.toLowerCase().replace(' ', '-')}`} className={`ml-2 block text-sm ${theme === 'light' ? 'text-natureGreenLight' : 'text-gray-300'}`}>
                                 {option}
                             </label>
                         </div>
@@ -121,7 +123,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
             </div>
 
             <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="message" className={`block text-sm font-medium mb-1 ${theme === 'light' ? 'text-natureGreenLight' : 'text-gray-300'}`}>
                     Evidence of Exceptional Ability <span className="text-red-400">*</span>
                 </label>
                 <textarea
@@ -131,26 +133,26 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     required
-                    className="mt-1 block w-full px-3 py-2 bg-gray-700/50 border border-gray-600 rounded-md shadow-sm text-white placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                    className={`mt-1 block w-full px-3 py-2 rounded-md shadow-sm border focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm ${theme === 'light' ? 'bg-white/80 border-natureGreenLight text-natureGreenLight placeholder-natureGreenLight/50' : 'bg-gray-700/50 border-gray-600 text-white placeholder-gray-400'}`}
                     placeholder="Your message..."
                 ></textarea>
             </div>
 
-            <div className="text-center text-xs text-gray-400">
-                <p>We Are Pre-Selling our software to help us launch. <a href="https://www.queue.cx/#pricing" target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:underline">Learn more</a>.</p>
-                <p>Closed alpha available on request. <a href="https://vimeo.com/1014706363" target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:underline">Watch video</a>.</p>
+            <div className={`text-center text-xs ${theme === 'light' ? 'text-natureGreenLight' : 'text-gray-400'}`}>
+                <p>We Are Pre-Selling our software to help us launch. <a href="https://www.queue.cx/#pricing" target="_blank" rel="noopener noreferrer" className={`hover:underline ${theme === 'light' ? 'text-natureGreenLight font-semibold' : 'text-sky-400'}`}>Learn more</a>.</p>
+                <p>Closed alpha available on request. <a href="https://vimeo.com/1014706363" target="_blank" rel="noopener noreferrer" className={`hover:underline ${theme === 'light' ? 'text-natureGreenLight font-semibold' : 'text-sky-400'}`}>Watch video</a>.</p>
             </div>
 
             <Button
                 type="submit"
                 disabled={submitting}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-sky-500 disabled:opacity-50"
+                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 ${theme === 'light' ? 'text-natureWhite bg-natureGreenLight hover:bg-natureGreenLight/90 focus:ring-natureGreenLight focus:ring-offset-natureBeige' : 'text-white bg-sky-600 hover:bg-sky-700 focus:ring-sky-500 focus:ring-offset-gray-800'}`}
             >
                 {submitting ? 'Submitting...' : 'Submit'}
             </Button>
 
             <div className="text-center mt-4">
-                <a href="https://discord.com/invite/NqGY9EWjWj" target="_blank" rel="noopener noreferrer" className="text-sm text-sky-400 hover:underline">
+                <a href="https://discord.com/invite/NqGY9EWjWj" target="_blank" rel="noopener noreferrer" className={`text-sm hover:underline ${theme === 'light' ? 'text-natureGreenLight' : 'text-sky-400'}`}>
                     Join our community on Discord
                 </a>
             </div>
