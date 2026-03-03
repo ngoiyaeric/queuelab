@@ -45,10 +45,10 @@ export function HeroSection() {
                         transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
                         className={"absolute size-[344px] md:size-[580px] border border-black/5 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"}
                     >
-                        <div className={"absolute size-2 bg-black/20 rounded-full top-1/2 left-0 -translate-x-1/2 -translate-y-1/2"} />
-                        <div className={"absolute size-2 bg-black/20 rounded-full top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"} />
+                        <div className={"absolute size-2 bg-blue-500 rounded-full top-1/2 left-0 -translate-x-1/2 -translate-y-1/2"} />
+                        <div className={"absolute size-2 bg-red-500 rounded-full top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"} />
                         <div className={"absolute size-5 border border-black/10 rounded-full top-1/2 left-full -translate-x-1/2 -translate-y-1/2 inline-flex items-center justify-center"}>
-                            <div className={"size-2 bg-black/20 rounded-full"} />
+                            <div className={"size-2 bg-yellow-500 rounded-full"} />
                         </div>
                     </motion.div>
                     <motion.div
@@ -63,8 +63,8 @@ export function HeroSection() {
                         transition={{ duration: 90, repeat: Infinity, ease: 'linear' }}
                         className={"absolute size-[544px] md:size-[980px] rounded-full border border-black/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"}
                     >
-                        <div className={"absolute size-2 bg-black/20 rounded-full top-1/2 left-0 -translate-x-1/2 -translate-y-1/2"} />
-                        <div className={"absolute size-2 bg-black/20 rounded-full top-1/2 left-full -translate-x-1/2 -translate-y-1/2"} />
+                        <div className={"absolute size-2 bg-blue-500 rounded-full top-1/2 left-0 -translate-x-1/2 -translate-y-1/2"} />
+                        <div className={"absolute size-2 bg-red-500 rounded-full top-1/2 left-full -translate-x-1/2 -translate-y-1/2"} />
                     </motion.div>
                 </>
             )}
