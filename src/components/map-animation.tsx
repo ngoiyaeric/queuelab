@@ -14,7 +14,7 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
     { path: "M100 100 L 200 500", color: "#EAB308" }, // Yellow (down/vertical)
     { path: "M400 100 L 500 500", color: "#EAB308" }, // Yellow (down/vertical)
     { path: "M600 100 L 700 500", color: "#EAB308" }, // Yellow (down/vertical)
-    { path: "M100 300 C 300 100, 400 500, 600 300", color: "#3B82F6" }, // Blue (right)
+    { path: "M100 300 C 300 100, 400 500, 600 300", color: "#22C55E" }, // Green (right)
     { path: "M800 200 C 700 300, 600 100, 500 200 S 400 300, 300 200", color: "#EF4444" }, // Red (left)
     { path: "M850 450 C 750 350, 650 550, 550 450 S 450 350, 350 450", color: "#EF4444" }, // Red (left)
     { path: "M800 200 L 850 450", color: "#EAB308" }, // Yellow (down/vertical)
