@@ -11,12 +11,13 @@ interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
 
 export function ActionButton({ label, href, target, className, type = "button", ...props }: ActionButtonProps) {
   // Internal classes for the button's consistent appearance
-  const buttonInternalClass = "relative py-2 px-4 rounded-lg font-medium text-sm bg-black text-white hover:bg-black/90 transition shadow-md hover:shadow-lg border border-transparent";
+  const buttonInternalClass = "relative py-2 px-4 rounded-lg font-medium text-sm text-black bg-white/30 backdrop-blur-lg border border-white/40 shadow-[0_4px_30px_rgba(0,0,0,0.1)] hover:bg-white/50 transition-all duration-300 group overflow-hidden";
 
   // JSX for the visual elements inside the button (icons, text, etc.)
   const buttonVisuals = (
     <>
-      <span className={"relative z-10"}>{label}</span>
+      <div className={"absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"} />
+      <span className={"relative z-10 drop-shadow-sm font-semibold tracking-wide"}>{label}</span>
     </>
   );
 

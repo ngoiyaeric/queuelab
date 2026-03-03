@@ -8,18 +8,18 @@ interface MapAnimationProps {
 }
 
 const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
-  const paths = [
-    "M100 100 C 200 200, 300 0, 400 100 S 500 200, 600 100",
-    "M200 500 C 300 400, 400 600, 500 500 S 600 400, 700 500",
-    "M100 100 L 200 500",
-    "M400 100 L 500 500",
-    "M600 100 L 700 500",
-    "M100 300 C 300 100, 400 500, 600 300",
-    "M800 200 C 700 300, 600 100, 500 200 S 400 300, 300 200",
-    "M850 450 C 750 350, 650 550, 550 450 S 450 350, 350 450",
-    "M800 200 L 850 450",
-    "M500 200 L 550 450",
-    "M300 200 L 350 450",
+  const pathData = [
+    { path: "M100 100 C 200 200, 300 0, 400 100 S 500 200, 600 100", color: "#3B82F6" }, // Blue (right)
+    { path: "M200 500 C 300 400, 400 600, 500 500 S 600 400, 700 500", color: "#3B82F6" }, // Blue (right)
+    { path: "M100 100 L 200 500", color: "#EAB308" }, // Yellow (down/vertical)
+    { path: "M400 100 L 500 500", color: "#EAB308" }, // Yellow (down/vertical)
+    { path: "M600 100 L 700 500", color: "#EAB308" }, // Yellow (down/vertical)
+    { path: "M100 300 C 300 100, 400 500, 600 300", color: "#3B82F6" }, // Blue (right)
+    { path: "M800 200 C 700 300, 600 100, 500 200 S 400 300, 300 200", color: "#EF4444" }, // Red (left)
+    { path: "M850 450 C 750 350, 650 550, 550 450 S 450 350, 350 450", color: "#EF4444" }, // Red (left)
+    { path: "M800 200 L 850 450", color: "#EAB308" }, // Yellow (down/vertical)
+    { path: "M500 200 L 550 450", color: "#EAB308" }, // Yellow (down/vertical)
+    { path: "M300 200 L 350 450", color: "#EAB308" }, // Yellow (down/vertical)
   ];
 
   const pathVariants = {
@@ -50,13 +50,14 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
             </feMerge>
           </filter>
         </defs>
-        {paths.map((path, i) => (
+        {pathData.map((data, i) => (
           <motion.path
             key={`path-${i}`}
-            d={path}
+            d={data.path}
             fill="transparent"
-            stroke="hsl(220, 70%, 50%, 0.5)"
+            stroke={data.color}
             strokeWidth="2"
+            strokeOpacity="0.7"
             custom={i}
             variants={pathVariants}
             initial="hidden"
@@ -64,7 +65,7 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
             style={{ filter: 'url(#glow)' }}
           />
         ))}
-        {paths.map((path, i) => (
+        {pathData.map((data, i) => (
           <motion.circle
             key={`spark-${i}`}
             r="4"
@@ -74,7 +75,7 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ onClose }) => {
             <animateMotion
               dur={`${2 + i * 0.2}s`}
               repeatCount="indefinite"
-              path={path}
+              path={data.path}
               begin={`${i * 0.2}s`}
             />
           </motion.circle>
