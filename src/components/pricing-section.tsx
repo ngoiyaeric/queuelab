@@ -39,9 +39,10 @@ export function PricingSection({ id }: { id: string }) {
             <div key={tier.title} className="border border-muted p-6 rounded-xl">
               <h3 className="text-2xl font-semibold">{tier.title}</h3>
               <p className="text-4xl font-bold my-4">{tier.price}</p>
-              <ul className="text-[#7CFC00] text-lg">
+              <ul className="text-emerald-700 text-lg">
                 {tier.features.map((feature, index) => (
-                  <li key={index} className="mt-2">
+                  <li key={index} className="mt-2 flex items-start gap-2">
+                    <span className="text-black font-bold mt-1">•</span>
                     {feature}
                   </li>
                 ))}
