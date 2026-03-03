@@ -65,7 +65,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                             setIsDemoModalOpen(true);
                                         }} />
                                     </ModalTrigger>
-                                    <ModalContent className="bg-black/60 backdrop-blur-lg border border-border text-foreground p-0">
+                                    <ModalContent className="bg-background/80 backdrop-blur-lg border border-border text-foreground p-0">
                                         <AuthForm />
                                     </ModalContent>
                                 </Modal>

@@ -49,7 +49,7 @@ export function Testimonials({ id }: TestimonialsProps) {
                             className={"flex flex-none gap-5"}>
                             {[...testimonials ,...testimonials].map((testimonial, index) => (
                                 <div key={index}
-                                     className={"border border-muted p-6 md:p-10 rounded-xl bg-[linear-gradient(to_bottom_left,rgb(0,0,255,0.3),black)] max-w-xs md:max-w-md flex-none"}>
+                                     className={"border border-muted p-6 md:p-10 rounded-xl bg-[linear-gradient(to_bottom_left,rgba(16,185,129,0.3),white)] max-w-xs md:max-w-md flex-none"}>
                                     <p className={"text-lg md:text-2xl tracking-tight"}>{testimonial.text}</p>
                                     <div className={"flex items-center gap-3 mt-5"}>
                                         <div>

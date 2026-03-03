@@ -66,7 +66,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6 p-6 md:p-8 bg-gray-800/30 backdrop-blur-sm rounded-lg shadow-xl border border-gray-700/50">
+        <form onSubmit={handleSubmit} className="space-y-6 p-6 md:p-8 bg-card/30 backdrop-blur-sm rounded-lg shadow-xl border border-border">
             <h2 className="text-2xl md:text-3xl font-semibold text-center text-foreground">{formTitle}</h2>
 <div className="text-center text-sm text-muted-foreground tracking-tight px-4 mt-3 mb-4">
     <p>
@@ -77,7 +77,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
             {success && <p className="text-green-400 bg-green-900/30 p-3 rounded-md text-center">{success}</p>}
 
             <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="email" className="block text-sm font-medium text-foreground/80 mb-1">
                     What is your email address? <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -87,13 +87,13 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="mt-1 block w-full px-3 py-2 bg-gray-700/50 border border-gray-600 rounded-md shadow-sm text-foreground placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                    className="mt-1 block w-full px-3 py-2 bg-muted/50 border border-border rounded-md shadow-sm text-foreground placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
                     placeholder="you@example.com"
                 />
             </div>
 
             <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-foreground/80 mb-1">
                     What is the nature of your inquiry? <span className="text-red-400">*</span>
                 </label>
                 <div className="mt-2 space-y-2 md:space-y-0 md:flex md:space-x-4">
@@ -107,9 +107,9 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
                                 checked={identity === option}
                                 onChange={(e) => setIdentity(e.target.value)}
                                 required
-                                className="focus:ring-sky-500 h-4 w-4 text-sky-600 border-gray-500 bg-gray-700"
+                                className="focus:ring-emerald-500 h-4 w-4 text-emerald-600 border-muted bg-muted"
                             />
-                            <label htmlFor={`identity-${option.toLowerCase().replace(' ', '-')}`} className="ml-2 block text-sm text-gray-300">
+                            <label htmlFor={`identity-${option.toLowerCase().replace(' ', '-')}`} className="ml-2 block text-sm text-foreground/80">
                                 {option}
                             </label>
                         </div>
@@ -118,7 +118,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
             </div>
 
             <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="message" className="block text-sm font-medium text-foreground/80 mb-1">
                     Your Message <span className="text-red-400">*</span>
                 </label>
                 <textarea
@@ -128,26 +128,26 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     required
-                    className="mt-1 block w-full px-3 py-2 bg-gray-700/50 border border-gray-600 rounded-md shadow-sm text-foreground placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                    className="mt-1 block w-full px-3 py-2 bg-muted/50 border border-border rounded-md shadow-sm text-foreground placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
                     placeholder="Your message..."
                 ></textarea>
             </div>
 
-            <div className="text-center text-xs text-gray-400">
-                <p>We Are Pre-Selling our software to help us launch. <a href="https://www.queue.cx/#pricing" target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:underline">Learn more</a>.</p>
-                <p>Closed alpha available on request. <a href="https://vimeo.com/1014706363" target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:underline">Watch video</a>.</p>
+            <div className="text-center text-xs text-muted-foreground">
+                <p>We Are Pre-Selling our software to help us launch. <a href="https://www.queue.cx/#pricing" target="_blank" rel="noopener noreferrer" className="text-emerald-600 dark:text-emerald-400 hover:underline">Learn more</a>.</p>
+                <p>Closed alpha available on request. <a href="https://vimeo.com/1014706363" target="_blank" rel="noopener noreferrer" className="text-emerald-600 dark:text-emerald-400 hover:underline">Watch video</a>.</p>
             </div>
 
             <Button
                 type="submit"
                 disabled={submitting}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-foreground bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-sky-500 disabled:opacity-50"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-foreground bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-emerald-500 disabled:opacity-50"
             >
                 {submitting ? 'Submitting...' : 'Submit'}
             </Button>
 
             <div className="text-center mt-4">
-                <a href="https://discord.com/invite/NqGY9EWjWj" target="_blank" rel="noopener noreferrer" className="text-sm text-sky-400 hover:underline">
+                <a href="https://discord.com/invite/NqGY9EWjWj" target="_blank" rel="noopener noreferrer" className="text-sm text-emerald-600 dark:text-emerald-400 hover:underline">
                     Join our community on Discord
                 </a>
             </div>

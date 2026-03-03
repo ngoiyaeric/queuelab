@@ -46,7 +46,7 @@ export function HeroSection() {
     const sphereBackground = useTransform(
         [gradientX, gradientY],
         ([latestGradientX, latestGradientY]) =>
-            `radial-gradient(50% 50% at ${latestGradientX}% ${latestGradientY}%, white, rgb(0,0,255) 37.7%, rgb(24,0,66))`
+            `radial-gradient(50% 50% at ${latestGradientX}% ${latestGradientY}%, white, rgb(16,185,129) 37.7%, rgb(20,50,20))`
     );
 
     return (
@@ -58,7 +58,7 @@ export function HeroSection() {
             style={{ backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY }}
             ref={sectionRef}
         >
-            <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"} />
+            <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgba(16,185,129,0.5)_15%,rgba(10,30,10,0.5)_78%,transparent)]"} />
 
             {/* Sphere and Rings - only visible when animation is not showing */}
             {!isAnimationVisible && (
@@ -68,7 +68,7 @@ export function HeroSection() {
                         onClick={() => setIsAnimationVisible(true)}
                         onMouseEnter={() => setIsAnimationVisible(true)}
                         data-testid="sphere"
-                        className={"absolute size-64 md:size-96 bg-blue-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[-20px_-20px_50px_rgb(255,255,255,0.5),-20px_-20px_80px_rgb(255,255,255,0.1),0_0_50px_rgb(0,0,255)] cursor-pointer z-10"}
+                        className={"absolute size-64 md:size-96 bg-emerald-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[-20px_-20px_50px_rgb(255,255,255,0.5),-20px_-20px_80px_rgb(255,255,255,0.1),0_0_50px_rgb(16,185,129)] cursor-pointer z-10"}
                         style={{ background: sphereBackground }}
                     />
                     {/* Rings + Mini planets */}
@@ -112,7 +112,7 @@ export function HeroSection() {
             {/* Hero Section Content */}
             <div className={"container relative z-20"}>
                 <motion.h1
-                    className={"text-8xl md:text-[168px] md:leading-none font-semibold bg-white tracking-tighter bg-clip-text text-transparent text-center bg-[radial-gradient(100%_100%_at_top_left,rgba(255,255,255,0.8),rgba(255,255,255,0.7),rgba(0,0,255,0.3))] [text-shadow:2px_2px_4px_rgba(0,0,0,0.4),_-1px_-1px_2px_rgba(255,255,255,0.3),_0_0_10px_rgba(0,0,255,0.5)]"}
+                    className={"text-8xl md:text-[168px] md:leading-none font-semibold bg-white tracking-tighter bg-clip-text text-transparent text-center bg-[radial-gradient(100%_100%_at_top_left,rgba(255,255,255,0.8),rgba(255,255,255,0.7),rgba(16,185,129,0.3))] [text-shadow:2px_2px_4px_rgba(0,0,0,0.4),_-1px_-1px_2px_rgba(255,255,255,0.3),_0_0_10px_rgba(16,185,129,0.5)]"}
                     style={{
                         position: !isAnimationVisible ? 'absolute' : 'static',
                         top: '50%',
