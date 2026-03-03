@@ -1,15 +1,11 @@
+"use client"
 import Link from 'next/link';
 import { X } from 'lucide-react';
 import MapAnimation from '@/components/map-animation';
 
-export const metadata = {
-  title: 'Login - QCX',
-  description: 'Login to Quality Computer Experiences',
-};
-
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#4f5b5a] flex items-center justify-center p-4 font-sans relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center p-4 font-sans relative overflow-hidden" style={{ backgroundColor: '#2b2b2b' }}>
 
       {/* Background decoration to match the screenshot faintly */}
       <div className="absolute inset-0 z-0 opacity-40 pointer-events-none flex items-center justify-center">
@@ -19,7 +15,7 @@ export default function LoginPage() {
       {/* Main Container */}
       <div className="w-full max-w-[420px] z-10 relative">
         {/* Outer Light Gray Card */}
-        <div className="bg-[#dcdcdc] rounded-[16px] p-2 shadow-2xl relative">
+        <div className="bg-[#e5e5e5] rounded-[16px] p-2 shadow-2xl relative">
 
           {/* Close Button X (top right inside the outer card) */}
           <Link href="/">
