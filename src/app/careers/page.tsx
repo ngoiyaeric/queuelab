@@ -34,7 +34,7 @@ export default function CareersPage() {
         <div className="container py-20 md:py-24 relative">
           <div className="text-center">
             <h1 className="text-5xl tracking-tighter font-medium">Careers</h1>
-            <p className="text-lg md:text-xl text-white/70 tracking-tight mt-4">
+            <p className="text-lg md:text-xl text-muted-foreground tracking-tight mt-4">
               Join us in building the future of intelligence.
             </p>
           </div>
@@ -55,15 +55,15 @@ export default function CareersPage() {
                       />
                     </div>
                     <h3 className="text-2xl font-medium tracking-tight mb-2">Eric Ngoiya</h3>
-                    <p className="text-lg text-white/70 mb-4">Chief Executive Officer</p>
+                    <p className="text-lg text-muted-foreground mb-4">Chief Executive Officer</p>
                     {isBioExpanded && (
-                      <p className="text-sm text-white/60 mb-6 text-center max-w-md">
+                      <p className="text-sm text-muted-foreground mb-6 text-center max-w-md">
                         Eric Ngoiya is an East African graduate scientist and researcher. Eric participated in Genesys GPT-2 hackathons in 2019 and wrote code on the nano satellite cubesat mission at Lassonde School of Engineering for Environment Observations. Eric is lead author of a cited scientific publication Fluidity Index: Next Generation Super-Intelligence Benchmarks research.
                       </p>
                     )}
                     <button
                       onClick={() => setIsBioExpanded(!isBioExpanded)}
-                      className="text-sm text-white/70 hover:text-white transition-colors underline"
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors underline"
                     >
                       {isBioExpanded ? "See less" : "See more"}
                     </button>
@@ -72,7 +72,7 @@ export default function CareersPage() {
                         href="https://www.linkedin.com/in/ereqdesign"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white/70 hover:text-white transition-colors"
+                        className="text-muted-foreground hover:text-foreground transition-colors"
                         aria-label="LinkedIn"
                       >
                         <svg
@@ -88,7 +88,7 @@ export default function CareersPage() {
                         href="https://www.x.com/ereqdesign"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white/70 hover:text-white transition-colors"
+                        className="text-muted-foreground hover:text-foreground transition-colors"
                         aria-label="X (Twitter)"
                       >
                         <svg
@@ -112,10 +112,10 @@ export default function CareersPage() {
               <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
                 Software Engineer
               </summary>
-              <div className="text-center text-sm text-white/50 mt-2">
+              <div className="text-center text-sm text-muted-foreground mt-2">
                 Remote
               </div>
-              <div className="text-left text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+              <div className="text-left text-lg md:text-xl text-muted-foreground tracking-tight px-4 mt-5">
                 <p className="font-bold">About the role:</p>
                 <p>
                   We are looking for a talented software engineer to join our team and help us build the next generation of our platform. You will be responsible for designing, developing, and deploying high-quality software solutions.
@@ -136,10 +136,10 @@ export default function CareersPage() {
               <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
                 R&D Engineer
               </summary>
-              <div className="text-center text-sm text-white/50 mt-2">
+              <div className="text-center text-sm text-muted-foreground mt-2">
                 Remote
               </div>
-              <div className="text-left text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+              <div className="text-left text-lg md:text-xl text-muted-foreground tracking-tight px-4 mt-5">
                 <p className="font-bold">About the role:</p>
                 <p>
                   We are looking for a R&D engineer to join our team and help us push the boundaries of artificial general intelligence. You will be responsible for designing and conducting experiments, and for developing new models and algorithms.

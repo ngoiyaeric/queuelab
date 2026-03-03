@@ -86,7 +86,7 @@ export function AuthForm() {
 
     return (
         <div
-            className="relative overflow-hidden p-6 md:p-8 rounded-lg shadow-xl border border-white/10 text-white w-full max-w-md mx-auto [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]" // Modified
+            className="relative overflow-hidden p-6 md:p-8 rounded-lg shadow-xl border border-white/10 text-foreground w-full max-w-md mx-auto [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]" // Modified
             style={{ // Added
                 backgroundImage: `url(${BackgroundStars.src})`,
                 backgroundPositionY: 'center',
@@ -97,13 +97,13 @@ export function AuthForm() {
 
             <div className="relative z-10"> {/* Added wrapper for content */}
                 <div className="flex justify-center mb-6"> {/* Container for centering the logo */}
-                    <SiteLogo className="h-12 w-auto text-white" /> {/* Adjust size (h-12) and color if needed. SVGs might inherit text color. */}
+                    <SiteLogo className="h-12 w-auto text-foreground" /> {/* Adjust size (h-12) and color if needed. SVGs might inherit text color. */}
                 </div>
                 <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6">
                     {isLoginView ? 'Queue In' : 'Queue Up'}
                 </h2>
                 {/* New Subtitle Added Below */}
-                <p className="text-center text-sm text-white/70 mb-6 -mt-4">
+                <p className="text-center text-sm text-muted-foreground mb-6 -mt-4">
                     Quality Computer Experiences
                 </p>
 
@@ -122,7 +122,7 @@ export function AuthForm() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
-                            className="mt-1 block w-full px-3 py-2.5 bg-gray-700/60 border border-gray-600 rounded-md shadow-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                            className="mt-1 block w-full px-3 py-2.5 bg-gray-700/60 border border-gray-600 rounded-md shadow-sm text-foreground placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                             placeholder="you@example.com"
                             disabled={loading}
                         />
@@ -139,7 +139,7 @@ export function AuthForm() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            className="mt-1 block w-full px-3 py-2.5 bg-gray-700/60 border border-gray-600 rounded-md shadow-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                            className="mt-1 block w-full px-3 py-2.5 bg-gray-700/60 border border-gray-600 rounded-md shadow-sm text-foreground placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                             placeholder="••••••••"
                             disabled={loading}
                         />
@@ -148,7 +148,7 @@ export function AuthForm() {
                     <Button
                         type="submit"
                         disabled={loading}
-                        className="w-full flex justify-center py-3 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-green-500 disabled:opacity-60 transition-colors duration-150" // Applied light green styling
+                        className="w-full flex justify-center py-3 px-4 rounded-md shadow-sm text-sm font-medium text-foreground bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-green-500 disabled:opacity-60 transition-colors duration-150" // Applied light green styling
                     >
                         {loading ? (isLoginView ? 'Queueing In...' : 'Queueing Up...') : (isLoginView ? 'Queue In' : 'Queue Up')}
                     </Button>

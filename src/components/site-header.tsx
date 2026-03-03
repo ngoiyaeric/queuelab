@@ -39,13 +39,13 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                         </Link>
                         <section className="max-md:hidden">
                             <nav className="flex gap-8 items-center text-sm">
-                                <Link href="/#features" className="text-white/70 hover:text-white transition">Products</Link>
-                                <Link href="/#pricing" className="text-white/70 hover:text-white transition">Pricing</Link>
-                                <Link href="/careers" className="text-white/70 hover:text-white transition">Careers</Link>
-                                <Link href="/rd" className="text-white/70 hover:text-white transition">
+                                <Link href="/#features" className="text-muted-foreground hover:text-foreground transition">Products</Link>
+                                <Link href="/#pricing" className="text-muted-foreground hover:text-foreground transition">Pricing</Link>
+                                <Link href="/careers" className="text-muted-foreground hover:text-foreground transition">Careers</Link>
+                                <Link href="/rd" className="text-muted-foreground hover:text-foreground transition">
                                   Reads {rdCount && rdCount > 0 ? `(${rdCount})` : ''}
                                 </Link>
-                                <Link href="https://climate.stripe.com/3OeWSf" className="text-white/70 hover:text-white transition" target="_blank">Environment</Link>
+                                <Link href="https://climate.stripe.com/3OeWSf" className="text-muted-foreground hover:text-foreground transition" target="_blank">Environment</Link>
                             </nav>
                         </section>
                         <section className="flex max-md:gap-4 items-center">
@@ -65,19 +65,19 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                             setIsDemoModalOpen(true);
                                         }} />
                                     </ModalTrigger>
-                                    <ModalContent className="bg-black/60 backdrop-blur-lg border border-white/20 text-white p-0">
+                                    <ModalContent className="bg-black/60 backdrop-blur-lg border border-border text-foreground p-0">
                                         <AuthForm />
                                     </ModalContent>
                                 </Modal>
                             )}
                             <div className="flex items-center gap-2">
                                 <Link href="https://cal.com/ericngoiya" target="_blank">
-                                    <Calendar className="size-9 p-2 border rounded-lg hover:text-white/70 transition" />
+                                    <Calendar className="size-9 p-2 border rounded-lg hover:text-muted-foreground transition" />
                                 </Link>
                             </div>
                             <Sheet open={isOpen} onOpenChange={setIsOpen}>
                                 <SheetTrigger>
-                                    <MenuIcon className="size-9 md:hidden hover:text-white/70 transition" />
+                                    <MenuIcon className="size-9 md:hidden hover:text-muted-foreground transition" />
                                 </SheetTrigger>
                                 <SheetContent side="top" className="p-8">
                                     <div className="inline-flex items-center center gap-3">
@@ -88,27 +88,27 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                     </div>
                                     <div className="mt-8 mb-4">
                                         <nav className="grid gap-4 items-center text-lg">
-                                            <Link href="/" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition">
                                                 <Home className="size-6" />
                                                 Home
                                             </Link>
-                                            <Link href="/#features" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/#features" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition">
                                                 <Globe className="size-6" />
                                                 Products
                                             </Link>
-                                            <Link href="/#pricing" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/#pricing" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition">
                                                 <Wallet2 className="size-6" />
                                                 Pricing
                                             </Link>
-                                            <Link href="/careers" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/careers" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition">
                                                 <Newspaper className="size-6" />
                                                 Careers
                                             </Link>
-                                            <Link href="/rd" className="flex items-center gap-3 text-white/70 hover:text-white transition">
+                                            <Link href="/rd" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition">
                                                 <BookOpen className="size-6" />
                                                 Reads
                                             </Link>
-                                            <Link href="https://climate.stripe.com/3OeWSf" className="flex items-center gap-3 text-white/70 hover:text-white transition" target="_blank">
+                                            <Link href="https://climate.stripe.com/3OeWSf" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition" target="_blank">
                                                 <CloudSun className="size-6" />
                                                 Environment
                                             </Link>

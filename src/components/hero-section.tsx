@@ -131,7 +131,7 @@ export function HeroSection() {
                         transition={{ duration: 0.5, delay: 0.3 }}
                         className="text-center"
                     >
-                        <p className={"font-handwriting text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5"}>
+                        <p className={"font-handwriting text-lg md:text-xl max-w-xl mx-auto text-muted-foreground mt-5"}>
                             is a multi-agent intelligence platform for exploration and automation. Your environment aware planet computer for your
                         </p>
                         <span className={"text-sm tracking-wider text-[#7CFC00] block mt-2"}>

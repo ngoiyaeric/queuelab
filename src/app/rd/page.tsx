@@ -36,10 +36,10 @@ export default function RDPage() {
             <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
               QueueCX
             </summary>
-            <div className="text-center text-sm text-white/50 mt-2">
+            <div className="text-center text-sm text-muted-foreground mt-2">
               May 02, 2025
             </div>
-            <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+            <div className="text-center text-lg md:text-xl text-muted-foreground tracking-tight px-4 mt-5">
               <p>
                 We’re an applied artificial general intelligence R&D lab working at
                 the intersection of nature and computation.
@@ -61,10 +61,10 @@ export default function RDPage() {
             <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
               Environment Aware
             </summary>
-            <div className="text-center text-sm text-white/50 mt-2">
+            <div className="text-center text-sm text-muted-foreground mt-2">
               May 02, 2025
             </div>
-            <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+            <div className="text-center text-lg md:text-xl text-muted-foreground tracking-tight px-4 mt-5">
               <p>
                 Our human species has been organizing itself in groups to enable
                 streamlined coordination and communication for goal planning to
@@ -114,7 +114,7 @@ export default function RDPage() {
             <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
               Fluidity Index
             </summary>
-            <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+            <div className="text-center text-lg md:text-xl text-muted-foreground tracking-tight px-4 mt-5">
               <p><a href="https://arxiv.org/abs/2510.20636v1" target="_blank" rel="noopener noreferrer">0 Cost Benchmarks</a></p>
             </div>
           </details>

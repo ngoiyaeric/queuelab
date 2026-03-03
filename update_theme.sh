@@ -1,3 +1,4 @@
+cat << 'INNER_EOF' > src/app/globals.css
 @import url('https://fonts.cdnfonts.com/css/Bellmt');
 
 @tailwind base;
@@ -62,3 +63,4 @@
   padding: 1rem 0;
   font-size: 0.8rem;
 }
+INNER_EOF

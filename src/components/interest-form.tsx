@@ -67,8 +67,8 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6 p-6 md:p-8 bg-gray-800/30 backdrop-blur-sm rounded-lg shadow-xl border border-gray-700/50">
-            <h2 className="text-2xl md:text-3xl font-semibold text-center text-white">{formTitle}</h2>
-<div className="text-center text-sm text-white/80 tracking-tight px-4 mt-3 mb-4">
+            <h2 className="text-2xl md:text-3xl font-semibold text-center text-foreground">{formTitle}</h2>
+<div className="text-center text-sm text-muted-foreground tracking-tight px-4 mt-3 mb-4">
     <p>
         Have a question or want to work with us? Fill out the form below and we&apos;ll get back to you as soon as possible.
     </p>
@@ -87,7 +87,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="mt-1 block w-full px-3 py-2 bg-gray-700/50 border border-gray-600 rounded-md shadow-sm text-white placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                    className="mt-1 block w-full px-3 py-2 bg-gray-700/50 border border-gray-600 rounded-md shadow-sm text-foreground placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                     placeholder="you@example.com"
                 />
             </div>
@@ -128,7 +128,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     required
-                    className="mt-1 block w-full px-3 py-2 bg-gray-700/50 border border-gray-600 rounded-md shadow-sm text-white placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                    className="mt-1 block w-full px-3 py-2 bg-gray-700/50 border border-gray-600 rounded-md shadow-sm text-foreground placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                     placeholder="Your message..."
                 ></textarea>
             </div>
@@ -141,7 +141,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
             <Button
                 type="submit"
                 disabled={submitting}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-sky-500 disabled:opacity-50"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-foreground bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-sky-500 disabled:opacity-50"
             >
                 {submitting ? 'Submitting...' : 'Submit'}
             </Button>

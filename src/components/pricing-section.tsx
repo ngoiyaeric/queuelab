@@ -31,7 +31,7 @@ export function PricingSection({ id }: { id: string }) {
         <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter">
           Pricing Plans
         </h2>
-        <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
+        <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
           Choose the plan that suits you best, pay as you go after limits. 
         </p>
         <div className="mt-10 grid lg:grid-cols-4 gap-6">
