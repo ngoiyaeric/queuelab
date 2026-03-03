@@ -116,7 +116,7 @@ const FeatureTab = (
       </div>
       <div className="font-medium">{props.title}</div>
       {props.isNew && (
-        <div className="text-xs rounded-full text-white px-2 py-0.5 bg-[#7CFC00] font-semibold">
+        <div className="text-xs rounded-full text-foreground px-2 py-0.5 bg-[#7CFC00] font-semibold">
           New
         </div>
       )}
@@ -167,12 +167,12 @@ export function Features({ id }: { id: string }) {
 
   return (
     <>
-      <section className="py-20 md:py-24 bg-black" id={id}>
+      <section className="py-20 md:py-24 bg-background" id={id}>
         <div className="container">
           <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter">
             Discover the Power of QCX.
           </h2>
-          <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
+          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
             QCX offers a comprehensive suite of tools to help you understand and visualize data about our world.
           </p>
 

@@ -22,14 +22,14 @@ const copilots: CopilotCard[] = [
     title: "Mining Copilots",
     description: "Enhance extraction efficiency and resource optimization",
     icon: "⛏️",
-    color: "from-blue-400 to-cyan-500",
+    color: "from-emerald-400 to-teal-500",
     delay: 0.2,
   },
   {
     title: "Disaster Response Copilots",
     description: "Rapid response coordination and emergency management systems",
     icon: "🛡️",
-    color: "from-blue-500 to-indigo-600",
+    color: "from-emerald-500 to-emerald-600",
     delay: 0.4,
   },
 ];
@@ -43,11 +43,11 @@ function CopilotCardComponent({ card }: { card: CopilotCard }) {
       viewport={{ once: true, margin: "-100px" }}
       className="relative group"
     >
-      <div className="relative bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 border border-slate-700 overflow-hidden h-full hover:border-blue-500 transition-colors duration-300">
+      <div className="relative bg-gradient-to-br from-muted to-background rounded-2xl p-8 border border-border overflow-hidden h-full hover:border-emerald-500 transition-colors duration-300">
         <div className={`absolute inset-0 bg-gradient-to-br ${card.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
 
         <motion.div
-          className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-green-400 to-cyan-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"
+          className="absolute -inset-1 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"
           animate={{
             backgroundPosition: ["0% 0%", "100% 100%"],
           }}
@@ -60,7 +60,7 @@ function CopilotCardComponent({ card }: { card: CopilotCard }) {
 
         <div className="relative z-10">
           <motion.div
-            className="text-5xl mb-4 inline-block"
+            className="text-5xl mb-4 inline-block drop-shadow-sm"
             animate={{
               y: [0, -10, 0],
               rotateZ: [0, 5, -5, 0],
@@ -74,16 +74,16 @@ function CopilotCardComponent({ card }: { card: CopilotCard }) {
             {card.icon}
           </motion.div>
 
-          <h3 className="text-2xl font-bold text-white mb-3 relative">
-            <span className="bg-gradient-to-r from-blue-400 via-green-400 to-cyan-400 bg-clip-text text-transparent">
+          <h3 className="text-2xl font-bold text-black mb-3 relative">
+            <span>
               {card.title}
             </span>
           </h3>
 
-          <p className="text-slate-300 text-sm leading-relaxed mb-4">{card.description}</p>
+          <p className="text-gray-700 text-sm leading-relaxed mb-4">{card.description}</p>
 
           <motion.div
-            className="h-1 bg-gradient-to-r from-blue-400 to-green-400 rounded-full"
+            className="h-1 bg-black rounded-full"
             initial={{ width: 0 }}
             whileInView={{ width: "100%" }}
             transition={{ duration: 0.8, delay: card.delay }}
@@ -99,7 +99,7 @@ function AnimatedBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       <motion.div
-        className="absolute w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
+        className="absolute w-96 h-96 bg-gray-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"
         animate={{
           x: [0, 100, 0],
           y: [0, 50, 0],
@@ -112,7 +112,7 @@ function AnimatedBackground() {
         style={{ top: "10%", left: "10%" }}
       />
       <motion.div
-        className="absolute w-96 h-96 bg-green-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
+        className="absolute w-96 h-96 bg-gray-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"
         animate={{
           x: [0, -100, 0],
           y: [0, 100, 0],
@@ -125,7 +125,7 @@ function AnimatedBackground() {
         style={{ top: "50%", right: "10%" }}
       />
       <motion.div
-        className="absolute w-96 h-96 bg-cyan-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
+        className="absolute w-96 h-96 bg-gray-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"
         animate={{
           x: [0, 50, 0],
           y: [0, -100, 0],
@@ -143,7 +143,7 @@ function AnimatedBackground() {
 
 export function FramerCopilotSection() {
   return (
-    <div className="relative min-h-screen bg-black text-white overflow-hidden py-20">
+    <div className="relative min-h-screen bg-background text-foreground overflow-hidden py-20">
       <AnimatedBackground />
 
       <div className="relative z-10 px-4 max-w-6xl mx-auto">
@@ -155,7 +155,7 @@ export function FramerCopilotSection() {
           className="text-center mb-16"
         >
           <motion.h2
-            className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-green-400 to-cyan-400 bg-clip-text text-transparent"
+            className="text-5xl md:text-6xl font-bold mb-6 text-black"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -164,7 +164,7 @@ export function FramerCopilotSection() {
             What you can build with QCX
           </motion.h2>
           <motion.p
-            className="text-xl text-slate-300 max-w-2xl mx-auto"
+            className="text-xl text-gray-700 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}

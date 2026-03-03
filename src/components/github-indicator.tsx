@@ -5,7 +5,7 @@ export function GithubIndicator() {
     return (
         <>
             <Link href={"https://x.com/tryqcx"} target={"_blank"}
-                className={"fixed bottom-6 right-6 z-50 size-12 border flex items-center justify-center rounded-full bg-black/70 hover:bg-muted transition"}>
+                className={"fixed bottom-6 right-6 z-50 size-12 border flex items-center justify-center rounded-full bg-foreground/10 dark:bg-black/70 hover:bg-muted transition"}>
                 <X className={"size-6"}/>
             </Link>
         </>

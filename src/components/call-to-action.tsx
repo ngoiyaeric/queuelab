@@ -47,9 +47,9 @@ const CallToAction = ({ id }: { id?: string }) => {
                         transition={{duration: 120, repeat: Infinity, ease: 'linear'}}
                         className={"border border-muted py-24 px-6 rounded-xl overflow-hidden relative group"}
                         style={{backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY}}>
-                        <div className={"absolute inset-0 bg-[rgb(0,0,255)] bg-blend-overlay [mask-image:radial-gradient(50%_50%_at_50%_35%,black,transparent)] group-hover:opacity-0 transition duration-700"} style={{backgroundImage: `url(${BackgroundGrid.src})`}}/>
+                        <div className={"absolute inset-0 bg-[rgb(16,185,129)] opacity-30 bg-blend-overlay [mask-image:radial-gradient(50%_50%_at_50%_35%,black,transparent)] group-hover:opacity-0 transition duration-700"} style={{backgroundImage: `url(${BackgroundGrid.src})`}}/>
                         <motion.div
-                            className={"absolute inset-0 bg-[rgb(0,0,255)] bg-blend-overlay opacity-0 group-hover:opacity-100 transition duration-700"}
+                            className={"absolute inset-0 bg-[rgb(16,185,129)] opacity-30 bg-blend-overlay opacity-0 group-hover:opacity-100 transition duration-700"}
                             style={{backgroundImage: `url(${BackgroundGrid.src})`, maskImage: maskImage}} ref={borderedDivRef}/>
                         <div className={"relative"}>
                             <h2 className={"text-5xl tracking-tighter text-center font-medium"}>
@@ -57,7 +57,7 @@ const CallToAction = ({ id }: { id?: string }) => {
                             </h2>
                             
                         
-                          <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
+                          <div className="text-center text-lg md:text-xl text-muted-foreground tracking-tight px-4 mt-5">
     <p>
         We are dedicated to providing the best customer experience. We believe in the power of open source and community collaboration.
     </p>
