@@ -79,7 +79,7 @@ export function HeroSection() {
             {/* Hero Section Content */}
             <div className={"container relative z-20"}>
                 <motion.h1
-                    className={"text-8xl md:text-[168px] md:leading-none font-semibold tracking-tighter text-center text-black drop-shadow-sm"}
+                    className={"text-8xl md:text-[168px] md:leading-none font-semibold tracking-tighter text-center text-green-500 drop-shadow-sm"}
                     style={{
                         position: !isAnimationVisible ? 'absolute' : 'static',
                         top: '50%',
