@@ -31,7 +31,7 @@ const tabs = [
     backgroundPositionX: 50,
     backgroundPositionY: 50,
     backgroundSizeX: 100,
-    image: evaScreenshot,
+    image: fixScreenshot,
   },
   {
     icon: "/assets/lottie/stars.lottie",
@@ -40,7 +40,7 @@ const tabs = [
     backgroundPositionX: 50,
     backgroundPositionY: 50,
     backgroundSizeX: 100,
-    image: fixScreenshot,
+    image: evaScreenshot,
   },
 ];
 
