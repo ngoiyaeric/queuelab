@@ -26,7 +26,7 @@ const tabs = [
   },
   {
     icon: "/assets/lottie/click.lottie",
-    title: "EVA",
+    title: "Environment Aware",
     isNew: false,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
@@ -35,7 +35,7 @@ const tabs = [
   },
   {
     icon: "/assets/lottie/stars.lottie",
-    title: "FIX .",
+    title: "Fluidity Index .",
     isNew: true,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
