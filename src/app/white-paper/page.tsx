@@ -63,7 +63,7 @@ export default function WhitePaper() {
                 We build general intelligence interfaces for our system that are currently in market with <a href="https://www.qcx.world" target="_blank" className="text-white underline underline-offset-4 hover:text-white/80 transition-colors">www.qcx.world</a> being our premier product with enterprise pilots currently in route and hundreds of open source community members and contributors working on it everyday.
               </p>
               <p className="mt-4">
-                This quarter our core is exiting beta, and going to market with 20+ enterprise contracts across East Africa.
+                
               </p>
             </section>
 
@@ -78,9 +78,9 @@ export default function WhitePaper() {
             </section>
 
             <section className="border-t border-white/10 pt-10">
-              <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">Scientific Citations</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">Scientific References</h2>
               <p>
-                Our work has been scientifically cited in numerous outlets, including:
+                Our work has been scientifically referenced in numerous outlets, including:
               </p>
               <ul className="list-disc pl-6 space-y-4 mt-4 text-white/70">
                 <li>
