@@ -10,11 +10,13 @@ import productImage3 from "@/assets/product-image-3.png";
 import productImage4 from "@/assets/product-image-4.png";
 import productImage5 from "@/assets/product-image-5.png";
 import productImage2 from "@/assets/product-image-2.png";
+import evaScreenshot from "@/assets/eva-screenshot.png";
+import fixScreenshot from "@/assets/fix-screenshot.png";
 
 const tabs = [
   {
     icon: "/assets/lottie/vroom.lottie",
-    title: "Resolution Search",
+    title: "QCX",
     isNew: false,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
@@ -24,21 +26,21 @@ const tabs = [
   },
   {
     icon: "/assets/lottie/click.lottie",
-    title: "Advanced Visualization Tools",
+    title: "Environment Aware",
     isNew: false,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
     backgroundSizeX: 100,
-    image: productImage2,
+    image: fixScreenshot,
   },
   {
     icon: "/assets/lottie/stars.lottie",
-    title: "Location Intelligence",
+    title: "Fluidity Index .",
     isNew: true,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
     backgroundSizeX: 100,
-    image: productImage3,
+    image: evaScreenshot,
   },
 ];
 
