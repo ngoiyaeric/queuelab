@@ -3,29 +3,79 @@ import { getAuth } from "firebase/auth";
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { getMessaging } from "firebase/messaging";
 
-const requiredVars = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
-  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+// Firebase configuration - only initialize on client side
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const missingVars = Object.entries(requiredVars)
-  .filter(([_, value]) => !value)
-  .map(([key]) => key);
+// Validate that we have the minimum required config
+const hasRequiredConfig = Boolean(
+  firebaseConfig.apiKey &&
+  firebaseConfig.authDomain &&
+  firebaseConfig.projectId &&
+  firebaseConfig.appId
+);
 
-if (missingVars.length > 0) {
-  throw new Error(`Missing Firebase environment variables: ${missingVars.join(', ')}`);
-}
+// Initialize Firebase only on client side
+let app: any = null;
+let auth: any = null;
 
-const firebaseConfig = requiredVars;
+const initializeFirebase = () => {
+  if (typeof window === "undefined") {
+    // Don't initialize Firebase on the server
+    return null;
+  }
 
-// Initialize Firebase
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
-const auth = getAuth(app);
+  if (!hasRequiredConfig) {
+    console.warn("Firebase configuration is incomplete. Please check your environment variables.");
+    return null;
+  }
+
+  try {
+    // Check if Firebase is already initialized
+    if (getApps().length > 0) {
+      app = getApp();
+    } else {
+      app = initializeApp(firebaseConfig);
+    }
+    auth = getAuth(app);
+    return { app, auth };
+  } catch (error) {
+    console.error("Failed to initialize Firebase:", error);
+    return null;
+  }
+};
+
+// Lazy initialization
+const getFirebaseApp = () => {
+  if (typeof window === "undefined") return null;
+  if (!app) {
+    const result = initializeFirebase();
+    if (result) {
+      app = result.app;
+      auth = result.auth;
+    }
+  }
+  return app;
+};
+
+const getFirebaseAuth = () => {
+  if (typeof window === "undefined") return null;
+  if (!auth) {
+    const result = initializeFirebase();
+    if (result) {
+      app = result.app;
+      auth = result.auth;
+    }
+  }
+  return auth;
+};
 
 // Conditionally initialize analytics and messaging only on the client
 let analyticsInstance: any = null;
@@ -34,9 +84,16 @@ let messagingInstance: any = null;
 export const getAnalyticsAsync = async () => {
   if (analyticsInstance) return analyticsInstance;
   if (typeof window !== "undefined") {
-    const supported = await isSupported();
-    if (supported) {
-      analyticsInstance = getAnalytics(app);
+    try {
+      const firebaseApp = getFirebaseApp();
+      if (!firebaseApp) return null;
+      
+      const supported = await isSupported();
+      if (supported) {
+        analyticsInstance = getAnalytics(firebaseApp);
+      }
+    } catch (error) {
+      console.warn("Firebase Analytics initialization failed:", error);
     }
   }
   return analyticsInstance;
@@ -48,7 +105,10 @@ export const getMessagingAsync = async () => {
   if (messagingInstance) return messagingInstance;
   if (typeof window !== "undefined") {
     try {
-      messagingInstance = getMessaging(app);
+      const firebaseApp = getFirebaseApp();
+      if (!firebaseApp) return null;
+      
+      messagingInstance = getMessaging(firebaseApp);
 
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
@@ -75,4 +135,9 @@ export const getMessagingAsync = async () => {
   return messagingInstance;
 };
 
-export { app, auth };
+// Export lazy-initialized instances
+export { getFirebaseApp as app, getFirebaseAuth as auth };
+
+// For backward compatibility, also export the functions directly
+export const getApp = getFirebaseApp;
+export const getAuth = getFirebaseAuth;
