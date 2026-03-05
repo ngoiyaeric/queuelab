@@ -31,8 +31,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       await firebaseSignOut(auth);
     } catch (error) {
       console.error("Error signing out:", error);
+      throw error;
     } finally {
-      // onAuthStateChanged will handle setting loading to false and user to null
+      // onAuthStateChanged will handle setting loading to false and user to null on success
+      setLoading(false);
     }
   };
 

@@ -22,14 +22,19 @@ export function AuthForm() {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 
+    const onAuthSuccess = (successMessage: string) => {
+        setMessage(successMessage);
+        router.push('/dashboard');
+        setLoading(false);
+    };
+
     const handleGoogleLogin = async () => {
         setLoading(true);
         setError(null);
         try {
             const provider = new GoogleAuthProvider();
             await signInWithPopup(auth, provider);
-            setMessage("Logged in with Google successfully!");
-            router.push('/dashboard');
+            onAuthSuccess("Logged in with Google successfully!");
         } catch (err: any) {
              setError(err.message || "An unexpected error occurred during Google sign-in.");
              setLoading(false);
@@ -58,13 +63,11 @@ export function AuthForm() {
             if (isLoginView) {
                 // Login
                 await signInWithEmailAndPassword(auth, email, password);
-                setMessage("Logged in successfully!");
-                router.push('/dashboard');
+                onAuthSuccess("Logged in successfully!");
             } else {
                 // Sign Up
                 await createUserWithEmailAndPassword(auth, email, password);
-                setMessage("Signed up and logged in successfully!");
-                router.push('/dashboard');
+                onAuthSuccess("Signed up and logged in successfully!");
             }
         } catch (err: any) {
             setError(err.message || "An unexpected error occurred.");
