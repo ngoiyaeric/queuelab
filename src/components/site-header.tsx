@@ -54,9 +54,16 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                     Loading...
                                 </Button>
                             ) : user ? (
-                                <Button variant="outline" size="sm" onClick={signOut} className="logout-button">
-                                    Logout
-                                </Button>
+                                <div className="flex gap-2">
+                                    <Link href="/dashboard">
+                                        <Button variant="outline" size="sm" className="dashboard-button">
+                                            Dashboard
+                                        </Button>
+                                    </Link>
+                                    <Button variant="outline" size="sm" onClick={signOut} className="logout-button">
+                                        Logout
+                                    </Button>
+                                </div>
                             ) : (
                                 <Modal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
                                     <ModalTrigger asChild>
