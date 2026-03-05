@@ -1,44 +1,65 @@
 # Firebase Google Sign-In Authentication Fix
 
 ## Problem
-The Firebase Google Sign-In was throwing an error: `Firebase: Error (auth/api-key-not-valid.-please-pass-a-valid-api-key.)` and the Google popup was opening and immediately closing.
+The Firebase Google Sign-In was throwing an error: `Firebase: Error (auth/api-key-not-valid.-please-pass-a-valid-api-key.)` and the Google popup was opening and immediately closing. Additionally, the build was failing on Vercel during the prerendering phase with `auth/invalid-api-key` errors.
 
-## Root Cause
-The Firebase configuration was using environment variables without the `NEXT_PUBLIC_` prefix. In Next.js, only environment variables prefixed with `NEXT_PUBLIC_` are exposed to the browser. Without this prefix, the Firebase API key and other configuration values were `undefined` on the client side, causing the authentication to fail.
+## Root Causes
+1. **Environment Variables**: Firebase configuration was using environment variables without the `NEXT_PUBLIC_` prefix, which meant they were not exposed to the browser in Next.js.
+2. **Server-Side Initialization**: Firebase was being initialized during the build/prerendering phase on the server, where the environment variables are not available and Firebase SDK cannot run properly.
+3. **SSR Incompatibility**: Firebase Auth SDK is designed for client-side use only and should not be initialized during server-side rendering or build time.
 
 ## Solution
-Updated the Firebase configuration to use `NEXT_PUBLIC_` prefixed environment variables:
+Implemented a **lazy-initialization pattern** that ensures Firebase is only initialized on the client side, after the page has fully loaded in the browser.
 
 ### Changes Made
 
 1. **Updated `/src/lib/firebase/config.ts`**:
-   - Changed all Firebase environment variable references from `process.env.FIREBASE_*` to `process.env.NEXT_PUBLIC_FIREBASE_*`
-   - Moved environment variable validation to client-side only to prevent build-time errors
-   - Made `measurementId` optional since it's not always required
+   - Implemented lazy initialization functions (`getFirebaseApp()` and `getFirebaseAuth()`)
+   - Added client-side-only checks to prevent server-side initialization
+   - Firebase is now only initialized when explicitly requested by client components
+   - Added proper error handling and validation
+   - Changed all environment variables to use `NEXT_PUBLIC_` prefix
 
-2. **Updated `.env.example`**:
+2. **Updated `/src/components/auth-provider.tsx`**:
+   - Modified to use lazy-initialized Firebase Auth
+   - Added client-side-only checks in `useEffect`
+   - Gracefully handles cases where Firebase is not initialized
+
+3. **Updated `/src/components/auth-form.tsx`**:
+   - Modified to use lazy-initialized Firebase Auth
+   - Added validation to ensure Firebase is initialized before attempting authentication
+   - Provides user-friendly error messages if Firebase initialization fails
+
+4. **Updated `/src/components/firebase-provider.tsx`**:
+   - Added client-side-only checks
+   - Improved error handling with try-catch blocks
+   - Prevents initialization during SSR
+
+5. **Updated `.env.example`**:
    - Changed all environment variable names to use the `NEXT_PUBLIC_` prefix
-   - This ensures developers know to use the correct variable names when setting up their environment
 
 ## Implementation Details
 
-### Before
+### Before (Problematic)
 ```typescript
-const requiredVars = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  // ... other vars
-};
+// This would execute on the server during build, causing errors
+const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+const auth = getAuth(app);
 ```
 
-### After
+### After (Fixed)
 ```typescript
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  // ... other vars
+// Lazy initialization - only runs on client when needed
+const getFirebaseAuth = () => {
+  if (typeof window === "undefined") return null; // Skip on server
+  if (!auth) {
+    const result = initializeFirebase();
+    if (result) {
+      app = result.app;
+      auth = result.auth;
+    }
+  }
+  return auth;
 };
 ```
 
@@ -68,15 +89,49 @@ After updating your environment variables:
 5. Complete the Google authentication flow
 6. You should be redirected to the dashboard upon successful authentication
 
+### Build Testing
+To verify the fix works during production builds:
+```bash
+npm run build
+npm run start
+```
+
+The build should complete without Firebase-related errors.
+
 ## Why This Works
 
-In Next.js:
-- Server-side environment variables (without `NEXT_PUBLIC_`) are only available on the server
-- Client-side code (like Firebase authentication) cannot access server-only variables
-- The `NEXT_PUBLIC_` prefix tells Next.js to expose these variables to the browser
-- Firebase SDK runs in the browser and needs access to the API key to authenticate requests
+### Client-Side Only Initialization
+- Firebase SDK is designed for client-side use and requires a browser environment
+- By deferring initialization until the component mounts in the browser, we avoid build-time errors
+- The `typeof window === "undefined"` check ensures code only runs in the browser
 
-This is a security best practice because:
-- Public variables (prefixed with `NEXT_PUBLIC_`) are safe to expose to the browser
+### NEXT_PUBLIC_ Prefix
+- In Next.js, only environment variables prefixed with `NEXT_PUBLIC_` are exposed to the browser
 - Firebase API keys are designed to be public and include security rules to prevent abuse
 - Server-only secrets remain protected on the server
+
+### Lazy Loading Pattern
+- Firebase is only initialized when actually needed (when auth operations occur)
+- This reduces memory footprint and improves performance
+- Graceful degradation if Firebase fails to initialize
+
+## Security Considerations
+
+1. **API Key Exposure**: Firebase API keys are intentionally public. Security is enforced through:
+   - Firebase Security Rules in the database
+   - OAuth 2.0 for authentication
+   - Domain restrictions in Firebase Console
+
+2. **No Sensitive Data**: Never store sensitive information (passwords, tokens) in `NEXT_PUBLIC_` variables
+
+3. **Build Safety**: The lazy initialization prevents Firebase from attempting to initialize during the build process, where it would fail and expose configuration errors
+
+## Troubleshooting
+
+If you still encounter issues:
+
+1. **Verify environment variables**: Check that all `NEXT_PUBLIC_FIREBASE_*` variables are set in your `.env.local`
+2. **Check Firebase Console**: Ensure your Firebase project is properly configured
+3. **Browser console**: Look for specific error messages in the browser's developer console
+4. **Restart dev server**: Always restart the dev server after changing environment variables
+5. **Clear cache**: Delete `.next` folder and reinstall dependencies if issues persist

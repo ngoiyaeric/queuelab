@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { auth } from '@/lib/firebase/config';
+import { getFirebaseAuth } from '@/lib/firebase/config';
 import {
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
@@ -32,6 +32,13 @@ export function AuthForm() {
         setLoading(true);
         setError(null);
         try {
+            const auth = getFirebaseAuth();
+            if (!auth) {
+                setError("Firebase is not properly initialized. Please refresh the page and try again.");
+                setLoading(false);
+                return;
+            }
+            
             const provider = new GoogleAuthProvider();
             await signInWithPopup(auth, provider);
             onAuthSuccess("Logged in with Google successfully!");
@@ -60,6 +67,13 @@ export function AuthForm() {
         }
 
         try {
+            const auth = getFirebaseAuth();
+            if (!auth) {
+                setError("Firebase is not properly initialized. Please refresh the page and try again.");
+                setLoading(false);
+                return;
+            }
+
             if (isLoginView) {
                 // Login
                 await signInWithEmailAndPassword(auth, email, password);

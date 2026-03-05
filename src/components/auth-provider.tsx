@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { auth } from '@/lib/firebase/config';
+import { getFirebaseAuth } from '@/lib/firebase/config';
 import { User, onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth';
 
 interface AuthContextType {
@@ -17,23 +17,44 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    // Only initialize auth on client side
+    if (typeof window === "undefined") {
       setLoading(false);
-    });
+      return;
+    }
 
-    return () => unsubscribe();
+    try {
+      const auth = getFirebaseAuth();
+      if (!auth) {
+        console.warn("Firebase Auth not initialized");
+        setLoading(false);
+        return;
+      }
+
+      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+        setLoading(false);
+      });
+
+      return () => unsubscribe();
+    } catch (error) {
+      console.error("Error setting up auth listener:", error);
+      setLoading(false);
+    }
   }, []);
 
   const signOut = async () => {
     setLoading(true);
     try {
+      const auth = getFirebaseAuth();
+      if (!auth) {
+        throw new Error("Firebase Auth not initialized");
+      }
       await firebaseSignOut(auth);
     } catch (error) {
       console.error("Error signing out:", error);
       throw error;
     } finally {
-      // onAuthStateChanged will handle setting loading to false and user to null on success
       setLoading(false);
     }
   };
