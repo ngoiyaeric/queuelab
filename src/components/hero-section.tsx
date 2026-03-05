@@ -32,18 +32,14 @@ export function HeroSection() {
             style={{ backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY }}
             ref={sectionRef}
         >
-            <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"} />
-
-            {/* WebGL Globe - visible when animation is not showing */}
-            {!isAnimationVisible && (
-                <div
-                    className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
+            <div
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] max-w-full max-h-full z-10 pointer-events-none flex items-center justify-center"
                     data-testid="webgl-globe-container"
                 >
                     <div className="w-full h-full pointer-events-auto">
                         <WebGLGlobe
                             onClick={() => setIsAnimationVisible(true)}
-                            className="w-full h-full"
+                            className="w-full h-full [&>div>div]:!flex [&>div>div]:!items-center [&>div>div]:!justify-center"
                         />
                     </div>
                 </div>
