@@ -8,11 +8,13 @@ import { Testimonials } from "@/components/testimonials";
 import { GithubIndicator } from "@/components/github-indicator";
 import { PricingSection } from "@/components/pricing-section";
 import { FramerCopilotSection } from "@/components/framer-copilots-section";
+import { EarthDayCountdown } from "@/components/earth-day-countdown";
 // Removed AnimatedText here as it will be inside HeroSection
 
 export default function Home() {
     return (
         <>
+            <EarthDayCountdown />
             <SiteHeader />
             <HeroSection />
             <LogoTicker />
