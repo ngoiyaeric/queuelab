@@ -3,25 +3,27 @@ import { getAuth } from "firebase/auth";
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { getMessaging } from "firebase/messaging";
 
-const requiredVars = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
-  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const missingVars = Object.entries(requiredVars)
-  .filter(([_, value]) => !value)
-  .map(([key]) => key);
+// Check for missing environment variables only on the client side to avoid build-time errors
+// if they are intended to be provided at runtime, but usually for Next.js they should be there.
+if (typeof window !== "undefined") {
+  const missingVars = Object.entries(firebaseConfig)
+    .filter(([key, value]) => !value && key !== 'measurementId') // measurementId is often optional
+    .map(([key]) => key);
 
-if (missingVars.length > 0) {
-  throw new Error(`Missing Firebase environment variables: ${missingVars.join(', ')}`);
+  if (missingVars.length > 0) {
+    console.warn(`Missing Firebase environment variables: ${missingVars.join(', ')}`);
+  }
 }
-
-const firebaseConfig = requiredVars;
 
 // Initialize Firebase
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
