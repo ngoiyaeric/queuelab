@@ -36,7 +36,3 @@ dev_server.log
 *.tsbuildinfo
 next-env.d.ts
 .env
-
-# firebase
-.firebaserc
-public/firebase-messaging-sw.js
