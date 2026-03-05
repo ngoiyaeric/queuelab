@@ -59,7 +59,6 @@ export const EarthDayCountdown = () => {
                         transition={{ duration: 0.5, ease: "easeInOut" }}
                         className="flex items-center gap-2"
                     >
-                        
                         <span>Earth Day</span>
                     </motion.div>
                 ) : (
@@ -71,7 +70,6 @@ export const EarthDayCountdown = () => {
                         transition={{ duration: 0.5, ease: "easeInOut" }}
                         className="flex items-center gap-2"
                     >
-                       
                         <span>Launch Day • {timeLeft}</span>
                     </motion.div>
                 )}
