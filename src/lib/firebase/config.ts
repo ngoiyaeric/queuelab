@@ -17,11 +17,19 @@ const missingVars = Object.entries(requiredVars)
   .filter(([_, value]) => !value)
   .map(([key]) => key);
 
-if (missingVars.length > 0) {
-  throw new Error(`Missing Firebase environment variables: ${missingVars.join(', ')}`);
+if (missingVars.length > 0 && process.env.NODE_ENV !== 'production') {
+  console.warn(`Missing Firebase environment variables: ${missingVars.join(', ')}`);
 }
 
-const firebaseConfig = requiredVars;
+const firebaseConfig = {
+  apiKey: requiredVars.apiKey || 'dummy_api_key',
+  authDomain: requiredVars.authDomain || 'dummy_auth_domain',
+  projectId: requiredVars.projectId || 'dummy_project_id',
+  storageBucket: requiredVars.storageBucket || 'dummy_storage_bucket',
+  messagingSenderId: requiredVars.messagingSenderId || 'dummy_messaging_sender_id',
+  appId: requiredVars.appId || 'dummy_app_id',
+  measurementId: requiredVars.measurementId || 'dummy_measurement_id',
+};
 
 // Initialize Firebase
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
