@@ -16,7 +16,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         if (!loading && !user) {
-            router.push("/auth");
+            router.push("/");
         }
 
         if (user && user.metadata.lastSignInTime) {
