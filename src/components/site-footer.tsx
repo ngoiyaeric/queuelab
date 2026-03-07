@@ -24,7 +24,7 @@ export default function SiteFooter() {
                         </Link>
 
                         <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
-                            ©️ 2025 QueueCX, Inc. All rights reserved. Built by <a
+                            ©️ 2026 QueueCX, Inc. All rights reserved. Built by <a
                             href={"https://discord.gg/NqGY9EWjWj"}
                             target="_blank"
                             rel="noreferrer"
