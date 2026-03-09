@@ -3,37 +3,44 @@ import { getAuth } from "firebase/auth";
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { getMessaging } from "firebase/messaging";
 
-const requiredVars = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
-  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
-};
-
-const missingVars = Object.entries(requiredVars)
-  .filter(([_, value]) => !value)
-  .map(([key]) => key);
-
-if (missingVars.length > 0 && process.env.NODE_ENV !== 'production') {
-  console.warn(`Missing Firebase environment variables: ${missingVars.join(', ')}`);
-}
-
+// Firebase configuration using NEXT_PUBLIC_ environment variables
 const firebaseConfig = {
-  apiKey: requiredVars.apiKey || 'dummy_api_key',
-  authDomain: requiredVars.authDomain || 'dummy_auth_domain',
-  projectId: requiredVars.projectId || 'dummy_project_id',
-  storageBucket: requiredVars.storageBucket || 'dummy_storage_bucket',
-  messagingSenderId: requiredVars.messagingSenderId || 'dummy_messaging_sender_id',
-  appId: requiredVars.appId || 'dummy_app_id',
-  measurementId: requiredVars.measurementId || 'dummy_measurement_id',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
-const auth = getAuth(app);
+// Initialize Firebase - only on client side
+let app: any = null;
+let auth: any = null;
+
+const initializeFirebase = () => {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  try {
+    if (getApps().length > 0) {
+      app = getApp();
+    } else {
+      app = initializeApp(firebaseConfig);
+    }
+    auth = getAuth(app);
+    return { app, auth };
+  } catch (error) {
+    console.error("Failed to initialize Firebase:", error);
+    return null;
+  }
+};
+
+// Initialize on module load if on client
+if (typeof window !== "undefined") {
+  initializeFirebase();
+}
 
 // Conditionally initialize analytics and messaging only on the client
 let analyticsInstance: any = null;
@@ -42,9 +49,14 @@ let messagingInstance: any = null;
 export const getAnalyticsAsync = async () => {
   if (analyticsInstance) return analyticsInstance;
   if (typeof window !== "undefined") {
-    const supported = await isSupported();
-    if (supported) {
-      analyticsInstance = getAnalytics(app);
+    try {
+      if (!app) initializeFirebase();
+      const supported = await isSupported();
+      if (supported && app) {
+        analyticsInstance = getAnalytics(app);
+      }
+    } catch (error) {
+      console.warn("Firebase Analytics initialization failed:", error);
     }
   }
   return analyticsInstance;
@@ -56,25 +68,28 @@ export const getMessagingAsync = async () => {
   if (messagingInstance) return messagingInstance;
   if (typeof window !== "undefined") {
     try {
-      messagingInstance = getMessaging(app);
+      if (!app) initializeFirebase();
+      if (app) {
+        messagingInstance = getMessaging(app);
 
-      const permission = await Notification.requestPermission();
-      if (permission === 'granted') {
-        if (process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY) {
-          const currentToken = await getToken(messagingInstance, {
-            vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY
-          });
-          if (currentToken) {
-            console.log('FCM Token acquired');
-            // TODO: send token to backend for persistence
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+          if (process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY) {
+            const currentToken = await getToken(messagingInstance, {
+              vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY
+            });
+            if (currentToken) {
+              console.log('FCM Token acquired');
+              // TODO: send token to backend for persistence
+            } else {
+              console.log('No registration token available.');
+            }
           } else {
-            console.log('No registration token available.');
+            console.warn('NEXT_PUBLIC_FIREBASE_VAPID_KEY is missing');
           }
         } else {
-          console.warn('NEXT_PUBLIC_FIREBASE_VAPID_KEY is missing');
+          console.log('Notification permission not granted');
         }
-      } else {
-        console.log('Notification permission not granted');
       }
     } catch(e) {
       console.log('Firebase messaging not supported or error getting token', e);
