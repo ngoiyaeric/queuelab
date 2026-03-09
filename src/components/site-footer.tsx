@@ -19,9 +19,6 @@ export default function SiteFooter() {
                         <Link href="/privacy" className="text-sm text-muted-foreground hover:underline">
                             Privacy
                         </Link>
-                        <Link href="/white-paper" className="text-sm text-muted-foreground hover:underline">
-                            White Paper
-                        </Link>
 
                         <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
                             ©️ 2026 QueueCX, Inc. All rights reserved. Built by <a
