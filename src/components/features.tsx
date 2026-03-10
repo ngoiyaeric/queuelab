@@ -37,7 +37,7 @@ const tabs = [
   },
   {
     icon: Zap,
-    title: "Fluidity Index .",
+    title: "Fluidity Index",
     shortTitle: "FIX",
     isNew: true,
     backgroundPositionX: 50,
