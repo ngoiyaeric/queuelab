@@ -81,7 +81,7 @@ const GlobeContent: React.FC<GlobeContentProps> = ({ onClick, scrollY }) => {
       const matrix = new THREE.Matrix4().makeBasis(xAxis, tangent, normal);
       const quaternion = new THREE.Quaternion().setFromRotationMatrix(matrix);
 
-      data.push({ x, y, z, quaternion: [quaternion.x, quaternion.y, quaternion.z, quaternion.w], scale, materialIndex });
+      data.push({ x, y, z, quaternion: [quaternion.x, quaternion.y, quaternion.z, quaternion.w] as [number, number, number, number], scale, materialIndex });
     }
     return data;
   }, [leafMaterials.length]);
