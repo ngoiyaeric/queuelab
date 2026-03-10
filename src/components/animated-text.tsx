@@ -73,15 +73,22 @@ export const AnimatedText = () => {
                         }}
                         style={{ display: "inline-block" }}
                     >
-                        {words.map((word, i) => (
-                            <motion.span
-                                key={i}
-                                variants={wordVariants}
-                                style={{ display: "inline-block", marginRight: "0.5em" }}
-                            >
-                                {word}
-                            </motion.span>
-                        ))}
+                        {words.map((word, i) => {
+                            const isRed = ["Artificial", "General", "Intelligence"].includes(word);
+                            return (
+                                <motion.span
+                                    key={i}
+                                    variants={wordVariants}
+                                    style={{
+                                        display: "inline-block",
+                                        marginRight: "0.5em",
+                                        color: isRed ? "#ef4444" : "inherit"
+                                    }}
+                                >
+                                    {word}
+                                </motion.span>
+                            );
+                        })}
                     </motion.div>
                 </AnimatePresence>
             </h1>
