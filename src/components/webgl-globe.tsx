@@ -61,7 +61,27 @@ const GlobeContent: React.FC<GlobeContentProps> = ({ onClick, scrollY }) => {
       const scale = 0.3 + Math.random() * 0.2; // vary scale slightly
       const materialIndex = Math.floor(Math.random() * leafMaterials.length);
 
-      data.push({ x, y, z, angle, scale, materialIndex });
+      // Calculate orientation so leaf is parallel to the sphere
+      // The leaf tip (local Y) should point along the tangent
+      // The leaf face (local Z) should point along the normal (away from center)
+      const position = new THREE.Vector3(x, y, z);
+      const normal = position.clone().normalize();
+
+      // Calculate tangent (derivative of position with respect to angle)
+      const dx = -Math.sin(angle) * orbitRadiusX;
+      const dz = Math.cos(angle) * orbitRadiusZ;
+      const dy = Math.cos(angle * 2) * 0.4;
+      const tangent = new THREE.Vector3(dx, dy, dz).normalize();
+
+      // Local X axis
+      const xAxis = new THREE.Vector3().crossVectors(tangent, normal).normalize();
+
+      // We might need to flip tangent or xAxis depending on which way it should face
+      // Let's create the rotation matrix (Basis vectors: X, Y=tangent, Z=normal)
+      const matrix = new THREE.Matrix4().makeBasis(xAxis, tangent, normal);
+      const quaternion = new THREE.Quaternion().setFromRotationMatrix(matrix);
+
+      data.push({ x, y, z, quaternion: [quaternion.x, quaternion.y, quaternion.z, quaternion.w], scale, materialIndex });
     }
     return data;
   }, [leafMaterials.length]);
@@ -141,9 +161,7 @@ const GlobeContent: React.FC<GlobeContentProps> = ({ onClick, scrollY }) => {
             geometry={leafGeometry}
             material={leafMaterials[leaf.materialIndex]}
             position={[leaf.x, leaf.y, leaf.z]}
-            // Orient the leaf along the path.
-            // We rotate it so it lays somewhat flat along the ring but points along the tangent.
-            rotation={[0, -leaf.angle, -Math.PI / 2]}
+            quaternion={leaf.quaternion}
             scale={[leaf.scale, leaf.scale, leaf.scale]}
           />
         ))}
