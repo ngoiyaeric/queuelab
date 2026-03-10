@@ -149,17 +149,6 @@ const GlobeContent: React.FC<GlobeContentProps> = ({ onClick, scrollY }) => {
         ))}
       </group>
 
-      {/* Add a subtle bottom shadow/glow as seen in the image */}
-      <mesh position={[0, -2.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[6, 6]} />
-        <meshBasicMaterial
-          color="#a0c4ff"
-          transparent
-          opacity={0.15}
-          // Simple radial fade for the shadow (would ideally use a shader or texture, but this gives a slight base glow)
-          depthWrite={false}
-        />
-      </mesh>
     </group>
   );
 };
