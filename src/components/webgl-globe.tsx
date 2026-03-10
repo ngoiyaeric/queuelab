@@ -47,8 +47,8 @@ const GlobeContent: React.FC<GlobeContentProps> = ({ onClick, scrollY }) => {
 
   // Pre-calculate leaf positions and rotations along the orbit
   const numLeaves = 12;
-  const orbitRadiusX = 2.8;
-  const orbitRadiusZ = 2.8;
+  const orbitRadiusX = 3.5;
+  const orbitRadiusZ = 3.5;
 
   const leavesData = useMemo(() => {
     const data = [];
@@ -143,7 +143,7 @@ const GlobeContent: React.FC<GlobeContentProps> = ({ onClick, scrollY }) => {
             position={[leaf.x, leaf.y, leaf.z]}
             // Orient the leaf along the path.
             // We rotate it so it lays somewhat flat along the ring but points along the tangent.
-            rotation={[-Math.PI / 2, 0, -leaf.angle + Math.PI / 2]}
+            rotation={[0, -leaf.angle, -Math.PI / 2]}
             scale={[leaf.scale, leaf.scale, leaf.scale]}
           />
         ))}
