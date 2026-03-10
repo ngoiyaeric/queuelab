@@ -86,7 +86,7 @@ export function HeroSection() {
                             QCX
                         </h1>
                         <p className={"font-handwriting text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 relative z-10"}>
-                            is a multi-agent intelligence platform for exploration and automation. Your environment aware planet computer for your
+                            is a planet-scale multi-agent intelligence platform for exploration and automation. Your environment aware planet computer for your
                         </p>
                         <span className={"text-sm tracking-wider text-[#7CFC00] block mt-2 relative z-10"}>
                             QUALITY COMPUTER EXPERIENCES
