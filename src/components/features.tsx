@@ -1,7 +1,7 @@
 "use client";
 
-import { DotLottiePlayer, DotLottieCommonPlayer } from "@dotlottie/react-player";
-import { animate, motion, useMotionTemplate, useMotionValue, ValueAnimationTransition } from "framer-motion";
+import { animate, motion, useMotionTemplate, useMotionValue, ValueAnimationTransition, AnimatePresence } from "framer-motion";
+import { Globe, Search, Zap } from "lucide-react";
 import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import VimeoPlayer from "./vimeo-player";
@@ -15,8 +15,9 @@ import fixScreenshot from "@/assets/fix-screenshot.png";
 
 const tabs = [
   {
-    icon: "/assets/lottie/vroom.lottie",
+    icon: Globe,
     title: "QCX",
+    shortTitle: "QCX",
     isNew: false,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
@@ -25,8 +26,9 @@ const tabs = [
     component: VimeoPlayer,
   },
   {
-    icon: "/assets/lottie/click.lottie",
+    icon: Search,
     title: "Environment Aware",
+    shortTitle: "EVA",
     isNew: false,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
@@ -34,8 +36,9 @@ const tabs = [
     image: fixScreenshot,
   },
   {
-    icon: "/assets/lottie/stars.lottie",
+    icon: Zap,
     title: "Fluidity Index .",
+    shortTitle: "FIX",
     isNew: true,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
@@ -59,7 +62,6 @@ const FeatureTab = (
   props: (typeof tabs)[number] & ComponentPropsWithoutRef<"div"> & { selected: boolean }
 ) => {
   const tabRef = useRef<HTMLDivElement>(null);
-  const dotLottieRef = useRef<DotLottieCommonPlayer>(null);
 
   const xPercentage = useMotionValue(0);
   const yPercentage = useMotionValue(0);
@@ -93,15 +95,10 @@ const FeatureTab = (
     animate(yPercentage, [0, 0, 100, 100, 0], options);
   }, [props.selected, xPercentage, yPercentage]);
 
-  const handleTabHover = () => {
-    if (dotLottieRef.current === null) return;
-    dotLottieRef.current.seek(0);
-    dotLottieRef.current.play();
-  };
+  const IconComponent = props.icon as React.ElementType;
 
   return (
     <div
-      onMouseEnter={handleTabHover}
       className="border border-muted flex items-center p-2.5 gap-2.5 rounded-xl relative cursor-pointer hover:bg-muted/30"
       ref={tabRef}
       onClick={props.onClick}
@@ -113,12 +110,25 @@ const FeatureTab = (
         />
       )}
 
-      <div className="size-12 border border-muted rounded-lg inline-flex items-center justify-center">
-        <DotLottiePlayer src={props.icon} className="size-5" autoplay ref={dotLottieRef} />
+      <div className="size-12 border border-muted rounded-lg inline-flex items-center justify-center shrink-0">
+        <IconComponent className="size-5" />
       </div>
-      <div className="font-medium">{props.title}</div>
+      <div className="font-medium relative overflow-hidden flex items-center justify-start h-6 w-full">
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={props.selected ? props.shortTitle : props.title}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="absolute left-0"
+          >
+            {props.selected ? props.shortTitle : props.title}
+          </motion.span>
+        </AnimatePresence>
+      </div>
       {props.isNew && (
-        <div className="text-xs rounded-full text-white px-2 py-0.5 bg-[#7CFC00] font-semibold">
+        <div className="text-xs rounded-full text-white px-2 py-0.5 bg-[#7CFC00] font-semibold shrink-0">
           New
         </div>
       )}
