@@ -8,7 +8,7 @@ import { Home, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar, Globe, CloudSun
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect } from "react"; // useEffect Added
 import { Button } from "@/components/ui/button";
-import { Modal, ModalContent, ModalTrigger } from "@/components/ui/modal";
+import { Modal, ModalContent, ModalTrigger, ModalTitle, ModalDescription } from "@/components/ui/modal";
 import { useAuth } from '@/components/auth-provider'; // New import
 import { AuthForm } from '@/components/auth-form';   // New import
 import { ActionButton } from '@/components/action-button';
@@ -71,6 +71,8 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                         }} />
                                     </ModalTrigger>
                                     <ModalContent className="bg-black/60 backdrop-blur-lg border border-white/20 text-white p-0">
+                                        <ModalTitle className="sr-only">Authentication</ModalTitle>
+                                        <ModalDescription className="sr-only">Sign in or create an account</ModalDescription>
                                         <AuthForm />
                                     </ModalContent>
                                 </Modal>

@@ -102,13 +102,13 @@ export function AuthForm() {
 
                 <form onSubmit={handleAuthAction} className="space-y-5">
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                        <label htmlFor="auth-email" className="block text-sm font-medium text-gray-300 mb-1">
                             Email address
                         </label>
                         <input
                             type="email"
                             name="email"
-                            id="email"
+                            id="auth-email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
@@ -119,13 +119,13 @@ export function AuthForm() {
                     </div>
 
                     <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1">
+                        <label htmlFor="auth-password" className="block text-sm font-medium text-gray-300 mb-1">
                             Password
                         </label>
                         <input
                             type="password"
                             name="password"
-                            id="password"
+                            id="auth-password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
