@@ -1,0 +1,1257 @@
+/* Minimal custom styles - let 98.css handle the Windows 98 styling */
+
+/* Font smoothing for all text elements */
+*,
+*::before,
+*::after {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+:root {
+  --custom-font: "Jersey 10", sans-serif;
+  --palette-color-1: #c0c0c0;
+  --palette-color-2: #808080;
+  --palette-color-3: #000000;
+  --palette-color-4: #ffffff;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: #c0c0c0;
+  /* Softer off-white background */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-family: var(--custom-font, "Jersey 10", sans-serif);
+  cursor: default !important;
+  position: relative;
+}
+
+/* Very faint paper grain/pixel noise overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.745;
+  background-image: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.05) 0px,
+      transparent 0px,
+      transparent 1px,
+      rgba(0, 0, 0, 0.05) 1px,
+      transparent 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.05) 0px,
+      transparent 0px,
+      transparent 1px,
+      rgba(0, 0, 0, 0.05) 1px,
+      transparent 2px
+    );
+  background-size: 3px 3px;
+  mix-blend-mode: multiply;
+}
+
+/* Apply Windows 98 cursor to all elements */
+* {
+  cursor: default !important;
+}
+
+/* Keep pointer cursor for clickable elements */
+a,
+button,
+.social-btn,
+[role="button"],
+[onclick],
+a:hover,
+button:hover,
+.social-btn:hover {
+  cursor: pointer !important;
+}
+
+win98-desktop {
+  background-color: #c0c0c0; /* Fallback color if image doesn't load */
+  cursor: default !important;
+  position: relative;
+}
+
+/* Apply filtered background image using pseudo-element - isolated from window content */
+win98-desktop::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--bg-image, none);
+  background-repeat: var(--bg-repeat, repeat);
+  background-position: var(--bg-position, 0 0);
+  background-size: var(--bg-size, auto);
+  filter: var(--bg-filter, none);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle theme overlay for background - only affects background, not window content */
+win98-desktop::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-overlay, transparent);
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+}
+
+#app {
+  cursor: default !important;
+}
+
+html {
+  cursor: default !important;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Start Menu Styles */
+#start-menu {
+  display: none;
+  position: fixed;
+  bottom: 40px;
+  left: 10px;
+  width: 200px;
+  z-index: 10000;
+  box-shadow: 2px -2px 5px rgba(0, 0, 0, 0.3);
+  border: 2px solid #808080 !important;
+}
+
+#start-menu .window-body {
+  border: 2px solid #808080 !important;
+  padding-bottom: 8px !important;
+}
+
+#start-menu .window-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#start-menu .window-body ul li {
+  padding: 4px 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.1s, color 0.1s;
+}
+
+#start-menu .window-body ul li:hover {
+  background-color: #000080 !important;
+  color: #fff !important;
+}
+
+#start-menu .window-body hr {
+  margin: 4px 0;
+}
+
+/* Window body overflow fix - ensures scrollbars appear when content overflows */
+/* Note: Keep styles minimal to not interfere with win98-window component functionality */
+win98-window {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 12px 12px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Make title bar responsive - truncate title text when window is narrow */
+win98-window::part(title-bar),
+win98-window .title-bar {
+  display: flex !important;
+  align-items: center !important;
+  min-width: 0 !important; /* Allow shrinking */
+}
+
+/* Title text should truncate with ellipsis */
+win98-window::part(title-bar-text),
+win98-window .title-bar-text {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  margin-right: 4px !important;
+}
+
+/* Title bar controls should stay on the right and not shrink */
+win98-window::part(title-bar-controls),
+win98-window .title-bar-controls {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  gap: 2px !important;
+  margin-left: auto !important;
+  flex-shrink: 0 !important;
+}
+
+/* Hide minimized windows */
+win98-window.minimized,
+win98-window[data-minimized="true"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Increase resize handle area for easier window resizing */
+/* Set CSS custom properties to increase resize handle size */
+win98-window[resizable] {
+  --resize-handle-size: 12px;
+  --resize-grip-size: 12px;
+  --resize-zone-size: 12px;
+  --resize-border-width: 12px;
+}
+
+/* Constant opacity for all windows */
+.window-about-me,
+.window-skills,
+.window-hobbies,
+.window-projects,
+.window-interactive {
+  opacity: 1;
+}
+
+/* Initially hide windows - they will be made visible */
+.window-about-me:not(.window-pop-open),
+.window-skills:not(.window-pop-open),
+.window-hobbies:not(.window-pop-open),
+.window-projects:not(.window-pop-open),
+.window-interactive:not(.window-pop-open) {
+  opacity: 0;
+}
+
+/* Subtle fade-in animation */
+@keyframes subtleFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Simple retro style - windows fade in subtly */
+.window-about-me.window-pop-open,
+.window-skills.window-pop-open,
+.window-hobbies.window-pop-open,
+.window-projects.window-pop-open,
+.window-interactive.window-pop-open {
+  animation: subtleFadeIn 0.3s ease-in forwards;
+  opacity: 1;
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* ============================================
+   RESPONSIVE LAYOUT - Easily editable breakpoints
+   Organized by screen width: Largest to Smallest
+   ============================================ */
+
+/* ============================================
+   DESKTOP LAYOUT (>=1065px)
+   Single vw/vh-based layout that scales proportionally
+   ============================================ */
+@media screen and (min-width: 1065px) {
+  .window-about-me {
+    top: 10vh;
+    left: 10vw;
+    width: 22vw;
+    height: 55vh;
+  }
+
+  .window-projects {
+    top: 2vh;
+    left: 33vw;
+    width: 42vw;
+    height: 88vh;
+  }
+
+  .window-skills {
+    top: 13vh;
+    right: 6vw;
+    width: 18vw;
+    height: 35vh;
+  }
+
+  .window-hobbies {
+    bottom: 17vh;
+    right: 5vw;
+    width: 18vw;
+    height: 24vh;
+  }
+
+  .window-interactive {
+    bottom: 10vh;
+    left: 16vw;
+    width: 16vw;
+    height: 18vh;
+  }
+}
+
+/* ============================================
+   FONT SCALING for narrower desktop screens
+   ============================================ */
+@media screen and (min-width: 1065px) and (max-width: 1400px) {
+  .win98-window .window-body {
+    font-size: 0.85em;
+  }
+
+  .win98-window .window-body h2,
+  .win98-window .window-body h3 {
+    font-size: 0.9em;
+  }
+}
+
+/* ============================================
+   BREAKPOINT 3: Small-Medium Screens
+   (801px - 1064px)
+   ============================================ */
+@media screen and (min-width: 840px) and (max-width: 1064px) {
+  .window-about-me {
+    top: 10px;
+    left: 120px;
+    width: 300px;
+    height: 300px;
+  }
+
+  .window-about-me img,
+  .window-projects img {
+    display: none !important;
+  }
+
+  .window-projects {
+    top: 10px;
+    left: 430px;
+    width: 400px;
+    height: 400px;
+  }
+
+  .window-skills {
+    top: 323px;
+    left: 165px;
+    width: 250px;
+    height: 200px;
+  }
+
+  .window-interactive {
+    top: 423px;
+    left: 643px;
+    width: 160px;
+  }
+
+  .window-interactive img {
+    width: 40%;
+    height: 40%;
+  }
+
+  .window-hobbies {
+    top: 425px;
+    left: 430px;
+    width: 200px;
+    height: 200px;
+  }
+
+  /* Hide icons in all buttons */
+  .social-btn img,
+  button img,
+  a[href*="github"] img,
+  a[href*="http"] img {
+    display: none;
+  }
+}
+
+/* ============================================
+   BREAKPOINT 4: Small Screens (Mobile Landscape)
+   (601px - 800px)
+   ============================================ */
+@media screen and (min-width: 601px) and (max-width: 839px) {
+  .window-about-me {
+    top: 1vh;
+    left: 1vh;
+    width: calc(100% - 2vh);
+    max-width: none;
+    height: 25vh;
+  }
+
+  .window-skills {
+    top: 27vh;
+    left: 1vh;
+    bottom: auto;
+    width: calc(50% - 1.5vh);
+    max-width: none;
+    height: 25vh;
+  }
+
+  .window-hobbies {
+    top: 27vh;
+    left: calc(50% + 0.5vh);
+    bottom: auto;
+    width: calc(50% - 1.5vh);
+    max-width: none;
+    height: 25vh;
+  }
+
+  .window-projects {
+    top: 53vh;
+    left: 1vh;
+    width: calc(100% - 2vh);
+    max-width: none;
+    height: 35vh;
+  }
+
+  .window-interactive {
+    display: none;
+  }
+
+  /* Hide icons in all buttons */
+  .social-btn img,
+  button img,
+  a[href*="github"] img,
+  a[href*="http"] img {
+    display: none;
+  }
+}
+
+/* ============================================
+   BREAKPOINT 5: Very Small Screens (Mobile Portrait)
+   (max-width: 600px)
+   ============================================ */
+@media screen and (max-width: 600px) {
+  .window-about-me {
+    top: 1vh;
+    left: 1vh;
+    width: calc(100% - 2vh);
+    max-width: none;
+    height: 25vh;
+  }
+
+  .window-skills {
+    top: 27vh;
+    left: 1vh;
+    bottom: auto;
+    width: calc(50% - 1.5vh);
+    max-width: none;
+    height: 25vh;
+  }
+
+  .window-hobbies {
+    top: 27vh;
+    left: calc(50% + 0.5vh);
+    bottom: auto;
+    width: calc(50% - 1.5vh);
+    max-width: none;
+    height: 25vh;
+  }
+
+  .window-projects {
+    top: 53vh;
+    left: 1vh;
+    width: calc(100% - 2vh);
+    max-width: none;
+    height: 35vh;
+  }
+
+  .window-interactive {
+    display: none !important;
+  }
+
+  /* Hide icons in all buttons */
+  .social-btn img,
+  button img,
+  a[href*="github"] img,
+  a[href*="http"] img {
+    display: none;
+  }
+}
+
+/* Project list images in "All" tab - default sizes */
+/* Image is now inside content div, positioned right after title */
+.project-list-image {
+  width: 250px;
+  min-width: 200px;
+  height: 180px;
+  border: 1px solid #808080;
+  object-fit: cover;
+  object-position: center;
+  flex-shrink: 0;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+/* Project card styles */
+.project-card {
+  margin: 4px 0;
+  padding: 5px;
+  border: 1px solid #808080;
+  background: #e0e0e0;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.project-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.project-card-title {
+  margin-top: 0;
+  margin-bottom: 3px;
+  font-weight: bold;
+}
+
+.project-card-description {
+  margin: 8px 0;
+}
+
+.project-card-stack {
+  margin: 3px 0 0 0;
+  color: #666;
+}
+
+.project-card-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+/* Ensure buttons can shrink but maintain minimum usable size */
+.project-card-buttons .social-btn {
+  flex: 0 1 auto;
+  min-width: 100px;
+}
+
+/* Single project view styles */
+.project-single {
+  margin: 4px 0;
+  padding: 5px;
+  border: 1px solid #808080;
+  background: #e0e0e0;
+}
+
+.project-single-title {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 2.4em;
+}
+
+.project-single-image {
+  width: 99.3%;
+  max-width: 500px;
+  height: 170px;
+  border: 2px solid #808080;
+  margin-bottom: 12px;
+  display: block;
+  object-fit: cover;
+}
+
+.project-section {
+  margin-bottom: 12px;
+}
+
+.project-section-title {
+  margin: 0 0 4px 0;
+  font-weight: bold;
+  font-size: 1.6em;
+}
+
+.project-section-content {
+  margin: 2px 0;
+  line-height: 1.4;
+}
+
+.project-section-stack {
+  margin: 2px 0;
+  color: #000;
+}
+
+.project-single-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+/* Ensure buttons can shrink but maintain minimum usable size */
+.project-single-buttons .social-btn {
+  flex: 0 1 auto;
+  min-width: 100px;
+}
+
+/* For wide windows (side-by-side layout), make image float to the right of text */
+.window-projects
+  .tab-pane[data-tab-content="all"]
+  > div:not([style*="flex-direction: column"])
+  .project-list-image {
+  float: right;
+  margin-left: 8px;
+  margin-right: 0;
+  margin-top: 0;
+}
+
+win98-window .window-body {
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+  min-height: 0;
+  padding: 8px;
+  height: calc(100% - 54px);
+  /* Ensure content outside viewport is completely hidden */
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Window body variations */
+.window-projects .window-body {
+  padding: 0;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.window-skills .window-body,
+.window-hobbies .window-body {
+  min-height: 0;
+}
+
+.window-projects .projects-tab-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  box-sizing: border-box;
+  word-wrap: break-word !important;
+}
+
+/* Typography adjustments for better legibility */
+/* default font sizes */
+
+win98-window .window-body p {
+  font-size: 1.25em;
+  margin: 5px 0;
+  line-height: 1.3;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.window-body p.bold-title {
+  font-weight: bold;
+  margin: 3px 0;
+}
+
+win98-window .window-body li {
+  font-size: 1.25em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+win98-window .window-body h2 {
+  margin-top: 0;
+  font-size: 2.8em;
+  font-weight: bold;
+  margin-bottom: 3px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color: var(--palette-color-1, #000000);
+}
+
+win98-window .window-body h3 {
+  font-size: 1.35em;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 5px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+win98-window .window-body h4 {
+  font-size: 1.29em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Social buttons styling - base styles moved from inline */
+
+/* Desktop Folder Icon */
+.desktop-folder {
+  position: absolute;
+  width: 80px;
+  cursor: pointer;
+  text-align: center;
+  padding: 4px;
+  user-select: none;
+  transition: background-color 0.1s;
+}
+
+.desktop-folder:hover {
+  background-color: rgba(0, 0, 128, 0.3) !important;
+}
+
+.desktop-folder:active,
+.desktop-folder.selected {
+  background-color: #000080 !important;
+}
+
+.desktop-folder img {
+  width: 48px;
+  height: 48px;
+  display: block;
+  margin: 0 auto 4px auto;
+  image-rendering: pixelated;
+  filter: drop-shadow(1px 1px 0 rgba(0, 0, 0, 0.3));
+}
+
+.desktop-folder span {
+  display: block;
+  font-size: 1.2em;
+  color: #000;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
+    1px 1px 0 #fff;
+  word-break: break-word;
+  line-height: 1.1;
+  font-family: "Jersey 10", sans-serif;
+}
+
+/* Desktop folder positioning - individual positioning stays inline for uniqueness */
+#desktop-folder {
+  top: 20px;
+  left: 20px;
+}
+
+#desktop-blog {
+  top: 110px;
+  left: 20px;
+}
+
+#desktop-chatbox {
+  top: 200px;
+  left: 20px;
+}
+
+#desktop-theme {
+  top: 290px;
+  left: 20px;
+}
+
+#desktop-thanks {
+  top: 560px;
+  left: 20px;
+}
+
+/* Folder Image Items */
+.folder-image-item {
+  transition: background-color 0.1s;
+  border-radius: 2px;
+}
+
+.folder-image-item:hover {
+  background-color: rgba(0, 0, 128, 0.3) !important;
+}
+
+/* Social Button Styling */
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
+  background: #c0c0c0;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-bottom: 2px solid #808080;
+  border-right: 2px solid #808080;
+  text-decoration: none;
+  color: #000;
+  font-size: 1.15em;
+  cursor: pointer;
+  font-family: "Jersey 10", sans-serif;
+  box-sizing: border-box;
+  gap: 6px;
+  line-height: 1.2;
+  transition: all 0.1s;
+  user-select: none;
+  text-align: center !important;
+}
+
+.social-btn:hover {
+  background: #d4d4d4 !important;
+}
+
+.social-btn:active {
+  border: 2px inset #c0c0c0 !important;
+  background: #a0a0a0 !important;
+}
+
+.social-btn img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+/* GitHub Button Styling - now inherits from .social-btn hover/active */
+a[href*="github"] {
+  transition: all 0.1s;
+}
+
+/* Social buttons grid - responsive */
+.social-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  grid-auto-rows: minmax(44px, auto);
+  gap: 4px;
+  margin-top: 8px;
+}
+
+/* For About Me window, use flexible grid that adapts to container width */
+.window-about-me .social-buttons-grid {
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+}
+
+/* Remove extra bottom margin from last elements in window bodies (except My Projects, Settings, Folder, Image Viewer, Thank you, and social buttons grid) */
+win98-window:not([title="My Projects.exe"]):not([title="Settings.exe"]):not(
+    [title="Folder.exe"]
+  ):not([title="Image Viewer.exe"]):not([title="Thank you!.exe"])
+  .window-body
+  > *:last-child:not(.social-buttons-grid):not(.viewer-nav-controls),
+win98-window:not([title="My Projects.exe"]):not([title="Settings.exe"]):not(
+    [title="Folder.exe"]
+  ):not([title="Image Viewer.exe"]):not([title="Thank you!.exe"])
+  .window-body
+  > div:last-child:not(.social-buttons-grid):not(.viewer-nav-controls)
+  > *:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Ensure social buttons grid items align properly - override any last-child rules */
+.social-buttons-grid {
+  align-items: stretch !important;
+  align-content: start !important;
+}
+
+/* Settings window - Color Palette options */
+.palette-option {
+  margin-bottom: 12px;
+  padding: 8px;
+  border: 1px solid #808080;
+  background: #e0e0e0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.palette-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.palette-color-swatches {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* When label content needs to wrap, adjust swatches positioning */
+.palette-label strong {
+  flex-shrink: 0;
+}
+
+.palette-color-swatch {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #808080;
+}
+
+.palette-apply-btn {
+  padding: 4px 12px;
+  background: #c0c0c0;
+  border: 2px outset #c0c0c0;
+  cursor: pointer;
+  font-size: 0.9em;
+  white-space: nowrap;
+  flex: 0 1 auto;
+  min-width: fit-content;
+}
+
+/* When Settings window is narrow, Apply button wraps below colors automatically */
+/* flex-wrap on .palette-option ensures button wraps when space is limited */
+
+.social-buttons-grid .social-btn {
+  width: 100% !important;
+  min-width: 90px !important;
+  min-height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 10px 8px !important;
+  box-sizing: border-box !important;
+  word-wrap: break-word !important;
+  white-space: normal !important;
+}
+
+/* Specifically target Hobbies window to remove all bottom spacing */
+win98-window[title="Hobbies.exe"] .window-body > div:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+win98-window[title="Hobbies.exe"] .window-body img:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Projects Window Tabs */
+.projects-tabs {
+  display: flex;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-shrink: 0;
+  user-select: none;
+  /* Hide horizontal scrollbar but keep scrolling functionality */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Hide horizontal scrollbar in WebKit browsers (Chrome, Safari, Opera) */
+.projects-tabs::-webkit-scrollbar:horizontal {
+  display: none !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+.projects-tabs::-webkit-scrollbar {
+  display: none !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
+.project-tab {
+  padding: 6px 12px;
+  background: #c0c0c0;
+  border: none;
+  border-right: 1px solid #808080;
+  cursor: pointer;
+  font-family: "Jersey 10", sans-serif;
+  font-size: 1em;
+  white-space: nowrap;
+  min-width: 60px;
+  transition: background-color 0.1s;
+  flex-shrink: 0; /* Prevent tabs from shrinking too much */
+}
+
+.project-tab:hover {
+  background: #d4d4d4 !important;
+}
+
+.project-tab.active {
+  background: #c0c0c0 !important;
+  /* Pressed/depressed appearance - inset borders */
+  border-top: 1px solid #808080 !important;
+  border-left: 1px solid #808080 !important;
+  border-bottom: 1px solid #ffffff !important;
+  border-right: 1px solid #ffffff !important;
+  /* Remove font-weight bold - text should not be bold */
+  font-weight: normal !important;
+}
+
+.project-tab:active {
+  background: #a0a0a0 !important;
+  border-top: 1px solid #808080 !important;
+  border-left: 1px solid #808080 !important;
+  border-bottom: 2px solid #000 !important;
+  border-right: 1px solid #808080 !important;
+}
+
+/* Make projects window content responsive - prevent text/button cutoff */
+.window-projects {
+  min-width: 300px;
+  min-height: 400px;
+}
+
+/* ============================================
+   WINDOW-WIDTH SPECIFIC QUERIES
+   (For narrow windows regardless of screen size)
+   ============================================ */
+
+/* Narrow windows (under 450px width) - stack images below title */
+@media screen and (max-width: 450px) {
+  .window-projects .tab-pane[data-tab-content="all"] > div {
+    flex-direction: column !important;
+  }
+
+  .window-projects .project-list-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+  }
+}
+
+/* Ensure project items wrap properly */
+.window-projects .tab-pane[data-tab-content="all"] > div {
+  min-width: 0 !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* Make text wrap properly */
+.window-projects .tab-pane[data-tab-content="all"] > div > div:first-child {
+  min-width: 0 !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.window-projects .tab-pane[data-tab-content="all"] h3,
+.window-projects .tab-pane[data-tab-content="all"] p,
+.window-projects .tab-pane[data-tab-content="all"] strong {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  max-width: 100% !important;
+  white-space: normal !important;
+}
+
+/* Make buttons flexible and allow wrapping - ensure buttons container wraps */
+.window-projects .tab-pane[data-tab-content="all"] .project-card-buttons {
+  flex-wrap: wrap !important;
+}
+
+.window-projects
+  .tab-pane:not([data-tab-content="all"])
+  .project-single-buttons {
+  flex-wrap: wrap !important;
+}
+
+/* Override fixed button widths - make buttons flexible for smaller screens */
+.window-projects .tab-pane[data-tab-content="all"] .social-btn {
+  width: auto !important;
+  min-width: 100px !important;
+  flex: 0 1 auto !important;
+  max-width: 100% !important;
+  word-wrap: break-word !important;
+  white-space: normal !important;
+}
+
+/* Also handle buttons in individual project tabs */
+.window-projects .tab-pane:not([data-tab-content="all"]) .social-btn {
+  width: auto !important;
+  min-width: 100px !important;
+  flex: 0 1 auto !important;
+  max-width: 100% !important;
+}
+
+/* Buttons in project cards and single views should wrap when needed */
+.window-projects .project-card-buttons,
+.window-projects .project-single-buttons {
+  flex-wrap: wrap !important;
+}
+
+/* ============================================
+   ADDITIONAL RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+/* Base responsive adjustments - windows keep their sizes */
+win98-window {
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+/* ============================================
+   HEIGHT-BASED QUERIES
+   ============================================ */
+@media screen and (max-height: 695px) {
+  #desktop-thanks {
+    top: 380px !important;
+  }
+}
+
+/* ============================================
+   LARGER SCREEN QUERIES (1500px+)
+   (For specific adjustments on larger screens)
+   ============================================ */
+
+/* Large screens (1504px - 1535px) - stack images for narrow windows */
+@media screen and (min-width: 1506px) and (max-width: 1535px) {
+  .window-projects .tab-pane[data-tab-content="all"] > div {
+    flex-direction: column !important;
+  }
+
+  /* Image is now inside content div, so it naturally appears after title */
+  /* Make image smaller when stacked */
+  .window-projects .project-list-image {
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 150px !important;
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+    margin-left: 0 !important;
+    max-height: 200px !important;
+    object-fit: cover !important;
+  }
+}
+
+/* ============================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ============================================ */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  .desktop-folder {
+    min-width: 80px !important;
+    min-height: 80px !important;
+    padding: 8px !important;
+  }
+
+  .project-tab {
+    min-height: 44px !important;
+    padding: 8px 12px !important;
+  }
+
+  .social-btn {
+    min-height: 44px !important;
+    padding: 12px 10px !important;
+  }
+
+  /* Prevent text selection on touch */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* ============================================
+   BUTTON SIZING QUERIES
+   ============================================ */
+
+/* Large screens (1301px+) - constant button widths */
+@media screen and (min-width: 1301px) {
+  /* Project list buttons - constant width: 120px when both buttons exist */
+  .window-projects .tab-pane[data-tab-content="all"] .social-btn {
+    width: 120px !important;
+    flex: 0 0 120px !important;
+    min-width: 120px !important;
+    max-width: 120px !important;
+  }
+
+  /* When only one button exists (it's the only child), make it 248px (space of two buttons) */
+  .window-projects .tab-pane[data-tab-content="all"] .social-btn:only-child {
+    width: 248px !important;
+    flex: 0 0 248px !important;
+    min-width: 248px !important;
+    max-width: 248px !important;
+  }
+
+  /* Individual project tab buttons - constant width: 140px when both buttons exist */
+  .window-projects .tab-pane:not([data-tab-content="all"]) .social-btn {
+    width: 140px !important;
+    flex: 0 0 140px !important;
+    min-width: 140px !important;
+    max-width: 140px !important;
+  }
+
+  /* When only one button exists in expanded view, make it 288px (space of two buttons: 140px + 8px gap + 140px) */
+  .window-projects
+    .tab-pane:not([data-tab-content="all"])
+    .social-btn:only-child {
+    width: 288px !important;
+    flex: 0 0 288px !important;
+    min-width: 288px !important;
+    max-width: 288px !important;
+  }
+}
+
+/* Very large screens (1535px - 1600px) - smaller buttons for wrapping */
+@media screen and (min-width: 1535px) and (max-width: 1600px) {
+  /* Make project buttons in "all" tab smaller so they wrap into two rows */
+  .window-projects .tab-pane[data-tab-content="all"] .social-btn {
+    padding: 6px 8px !important; /* Reduced padding */
+    width: auto !important; /* Allow auto width */
+    min-width: 80px !important; /* Smaller minimum width */
+    max-width: 90px !important; /* Smaller maximum width to force wrapping */
+    flex: 0 1 auto !important; /* Allow flexbox to shrink */
+  }
+
+  /* Keep images but make them smaller */
+  .window-projects .project-card-buttons .social-btn img {
+    width: 16px !important;
+    height: 16px !important;
+    margin-right: 4px !important;
+  }
+}
+
+/* Image Viewer Styles - match theme */
+.window-body .viewer-image-container {
+  /* Inherit background from window-body (which is themed) */
+  background: inherit !important;
+}
+
+.window-body .viewer-image-inner {
+  /* Inherit background from window-body theme */
+  background: inherit !important;
+  border: 2px solid #808080 !important; /* Default border, will be overridden by theme */
+}
+
+/* Icons in project tabs (including image viewer buttons) */
+.project-tab img {
+  width: 16px !important;
+  height: 16px !important;
+  vertical-align: middle !important;
+  display: inline-block !important;
+}
+
+/* Center content in image viewer navigation buttons */
+win98-window[title="Image Viewer.exe"] .viewer-nav-controls .project-tab {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Image viewer navigation controls - exclude from last-child margin removal */
+win98-window[title="Image Viewer.exe"] .viewer-nav-controls {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Color scheme is handled by 98.css */
