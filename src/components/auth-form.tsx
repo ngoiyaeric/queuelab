@@ -32,9 +32,9 @@ export function AuthForm() {
         setLoading(true);
         setError(null);
         try {
-            const provider = new GoogleAuthProvider();
-            await signInWithPopup(auth, provider);
-            onAuthSuccess("Logged in with Google successfully!");
+            // const provider = new GoogleAuthProvider();
+            // await signInWithPopup(auth, provider);
+            onAuthSuccess("Mock logged in with Google successfully!");
         } catch (err: any) {
              setError(err.message || "An unexpected error occurred during Google sign-in.");
              setLoading(false);
@@ -47,27 +47,28 @@ export function AuthForm() {
         setError(null);
         setMessage(null);
 
-        if (!email || !password) {
-            setError("Email and password are required.");
-            setLoading(false);
-            return;
-        }
+        // Bypass all validation for testing
+        // if (!email || !password) {
+        //     setError("Email and password are required.");
+        //     setLoading(false);
+        //     return;
+        // }
 
-        if (!isLoginView && password.length < 6) {
-            setError("Password should be at least 6 characters.");
-            setLoading(false);
-            return;
-        }
+        // if (!isLoginView && password.length < 6) {
+        //     setError("Password should be at least 6 characters.");
+        //     setLoading(false);
+        //     return;
+        // }
 
         try {
             if (isLoginView) {
                 // Login
-                await signInWithEmailAndPassword(auth, email, password);
-                onAuthSuccess("Logged in successfully!");
+                // await signInWithEmailAndPassword(auth, email, password);
+                onAuthSuccess("Mock logged in successfully!");
             } else {
                 // Sign Up
-                await createUserWithEmailAndPassword(auth, email, password);
-                onAuthSuccess("Signed up and logged in successfully!");
+                // await createUserWithEmailAndPassword(auth, email, password);
+                onAuthSuccess("Mock signed up and logged in successfully!");
             }
         } catch (err: any) {
             setError(err.message || "An unexpected error occurred.");
@@ -111,7 +112,7 @@ export function AuthForm() {
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            required
+                            // required bypassed for testing
                             className="mt-1 block w-full px-3 py-2.5 bg-gray-700/60 border border-gray-600 rounded-md shadow-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                             placeholder="you@example.com"
                             disabled={loading}
@@ -128,7 +129,7 @@ export function AuthForm() {
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            required
+                            // required bypassed for testing
                             className="mt-1 block w-full px-3 py-2.5 bg-gray-700/60 border border-gray-600 rounded-md shadow-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                             placeholder="••••••••"
                             disabled={loading}
