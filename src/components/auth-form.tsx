@@ -47,8 +47,18 @@ export function AuthForm() {
         setError(null);
         setMessage(null);
 
-        // Bypassing authentication as requested
-        onAuthSuccess("Redirecting to dashboard...");
+        try {
+            // Bypass authentication - immediately redirect to dashboard
+            setMessage("Redirecting to dashboard...");
+            // Use setTimeout to ensure state updates before navigation
+            setTimeout(() => {
+                router.push('/dashboard');
+                setLoading(false);
+            }, 100);
+        } catch (err: any) {
+            setError(err.message || "An unexpected error occurred.");
+            setLoading(false);
+        }
     };
 
     return (
