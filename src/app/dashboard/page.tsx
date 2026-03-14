@@ -15,10 +15,7 @@ export default function Dashboard() {
     const [currentTime, setCurrentTime] = useState("");
 
     useEffect(() => {
-        if (!loading && !user) {
-            router.push("/");
-        }
-
+        // Bypass authentication check - allow access to dashboard regardless of user status
         if (user && user.metadata.lastSignInTime) {
            setCurrentTime(new Date(user.metadata.lastSignInTime).toLocaleString());
         } else {
@@ -35,7 +32,7 @@ export default function Dashboard() {
         }
     };
 
-    if (loading || !user) {
+    if (loading) {
         return (
             <div className="flex h-screen items-center justify-center bg-black">
                 <div className="text-white text-xl animate-pulse">Loading Dashboard...</div>
@@ -53,7 +50,7 @@ export default function Dashboard() {
                         <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Dashboard</h1>
                     </div>
                     <nav className="flex items-center gap-4 text-sm font-medium">
-                        <span className="text-zinc-400 hidden sm:inline-block">Logged in as: <span className="text-white font-semibold">{user.displayName || user.email}</span></span>
+                        <span className="text-zinc-400 hidden sm:inline-block">Logged in as: <span className="text-white font-semibold">{user?.displayName || user?.email || 'Guest'}</span></span>
                         <Button
                             variant="outline"
                             className="bg-transparent border-white/20 text-white hover:bg-white/10"
@@ -90,13 +87,13 @@ export default function Dashboard() {
                 <h2 className="text-xl font-semibold text-white mb-2 text-balance">Welcome Back!</h2>
                 <div className="space-y-2 mb-4">
                     <p className="text-sm text-zinc-300 leading-relaxed">
-                        <span className="text-zinc-500 mr-2">User:</span> {user.displayName || user.email}
+                        <span className="text-zinc-500 mr-2">User:</span> {user?.displayName || user?.email || 'Guest User'}
                     </p>
                     <p className="text-sm text-zinc-300 leading-relaxed">
                         <span className="text-zinc-500 mr-2">Login Time:</span> {currentTime}
                     </p>
                     <p className="text-sm text-zinc-300 leading-relaxed">
-                        <span className="text-zinc-500 mr-2">User ID:</span> <span className="font-mono text-xs">{user.uid}</span>
+                        <span className="text-zinc-500 mr-2">User ID:</span> <span className="font-mono text-xs">{user?.uid || 'N/A'}</span>
                     </p>
                 </div>
             </div>
