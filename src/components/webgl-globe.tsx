@@ -25,7 +25,7 @@ const GlobeContent: React.FC<GlobeContentProps> = ({ onClick, scrollY }) => {
       groupRef.current.rotation.y += delta * rotationSpeed;
 
       // Scale (Zoom): bigger with scroll
-      const scale = 1 + (scroll * 0.0005);
+      const scale = 2.7 + (scroll * 0.0005);
       groupRef.current.scale.set(scale, scale, scale);
     }
 
@@ -42,7 +42,7 @@ const GlobeContent: React.FC<GlobeContentProps> = ({ onClick, scrollY }) => {
   });
 
   return (
-    <group ref={groupRef} onClick={onClick}>
+    <group ref={groupRef} onClick={onClick} position={[0, -0.2, 0]}>
       {/* Main Wireframe Sphere */}
       <mesh>
         <sphereGeometry args={[2, 32, 32]} />
@@ -73,7 +73,7 @@ interface WebGLGlobeProps {
 const WebGLGlobe: React.FC<WebGLGlobeProps> = ({ className, onClick, scrollY }) => {
   return (
     <div className={className}>
-      <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
+      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1.5} />
         <GlobeContent onClick={onClick} scrollY={scrollY} />
