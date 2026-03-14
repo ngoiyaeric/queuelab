@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import '98.css';
 import './j-space.css';
 
@@ -24,7 +25,7 @@ export default function DashboardPage() {
     <div id="app" className="j-space-container">
       <div className="window" style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column' }}>
         <div className="title-bar">
-          <div className="title-bar-text">Jeremy's Space - Dashboard</div>
+          <div className="title-bar-text">Jeremy&apos;s Space - Dashboard</div>
           <div className="title-bar-controls">
             <button aria-label="Minimize" />
             <button aria-label="Maximize" />
@@ -39,15 +40,15 @@ export default function DashboardPage() {
 
           <div className="desktop-icons" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 110px))', gap: '20px', marginTop: '30px' }}>
             <div className="desktop-folder" style={{ textAlign: 'center', cursor: 'pointer' }}>
-              <img src="/assets/directory_computer-0.png" alt="About Me" style={{ width: '48px', height: '48px', marginBottom: '5px' }} />
+              <Image src="/assets/directory_computer-0.png" alt="About Me" width={48} height={48} style={{ marginBottom: '5px', margin: '0 auto' }} />
               <div style={{ color: 'white', textShadow: '1px 1px black' }}>About Me</div>
             </div>
             <div className="desktop-folder" style={{ textAlign: 'center', cursor: 'pointer' }}>
-              <img src="/assets/picture-painting.png" alt="Projects" style={{ width: '48px', height: '48px', marginBottom: '5px' }} />
+              <Image src="/assets/picture-painting.png" alt="Projects" width={48} height={48} style={{ marginBottom: '5px', margin: '0 auto' }} />
               <div style={{ color: 'white', textShadow: '1px 1px black' }}>Projects</div>
             </div>
             <div className="desktop-folder" style={{ textAlign: 'center', cursor: 'pointer' }}>
-              <img src="/assets/paint_old.png" alt="Skills" style={{ width: '48px', height: '48px', marginBottom: '5px' }} />
+              <Image src="/assets/paint_old.png" alt="Skills" width={48} height={48} style={{ marginBottom: '5px', margin: '0 auto' }} />
               <div style={{ color: 'white', textShadow: '1px 1px black' }}>Skills</div>
             </div>
           </div>
