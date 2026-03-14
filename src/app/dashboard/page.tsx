@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/components/auth-provider";
+// import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
@@ -10,14 +10,26 @@ import { FlowerScene } from "@/components/flower-scene";
 import SiteLogo from "@/assets/logo.svg";
 
 export default function Dashboard() {
-    const { user, loading, signOut } = useAuth();
+    // const { user, loading, signOut } = useAuth();
     const router = useRouter();
     const [currentTime, setCurrentTime] = useState("");
 
-    useEffect(() => {
-        if (!loading && !user) {
-            router.push("/");
+    // Mock user for testing the dashboard UI
+    const loading = false;
+    const user = React.useMemo(() => ({
+        displayName: "Test User",
+        email: "test@queue.cx",
+        uid: "mock-uid-12345",
+        metadata: {
+            lastSignInTime: new Date().toISOString()
         }
+    }), []);
+    const signOut = async () => { console.log("Mock sign out"); };
+
+    useEffect(() => {
+        // if (!loading && !user) {
+        //     router.push("/");
+        // }
 
         if (user && user.metadata.lastSignInTime) {
            setCurrentTime(new Date(user.metadata.lastSignInTime).toLocaleString());
