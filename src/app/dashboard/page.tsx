@@ -2,46 +2,50 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/components/auth-provider";
+// import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { FlowerScene } from "@/components/flower-scene";
 import SiteLogo from "@/assets/logo.svg";
 
+// Mock user for UI testing — bypassing Firebase auth
+const mockUser = {
+    displayName: "Test User",
+    email: "test@queuelab.io",
+    uid: "mock-uid-12345",
+    metadata: {
+        lastSignInTime: new Date().toISOString(),
+    },
+};
+
 export default function Dashboard() {
-    const { user, loading, signOut } = useAuth();
+    // const { user, loading, signOut } = useAuth();
+    const user = mockUser;
     const router = useRouter();
     const [currentTime, setCurrentTime] = useState("");
 
     useEffect(() => {
-        if (!loading && !user) {
-            router.push("/");
-        }
+        // Auth check bypassed for UI testing
+        // if (!loading && !user) {
+        //     router.push("/");
+        // }
 
         if (user && user.metadata.lastSignInTime) {
            setCurrentTime(new Date(user.metadata.lastSignInTime).toLocaleString());
         } else {
            setCurrentTime(new Date().toLocaleString());
         }
-    }, [user, loading, router]);
+    }, [user, router]);
 
     const handleSignOut = async () => {
         try {
-            await signOut();
+            // await signOut();
             router.push("/");
         } catch (error) {
             console.error("Failed to sign out", error);
         }
     };
-
-    if (loading || !user) {
-        return (
-            <div className="flex h-screen items-center justify-center bg-black">
-                <div className="text-white text-xl animate-pulse">Loading Dashboard...</div>
-            </div>
-        );
-    }
 
     return (
         <div className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-black via-zinc-900 to-black">

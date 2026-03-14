@@ -2,13 +2,13 @@
 
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { auth } from '@/lib/firebase/config';
-import {
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    GoogleAuthProvider,
-    signInWithPopup
-} from 'firebase/auth';
+// import { auth } from '@/lib/firebase/config';
+// import {
+//     signInWithEmailAndPassword,
+//     createUserWithEmailAndPassword,
+//     GoogleAuthProvider,
+//     signInWithPopup
+// } from 'firebase/auth';
 import { Button } from "@/components/ui/button";
 import SiteLogo from "@/assets/logo.svg";
 import BackgroundStars from "@/assets/stars.png";
@@ -24,6 +24,8 @@ export function AuthForm() {
 
     const onAuthSuccess = (successMessage: string) => {
         setMessage(successMessage);
+        // Set a bypass session cookie so middleware allows access to /dashboard
+        document.cookie = 'session=bypass; path=/';
         router.push('/dashboard');
         setLoading(false);
     };
@@ -31,14 +33,16 @@ export function AuthForm() {
     const handleGoogleLogin = async () => {
         setLoading(true);
         setError(null);
-        try {
-            const provider = new GoogleAuthProvider();
-            await signInWithPopup(auth, provider);
-            onAuthSuccess("Logged in with Google successfully!");
-        } catch (err: any) {
-             setError(err.message || "An unexpected error occurred during Google sign-in.");
-             setLoading(false);
-        }
+        // Bypassing Firebase Google sign-in for UI testing
+        // try {
+        //     const provider = new GoogleAuthProvider();
+        //     await signInWithPopup(auth, provider);
+        //     onAuthSuccess("Logged in with Google successfully!");
+        // } catch (err: any) {
+        //      setError(err.message || "An unexpected error occurred during Google sign-in.");
+        //      setLoading(false);
+        // }
+        onAuthSuccess("Logged in with Google successfully!");
     }
 
     const handleAuthAction = async (event: FormEvent<HTMLFormElement>) => {
@@ -47,31 +51,37 @@ export function AuthForm() {
         setError(null);
         setMessage(null);
 
-        if (!email || !password) {
-            setError("Email and password are required.");
-            setLoading(false);
-            return;
-        }
+        // Bypassing Firebase authentication for UI testing
+        // if (!email || !password) {
+        //     setError("Email and password are required.");
+        //     setLoading(false);
+        //     return;
+        // }
 
-        if (!isLoginView && password.length < 6) {
-            setError("Password should be at least 6 characters.");
-            setLoading(false);
-            return;
-        }
+        // if (!isLoginView && password.length < 6) {
+        //     setError("Password should be at least 6 characters.");
+        //     setLoading(false);
+        //     return;
+        // }
 
-        try {
-            if (isLoginView) {
-                // Login
-                await signInWithEmailAndPassword(auth, email, password);
-                onAuthSuccess("Logged in successfully!");
-            } else {
-                // Sign Up
-                await createUserWithEmailAndPassword(auth, email, password);
-                onAuthSuccess("Signed up and logged in successfully!");
-            }
-        } catch (err: any) {
-            setError(err.message || "An unexpected error occurred.");
-            setLoading(false);
+        // try {
+        //     if (isLoginView) {
+        //         // Login
+        //         await signInWithEmailAndPassword(auth, email, password);
+        //         onAuthSuccess("Logged in successfully!");
+        //     } else {
+        //         // Sign Up
+        //         await createUserWithEmailAndPassword(auth, email, password);
+        //         onAuthSuccess("Signed up and logged in successfully!");
+        //     }
+        // } catch (err: any) {
+        //     setError(err.message || "An unexpected error occurred.");
+        //     setLoading(false);
+        // }
+        if (isLoginView) {
+            onAuthSuccess("Logged in successfully!");
+        } else {
+            onAuthSuccess("Signed up and logged in successfully!");
         }
     };
 
