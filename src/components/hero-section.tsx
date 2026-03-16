@@ -1,6 +1,7 @@
 "use client"
 
 import MapAnimation from "./map-animation";
+import SphereLatticeAnimation from "./sphere-lattice-animation";
 import { ActionButton } from "./action-button";
 import BackgroundStars from "@/assets/stars.png";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
@@ -96,10 +97,10 @@ export function HeroSection() {
                 </>
             )}
 
-            {/* Map Animation - only visible when sphere is clicked */}
+            {/* Sphere-to-Lattice Animation - only visible when sphere is clicked */}
             {isAnimationVisible && (
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-full h-full z-20">
-                    <MapAnimation onClose={() => setIsAnimationVisible(false)} />
+                    <SphereLatticeAnimation onClose={() => setIsAnimationVisible(false)} />
                 </div>
             )}
 
