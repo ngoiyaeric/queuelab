@@ -63,11 +63,7 @@ export default function Dashboard() {
             </header>
 
             {/* 3D Canvas */}
-            <Canvas
-                camera={{ position: [0, 0, 8], fov: 45 }}
-                className="absolute inset-0"
-                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-            >
+            <Canvas camera={{ position: [0, 0, 8], fov: 45 }} className="w-full h-full absolute inset-0" style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}>
                 <ambientLight intensity={0.5} />
                 <pointLight position={[10, 10, 10]} intensity={1.5} />
 
@@ -79,7 +75,6 @@ export default function Dashboard() {
                     minDistance={4}
                     maxDistance={20}
                     autoRotate={false}
-                    target={[0, 0, 0]}
                 />
             </Canvas>
 
