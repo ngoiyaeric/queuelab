@@ -82,6 +82,7 @@ export function SphereLatticeAnimation() {
   const spacing = 1.2;
   const squares = [];
 
+
   for (let i = -Math.floor(gridSize/2); i <= Math.floor(gridSize/2); i++) {
     for (let j = -Math.floor(gridSize/2); j <= Math.floor(gridSize/2); j++) {
       // Highlight center three
@@ -102,17 +103,30 @@ export function SphereLatticeAnimation() {
           <mesh>
             <planeGeometry args={[1, 1]} />
             <meshBasicMaterial
-              color={isHighlighted ? "#ffffff" : "#1a365d"}
+              color={isHighlighted ? "#5cb8f6" : "#a0aec0"}
               wireframe={!isHighlighted}
               transparent
-              opacity={isHighlighted ? Math.max(0.2, unveilProgress) : Math.max(0.1, unveilProgress * 0.5)}
+              opacity={isHighlighted ? unveilProgress : unveilProgress * 0.4}
               side={THREE.DoubleSide}
             />
-            {/* Darker border for the highlighted white tiles */}
+            {/* Darker border for the highlighted tiles */}
             {isHighlighted && (
               <mesh>
-                 <planeGeometry args={[1.05, 1.05]} />
+                 <planeGeometry args={[1.02, 1.02]} />
                  <meshBasicMaterial color="#3182ce" wireframe transparent opacity={unveilProgress * 0.8} />
+              </mesh>
+            )}
+            {/* diagonal line for unhighlighted tiles */}
+            {!isHighlighted && (
+              <mesh>
+                 <planeGeometry args={[1, 1]} />
+                 <meshBasicMaterial color="#4a5568" wireframe transparent opacity={unveilProgress * 0.4} />
+                 <line>
+                   <bufferGeometry>
+                     <bufferAttribute attach="attributes-position" count={2} array={new Float32Array([-0.5, -0.5, 0, 0.5, 0.5, 0])} itemSize={3} />
+                   </bufferGeometry>
+                   <lineBasicMaterial color="#4a5568" transparent opacity={unveilProgress * 0.4} />
+                 </line>
               </mesh>
             )}
           </mesh>
@@ -120,7 +134,7 @@ export function SphereLatticeAnimation() {
             <Text
               position={[0, 0, 0.01]} // Slightly in front of the plane
               fontSize={0.25}
-              color="black"
+              color="white"
               anchorX="center"
               anchorY="middle"
               material-transparent
