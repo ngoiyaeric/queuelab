@@ -43,20 +43,18 @@ export default function Dashboard() {
     return (
         <div className="relative w-full h-screen overflow-hidden bg-black">
             {/* Header / Dashboard UI */}
-            <header className="absolute top-0 left-0 right-0 z-10 p-6 md:p-8">
+            <header className="absolute top-0 left-0 right-0 z-10 px-6 py-4 md:px-8 md:py-5 backdrop-blur-sm bg-black/10 border-b border-white/5">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <SiteLogo className="h-8 w-auto text-white" />
-                        <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Dashboard</h1>
-                    </div>
-                    <nav className="flex items-center gap-4 text-sm font-medium">
-                        <span className="text-zinc-400 hidden sm:inline-block">Logged in as: <span className="text-white font-semibold">{user?.displayName || user?.email || 'Guest'}</span></span>
+                    <SiteLogo className="h-7 w-auto text-white opacity-90" />
+                    <nav className="flex items-center gap-3 text-sm font-medium">
+                        <span className="text-zinc-500 hidden sm:inline-block text-xs tracking-wide">{user?.displayName || user?.email || 'Guest'}</span>
                         <Button
-                            variant="outline"
-                            className="bg-transparent border-white/20 text-white hover:bg-white/10"
+                            variant="ghost"
+                            size="sm"
+                            className="text-zinc-400 hover:text-white hover:bg-white/10 text-xs px-3 h-8"
                             onClick={handleSignOut}
                         >
-                            Log Out
+                            Sign out
                         </Button>
                     </nav>
                 </div>
@@ -79,18 +77,21 @@ export default function Dashboard() {
             </Canvas>
 
             {/* Info Panel */}
-            <div className="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-96 z-10 bg-black/60 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/10">
-                <h2 className="text-xl font-semibold text-white mb-2 text-balance">Welcome Back!</h2>
-                <div className="space-y-2 mb-4">
-                    <p className="text-sm text-zinc-300 leading-relaxed">
-                        <span className="text-zinc-500 mr-2">User:</span> {user?.displayName || user?.email || 'Guest User'}
-                    </p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">
-                        <span className="text-zinc-500 mr-2">Login Time:</span> {currentTime}
-                    </p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">
-                        <span className="text-zinc-500 mr-2">User ID:</span> <span className="font-mono text-xs">{user?.uid || 'N/A'}</span>
-                    </p>
+            <div className="absolute bottom-6 left-6 right-6 md:left-auto md:right-6 md:w-80 z-10 bg-black/50 backdrop-blur-md rounded-xl p-5 border border-white/8">
+                <p className="text-xs text-zinc-500 uppercase tracking-widest mb-3">Session</p>
+                <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                        <span className="text-xs text-zinc-600">Identity</span>
+                        <span className="text-xs text-zinc-300 truncate max-w-[180px]">{user?.displayName || user?.email || 'Guest'}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                        <span className="text-xs text-zinc-600">Since</span>
+                        <span className="text-xs text-zinc-300">{currentTime}</span>
+                    </div>
+                    <div className="flex justify-between items-start">
+                        <span className="text-xs text-zinc-600">UID</span>
+                        <span className="font-mono text-xs text-zinc-400 break-all text-right max-w-[180px]">{user?.uid || '—'}</span>
+                    </div>
                 </div>
             </div>
 
