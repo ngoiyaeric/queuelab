@@ -71,9 +71,9 @@ export function SphereLatticeAnimation() {
       const latticeScale = unveilProgress;
       latticeGroupRef.current.scale.set(latticeScale, latticeScale, latticeScale);
 
-      // Slowly rotate lattice slightly for a 3D feel
+      // Tilt lattice slightly for a 3D feel, no Y rotation to keep QCX visually centered
       latticeGroupRef.current.rotation.x = THREE.MathUtils.lerp(0, Math.PI / 6, unveilProgress);
-      latticeGroupRef.current.rotation.y = THREE.MathUtils.lerp(0, -Math.PI / 12, unveilProgress);
+      latticeGroupRef.current.rotation.y = 0;
     }
   });
 
