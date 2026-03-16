@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
 import { Canvas } from "@react-three/fiber";
-import { Environment, OrbitControls } from "@react-three/drei";
-import { FlowerScene } from "@/components/flower-scene";
+import { OrbitControls } from "@react-three/drei";
+import { SphereLatticeAnimation } from "@/components/sphere-lattice-animation";
 import SiteLogo from "@/assets/logo.svg";
 
 export default function Dashboard() {
@@ -41,13 +41,13 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-black via-zinc-900 to-black">
+        <div className="relative w-full h-screen overflow-hidden bg-black flex items-center justify-center">
             {/* Header / Dashboard UI */}
             <header className="absolute top-0 left-0 right-0 z-10 p-6 md:p-8">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <SiteLogo className="h-8 w-auto text-white" />
-                        <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Dashboard</h1>
+
                     </div>
                     <nav className="flex items-center gap-4 text-sm font-medium">
                         <span className="text-zinc-400 hidden sm:inline-block">Logged in as: <span className="text-white font-semibold">{user?.displayName || user?.email || 'Guest'}</span></span>
@@ -63,22 +63,18 @@ export default function Dashboard() {
             </header>
 
             {/* 3D Canvas */}
-            <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full">
-                <ambientLight intensity={0.6} />
-                <directionalLight position={[5, 5, 5]} intensity={1.2} />
-                <directionalLight position={[-5, 3, -5]} intensity={0.4} />
-                <pointLight position={[0, 2, 0]} intensity={0.8} color="#f4d03f" />
+            <Canvas camera={{ position: [0, 0, 8], fov: 45 }} className="w-full h-full absolute inset-0" style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1.5} />
 
-                <FlowerScene />
+                <SphereLatticeAnimation />
 
-                <Environment preset="dawn" />
                 <OrbitControls
                     enableZoom={true}
                     enablePan={false}
                     minDistance={4}
-                    maxDistance={10}
-                    autoRotate
-                    autoRotateSpeed={0.5}
+                    maxDistance={20}
+                    autoRotate={false}
                 />
             </Canvas>
 
