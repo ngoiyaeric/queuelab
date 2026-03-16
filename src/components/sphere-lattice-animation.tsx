@@ -102,18 +102,25 @@ export function SphereLatticeAnimation() {
           <mesh>
             <planeGeometry args={[1, 1]} />
             <meshBasicMaterial
-              color={isHighlighted ? "#4299e1" : "#1a365d"}
+              color={isHighlighted ? "#ffffff" : "#1a365d"}
               wireframe={!isHighlighted}
               transparent
               opacity={isHighlighted ? Math.max(0.2, unveilProgress) : Math.max(0.1, unveilProgress * 0.5)}
               side={THREE.DoubleSide}
             />
+            {/* Darker border for the highlighted white tiles */}
+            {isHighlighted && (
+              <mesh>
+                 <planeGeometry args={[1.05, 1.05]} />
+                 <meshBasicMaterial color="#3182ce" wireframe transparent opacity={unveilProgress * 0.8} />
+              </mesh>
+            )}
           </mesh>
           {isHighlighted && (
             <Text
               position={[0, 0, 0.01]} // Slightly in front of the plane
-              fontSize={0.3}
-              color="white"
+              fontSize={0.25}
+              color="black"
               anchorX="center"
               anchorY="middle"
               material-transparent
