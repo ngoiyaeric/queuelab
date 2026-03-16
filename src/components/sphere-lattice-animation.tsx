@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Stars, Text } from '@react-three/drei';
+import { Stars, Text, Edges } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Reusing GlobeContent logic but simplified for the animation
@@ -31,7 +31,17 @@ const GlobeContent = ({ scale = 1, opacity = 0.3, wireframe = true, color = "#42
   );
 };
 
-export function SphereLatticeAnimation() {
+export interface SphereLatticeAnimationProps {
+  gridSize?: number;
+  spacing?: number;
+  words?: { center: string; left: string; right: string; top: string; bottom: string; };
+}
+
+export function SphereLatticeAnimation({
+  gridSize = 5,
+  spacing = 1.2,
+  words = { center: "QCX", left: "EVA", right: "FIX", top: "AI", bottom: "ML" }
+}: SphereLatticeAnimationProps) {
   const [unveilProgress, setUnveilProgress] = useState(0);
   const [isUnveiling, setIsUnveiling] = useState(false);
   const centerSphereRef = useRef<THREE.Group>(null);
@@ -51,11 +61,13 @@ export function SphereLatticeAnimation() {
     }
 
     if (centerSphereRef.current) {
-      // Scale down sphere
-      const sphereScale = 1 - unveilProgress;
-      centerSphereRef.current.scale.set(sphereScale, sphereScale, sphereScale);
+      // Start big (3) and scale down to (1) as we zoom out
+      const startScale = 3;
+      const endScale = 1;
+      const currentScale = THREE.MathUtils.lerp(startScale, endScale, unveilProgress);
+      centerSphereRef.current.scale.set(currentScale, currentScale, currentScale);
 
-      // Also fade out
+      // Fade out
       centerSphereRef.current.traverse(child => {
           if (child instanceof THREE.Mesh) {
               const mat = child.material as THREE.MeshBasicMaterial;
@@ -67,35 +79,36 @@ export function SphereLatticeAnimation() {
     }
 
     if (latticeGroupRef.current) {
-      // Unveil lattice from center out
-      const latticeScale = unveilProgress;
+      // Unveil lattice: Start big (3) and scale down to (1) as we zoom out
+      const startScale = 3;
+      const endScale = 1;
+      const latticeScale = THREE.MathUtils.lerp(startScale, endScale, unveilProgress);
       latticeGroupRef.current.scale.set(latticeScale, latticeScale, latticeScale);
 
-      // Slowly rotate lattice slightly for a 3D feel
-      latticeGroupRef.current.rotation.x = THREE.MathUtils.lerp(0, Math.PI / 6, unveilProgress);
-      latticeGroupRef.current.rotation.y = THREE.MathUtils.lerp(0, -Math.PI / 12, unveilProgress);
+      // Do NOT rotate so it acts like an OS (flat to the user)
+      latticeGroupRef.current.rotation.x = 0;
+      latticeGroupRef.current.rotation.y = 0;
     }
   });
 
-  // Create a 5x5 lattice
-  const gridSize = 5;
-  const spacing = 1.2;
   const squares = [];
 
   for (let i = -Math.floor(gridSize/2); i <= Math.floor(gridSize/2); i++) {
     for (let j = -Math.floor(gridSize/2); j <= Math.floor(gridSize/2); j++) {
-      // Highlight center three
-      const isCenterRow = j === 0;
       const isCenter = i === 0 && j === 0;
       const isLeft = i === -1 && j === 0;
       const isRight = i === 1 && j === 0;
+      const isTop = i === 0 && j === 1;
+      const isBottom = i === 0 && j === -1;
 
-      const isHighlighted = isCenter || isLeft || isRight;
+      const isHighlighted = isCenter || isLeft || isRight || isTop || isBottom;
 
       let text = "";
-      if (isCenter) text = "QCX";
-      else if (isLeft) text = "EVA";
-      else if (isRight) text = "FIX";
+      if (isCenter) text = words.center;
+      else if (isLeft) text = words.left;
+      else if (isRight) text = words.right;
+      else if (isTop) text = words.top;
+      else if (isBottom) text = words.bottom;
 
       squares.push(
         <group key={`${i}-${j}`} position={[i * spacing, j * spacing, 0]}>
@@ -103,17 +116,24 @@ export function SphereLatticeAnimation() {
             <planeGeometry args={[1, 1]} />
             <meshBasicMaterial
               color={isHighlighted ? "#4299e1" : "#1a365d"}
-              wireframe={!isHighlighted}
               transparent
-              opacity={isHighlighted ? Math.max(0.2, unveilProgress) : Math.max(0.1, unveilProgress * 0.5)}
+              opacity={isHighlighted ? Math.max(0.2, unveilProgress) : Math.max(0.05, unveilProgress * 0.2)}
               side={THREE.DoubleSide}
             />
+            {/* Draw edges without diagonal line */}
+            <Edges
+              linewidth={1}
+              threshold={15}
+              color={isHighlighted ? "#63b3ed" : "#2a4365"}
+              transparent
+              opacity={isHighlighted ? unveilProgress : unveilProgress * 0.5}
+            />
           </mesh>
-          {isHighlighted && (
+          {isHighlighted && text && (
             <Text
               position={[0, 0, 0.01]} // Slightly in front of the plane
-              fontSize={0.3}
-              color="white"
+              fontSize={0.25}
+              color="#ffffff"
               anchorX="center"
               anchorY="middle"
               material-transparent
@@ -129,21 +149,21 @@ export function SphereLatticeAnimation() {
 
   return (
     <>
-      {/* Background Sphere */}
-      <GlobeContent scale={3} opacity={0.05} color="#1a365d" isBackground={true} />
+      {/* Background Sphere - maybe a lighter color for the light theme or keep it dark for contrast */}
+      <GlobeContent scale={4} opacity={0.02} color="#1a365d" isBackground={true} />
 
-      {/* Background Stars */}
+      {/* Background Stars - faint stars */}
       <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade speed={1} />
 
       {/* Center Animated Elements */}
       <group>
-        {/* The center sphere that fades out */}
-        <group ref={centerSphereRef}>
+        {/* The center sphere that fades out and scales down (zoom out) */}
+        <group ref={centerSphereRef} scale={[3,3,3]}>
            <GlobeContent scale={1} opacity={0.3} color="#4299e1" />
         </group>
 
-        {/* The lattice that scales in */}
-        <group ref={latticeGroupRef} scale={[0,0,0]}>
+        {/* The lattice that fades in and scales down (zoom out) */}
+        <group ref={latticeGroupRef} scale={[3,3,3]}>
           {squares}
         </group>
       </group>
