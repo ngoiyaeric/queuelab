@@ -45,8 +45,8 @@ export default function Dashboard() {
             {/* Header / Dashboard UI */}
             <header className="absolute top-0 left-0 right-0 z-10 p-6 md:p-8">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <SiteLogo className="h-8 w-auto text-white" />
+                    <div className="flex items-center gap-4 hidden">
+
 
                     </div>
                     <nav className="flex items-center gap-4 text-sm font-medium">
@@ -79,7 +79,7 @@ export default function Dashboard() {
             </Canvas>
 
             {/* Info Panel */}
-            <div className="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-96 z-10 bg-black/60 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/10">
+            <div className="absolute top-1/2 -translate-y-1/2 left-8 w-80 z-10 bg-black/60 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/10">
                 <h2 className="text-xl font-semibold text-white mb-2 text-balance">Welcome Back!</h2>
                 <div className="space-y-2 mb-4">
                     <p className="text-sm text-zinc-300 leading-relaxed">
@@ -95,7 +95,7 @@ export default function Dashboard() {
             </div>
 
             {/* Interaction Hint */}
-            <div className="absolute top-24 right-8 z-10 hidden md:flex items-center gap-2 text-sm text-zinc-400 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
+            <div className="absolute top-24 left-8 z-10 hidden md:flex items-center gap-2 text-xs text-zinc-400 bg-transparent px-4 py-2 rounded-full">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                         strokeLinecap="round"
