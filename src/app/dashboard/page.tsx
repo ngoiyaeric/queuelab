@@ -34,26 +34,26 @@ export default function Dashboard() {
 
     if (loading) {
         return (
-            <div className="flex h-screen items-center justify-center bg-black">
-                <div className="text-white text-xl animate-pulse">Loading Dashboard...</div>
+            <div className="flex h-screen items-center justify-center bg-white">
+                <div className="text-black text-xl animate-pulse">Loading Dashboard...</div>
             </div>
         );
     }
 
     return (
-        <div className="relative w-full h-screen overflow-hidden bg-black">
+        <div className="relative w-full h-screen overflow-hidden bg-white">
             {/* Header / Dashboard UI */}
             <header className="absolute top-0 left-0 right-0 z-10 p-6 md:p-8">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <SiteLogo className="h-8 w-auto text-white" />
-                        <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Dashboard</h1>
+                        <SiteLogo className="h-8 w-auto text-black" />
+                        <h1 className="text-2xl md:text-3xl font-bold text-black tracking-tight">Dashboard</h1>
                     </div>
                     <nav className="flex items-center gap-4 text-sm font-medium">
-                        <span className="text-zinc-400 hidden sm:inline-block">Logged in as: <span className="text-white font-semibold">{user?.displayName || user?.email || 'Guest'}</span></span>
+                        <span className="text-zinc-500 hidden sm:inline-block">Logged in as: <span className="text-black font-semibold">{user?.displayName || user?.email || 'Guest'}</span></span>
                         <Button
                             variant="outline"
-                            className="bg-transparent border-white/20 text-white hover:bg-white/10"
+                            className="bg-transparent border-zinc-200 text-black hover:bg-zinc-100"
                             onClick={handleSignOut}
                         >
                             Log Out
@@ -63,7 +63,10 @@ export default function Dashboard() {
             </header>
 
             {/* 3D Canvas */}
-            <Canvas camera={{ position: [0, 0, 8], fov: 45 }} className="w-full h-full">
+            <Canvas
+                camera={{ position: [0, 0, 8], fov: 45 }}
+                className="w-full h-full [&>div>div]:!flex [&>div>div]:!items-center [&>div>div]:!justify-center"
+            >
                 <ambientLight intensity={0.5} />
                 <pointLight position={[10, 10, 10]} intensity={1.5} />
 
@@ -78,24 +81,24 @@ export default function Dashboard() {
                 />
             </Canvas>
 
-            {/* Info Panel */}
-            <div className="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-96 z-10 bg-black/60 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/10">
-                <h2 className="text-xl font-semibold text-white mb-2 text-balance">Welcome Back!</h2>
+            {/* Info Panel - with pointer-events-none so it doesn't block interactions behind it */}
+            <div className="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-96 z-10 bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-zinc-200 pointer-events-none">
+                <h2 className="text-xl font-semibold text-black mb-2 text-balance">Welcome Back!</h2>
                 <div className="space-y-2 mb-4">
-                    <p className="text-sm text-zinc-300 leading-relaxed">
+                    <p className="text-sm text-zinc-700 leading-relaxed">
                         <span className="text-zinc-500 mr-2">User:</span> {user?.displayName || user?.email || 'Guest User'}
                     </p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">
+                    <p className="text-sm text-zinc-700 leading-relaxed">
                         <span className="text-zinc-500 mr-2">Login Time:</span> {currentTime}
                     </p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">
+                    <p className="text-sm text-zinc-700 leading-relaxed">
                         <span className="text-zinc-500 mr-2">User ID:</span> <span className="font-mono text-xs">{user?.uid || 'N/A'}</span>
                     </p>
                 </div>
             </div>
 
             {/* Interaction Hint */}
-            <div className="absolute top-24 right-8 z-10 hidden md:flex items-center gap-2 text-sm text-zinc-400 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
+            <div className="absolute top-24 right-8 z-10 hidden md:flex items-center gap-2 text-sm text-zinc-500 bg-white/50 backdrop-blur-sm px-4 py-2 rounded-full border border-zinc-200 pointer-events-none">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                         strokeLinecap="round"
