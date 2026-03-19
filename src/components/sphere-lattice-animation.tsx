@@ -2,14 +2,53 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Stars, Text } from '@react-three/drei';
+import { Stars, Text, Html } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Reusing GlobeContent logic but simplified for the animation
-const GlobeContent = ({ scale = 1, opacity = 0.3, wireframe = true, color = "#4299e1", isBackground = false }) => {
+export type TileType = 'text' | 'button' | 'image';
+
+export interface TileConfig {
+  /** Grid column index (integer, can be negative) */
+  gridX: number;
+  /** Grid row index (integer, can be negative) */
+  gridY: number;
+  /** Tile content type */
+  type: TileType;
+  /** Label shown on text/button tiles */
+  label?: string;
+  /** Image URL for image tiles */
+  src?: string;
+  /** Alt text for image tiles */
+  alt?: string;
+  /** Click handler for button tiles */
+  onClick?: () => void;
+  /** Optional tile background color override */
+  color?: string;
+}
+
+const DEFAULT_TILES: TileConfig[] = [
+  { gridX: -1, gridY: 0, type: 'text', label: 'EVA' },
+  { gridX: 0,  gridY: 0, type: 'text', label: 'QCX' },
+  { gridX: 1,  gridY: 0, type: 'text', label: 'FIX' },
+];
+
+// Background globe wireframe
+const GlobeContent = ({
+  scale = 1,
+  opacity = 0.3,
+  wireframe = true,
+  color = "#4299e1",
+  isBackground = false,
+}: {
+  scale?: number;
+  opacity?: number;
+  wireframe?: boolean;
+  color?: string;
+  isBackground?: boolean;
+}) => {
   const groupRef = useRef<THREE.Group>(null);
 
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (groupRef.current) {
       groupRef.current.rotation.y += delta * (isBackground ? 0.05 : 0.2);
     }
@@ -31,127 +70,209 @@ const GlobeContent = ({ scale = 1, opacity = 0.3, wireframe = true, color = "#42
   );
 };
 
-export function SphereLatticeAnimation() {
+interface TileProps {
+  config: TileConfig;
+  spacing: number;
+  unveilProgress: number;
+}
+
+function Tile({ config, spacing, unveilProgress }: TileProps) {
+  const { gridX, gridY, type, label, src, alt, onClick, color } = config;
+  const tileColor = color ?? "#ffffff";
+  const opacity = Math.max(0.2, unveilProgress);
+
+  return (
+    <group position={[gridX * spacing, gridY * spacing, 0]}>
+      {/* Tile background plane */}
+      <mesh>
+        <planeGeometry args={[1, 1]} />
+        <meshBasicMaterial
+          color={tileColor}
+          transparent
+          opacity={opacity}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+
+      {/* Blue border overlay */}
+      <mesh>
+        <planeGeometry args={[1.05, 1.05]} />
+        <meshBasicMaterial color="#3182ce" wireframe transparent opacity={unveilProgress * 0.8} />
+      </mesh>
+
+      {/* Tile content */}
+      {type === 'text' && label && (
+        <Text
+          position={[0, 0, 0.01]}
+          fontSize={0.25}
+          color="black"
+          anchorX="center"
+          anchorY="middle"
+          material-transparent
+          material-opacity={unveilProgress}
+        >
+          {label}
+        </Text>
+      )}
+
+      {type === 'button' && (
+        <Html
+          center
+          position={[0, 0, 0.02]}
+          style={{ opacity: unveilProgress, pointerEvents: unveilProgress > 0.5 ? 'auto' : 'none' }}
+        >
+          <button
+            onClick={onClick}
+            style={{
+              background: 'transparent',
+              border: '1px solid #3182ce',
+              color: '#1a365d',
+              padding: '4px 10px',
+              borderRadius: '4px',
+              fontSize: '11px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {label ?? 'Button'}
+          </button>
+        </Html>
+      )}
+
+      {type === 'image' && src && (
+        <Html center position={[0, 0, 0.02]} style={{ opacity: unveilProgress }}>
+          <img
+            src={src}
+            alt={alt ?? label ?? ''}
+            style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '4px' }}
+          />
+        </Html>
+      )}
+    </group>
+  );
+}
+
+interface LatticeTileProps {
+  gridX: number;
+  gridY: number;
+  spacing: number;
+  unveilProgress: number;
+}
+
+function LatticeTile({ gridX, gridY, spacing, unveilProgress }: LatticeTileProps) {
+  return (
+    <group position={[gridX * spacing, gridY * spacing, 0]}>
+      <mesh>
+        <planeGeometry args={[1, 1]} />
+        <meshBasicMaterial
+          color="#1a365d"
+          wireframe
+          transparent
+          opacity={Math.max(0.1, unveilProgress * 0.5)}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+    </group>
+  );
+}
+
+export interface SphereLatticeAnimationProps {
+  /**
+   * Highlighted/interactive tiles. Each entry configures a tile at a specific
+   * grid position with text, a button, or an image.
+   * Defaults to three text tiles labelled EVA, QCX, FIX.
+   */
+  tiles?: TileConfig[];
+  /** Number of columns (and rows) in the background lattice grid. Defaults to 5. */
+  gridSize?: number;
+  /** Spacing between grid cells in world units. Defaults to 1.2. */
+  spacing?: number;
+}
+
+export function SphereLatticeAnimation({
+  tiles = DEFAULT_TILES,
+  gridSize = 5,
+  spacing = 1.2,
+}: SphereLatticeAnimationProps) {
   const [unveilProgress, setUnveilProgress] = useState(0);
   const [isUnveiling, setIsUnveiling] = useState(false);
   const centerSphereRef = useRef<THREE.Group>(null);
   const latticeGroupRef = useRef<THREE.Group>(null);
 
   useEffect(() => {
-    // Start unveiling after a short delay
-    const timer = setTimeout(() => {
-      setIsUnveiling(true);
-    }, 2000);
+    const timer = setTimeout(() => setIsUnveiling(true), 2000);
     return () => clearTimeout(timer);
   }, []);
 
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (isUnveiling && unveilProgress < 1) {
-      setUnveilProgress(Math.min(1, unveilProgress + delta * 0.5)); // 2 second animation
+      setUnveilProgress(prev => Math.min(1, prev + delta * 0.5));
     }
 
     if (centerSphereRef.current) {
-      // Scale down sphere
       const sphereScale = 1 - unveilProgress;
       centerSphereRef.current.scale.set(sphereScale, sphereScale, sphereScale);
-
-      // Also fade out
       centerSphereRef.current.traverse(child => {
-          if (child instanceof THREE.Mesh) {
-              const mat = child.material as THREE.MeshBasicMaterial;
-              // determine base opacity based on if it's wireframe or inner glow
-              const baseOpacity = mat.wireframe ? 0.3 : 0.1;
-              mat.opacity = baseOpacity * (1 - unveilProgress);
-          }
+        if (child instanceof THREE.Mesh) {
+          const mat = child.material as THREE.MeshBasicMaterial;
+          const baseOpacity = mat.wireframe ? 0.3 : 0.1;
+          mat.opacity = baseOpacity * (1 - unveilProgress);
+        }
       });
     }
 
     if (latticeGroupRef.current) {
-      // Unveil lattice from center out
-      const latticeScale = unveilProgress;
-      latticeGroupRef.current.scale.set(latticeScale, latticeScale, latticeScale);
-
-      // Slowly rotate lattice slightly for a 3D feel
-      latticeGroupRef.current.rotation.x = 0;
-      latticeGroupRef.current.rotation.y = 0;
+      latticeGroupRef.current.scale.set(unveilProgress, unveilProgress, unveilProgress);
     }
   });
 
-  // Create a 5x5 lattice
-  const gridSize = 5;
-  const spacing = 1.2;
-  const squares = [];
+  // Build a Set of highlighted positions for quick lookup
+  const highlightedPositions = new Set(tiles.map(t => `${t.gridX},${t.gridY}`));
 
-  for (let i = -Math.floor(gridSize/2); i <= Math.floor(gridSize/2); i++) {
-    for (let j = -Math.floor(gridSize/2); j <= Math.floor(gridSize/2); j++) {
-      // Highlight center three
-      const isCenterRow = j === 0;
-      const isCenter = i === 0 && j === 0;
-      const isLeft = i === -1 && j === 0;
-      const isRight = i === 1 && j === 0;
-
-      const isHighlighted = isCenter || isLeft || isRight;
-
-      let text = "";
-      if (isCenter) text = "QCX";
-      else if (isLeft) text = "EVA";
-      else if (isRight) text = "FIX";
-
-      squares.push(
-        <group key={`${i}-${j}`} position={[i * spacing, j * spacing, 0]}>
-          <mesh>
-            <planeGeometry args={[1, 1]} />
-            <meshBasicMaterial
-              color={isHighlighted ? "#ffffff" : "#1a365d"}
-              wireframe={!isHighlighted}
-              transparent
-              opacity={isHighlighted ? Math.max(0.2, unveilProgress) : Math.max(0.1, unveilProgress * 0.5)}
-              side={THREE.DoubleSide}
-            />
-            {/* Darker border for the highlighted white tiles */}
-            {isHighlighted && (
-              <mesh>
-                 <planeGeometry args={[1.05, 1.05]} />
-                 <meshBasicMaterial color="#3182ce" wireframe transparent opacity={unveilProgress * 0.8} />
-              </mesh>
-            )}
-          </mesh>
-          {isHighlighted && (
-            <Text
-              position={[0, 0, 0.01]} // Slightly in front of the plane
-              fontSize={0.25}
-              color="black"
-              anchorX="center"
-              anchorY="middle"
-              material-transparent
-              material-opacity={unveilProgress}
-            >
-              {text}
-            </Text>
-          )}
-        </group>
-      );
+  const half = Math.floor(gridSize / 2);
+  const backgroundTiles: React.ReactNode[] = [];
+  for (let i = -half; i <= half; i++) {
+    for (let j = -half; j <= half; j++) {
+      if (!highlightedPositions.has(`${i},${j}`)) {
+        backgroundTiles.push(
+          <LatticeTile
+            key={`bg-${i}-${j}`}
+            gridX={i}
+            gridY={j}
+            spacing={spacing}
+            unveilProgress={unveilProgress}
+          />
+        );
+      }
     }
   }
 
   return (
     <>
       {/* Background Sphere */}
-      <GlobeContent scale={3} opacity={0.05} color="#1a365d" isBackground={true} />
+      <GlobeContent scale={3} opacity={0.05} color="#1a365d" isBackground />
 
       {/* Background Stars */}
       <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade speed={1} />
 
-      {/* Center Animated Elements */}
       <group>
-        {/* The center sphere that fades out */}
+        {/* Center sphere that fades out during unveil */}
         <group ref={centerSphereRef}>
-           <GlobeContent scale={1} opacity={0.3} color="#4299e1" />
+          <GlobeContent scale={1} opacity={0.3} color="#4299e1" />
         </group>
 
-        {/* The lattice that scales in */}
-        <group ref={latticeGroupRef} scale={[0,0,0]}>
-          {squares}
+        {/* Lattice that scales in */}
+        <group ref={latticeGroupRef} scale={[0, 0, 0]}>
+          {backgroundTiles}
+          {tiles.map(tile => (
+            <Tile
+              key={`tile-${tile.gridX}-${tile.gridY}`}
+              config={tile}
+              spacing={spacing}
+              unveilProgress={unveilProgress}
+            />
+          ))}
         </group>
       </group>
     </>
