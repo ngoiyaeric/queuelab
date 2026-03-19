@@ -6,8 +6,19 @@ import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { SphereLatticeAnimation } from "@/components/sphere-lattice-animation";
+import { SphereLatticeAnimation, TileConfig } from "@/components/sphere-lattice-animation";
 import SiteLogo from "@/assets/logo.svg";
+
+/**
+ * Tile configuration for the lattice animation on the dashboard.
+ * Modify this array to change which tiles appear, their type (text/button/image),
+ * and their grid positions. gridX and gridY are integer offsets from the center.
+ */
+const DASHBOARD_TILES: TileConfig[] = [
+    { gridX: -1, gridY: 0, type: 'text',   label: 'EVA' },
+    { gridX: 0,  gridY: 0, type: 'button', label: 'QCX', onClick: () => window.open('/', '_self') },
+    { gridX: 1,  gridY: 0, type: 'text',   label: 'FIX' },
+];
 
 export default function Dashboard() {
     const { user, loading, signOut } = useAuth();
@@ -41,7 +52,7 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="relative w-full h-screen overflow-hidden bg-black flex items-center justify-center">
+        <div className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-black via-zinc-900 to-black flex items-center justify-center">
             {/* Header / Dashboard UI */}
             <header className="absolute top-0 left-0 right-0 z-10 p-6 md:p-8">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -63,11 +74,11 @@ export default function Dashboard() {
             </header>
 
             {/* 3D Canvas */}
-            <Canvas camera={{ position: [0, 0, 8], fov: 45 }} className="w-full h-full absolute inset-0" style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}>
+            <Canvas camera={{ position: [0, 0, 8], fov: 45 }} className="absolute inset-0 w-full h-full">
                 <ambientLight intensity={0.5} />
                 <pointLight position={[10, 10, 10]} intensity={1.5} />
 
-                <SphereLatticeAnimation />
+                <SphereLatticeAnimation tiles={DASHBOARD_TILES} />
 
                 <OrbitControls
                     enableZoom={true}
@@ -94,18 +105,6 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            {/* Interaction Hint */}
-            <div className="absolute top-24 right-8 z-10 hidden md:flex items-center gap-2 text-sm text-zinc-400 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
-                    />
-                </svg>
-                <span>Drag to rotate • Scroll to zoom</span>
-            </div>
         </div>
     );
 }
