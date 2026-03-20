@@ -92,7 +92,7 @@ export function HeroSection() {
                             QUALITY COMPUTER EXPERIENCES
                         </span>
                         <div className={"flex justify-center mt-5 relative z-10"}>
-                            <ActionButton label={"core"} href={"https://www.qcx.world"} />
+                            <ActionButton label={"open-core"} href={"https://www.qcx.world"} />
                         </div>
                     </motion.div>
                 )}
