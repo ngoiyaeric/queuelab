@@ -6,6 +6,7 @@ import SiteFooter from "@/components/site-footer";
 import BackgroundStars from "@/assets/stars.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 import WebGLGlobe from "@/components/webgl-globe";
+import { EvaQcxFixFlow } from "@/components/eva-qcx-fix-flow";
 
 export default function WhitePaper() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -33,10 +34,10 @@ export default function WhitePaper() {
         }}
         className="relative overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] bg-background"
       >
-        <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.2)_15%,rgb(14,0,36,0.3)_78%,transparent)]"} />
+        <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.1)_15%,rgb(14,0,36,0.2)_78%,transparent)]"} />
 
         {/* WebGL Globe Background - Positioned at top, scroll driven */}
-        <div className="absolute top-0 left-0 w-full h-[800px] pointer-events-none z-0 flex items-center justify-center opacity-50">
+        <div className="absolute top-0 left-0 w-full h-[800px] pointer-events-none z-0 flex items-center justify-center opacity-30">
              <div className="w-full h-full pointer-events-auto">
                 <WebGLGlobe
                     className="w-full h-full"
@@ -45,7 +46,7 @@ export default function WhitePaper() {
             </div>
         </div>
 
-        <div className="container py-20 md:py-24 relative max-w-4xl mx-auto px-6 z-10">
+        <div className="container py-20 md:py-24 relative max-w-6xl mx-auto px-6 z-10">
           <div className="text-center mb-16">
             <h1 className="text-5xl tracking-tighter font-medium text-white">
               <a href="https://docsend.com/view/bc46fvfr4z2ga2aw" target="_blank" className="hover:text-white/80 transition-colors">
@@ -57,13 +58,15 @@ export default function WhitePaper() {
             </p>
           </div>
 
-          <div className="text-white/80 space-y-10 text-lg leading-relaxed">
+          {/* New Animated Infographic */}
+          <div className="mb-24">
+            <EvaQcxFixFlow />
+          </div>
+
+          <div className="text-white/80 space-y-10 text-lg leading-relaxed max-w-4xl mx-auto">
             <section>
               <p>
                 We build general intelligence interfaces for our system that are currently in market with <a href="https://www.qcx.world" target="_blank" className="text-white underline underline-offset-4 hover:text-white/80 transition-colors">www.qcx.world</a> being our premier product with enterprise pilots currently in route and hundreds of open source community members and contributors working on it everyday.
-              </p>
-              <p className="mt-4">
-                
               </p>
             </section>
 
