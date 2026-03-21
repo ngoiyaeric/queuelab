@@ -53,13 +53,16 @@ export default function WhitePaper() {
                 Official Technical White Paper
               </a>
             </h1>
-            <div className="flex flex-col items-center mt-4">
+            <div className="flex flex-col items-center mt-4 space-y-1">
               <p className="text-lg md:text-xl text-white/70 tracking-tight">
                 Recent Outpost: Q1: 2026
               </p>
-              <p className="text-lg md:text-xl text-white/70 tracking-tight">
-                Q2: 2026
-              </p>
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                <p className="text-lg md:text-xl text-blue-400 font-medium tracking-tight">
+                  Follow-up: Q2: 2026
+                </p>
+              </div>
             </div>
           </div>
 
