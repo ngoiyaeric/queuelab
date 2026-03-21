@@ -6,6 +6,7 @@ import SiteFooter from "@/components/site-footer";
 import BackgroundStars from "@/assets/stars.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 import WebGLGlobe from "@/components/webgl-globe";
+import EvaQcxFixFlow from "@/components/eva-qcx-fix-flow";
 
 export default function WhitePaper() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -52,10 +53,17 @@ export default function WhitePaper() {
                 Official Technical White Paper
               </a>
             </h1>
-            <p className="text-lg md:text-xl text-white/70 tracking-tight mt-4">
-              Recent Outpost: Q1: 2026
-            </p>
+            <div className="flex flex-col items-center mt-4">
+              <p className="text-lg md:text-xl text-white/70 tracking-tight">
+                Recent Outpost: Q1: 2026
+              </p>
+              <p className="text-lg md:text-xl text-white/70 tracking-tight">
+                Q2: 2026
+              </p>
+            </div>
           </div>
+
+          <EvaQcxFixFlow />
 
           <div className="text-white/80 space-y-10 text-lg leading-relaxed">
             <section>
