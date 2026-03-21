@@ -55,7 +55,7 @@ export default function WhitePaper() {
               </a>
             </h1>
             <p className="text-lg md:text-xl text-white/70 tracking-tight mt-4">
-              Recent Outpost: Q1: 2026
+              Recent Outpost: Q1: 2026 & Q2: 2026
             </p>
           </div>
 
