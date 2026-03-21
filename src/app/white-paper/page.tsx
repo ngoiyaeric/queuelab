@@ -61,13 +61,6 @@ export default function WhitePaper() {
 
           <div className="text-white/80 space-y-10 text-lg leading-relaxed">
             <section>
-              <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">Q1 Outpost</h2>
-              <p>
-                We build general intelligence interfaces for our system that are currently in market with <a href="https://www.qcx.world" target="_blank" className="text-white underline underline-offset-4 hover:text-white/80 transition-colors">www.qcx.world</a> being our premier product with enterprise pilots currently in route and hundreds of open source community members and contributors working on it everyday.
-              </p>
-            </section>
-
-            <section className="border-t border-white/10 pt-10">
               <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">Q2 Outpost</h2>
               <div className="mt-6 border border-white/10 rounded-2xl overflow-hidden bg-black/20 backdrop-blur-sm">
                 <Image
@@ -76,6 +69,13 @@ export default function WhitePaper() {
                   className="w-full h-auto"
                 />
               </div>
+            </section>
+
+            <section className="border-t border-white/10 pt-10">
+              <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">Q1 Outpost</h2>
+              <p>
+                We build general intelligence interfaces for our system that are currently in market with <a href="https://www.qcx.world" target="_blank" className="text-white underline underline-offset-4 hover:text-white/80 transition-colors">www.qcx.world</a> being our premier product with enterprise pilots currently in route and hundreds of open source community members and contributors working on it everyday.
+              </p>
             </section>
 
             <section className="border-t border-white/10 pt-10">
