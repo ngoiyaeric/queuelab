@@ -33,7 +33,7 @@ const tabs = [
     backgroundPositionX: 50,
     backgroundPositionY: 50,
     backgroundSizeX: 100,
-    image: fixScreenshot,
+    image: evaScreenshot,
   },
   {
     icon: Zap,
@@ -43,7 +43,8 @@ const tabs = [
     backgroundPositionX: 50,
     backgroundPositionY: 50,
     backgroundSizeX: 100,
-    image: evaScreenshot,
+    image: fixScreenshot,
+    link: "https://arxiv.org/abs/2510.20636",
   },
 ];
 
@@ -151,6 +152,10 @@ export function Features({ id }: { id: string }) {
 
   const handleSelectTab = (index: number) => {
     setSelectedTab(index);
+
+    if (tabs[index].link) {
+      window.open(tabs[index].link, "_blank");
+    }
 
     const animateOptions: ValueAnimationTransition = {
       duration: 1,

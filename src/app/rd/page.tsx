@@ -111,11 +111,14 @@ export default function RDPage() {
           </details>
 
           <details className="mb-8">
-            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
+            <summary
+              className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5"
+              onClick={() => window.open("https://arxiv.org/abs/2510.20636", "_blank")}
+            >
               Fluidity Index
             </summary>
             <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
-              <p><a href="https://arxiv.org/abs/2510.20636v1" target="_blank" rel="noopener noreferrer">Next-Generation Super-Intelligence Benchmarks</a></p>
+              <p><a href="https://arxiv.org/abs/2510.20636" target="_blank" rel="noopener noreferrer">Next-Generation Super-Intelligence Benchmarks</a></p>
             </div>
           </details>
         </div>
