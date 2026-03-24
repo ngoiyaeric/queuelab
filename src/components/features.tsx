@@ -39,7 +39,7 @@ const tabs = [
     icon: Zap,
     title: "Fluidity Index",
     shortTitle: "FIX",
-    isNew: true,
+    isNew: false,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
     backgroundSizeX: 100,
@@ -133,6 +133,17 @@ const FeatureTab = (
           New
         </div>
       )}
+      {props.link && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            window.open(props.link, "_blank");
+          }}
+          className="text-xs rounded-full text-black px-2 py-0.5 bg-white hover:bg-white/90 font-semibold shrink-0 z-10 transition-colors"
+        >
+          Paper
+        </button>
+      )}
     </div>
   );
 };
@@ -152,10 +163,6 @@ export function Features({ id }: { id: string }) {
 
   const handleSelectTab = (index: number) => {
     setSelectedTab(index);
-
-    if (tabs[index].link) {
-      window.open(tabs[index].link, "_blank");
-    }
 
     const animateOptions: ValueAnimationTransition = {
       duration: 1,
