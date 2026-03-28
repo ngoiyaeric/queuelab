@@ -7,6 +7,7 @@ import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } fro
 import { useRef, useState } from "react";
 import React from "react";
 import WebGLGlobe from "./webgl-globe";
+import FluidGlassScene from "./fluid-glass-scene";
 import { AnimatedText } from "./animated-text";
 
 export function HeroSection() {
@@ -27,13 +28,18 @@ export function HeroSection() {
             className={"h-[492px] md:h-[800px] flex items-center overflow-hidden relative bg-white"}            ref={sectionRef}
         >
 
-            {/* WebGL Globe - visible when animation is not showing */}
+            {/* WebGL Globe and FluidGlassScene - visible when animation is not showing */}
             {!isAnimationVisible && (
                 <div
                     className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
                     data-testid="webgl-globe-container"
                 >
-                    <div className="w-full h-full pointer-events-auto">
+                    <div className="w-full h-full pointer-events-auto relative">
+                        {/* Fluid glass background */}
+                        <div className="absolute inset-0 -z-10 opacity-60">
+                            <FluidGlassScene />
+                        </div>
+                        {/* Original WebGLGlobe */}
                         <WebGLGlobe
                             onClick={() => setIsAnimationVisible(true)}
                             className="w-full h-full"
