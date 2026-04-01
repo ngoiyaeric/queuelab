@@ -129,7 +129,7 @@ const FeatureTab = (
       </div>
       {props.isNew && (
         <div className="text-xs rounded-full text-white px-2 py-0.5 bg-[#7CFC00] font-semibold shrink-0">
-          New
+          Research
         </div>
       )}
     </div>
