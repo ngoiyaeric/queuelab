@@ -77,13 +77,13 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
             {success && <p className="text-green-400 bg-green-900/30 p-3 rounded-md text-center">{success}</p>}
 
             <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="interest-email" className="block text-sm font-medium text-gray-300 mb-1">
                     What is your email address? <span className="text-red-400">*</span>
                 </label>
                 <input
                     type="email"
                     name="email"
-                    id="email"
+                    id="interest-email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
