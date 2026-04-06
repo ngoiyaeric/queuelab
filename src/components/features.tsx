@@ -39,11 +39,12 @@ const tabs = [
     icon: Zap,
     title: "Fluidity Index",
     shortTitle: "FIX",
-    isNew: true,
+    isNew: false,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
     backgroundSizeX: 100,
     image: evaScreenshot,
+    link: "https://arxiv.org/abs/2510.20636",
   },
 ];
 
@@ -99,7 +100,7 @@ const FeatureTab = (
 
   return (
     <div
-      className="border border-muted flex items-center p-2.5 gap-2.5 rounded-xl relative cursor-pointer hover:bg-muted/30"
+      className="border border-muted flex items-center p-2.5 gap-2.5 rounded-xl relative cursor-pointer hover:bg-muted/30 group"
       ref={tabRef}
       onClick={props.onClick}
     >
@@ -131,6 +132,17 @@ const FeatureTab = (
         <div className="text-xs rounded-full text-white px-2 py-0.5 bg-[#7CFC00] font-semibold shrink-0">
           Research
         </div>
+      )}
+      {props.link && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            window.open(props.link, "_blank");
+          }}
+          className="text-xs rounded-full text-black px-2 py-0.5 bg-white hover:bg-white/90 font-semibold shrink-0 z-10 transition-colors opacity-0 group-hover:opacity-100"
+        >
+          Paper
+        </button>
       )}
     </div>
   );

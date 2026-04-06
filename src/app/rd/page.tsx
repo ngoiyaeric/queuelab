@@ -111,11 +111,20 @@ export default function RDPage() {
           </details>
 
           <details className="mb-8">
-            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5">
+            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-white/20 p-4 rounded-lg hover:bg-white/5 flex items-center justify-center gap-4 group">
               Fluidity Index
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open("https://arxiv.org/abs/2510.20636", "_blank");
+                }}
+                className="text-sm rounded-full text-black px-4 py-1 bg-white hover:bg-white/90 font-semibold transition-colors opacity-0 group-hover:opacity-100"
+              >
+                Paper
+              </button>
             </summary>
             <div className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
-              <p><a href="https://arxiv.org/abs/2510.20636v1" target="_blank" rel="noopener noreferrer">Next-Generation Super-Intelligence Benchmarks</a></p>
+              <p><a href="https://arxiv.org/abs/2510.20636" target="_blank" rel="noopener noreferrer">Next-Generation Super-Intelligence Benchmarks</a></p>
             </div>
           </details>
         </div>
