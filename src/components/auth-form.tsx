@@ -47,28 +47,14 @@ export function AuthForm() {
         setError(null);
         setMessage(null);
 
-        if (!email || !password) {
-            setError("Email and password are required.");
-            setLoading(false);
-            return;
-        }
-
-        if (!isLoginView && password.length < 6) {
-            setError("Password should be at least 6 characters.");
-            setLoading(false);
-            return;
-        }
-
         try {
-            if (isLoginView) {
-                // Login
-                await signInWithEmailAndPassword(auth, email, password);
-                onAuthSuccess("Logged in successfully!");
-            } else {
-                // Sign Up
-                await createUserWithEmailAndPassword(auth, email, password);
-                onAuthSuccess("Signed up and logged in successfully!");
-            }
+            // Bypass authentication - immediately redirect to dashboard
+            setMessage("Redirecting to dashboard...");
+            // Use setTimeout to ensure state updates before navigation
+            setTimeout(() => {
+                router.push('/dashboard');
+                setLoading(false);
+            }, 100);
         } catch (err: any) {
             setError(err.message || "An unexpected error occurred.");
             setLoading(false);
