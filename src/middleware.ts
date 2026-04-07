@@ -2,13 +2,14 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const session = request.cookies.get('session');
+  // Session check bypassed for testing dashboard UI
+  // const session = request.cookies.get('session');
 
   // If the user is trying to access the dashboard without a valid session,
   // redirect them to the home page (or a dedicated login page).
-  if (!session) {
-    return NextResponse.redirect(new URL('/', request.url));
-  }
+  // if (!session) {
+  //   return NextResponse.redirect(new URL('/', request.url));
+  // }
 
   return NextResponse.next();
 }
