@@ -2,22 +2,35 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/components/auth-provider";
+// import { useAuth } from "@/components/auth-provider"; // bypassed for testing
 import { Button } from "@/components/ui/button";
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { FlowerScene } from "@/components/flower-scene";
 import SiteLogo from "@/assets/logo.svg";
 
+// Mock user object for testing dashboard UI without Firebase auth
+const mockUser = {
+    displayName: "Test User",
+    email: "test@example.com",
+    uid: "mock-uid-12345",
+    metadata: {
+        lastSignInTime: new Date().toISOString(),
+    },
+} as any;
+
 export default function Dashboard() {
-    const { user, loading, signOut } = useAuth();
+    // const { user, loading, signOut } = useAuth();
+    const user = mockUser;
+    const loading = false;
     const router = useRouter();
     const [currentTime, setCurrentTime] = useState("");
 
     useEffect(() => {
-        if (!loading && !user) {
-            router.push("/");
-        }
+        // Bypassed for testing: auth guard disabled
+        // if (!loading && !user) {
+        //     router.push("/");
+        // }
 
         if (user && user.metadata.lastSignInTime) {
            setCurrentTime(new Date(user.metadata.lastSignInTime).toLocaleString());
@@ -28,20 +41,21 @@ export default function Dashboard() {
 
     const handleSignOut = async () => {
         try {
-            await signOut();
+            // await signOut();
             router.push("/");
         } catch (error) {
             console.error("Failed to sign out", error);
         }
     };
 
-    if (loading || !user) {
-        return (
-            <div className="flex h-screen items-center justify-center bg-black">
-                <div className="text-white text-xl animate-pulse">Loading Dashboard...</div>
-            </div>
-        );
-    }
+    // Bypassed for testing
+    // if (loading || !user) {
+    //     return (
+    //         <div className="flex h-screen items-center justify-center bg-black">
+    //             <div className="text-white text-xl animate-pulse">Loading Dashboard...</div>
+    //         </div>
+    //     );
+    // }
 
     return (
         <div className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-black via-zinc-900 to-black">
