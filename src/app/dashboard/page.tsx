@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
 import { Canvas } from "@react-three/fiber";
-import { Environment, OrbitControls } from "@react-three/drei";
-import { FlowerScene } from "@/components/flower-scene";
+import { OrbitControls } from "@react-three/drei";
+import { SphereLatticeAnimation } from "@/components/sphere-lattice-animation";
 import SiteLogo from "@/assets/logo.svg";
 
 export default function Dashboard() {
@@ -41,13 +41,13 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-black via-zinc-900 to-black">
+        <div className="relative w-full h-screen overflow-hidden bg-black flex items-center justify-center">
             {/* Header / Dashboard UI */}
             <header className="absolute top-0 left-0 right-0 z-10 p-6 md:p-8">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <SiteLogo className="h-8 w-auto text-white" />
-                        <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Dashboard</h1>
+                    <div className="flex items-center gap-4 hidden">
+
+
                     </div>
                     <nav className="flex items-center gap-4 text-sm font-medium">
                         <span className="text-zinc-400 hidden sm:inline-block">Logged in as: <span className="text-white font-semibold">{user?.displayName || user?.email || 'Guest'}</span></span>
@@ -63,27 +63,17 @@ export default function Dashboard() {
             </header>
 
             {/* 3D Canvas */}
-            <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full">
-                <ambientLight intensity={0.6} />
-                <directionalLight position={[5, 5, 5]} intensity={1.2} />
-                <directionalLight position={[-5, 3, -5]} intensity={0.4} />
-                <pointLight position={[0, 2, 0]} intensity={0.8} color="#f4d03f" />
+            <Canvas camera={{ position: [-0.8, 0, 8], fov: 45 }} className="w-full h-full absolute inset-0" style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1.5} />
 
-                <FlowerScene />
+                <SphereLatticeAnimation />
 
-                <Environment preset="dawn" />
-                <OrbitControls
-                    enableZoom={true}
-                    enablePan={false}
-                    minDistance={4}
-                    maxDistance={10}
-                    autoRotate
-                    autoRotateSpeed={0.5}
-                />
+                <OrbitControls enableZoom={true} enablePan={false} minDistance={4} maxDistance={20} autoRotate={false} target={[-0.8, 0, 0]} />
             </Canvas>
 
             {/* Info Panel */}
-            <div className="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-96 z-10 bg-black/60 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/10">
+            <div className="absolute top-1/2 -translate-y-1/2 left-8 w-80 z-10 bg-black/60 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/10">
                 <h2 className="text-xl font-semibold text-white mb-2 text-balance">Welcome Back!</h2>
                 <div className="space-y-2 mb-4">
                     <p className="text-sm text-zinc-300 leading-relaxed">
@@ -99,7 +89,7 @@ export default function Dashboard() {
             </div>
 
             {/* Interaction Hint */}
-            <div className="absolute top-24 right-8 z-10 hidden md:flex items-center gap-2 text-sm text-zinc-400 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
+            <div className="absolute top-24 left-8 z-10 hidden md:flex items-center gap-2 text-xs text-zinc-400 bg-transparent px-4 py-2 rounded-full">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                         strokeLinecap="round"
