@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import SiteLogo from "@/assets/logo.svg";
-import QIcon from "@/assets/logo-q-icon.png";
+import QIcon from "@/assets/new-logo.png";
 import { Home, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar, Globe, CloudSun } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect } from "react";
@@ -35,8 +35,8 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                 <div className="container max-md:px-4">
                     <div className="flex items-center justify-between md:border md:p-2.5 md:rounded-xl max-w-2xl mx-auto md:backdrop-blur bg-background/50">
                         <Link href="/">
-                            <div className="border size-10 rounded-lg inline-flex items-center justify-center block">
-                                <Image src={QIcon} alt="QCX Logo" width={32} height={32} className="size-8 h-auto" />
+                            <div className="inline-flex items-center justify-center p-2 rounded-xl bg-white/50 backdrop-blur-md border border-black/5 hover:bg-white/80 transition shadow-sm">
+                                <Image src={QIcon} alt="QCX Logo" width={56} height={56} className="h-auto" />
                             </div>
                         </Link>
                         <section className="max-md:hidden">
@@ -89,8 +89,8 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                 </SheetTrigger>
                                 <SheetContent side="top" className="p-8">
                                     <div className="inline-flex items-center center gap-3">
-                                        <div className="border size-8 rounded-lg inline-flex items-center justify-center">
-                                            <Image src={QIcon} alt="QCX Logo" width={24} height={24} className="size-6 h-auto" />
+                                        <div className="inline-flex items-center justify-center">
+                                            <Image src={QIcon} alt="QCX Logo" width={32} height={32} className="h-auto" />
                                         </div>
                                         <p className="font-bold">QCX</p>
                                     </div>

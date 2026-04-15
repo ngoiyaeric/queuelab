@@ -16,6 +16,7 @@ export function HeroSection() {
     const { scrollYProgress, scrollY } = useScroll();
     const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
 
+    const { scrollY } = useScroll();
     useMotionValueEvent(scrollY, "change", (latest) => {
         if (latest > 50 && !isAnimationVisible) {
             setIsAnimationVisible(true);
