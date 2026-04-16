@@ -7,6 +7,7 @@ import { AuthProvider } from '@/components/auth-provider'; // Added import
 import { Analytics } from "@vercel/analytics/react"
 import IntercomMessenger from '@/components/IntercomMessenger';
 import FirebaseProvider from '@/components/firebase-provider';
+import { DynamicBackground } from '@/components/dynamic-background';
 
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
@@ -34,6 +35,7 @@ export default function RootLayout({
       <body className={clsx(inter.className, roboto.className, "antialiased")}>
         <FirebaseProvider>
           <AuthProvider> {/* Added AuthProvider wrapper */}
+            <DynamicBackground />
             {children}
             <IntercomMessenger />
             <Analytics />
