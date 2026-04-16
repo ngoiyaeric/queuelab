@@ -21,7 +21,7 @@ export default function RDPage() {
       <SiteHeader rdCount={rdCount} />
       <motion.section
         ref={sectionRef}
-        className="relative overflow-hidden bg-white"
+        className="relative overflow-hidden bg-white [mask-image:linear-gradient(to_bottom,transparent,black_8%,black_92%,transparent)]"
       >
         {/* The div below used to be the <section> tag. We move its padding classes here and make it relative. */}
         <div className="container py-20 md:py-24 relative">

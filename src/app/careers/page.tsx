@@ -22,7 +22,7 @@ export default function CareersPage() {
       <SiteHeader />
       <motion.section
         ref={sectionRef}
-        className="relative overflow-hidden bg-white"
+        className="relative overflow-hidden bg-white [mask-image:linear-gradient(to_bottom,transparent,black_8%,black_92%,transparent)]"
       >
         <div className="container py-20 md:py-24 relative">
           <div className="text-center">
