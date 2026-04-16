@@ -34,7 +34,7 @@ export default function RDPage() {
             </div>
             <div className="text-center text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5 bg-white/20 backdrop-blur-sm rounded-lg p-4">
               <p>
-                We're an applied artificial general intelligence R&D lab working at
+                We&apos;re an applied artificial general intelligence R&D lab working at
                 the intersection of nature and computation.
               </p>
               <p>
@@ -44,7 +44,7 @@ export default function RDPage() {
                 ecosystem. Quality forms the core of our value proposition,
                 delivering exceptional customer experiences across our
                 computational platforms. We pioneer innovative technologies
-                grounded in nature's first principles to power our cutting-edge
+                grounded in nature&apos;s first principles to power our cutting-edge
                 systems. Democratizing intelligence to improve our experience.
               </p>
             </div>
@@ -61,7 +61,7 @@ export default function RDPage() {
               <p>
                 Our human species has been organizing itself in groups to enable
                 streamlined coordination and communication for goal planning to
-                ensure survival. We've created top-down scales of hierarchies
+                ensure survival. We&apos;ve created top-down scales of hierarchies
                 spanning from families, villages, countries and even groups of
                 countries to carry out large-scale long-horizon plans to streamline
                 resource utilization and improve our experience on this planet.
@@ -75,7 +75,7 @@ export default function RDPage() {
               </p>
               <p>
                 Our collective intelligence is crucial and paramount to enhancing
-                our individual experience, and we've innovated and evolved since
+                our individual experience, and we&apos;ve innovated and evolved since
                 then to better propagate and disseminate distributed knowledge.
                 Often, societies that have failed to connect sparse pieces of
                 information to garner knowledge, create oversight on root causes as
