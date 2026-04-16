@@ -3,7 +3,6 @@
 import React, { useRef } from "react";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
-import BackgroundStars from "@/assets/stars.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 import WebGLGlobe from "@/components/webgl-globe";
 
@@ -25,12 +24,6 @@ export default function WhitePaper() {
       <SiteHeader />
       <motion.section
         ref={sectionRef}
-        animate={{ backgroundPositionX: BackgroundStars.width }}
-        transition={{ duration: 120, repeat: Infinity, ease: 'linear' }}
-        style={{
-          backgroundImage: `url(${BackgroundStars.src})`,
-          backgroundPositionY,
-        }}
         className="relative overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] bg-background"
       >
         <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.2)_15%,rgb(14,0,36,0.3)_78%,transparent)]"} />

@@ -25,14 +25,22 @@ export function HeroSection() {
     });
 
     return (
-        <motion.section
-            animate={{ backgroundPositionX: BackgroundStars.width }}
-            transition={{ duration: 120, repeat: Infinity, ease: 'linear' }}
+        <section
             className={"h-[492px] md:h-[800px] flex items-center overflow-hidden relative [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"}
-            style={{ backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY }}
             ref={sectionRef}
         >
-            <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"} />
+            {/* Background Layer - Moved here and given z-0 */}
+            <motion.div 
+                className="absolute inset-0 z-0"
+                animate={{ backgroundPositionX: BackgroundStars.width }}
+                transition={{ duration: 120, repeat: Infinity, ease: 'linear' }}
+                style={{ 
+                    backgroundImage: `url(${BackgroundStars.src})`, 
+                    backgroundPositionY 
+                }}
+            />
+            
+            <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(0,0,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)] z-1"} />
 
             {/* WebGL Globe - visible when animation is not showing */}
             {!isAnimationVisible && (
@@ -57,7 +65,7 @@ export function HeroSection() {
             )}
 
             {/* Hero Section Content */}
-            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none">
+            <div className="absolute inset-0 z-30 flex flex-col items-center justify-center pointer-events-none">
                 {/* Animated Text */}
                 {!isAnimationVisible && (
                     <div className="pointer-events-auto mb-4 md:mb-8">
@@ -97,6 +105,6 @@ export function HeroSection() {
                     </motion.div>
                 )}
             </div>
-        </motion.section>
+        </section>
     );
 }
