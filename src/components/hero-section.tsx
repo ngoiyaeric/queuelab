@@ -22,10 +22,27 @@ export function HeroSection() {
         }
     });
 
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start start", "end start"]
+    });
+
+    const backgroundOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
     return (
         <motion.section
             className={"h-[492px] md:h-[800px] flex items-center overflow-hidden relative bg-white"}            ref={sectionRef}
         >
+            {/* Background Stars */}
+            <motion.div
+                className="absolute inset-0 z-0 pointer-events-none"
+                style={{
+                    backgroundImage: `url(${BackgroundStars.src})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    opacity: backgroundOpacity,
+                }}
+            />
 
             {/* WebGL Globe - visible when animation is not showing */}
             {!isAnimationVisible && (

@@ -31,24 +31,25 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
         <>
             <header className="py-4 border-b max-md:backdrop-blur md:border-none sticky top-0 z-50">
                 <div className="container max-md:px-4">
-                    <div className="flex items-center justify-between md:border md:p-2.5 md:rounded-xl max-w-2xl mx-auto md:backdrop-blur">
+                    <div className="flex items-center justify-between md:border md:p-2.5 md:rounded-xl max-w-4xl mx-auto md:backdrop-blur">
+                        <div className="flex-1 md:hidden" /> {/* Placeholder to center logo on mobile */}
+                        <section className="max-md:hidden flex-1">
+                            <nav className="flex gap-8 items-center text-sm">
+                                <Link href="/#features" className="text-muted-foreground hover:text-foreground transition whitespace-nowrap">Products</Link>
+                                <Link href="/#pricing" className="text-muted-foreground hover:text-foreground transition whitespace-nowrap">Pricing</Link>
+                                <Link href="/careers" className="text-muted-foreground hover:text-foreground transition whitespace-nowrap">Careers</Link>
+                                <Link href="/rd" className="text-muted-foreground hover:text-foreground transition whitespace-nowrap">
+                                  Reads {rdCount && rdCount > 0 ? `(${rdCount})` : ''}
+                                </Link>
+                                <Link href="https://climate.stripe.com/3OeWSf" className="text-muted-foreground hover:text-foreground transition whitespace-nowrap" target="_blank">Environment</Link>
+                            </nav>
+                        </section>
                         <Link href="/">
                             <div className="inline-flex items-center justify-center p-2 rounded-xl bg-white/50 backdrop-blur-md border border-black/5 hover:bg-white/80 transition shadow-sm">
                                 <Image src={QIcon} alt="QCX Logo" width={56} height={56} className="h-auto" />
                             </div>
                         </Link>
-                        <section className="max-md:hidden">
-                            <nav className="flex gap-8 items-center text-sm">
-                                <Link href="/#features" className="text-muted-foreground hover:text-foreground transition">Products</Link>
-                                <Link href="/#pricing" className="text-muted-foreground hover:text-foreground transition">Pricing</Link>
-                                <Link href="/careers" className="text-muted-foreground hover:text-foreground transition">Careers</Link>
-                                <Link href="/rd" className="text-muted-foreground hover:text-foreground transition">
-                                  Reads {rdCount && rdCount > 0 ? `(${rdCount})` : ''}
-                                </Link>
-                                <Link href="https://climate.stripe.com/3OeWSf" className="text-muted-foreground hover:text-foreground transition" target="_blank">Environment</Link>
-                            </nav>
-                        </section>
-                        <section className="flex max-md:gap-4 items-center">
+                        <section className="flex flex-1 max-md:gap-4 items-center justify-end">
                             {authLoading ? (
                                 <Button variant="default" size="sm" className="book-demo-button" disabled>
                                     Loading...
