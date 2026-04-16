@@ -21,20 +21,20 @@ export default function RDPage() {
       <SiteHeader rdCount={rdCount} />
       <motion.section
         ref={sectionRef}
-        className="relative overflow-hidden bg-white [mask-image:linear-gradient(to_bottom,transparent,black_8%,black_92%,transparent)]"
+        className="relative overflow-hidden"
       >
         {/* The div below used to be the <section> tag. We move its padding classes here and make it relative. */}
         <div className="container py-20 md:py-24 relative">
           <details className="mb-8">
-            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-black/10 p-4 rounded-lg hover:bg-black/5 text-black">
+            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer bg-white/30 backdrop-blur-md border border-white/40 p-4 rounded-lg hover:bg-white/50 text-black shadow-sm transition-colors">
               QueueCX
             </summary>
             <div className="text-center text-sm text-gray-500 mt-2">
               May 02, 2025
             </div>
-            <div className="text-center text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5">
+            <div className="text-center text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5 bg-white/20 backdrop-blur-sm rounded-lg p-4">
               <p>
-                We’re an applied artificial general intelligence R&D lab working at
+                We&apos;re an applied artificial general intelligence R&D lab working at
                 the intersection of nature and computation.
               </p>
               <p>
@@ -44,24 +44,24 @@ export default function RDPage() {
                 ecosystem. Quality forms the core of our value proposition,
                 delivering exceptional customer experiences across our
                 computational platforms. We pioneer innovative technologies
-                grounded in nature’s first principles to power our cutting-edge
+                grounded in nature&apos;s first principles to power our cutting-edge
                 systems. Democratizing intelligence to improve our experience.
               </p>
             </div>
           </details>
 
           <details className="mb-8">
-            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-black/10 p-4 rounded-lg hover:bg-black/5 text-black">
+            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer bg-white/30 backdrop-blur-md border border-white/40 p-4 rounded-lg hover:bg-white/50 text-black shadow-sm transition-colors">
               Environment Aware
             </summary>
             <div className="text-center text-sm text-gray-500 mt-2">
               May 02, 2025
             </div>
-            <div className="text-center text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5">
+            <div className="text-center text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5 bg-white/20 backdrop-blur-sm rounded-lg p-4">
               <p>
                 Our human species has been organizing itself in groups to enable
                 streamlined coordination and communication for goal planning to
-                ensure survival. We’ve created top-down scales of hierarchies
+                ensure survival. We&apos;ve created top-down scales of hierarchies
                 spanning from families, villages, countries and even groups of
                 countries to carry out large-scale long-horizon plans to streamline
                 resource utilization and improve our experience on this planet.
@@ -75,7 +75,7 @@ export default function RDPage() {
               </p>
               <p>
                 Our collective intelligence is crucial and paramount to enhancing
-                our individual experience, and we’ve innovated and evolved since
+                our individual experience, and we&apos;ve innovated and evolved since
                 then to better propagate and disseminate distributed knowledge.
                 Often, societies that have failed to connect sparse pieces of
                 information to garner knowledge, create oversight on root causes as
@@ -104,10 +104,10 @@ export default function RDPage() {
           </details>
 
           <details className="mb-8">
-            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer border border-black/10 p-4 rounded-lg hover:bg-black/5 text-black">
+            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer bg-white/30 backdrop-blur-md border border-white/40 p-4 rounded-lg hover:bg-white/50 text-black shadow-sm transition-colors">
               Fluidity Index
             </summary>
-            <div className="text-center text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5">
+            <div className="text-center text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5 bg-white/20 backdrop-blur-sm rounded-lg p-4">
               <p><a href="https://arxiv.org/abs/2510.20636v1" target="_blank" rel="noopener noreferrer">Next-Generation Super-Intelligence Benchmarks</a></p>            </div>
           </details>
         </div>

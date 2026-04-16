@@ -8,12 +8,10 @@ export const DynamicBackground = () => {
   const { scrollYProgress } = useScroll();
 
   // Fade out the top background (sun/material) as we scroll down
-  // Extended range so there's an overlap with the bottom layer for a smooth crossfade
-  const topOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const topOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   // Fade in the bottom background (sky) as we scroll down
-  // Starts earlier so it overlaps with the fading-out top layer
-  const bottomOpacity = useTransform(scrollYProgress, [0.3, 1], [0, 1]);
+  const bottomOpacity = useTransform(scrollYProgress, [0.5, 1], [0, 1]);
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
