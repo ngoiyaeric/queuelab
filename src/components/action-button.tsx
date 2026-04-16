@@ -11,17 +11,13 @@ interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
 
 export function ActionButton({ label, href, target, className, type = "button", ...props }: ActionButtonProps) {
   // Internal classes for the button's consistent appearance
-  const buttonInternalClass = "relative py-2 px-3 rounded-lg font-medium text-sm bg-gradient-to-b from-[#1a1a1a] to-[#333333] shadow-[0px_0px_12px_#0000FF]";
+  const buttonInternalClass = "relative py-2 px-4 rounded-lg font-medium text-sm text-black bg-white/30 backdrop-blur-lg border border-white/40 shadow-[0_4px_30px_rgba(0,0,0,0.1)] hover:bg-white/50 transition-all duration-300 group overflow-hidden";
 
   // JSX for the visual elements inside the button (icons, text, etc.)
   const buttonVisuals = (
     <>
-      <div className={"absolute inset-0 rounded-lg"}>
-        <div className={"absolute inset-0 border rounded-lg border-white/20 [mask-image:linear-gradient(to_bottom,black,transparent)]"} />
-        <div className={"absolute inset-0 border rounded-lg border-white/40 [mask-image:linear-gradient(to_top,black,transparent)]"} />
-        <div className={"absolute inset-0 rounded-lg shadow-[0_0_10px_rgb(0,0,255,0.7)_inset]"} />
-      </div>
-      <span className={"text-[#7CFC00]"}>{label}</span>
+      <div className={"absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"} />
+      <span className={"relative z-10 drop-shadow-sm font-semibold tracking-wide"}>{label}</span>
     </>
   );
 

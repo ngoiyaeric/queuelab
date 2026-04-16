@@ -1,7 +1,7 @@
 "use client";
 
-import { animate, motion, useMotionTemplate, useMotionValue, ValueAnimationTransition, AnimatePresence } from "framer-motion";
-import { Globe, Search, Zap } from "lucide-react";
+import { DotLottiePlayer, DotLottieCommonPlayer } from "@dotlottie/react-player";
+import { animate, motion, useMotionTemplate, useMotionValue, ValueAnimationTransition } from "framer-motion";
 import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import VimeoPlayer from "./vimeo-player";
@@ -15,9 +15,8 @@ import fixScreenshot from "@/assets/fix-screenshot.png";
 
 const tabs = [
   {
-    icon: Globe,
+    icon: "/assets/lottie/vroom.lottie",
     title: "QCX",
-    shortTitle: "QCX",
     isNew: false,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
@@ -26,9 +25,8 @@ const tabs = [
     component: VimeoPlayer,
   },
   {
-    icon: Search,
+    icon: "/assets/lottie/click.lottie",
     title: "Environment Aware",
-    shortTitle: "EVA",
     isNew: false,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
@@ -36,9 +34,8 @@ const tabs = [
     image: fixScreenshot,
   },
   {
-    icon: Zap,
-    title: "Fluidity Index",
-    shortTitle: "FIX",
+    icon: "/assets/lottie/stars.lottie",
+    title: "Fluidity Index .",
     isNew: true,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
@@ -62,6 +59,7 @@ const FeatureTab = (
   props: (typeof tabs)[number] & ComponentPropsWithoutRef<"div"> & { selected: boolean }
 ) => {
   const tabRef = useRef<HTMLDivElement>(null);
+  const dotLottieRef = useRef<DotLottieCommonPlayer>(null);
 
   const xPercentage = useMotionValue(0);
   const yPercentage = useMotionValue(0);
@@ -95,10 +93,15 @@ const FeatureTab = (
     animate(yPercentage, [0, 0, 100, 100, 0], options);
   }, [props.selected, xPercentage, yPercentage]);
 
-  const IconComponent = props.icon as React.ElementType;
+  const handleTabHover = () => {
+    if (dotLottieRef.current === null) return;
+    dotLottieRef.current.seek(0);
+    dotLottieRef.current.play();
+  };
 
   return (
     <div
+      onMouseEnter={handleTabHover}
       className="border border-muted flex items-center p-2.5 gap-2.5 rounded-xl relative cursor-pointer hover:bg-muted/30"
       ref={tabRef}
       onClick={props.onClick}
@@ -110,26 +113,13 @@ const FeatureTab = (
         />
       )}
 
-      <div className="size-12 border border-muted rounded-lg inline-flex items-center justify-center shrink-0">
-        <IconComponent className="size-5" />
+      <div className="size-12 border border-muted rounded-lg inline-flex items-center justify-center">
+        <DotLottiePlayer src={props.icon} className="size-5" autoplay ref={dotLottieRef} />
       </div>
-      <div className="font-medium relative overflow-hidden flex items-center justify-start h-6 w-full">
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={props.selected ? props.shortTitle : props.title}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="absolute left-0"
-          >
-            {props.selected ? props.shortTitle : props.title}
-          </motion.span>
-        </AnimatePresence>
-      </div>
+      <div className="font-medium">{props.title}</div>
       {props.isNew && (
-        <div className="text-xs rounded-full text-white px-2 py-0.5 bg-[#7CFC00] font-semibold shrink-0">
-          Research
+        <div className="text-xs rounded-full text-foreground px-2 py-0.5 bg-[#7CFC00] font-semibold">
+          New
         </div>
       )}
     </div>
@@ -179,12 +169,12 @@ export function Features({ id }: { id: string }) {
 
   return (
     <>
-      <section className="py-20 md:py-24 bg-black" id={id}>
+      <section className="py-20 md:py-24 bg-background" id={id}>
         <div className="container">
           <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter">
             Discover the Power of QCX.
           </h2>
-          <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
+          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
             QCX offers a comprehensive suite of tools to help you understand and visualize data about our world.
           </p>
 
