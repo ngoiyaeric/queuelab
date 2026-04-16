@@ -25,6 +25,16 @@ function createLeafGeometry() {
   return new THREE.ExtrudeGeometry(shape, extrudeSettings);
 }
 
+
+interface LeafData {
+  x: number;
+  y: number;
+  z: number;
+  quaternion: [number, number, number, number];
+  scale: number;
+  materialIndex: number;
+}
+
 interface GlobeContentProps {
   onClick?: () => void;
   scrollY?: MotionValue<number>;
@@ -51,7 +61,7 @@ const GlobeContent: React.FC<GlobeContentProps> = ({ onClick, scrollY }) => {
   const orbitRadiusZ = 3.5;
 
   const leavesData = useMemo(() => {
-    const data = [];
+    const data: LeafData[] = [];
     for (let i = 0; i < numLeaves; i++) {
       const angle = (i / numLeaves) * Math.PI * 2;
       const x = Math.cos(angle) * orbitRadiusX;
@@ -81,7 +91,7 @@ const GlobeContent: React.FC<GlobeContentProps> = ({ onClick, scrollY }) => {
       const matrix = new THREE.Matrix4().makeBasis(xAxis, tangent, normal);
       const quaternion = new THREE.Quaternion().setFromRotationMatrix(matrix);
 
-      data.push({ x, y, z, quaternion: [quaternion.x, quaternion.y, quaternion.z, quaternion.w] as [number, number, number, number], scale, materialIndex });
+      data.push({ x, y, z, quaternion: [quaternion.x, quaternion.y, quaternion.z, quaternion.w], scale, materialIndex });
     }
     return data;
   }, [leafMaterials.length]);
