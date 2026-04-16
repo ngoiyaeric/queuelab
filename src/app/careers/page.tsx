@@ -22,7 +22,7 @@ export default function CareersPage() {
       <SiteHeader />
       <motion.section
         ref={sectionRef}
-        className="relative overflow-hidden bg-white"
+        className="relative overflow-hidden"
       >
         <div className="container py-20 md:py-24 relative">
           <div className="text-center">
@@ -37,7 +37,7 @@ export default function CareersPage() {
             <h2 className="text-4xl tracking-tighter font-medium text-center mb-12 text-black">Our Team</h2>
             <div className="flex justify-center">
               <div className="max-w-sm">
-                <div className="border border-black/10 rounded-lg p-8 hover:bg-black/5 transition-colors">
+                <div className="bg-white/30 backdrop-blur-md border border-white/40 rounded-lg p-8 hover:bg-white/50 transition-colors shadow-lg">
                   <div className="flex flex-col items-center text-black">
                     <div className="relative w-40 h-40 mb-6">
                       <Image
@@ -102,13 +102,13 @@ export default function CareersPage() {
 
           <div className="mt-12">
             <details className="mb-8">
-              <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer border border-black/10 p-4 rounded-lg hover:bg-black/5 text-black">
+              <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer bg-white/30 backdrop-blur-md border border-white/40 p-4 rounded-lg hover:bg-white/50 text-black shadow-sm transition-colors">
                 Software Engineer
               </summary>
               <div className="text-center text-sm text-gray-500 mt-2">
                 Remote
               </div>
-              <div className="text-left text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5">
+              <div className="text-left text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5 bg-white/20 backdrop-blur-sm rounded-lg p-4">
                 <p className="font-bold">About the role:</p>
                 <p>
                   We are looking for a talented software engineer to join our team and help us build the next generation of our platform. You will be responsible for designing, developing, and deploying high-quality software solutions.
@@ -126,13 +126,13 @@ export default function CareersPage() {
 
 
             <details className="mb-8">
-              <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer border border-black/10 p-4 rounded-lg hover:bg-black/5 text-black">
+              <summary className="text-3xl tracking-tighter text-center font-medium cursor-pointer bg-white/30 backdrop-blur-md border border-white/40 p-4 rounded-lg hover:bg-white/50 text-black shadow-sm transition-colors">
                 R&D Engineer
               </summary>
               <div className="text-center text-sm text-gray-500 mt-2">
                 Remote
               </div>
-              <div className="text-left text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5">
+              <div className="text-left text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5 bg-white/20 backdrop-blur-sm rounded-lg p-4">
                 <p className="font-bold">About the role:</p>
                 <p>
                   We are looking for a R&D engineer to join our team and help us push the boundaries of artificial general intelligence. You will be responsible for designing and conducting experiments, and for developing new models and algorithms.
