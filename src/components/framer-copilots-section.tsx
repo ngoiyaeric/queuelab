@@ -37,6 +37,15 @@ const copilots: CopilotCard[] = [
     videoSrc: "/videos/disaster-response.mp4",
     fallbackGradient: "from-slate-800 via-blue-900 to-indigo-800",
   },
+  {
+    title: "Urban Planning Copilots",
+    description: "Map and analyze urban development and infrastructure",
+    icon: "🏙️",
+    color: "from-blue-400 to-indigo-500",
+    delay: 0.6,
+    videoSrc: "/background-map.png",
+    fallbackGradient: "from-blue-800 via-indigo-900 to-slate-800",
+  },
 ];
 
 function CopilotCardComponent({ card }: { card: CopilotCard }) {
