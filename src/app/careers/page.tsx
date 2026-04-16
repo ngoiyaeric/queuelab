@@ -22,9 +22,8 @@ export default function CareersPage() {
       <SiteHeader />
       <motion.section
         ref={sectionRef}
-        className="relative overflow-hidden bg-yellow-50"
+        className="relative overflow-hidden bg-white"
       >
-        <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgba(253,224,71,0.2)_15%,rgba(255,255,255,0.8)_78%,transparent)]"} />
         <div className="container py-20 md:py-24 relative">
           <div className="text-center">
             <h1 className="text-5xl tracking-tighter font-medium text-black">Careers</h1>
