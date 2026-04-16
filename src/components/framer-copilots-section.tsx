@@ -195,7 +195,7 @@ export function FramerCopilotSection() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
           {copilots.map((card, index) => (
             <CopilotCardComponent key={index} card={card} />
