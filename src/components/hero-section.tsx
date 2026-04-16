@@ -24,7 +24,8 @@ export function HeroSection() {
 
     return (
         <motion.section
-            className={"h-[492px] md:h-[800px] flex items-center overflow-hidden relative bg-white"}            ref={sectionRef}
+            className={"h-[492px] md:h-[800px] flex items-center overflow-hidden relative"}
+            ref={sectionRef}
         >
 
             {/* WebGL Globe - visible when animation is not showing */}

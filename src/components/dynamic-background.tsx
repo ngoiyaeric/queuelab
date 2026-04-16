@@ -20,12 +20,12 @@ export const DynamicBackground = () => {
         style={{ opacity: topOpacity }}
         className="absolute inset-0"
       >
-        <div className="absolute top-0 right-0 w-full h-full md:w-1/2 md:h-1/2">
+        <div className="absolute inset-0">
           <Image
             src="/assets/sun-material.png"
             alt="Material Sun"
             fill
-            className="object-contain object-right-top"
+            className="object-cover object-top"
             priority
           />
         </div>
