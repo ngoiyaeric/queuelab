@@ -5,6 +5,7 @@ import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import { motion, useScroll, useTransform } from "framer-motion";
 import WebGLGlobe from "@/components/webgl-globe";
+import BackgroundStars from "@/assets/stars.png";
 
 export default function WhitePaper() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -19,6 +20,8 @@ export default function WhitePaper() {
   // Track global scroll for globe animations
   const { scrollY } = useScroll();
 
+  const backgroundOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   return (
     <React.Fragment>
       <SiteHeader />
@@ -26,6 +29,16 @@ export default function WhitePaper() {
         ref={sectionRef}
         className="relative overflow-hidden bg-green-50/50"
       >
+        {/* Background Stars */}
+        <motion.div
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+                backgroundImage: `url(${BackgroundStars.src})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                opacity: backgroundOpacity,
+            }}
+        />
         <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgba(34,197,94,0.1)_15%,rgba(255,255,255,0.8)_78%,transparent)]"} />
 
         {/* WebGL Globe Background - Positioned at top, scroll driven */}

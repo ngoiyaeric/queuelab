@@ -5,7 +5,6 @@ import SiteFooter from "@/components/site-footer";
 import  CallToAction  from "@/components/call-to-action";
 import { Features } from "@/components/features";
 import { Testimonials } from "@/components/testimonials";
-import { GithubIndicator } from "@/components/github-indicator";
 import { PricingSection } from "@/components/pricing-section";
 import { FramerCopilotSection } from "@/components/framer-copilots-section";
 import { EarthDayCountdown } from "@/components/earth-day-countdown";
@@ -23,7 +22,6 @@ export default function Home() {
             <Testimonials id = "testimonials"/>
             <PricingSection id="pricing" />
             <CallToAction id="call-to-action" />
-            <GithubIndicator />
             <SiteFooter />
         </>
     );
