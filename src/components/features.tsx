@@ -176,7 +176,7 @@ export function Features({ id }: { id: string }) {
     <>
       <section className="bg-background" id={id}>
         <div ref={containerRef} className="h-[350vh] relative">
-          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-20">
+          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-28">
             <div className="container relative">
               <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter mb-8">
                 Discover the Power of QCX.
