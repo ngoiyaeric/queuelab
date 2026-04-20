@@ -6,14 +6,43 @@
 
 @layer base {
   :root {
+    --background: 0 0% 100%;
+    --foreground: 200 100% 35%;
+    --card: 200 100% 98%;
+    --card-foreground: 200 100% 35%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 100% 35%;
+    --primary: 200 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 200 100% 95%;
+    --secondary-foreground: 200 100% 35%;
+    --muted: 200 30% 96%;
+    --muted-foreground: 200 50% 50%;
+    --accent: 200 100% 90%;
+    --accent-foreground: 200 100% 40%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 200 100% 80%;
+    --input: 200 100% 90%;
+    --ring: 200 100% 50%;
+    --radius: 0.5rem;
+    --nature-green: 200 100% 50%;
+    --nature-brown: 200 100% 40%;
+    --nature-sky: 200 100% 80%;
+    --computation-blue: 200 100% 50%;
+    --computation-gray: 200 20% 70%;
+    --primary-glow: hsla(200, 100%, 50%, 0.5);
+  }
+
+  .dark {
     --background: 0 0% 0%;
     --foreground: 120 40% 80%;
     --card: 220 20% 10%;
     --card-foreground: 120 40% 80%;
     --popover: 220 20% 10%;
     --popover-foreground: 120 40% 80%;
-    --primary: 220 20% 10%;
-    --primary-foreground: 120 40% 80%;
+    --primary: 120 40% 80%;
+    --primary-foreground: 220 20% 10%;
     --secondary: 220 20% 10%;
     --secondary-foreground: 120 40% 80%;
     --muted: 220 20% 10%;
@@ -22,7 +51,7 @@
     --accent-foreground: 120 40% 80%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 120 40% 80%;
-    --border: 220 20% 10%;
+    --border: 220 20% 15%;
     --input: 220 20% 10%;
     --ring: 24 5.7% 82.9%;
     --chart-1: 220 70% 50%;
@@ -36,6 +65,7 @@
     --nature-sky: 200 70% 80%;
     --computation-blue: 210 60% 70%;
     --computation-gray: 220 20% 60%;
+    --primary-glow: rgba(0, 0, 255, 0.5);
   }
 }
 
@@ -57,7 +87,7 @@
 
 .season-font {
   font-family: 'Inter', sans-serif;
-  color: hsla(0, 0%, 100%, 0.7);
+  color: hsl(var(--foreground) / 0.7);
   text-align: center;
   padding: 1rem 0;
   font-size: 0.8rem;
