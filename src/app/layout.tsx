@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { clsx } from "clsx";
 import { Roboto } from "next/font/google";
@@ -11,6 +11,7 @@ import { DynamicBackground } from '@/components/dynamic-background';
 
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
+const instrumentSerif = Instrument_Serif({ subsets: ["latin"], weight: "400", variable: "--font-instrument-serif" });
 
 export const metadata: Metadata = {
   title: "Artificial General Intelligence",
@@ -32,7 +33,7 @@ export default function RootLayout({
       <head>
 
       </head>
-      <body className={clsx(inter.className, roboto.className, "antialiased")}>
+      <body className={clsx(inter.className, roboto.className, instrumentSerif.variable, "antialiased")}>
         <FirebaseProvider>
           <AuthProvider> {/* Added AuthProvider wrapper */}
             <DynamicBackground />
