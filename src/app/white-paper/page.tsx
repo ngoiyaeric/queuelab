@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
+import AgiDiagram from "@/assets/agi-diagram.png";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import BackgroundStars from "@/assets/stars.png";
@@ -53,21 +55,30 @@ export default function WhitePaper() {
               </a>
             </h1>
             <p className="text-lg md:text-xl text-white/70 tracking-tight mt-4">
-              Recent Outpost: Q1: 2026
+              Recent Outpost: Q1: 2026 & Q2: 2026
             </p>
           </div>
 
           <div className="text-white/80 space-y-10 text-lg leading-relaxed">
             <section>
+              <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">Q2 Outpost</h2>
+              <div className="mt-6 border border-white/10 rounded-2xl overflow-hidden bg-black/20 backdrop-blur-sm">
+                <Image
+                  src={AgiDiagram}
+                  alt="AGI System Architecture Diagram"
+                  className="w-full h-auto"
+                />
+              </div>
+            </section>
+
+            <section className="border-t border-white/10 pt-10">
+              <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">Q1 Outpost</h2>
               <p>
                 We build general intelligence interfaces for our system that are currently in market with <a href="https://www.qcx.world" target="_blank" className="text-white underline underline-offset-4 hover:text-white/80 transition-colors">www.qcx.world</a> being our premier product with enterprise pilots currently in route and hundreds of open source community members and contributors working on it everyday.
               </p>
-              <p className="mt-4">
-                
-              </p>
             </section>
 
-            <section>
+            <section className="border-t border-white/10 pt-10">
               <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">Research: Fluidity Index</h2>
               <p>
                 Our first research paper; &quot;Fluidity Index: Next-Generation Super-Intelligence benchmarks&quot; was to understand intelligence through orders of adaptability and their efficiency. Our proceeding paper builds on this for applications in new knowledge creation.
