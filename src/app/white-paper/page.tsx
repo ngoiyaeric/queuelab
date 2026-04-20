@@ -24,9 +24,8 @@ export default function WhitePaper() {
       <SiteHeader />
       <motion.section
         ref={sectionRef}
-        className="relative overflow-hidden bg-green-50/50"
+        className="relative overflow-hidden"
       >
-        <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgba(34,197,94,0.1)_15%,rgba(255,255,255,0.8)_78%,transparent)]"} />
 
         {/* WebGL Globe Background - Positioned at top, scroll driven */}
         <div className="absolute top-0 left-0 w-full h-[800px] pointer-events-none z-0 flex items-center justify-center opacity-50">
@@ -42,7 +41,7 @@ export default function WhitePaper() {
           <div className="text-center mb-16">
             <h1 className="text-5xl tracking-tighter font-medium text-black">
               <a href="https://docsend.com/view/bc46fvfr4z2ga2aw" target="_blank" className="hover:text-black/80 transition-colors">
-                Official Technical White Paper
+                laboratory
               </a>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 tracking-tight mt-4">
@@ -50,7 +49,7 @@ export default function WhitePaper() {
             </p>
           </div>
 
-          <div className="text-gray-800 space-y-10 text-lg leading-relaxed bg-white/40 p-8 rounded-2xl backdrop-blur-sm border border-black/5 shadow-xl">
+          <div className="text-gray-800 space-y-10 text-lg leading-relaxed bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10">
             <section>
               <p>
                 We build general intelligence interfaces for our system that are currently in market with <a href="https://www.qcx.world" target="_blank" className="text-black font-medium underline underline-offset-4 hover:text-black/80 transition-colors">www.qcx.world</a> being our premier product with enterprise pilots currently in route and hundreds of open source community members and contributors working on it everyday.
