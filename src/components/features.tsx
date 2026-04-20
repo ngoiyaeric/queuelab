@@ -13,6 +13,7 @@ const tabs = [
   {
     icon: "/assets/lottie/vroom.lottie",
     title: "QCX",
+    description: "QCX is a planet computer gravitational interface for Earth Observation.",
     isNew: false,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
@@ -23,6 +24,7 @@ const tabs = [
   {
     icon: "/assets/lottie/click.lottie",
     title: "Environment Aware",
+    description: "EVA is a vibrational interface autonomous new knowledge discovery functional intelligent material.",
     isNew: false,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
@@ -32,6 +34,7 @@ const tabs = [
   {
     icon: "/assets/lottie/stars.lottie",
     title: "Fluidity Index .",
+    description: "FIX is a Energy Interface universal super-intelligence benchmark.",
     isNew: true,
     backgroundPositionX: 50,
     backgroundPositionY: 50,
@@ -151,7 +154,9 @@ export function Features({ id }: { id: string }) {
     offset: ["start start", "end end"]
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.66%"]);
+  // Compress the horizontal scroll into the first 80% of the section's scroll range,
+  // leaving the final 20% (~60vh) as dwell time on the last slide before the next section appears.
+  const x = useTransform(scrollYProgress, [0, 0.8], ["0%", "-66.66%"]);
 
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
@@ -175,18 +180,16 @@ export function Features({ id }: { id: string }) {
                 {tabs.map((tab, index) => (
                   <div key={index} className="w-full px-4">
                     <div className="max-w-5xl mx-auto">
-                      <div className="flex flex-col md:flex-row items-center gap-8 mb-8">
-                        <div className="flex-1">
-                           <div className="flex items-center gap-4 mb-4">
-                              <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-muted/10">
-                                <DotLottiePlayer src={tab.icon} className="size-8" autoplay loop />
-                              </div>
-                              <h3 className="text-3xl font-bold">{tab.title}</h3>
+                      <div className="flex flex-col items-center gap-4 mb-8 text-center">
+                        <div className="flex flex-col items-center gap-3">
+                           <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-muted/10">
+                             <DotLottiePlayer src={tab.icon} className="size-8" autoplay loop />
                            </div>
-                           <p className="text-muted-foreground text-lg">
-                              Experience the next generation of {tab.title} with our advanced AI-driven platform.
-                           </p>
+                           <h3 className="text-3xl font-bold">{tab.title}</h3>
                         </div>
+                        <p className="text-muted-foreground text-lg font-serif italic max-w-xl">
+                          {tab.description}
+                        </p>
                       </div>
                       
                       <div className="border border-muted rounded-2xl p-4 bg-muted/5 backdrop-blur-sm">
