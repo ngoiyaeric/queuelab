@@ -29,16 +29,16 @@ const useRelativeMousePosition = (to: RefObject<HTMLElement>) => {
 }
 
 const FAQItem = ({ question, answer, isOpen, onClick }: { question: string, answer: string, isOpen: boolean, onClick: () => void }) => (
-    <div className="border-b border-white/10 last:border-none">
-        <button 
+    <div className="border-b border-black/10 last:border-none">
+        <button
             className="w-full py-6 flex items-center justify-between text-left focus:outline-none group"
             onClick={onClick}
         >
-            <h3 className="text-xl font-semibold text-white group-hover:text-yellow-400 transition-colors">{question}</h3>
+            <h3 className="text-xl font-bold text-black transition-colors">{question}</h3>
             <motion.div
                 animate={{ rotate: isOpen ? 180 : 0 }}
                 transition={{ duration: 0.3 }}
-                className="text-white/50 group-hover:text-yellow-400"
+                className="text-black/50 group-hover:text-black"
             >
                 <ChevronDown className="w-6 h-6" />
             </motion.div>
@@ -52,7 +52,7 @@ const FAQItem = ({ question, answer, isOpen, onClick }: { question: string, answ
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                 >
-                    <div className="pb-6 text-white/80 leading-relaxed font-medium">
+                    <div className="pb-6 text-black leading-relaxed font-medium">
                         {answer}
                     </div>
                 </motion.div>
@@ -103,14 +103,13 @@ const CallToAction = ({ id }: { id?: string }) => {
                         transition={{duration: 120, repeat: Infinity, ease: 'linear'}}
                         className={"border border-white/10 py-24 px-6 rounded-xl overflow-hidden relative group bg-transparent"}
                         style={{backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY}}>
-                        {/* Yellow floating color instead of green */}
-                        <div className={"absolute inset-0 bg-[rgb(250,204,21)] opacity-20 bg-blend-overlay [mask-image:radial-gradient(50%_50%_at_50%_35%,black,transparent)] group-hover:opacity-0 transition duration-700"} style={{backgroundImage: `url(${BackgroundGrid.src})`}}/>
+                        <div className={"absolute inset-0 bg-blend-overlay [mask-image:radial-gradient(50%_50%_at_50%_35%,black,transparent)] group-hover:opacity-0 transition duration-700"} style={{backgroundImage: `url(${BackgroundGrid.src})`}}/>
                         <motion.div
-                            className={"absolute inset-0 bg-[rgb(250,204,21)] opacity-20 bg-blend-overlay opacity-0 group-hover:opacity-100 transition duration-700"}
+                            className={"absolute inset-0 bg-blend-overlay opacity-0 group-hover:opacity-20 transition duration-700"}
                             style={{backgroundImage: `url(${BackgroundGrid.src})`, maskImage: maskImage}} ref={borderedDivRef}/>
                         
                         <div className={"relative z-10"}>
-                            <h2 className={"text-5xl tracking-tighter text-center font-medium mb-12 text-white"}>
+                            <h2 className={"text-5xl tracking-tighter text-center font-medium mb-12 text-black"}>
                                 FAQ
                             </h2>
                             
