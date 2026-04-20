@@ -8,6 +8,7 @@ import VimeoPlayer from "./vimeo-player";
 import productGif from "@/assets/product-gif.gif";
 import evaScreenshot from "@/assets/eva-screenshot.png";
 import fixScreenshot from "@/assets/fix-screenshot.png";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 const tabs = [
   {
@@ -152,10 +153,105 @@ const DotIndicator = ({ index, scrollYProgress }: { index: number, scrollYProgre
   );
 };
 
+const MobileFeatures = ({
+  onImageClick,
+}: {
+  onImageClick: (image: string) => void;
+}) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const dragX = useMotionValue(0);
+
+  const handleDragEnd = () => {
+    const threshold = 50;
+    const offset = dragX.get();
+    if (offset < -threshold && activeIndex < tabs.length - 1) {
+      setActiveIndex(activeIndex + 1);
+    } else if (offset > threshold && activeIndex > 0) {
+      setActiveIndex(activeIndex - 1);
+    }
+    dragX.set(0);
+  };
+
+  const tab = tabs[activeIndex];
+
+  return (
+    <section className="bg-background py-16" >
+      <div className="container">
+        <h2 className="text-4xl font-medium text-center tracking-tighter mb-6">
+          Discover the Power of QCX.
+        </h2>
+
+        <motion.div
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          style={{ x: dragX }}
+          onDragEnd={handleDragEnd}
+          className="touch-pan-y cursor-grab active:cursor-grabbing select-none"
+        >
+          <div className={`rounded-3xl p-5 bg-gradient-to-r ${tab.slideBackground} transition-all duration-500`}>
+            <div className="flex flex-col items-center gap-3 mb-5 text-center">
+              <div className="size-14 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm">
+                <DotLottiePlayer src={tab.icon} className="size-7" autoplay loop />
+              </div>
+              <h3 className="text-2xl font-bold">{tab.title}</h3>
+              <p className="text-muted-foreground text-base font-serif italic max-w-sm">
+                {tab.description}
+              </p>
+            </div>
+
+            <div className="border border-muted/40 rounded-2xl p-2 bg-white/40 backdrop-blur-sm shadow-md">
+              <div className="relative aspect-video rounded-xl overflow-hidden shadow-xl">
+                {tab.component ? (
+                  <VimeoPlayer />
+                ) : (
+                  <Image
+                    src={tab.image.src}
+                    alt={tab.title}
+                    fill
+                    className="object-contain"
+                    onClick={() => onImageClick(tab.image.src)}
+                    sizes="100vw"
+                    priority
+                    quality={100}
+                    onError={handleImageError}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Dot navigation */}
+        <div className="flex justify-center gap-3 mt-6">
+          {tabs.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              className={`rounded-full transition-all duration-300 ${
+                activeIndex === index
+                  ? "size-3 bg-gray-700 scale-125"
+                  : "size-2.5 bg-gray-400"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Swipe hint */}
+        <p className="text-center text-xs text-muted-foreground mt-3">
+          Swipe to explore
+        </p>
+      </div>
+    </section>
+  );
+};
+
 export function Features({ id }: { id: string }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  
+  const isMobile = useMediaQuery("(max-width: 767px)");
+
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -174,6 +270,11 @@ export function Features({ id }: { id: string }) {
 
   return (
     <>
+      {isMobile ? (
+        <div id={id}>
+          <MobileFeatures onImageClick={handleImageClick} />
+        </div>
+      ) : (
       <section className="bg-background" id={id}>
         <div ref={containerRef} className="h-[350vh] relative">
           <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-28">
@@ -237,6 +338,7 @@ export function Features({ id }: { id: string }) {
           </div>
         </div>
       </section>
+      )}
 
       {isDialogOpen && selectedImage && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
