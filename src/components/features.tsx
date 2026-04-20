@@ -1,15 +1,11 @@
 "use client";
 
 import { DotLottiePlayer, DotLottieCommonPlayer } from "@dotlottie/react-player";
-import { animate, motion, useMotionTemplate, useMotionValue, ValueAnimationTransition } from "framer-motion";
+import { animate, motion, useMotionTemplate, useMotionValue, ValueAnimationTransition, useScroll, useTransform, MotionValue } from "framer-motion";
 import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import VimeoPlayer from "./vimeo-player";
 import productGif from "@/assets/product-gif.gif";
-import productImage3 from "@/assets/product-image-3.png";
-import productImage4 from "@/assets/product-image-4.png";
-import productImage5 from "@/assets/product-image-5.png";
-import productImage2 from "@/assets/product-image-2.png";
 import evaScreenshot from "@/assets/eva-screenshot.png";
 import fixScreenshot from "@/assets/fix-screenshot.png";
 
@@ -126,41 +122,36 @@ const FeatureTab = (
   );
 };
 
+const DotIndicator = ({ index, scrollYProgress }: { index: number, scrollYProgress: MotionValue<number> }) => {
+  const opacity = useTransform(
+    scrollYProgress,
+    [index / 3, (index + 0.5) / 3, (index + 1) / 3],
+    [0.3, 1, 0.3]
+  );
+  const scale = useTransform(
+    scrollYProgress,
+    [index / 3, (index + 0.5) / 3, (index + 1) / 3],
+    [1, 1.5, 1]
+  );
+  return (
+    <motion.div
+      style={{ opacity, scale }}
+      className="size-2 rounded-full bg-white"
+    />
+  );
+};
+
 export function Features({ id }: { id: string }) {
-  const [selectedTab, setSelectedTab] = useState(0);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
 
-  const backgroundPositionX = useMotionValue(tabs[0].backgroundPositionX);
-  const backgroundPositionY = useMotionValue(tabs[0].backgroundPositionY);
-  const backgroundSizeX = useMotionValue(tabs[0].backgroundSizeX);
-  const currentImage = useMotionValue(tabs[0].image);
-
-  const backgroundPosition = useMotionTemplate`${backgroundPositionX}% ${backgroundPositionY}%`;
-  const backgroundSize = useMotionTemplate`${backgroundSizeX}% auto`;
-
-  const handleSelectTab = (index: number) => {
-    setSelectedTab(index);
-
-    const animateOptions: ValueAnimationTransition = {
-      duration: 1,
-      ease: "easeOut",
-    };
-
-    animate(backgroundSizeX, [backgroundSizeX.get(), 100], animateOptions);
-    animate(
-      backgroundPositionX,
-      [backgroundPositionX.get(), tabs[index].backgroundPositionX],
-      animateOptions
-    );
-    animate(
-      backgroundPositionY,
-      [backgroundPositionY.get(), tabs[index].backgroundPositionY],
-      animateOptions
-    );
-    currentImage.set(tabs[index].image);
-    setSelectedImage(tabs[index].image.src); // P8220
-  };
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.66%"]);
 
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
@@ -169,50 +160,72 @@ export function Features({ id }: { id: string }) {
 
   return (
     <>
-      <section className="py-20 md:py-24 bg-background" id={id}>
-        <div className="container">
-          <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter">
-            Discover the Power of QCX.
-          </h2>
-          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
-            QCX offers a comprehensive suite of tools to help you understand and visualize data about our world.
-          </p>
+      <section className="bg-background" id={id}>
+        <div ref={containerRef} className="h-[300vh] relative">
+          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+            <div className="container relative">
+              <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter mb-12">
+                Discover the Power of QCX.
+              </h2>
+              
+              <motion.div 
+                style={{ x }}
+                className="flex gap-8 w-[300%]"
+              >
+                {tabs.map((tab, index) => (
+                  <div key={index} className="w-full px-4">
+                    <div className="max-w-5xl mx-auto">
+                      <div className="flex flex-col md:flex-row items-center gap-8 mb-8">
+                        <div className="flex-1">
+                           <div className="flex items-center gap-4 mb-4">
+                              <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-muted/10">
+                                <DotLottiePlayer src={tab.icon} className="size-8" autoplay loop />
+                              </div>
+                              <h3 className="text-3xl font-bold">{tab.title}</h3>
+                           </div>
+                           <p className="text-muted-foreground text-lg">
+                              Experience the next generation of {tab.title} with our advanced AI-driven platform.
+                           </p>
+                        </div>
+                      </div>
+                      
+                      <div className="border border-muted rounded-2xl p-4 bg-muted/5 backdrop-blur-sm">
+                        <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl">
+                          {tab.component ? (
+                            <VimeoPlayer />
+                          ) : (
+                            <Image
+                              src={tab.image.src}
+                              alt={tab.title}
+                              fill
+                              className="object-contain cursor-pointer hover:scale-[1.02] transition-transform duration-500"
+                              onClick={() => handleImageClick(tab.image.src)}
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                              priority
+                              quality={100}
+                              onError={handleImageError}
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
 
-          <div className="mt-10 grid lg:grid-cols-3 gap-3">
-            {tabs.map((tab, index) => (
-              <FeatureTab
-                {...tab}
-                key={tab.title}
-                onClick={() => handleSelectTab(index)}
-                selected={selectedTab === index}
-              />
-            ))}
-          </div>
-          <motion.div className="border border-muted rounded-xl p-2.5 mt-3">
-            <div className="relative aspect-video rounded-lg overflow-hidden">
-              {tabs[selectedTab].component ? (
-                <VimeoPlayer />
-              ) : (
-                <Image
-                  src={currentImage.get().src} // Fix: Use `.src` here
-                  alt={tabs[selectedTab].title}
-                  fill
-                  className="object-contain"
-                  onClick={() => handleImageClick(currentImage.get().src)} // Fix: Use `.src` here
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                  priority
-                  quality={100}
-                  onError={handleImageError}
-                />
-              )}
+              <div className="flex justify-center gap-3 mt-12">
+                {tabs.map((_, index) => (
+                  <DotIndicator key={index} index={index} scrollYProgress={scrollYProgress} />
+                ))}
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {isDialogOpen && selectedImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="relative bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+          <div className="relative bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
             <div className="relative aspect-video">
               <Image
                 src={selectedImage}
@@ -226,11 +239,11 @@ export function Features({ id }: { id: string }) {
             </div>
             <button
               onClick={() => setIsDialogOpen(false)}
-              className="absolute top-4 right-4 bg-white/90 hover:bg-white rounded-full p-2 transition-colors"
+              className="absolute top-6 right-6 bg-black/10 hover:bg-black/20 rounded-full p-3 transition-all"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="h-6 w-6 text-black"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

@@ -2,8 +2,9 @@
 
 import BackgroundStars from "@/assets/stars.png";
 import BackgroundGrid from "@/assets/grid-lines.png";
-import {motion, useMotionTemplate, useMotionValue, useScroll, useTransform} from "framer-motion";
-import {RefObject, useEffect, useRef} from "react";
+import {motion, useMotionTemplate, useMotionValue, useScroll, useTransform, AnimatePresence} from "framer-motion";
+import {RefObject, useEffect, useRef, useState} from "react";
+import { ChevronDown } from "lucide-react";
 
 interface CallToActionProps {
     id?: string;
@@ -27,15 +28,41 @@ const useRelativeMousePosition = (to: RefObject<HTMLElement>) => {
     return [mouseX, mouseY];
 }
 
-const FAQItem = ({ question, answer }: { question: string, answer: string }) => (
-    <div className="text-left mb-8">
-        <h3 className="text-xl font-semibold mb-2 text-white">{question}</h3>
-        <p className="text-muted-foreground">{answer}</p>
+const FAQItem = ({ question, answer, isOpen, onClick }: { question: string, answer: string, isOpen: boolean, onClick: () => void }) => (
+    <div className="border-b border-white/10 last:border-none">
+        <button 
+            className="w-full py-6 flex items-center justify-between text-left focus:outline-none group"
+            onClick={onClick}
+        >
+            <h3 className="text-xl font-semibold text-white group-hover:text-yellow-400 transition-colors">{question}</h3>
+            <motion.div
+                animate={{ rotate: isOpen ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+                className="text-white/50 group-hover:text-yellow-400"
+            >
+                <ChevronDown className="w-6 h-6" />
+            </motion.div>
+        </button>
+        <AnimatePresence initial={false}>
+            {isOpen && (
+                <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                >
+                    <div className="pb-6 text-white/70 leading-relaxed">
+                        {answer}
+                    </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
     </div>
 );
 
 const CallToAction = ({ id }: { id?: string }) => {
-
+    const [openIndex, setOpenIndex] = useState<number | null>(0);
     const sectionRef = useRef<HTMLElement>(null);
     const borderedDivRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({target: sectionRef, offset: [`start end`, 'end start']})
@@ -74,20 +101,28 @@ const CallToAction = ({ id }: { id?: string }) => {
                     <motion.div
                         animate={{backgroundPositionX: BackgroundStars.width,}}
                         transition={{duration: 120, repeat: Infinity, ease: 'linear'}}
-                        className={"border border-muted py-24 px-6 rounded-xl overflow-hidden relative group"}
+                        className={"border border-white/10 py-24 px-6 rounded-xl overflow-hidden relative group bg-black"}
                         style={{backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY}}>
-                        <div className={"absolute inset-0 bg-[rgb(16,185,129)] opacity-30 bg-blend-overlay [mask-image:radial-gradient(50%_50%_at_50%_35%,black,transparent)] group-hover:opacity-0 transition duration-700"} style={{backgroundImage: `url(${BackgroundGrid.src})`}}/>
+                        {/* Yellow floating color instead of green */}
+                        <div className={"absolute inset-0 bg-[rgb(250,204,21)] opacity-20 bg-blend-overlay [mask-image:radial-gradient(50%_50%_at_50%_35%,black,transparent)] group-hover:opacity-0 transition duration-700"} style={{backgroundImage: `url(${BackgroundGrid.src})`}}/>
                         <motion.div
-                            className={"absolute inset-0 bg-[rgb(16,185,129)] opacity-30 bg-blend-overlay opacity-0 group-hover:opacity-100 transition duration-700"}
+                            className={"absolute inset-0 bg-[rgb(250,204,21)] opacity-20 bg-blend-overlay opacity-0 group-hover:opacity-100 transition duration-700"}
                             style={{backgroundImage: `url(${BackgroundGrid.src})`, maskImage: maskImage}} ref={borderedDivRef}/>
-                        <div className={"relative"}>
-                            <h2 className={"text-5xl tracking-tighter text-center font-medium mb-12"}>
+                        
+                        <div className={"relative z-10"}>
+                            <h2 className={"text-5xl tracking-tighter text-center font-medium mb-12 text-white"}>
                                 FAQ
                             </h2>
                             
-                            <div className={"max-w-3xl mx-auto"}>
+                            <div className={"max-w-3xl mx-auto bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10"}>
                                 {faqs.map((faq, index) => (
-                                    <FAQItem key={index} question={faq.question} answer={faq.answer} />
+                                    <FAQItem 
+                                        key={index} 
+                                        question={faq.question} 
+                                        answer={faq.answer} 
+                                        isOpen={openIndex === index}
+                                        onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                                    />
                                 ))}
                             </div>
                         </div>

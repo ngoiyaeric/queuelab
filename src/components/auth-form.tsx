@@ -11,7 +11,6 @@ import {
 } from 'firebase/auth';
 import { Button } from "@/components/ui/button";
 import SiteLogo from "@/assets/logo.svg";
-import BackgroundStars from "@/assets/stars.png";
 
 export function AuthForm() {
     const [isLoginView, setIsLoginView] = useState(true);
@@ -61,11 +60,9 @@ export function AuthForm() {
 
         try {
             if (isLoginView) {
-                // Login
                 await signInWithEmailAndPassword(auth, email, password);
                 onAuthSuccess("Logged in successfully!");
             } else {
-                // Sign Up
                 await createUserWithEmailAndPassword(auth, email, password);
                 onAuthSuccess("Signed up and logged in successfully!");
             }
@@ -76,33 +73,24 @@ export function AuthForm() {
     };
 
     return (
-        <div
-            className="relative overflow-hidden p-6 md:p-8 rounded-lg shadow-xl border border-white/10 text-foreground w-full max-w-md mx-auto [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
-            style={{
-                backgroundImage: `url(${BackgroundStars.src})`,
-                backgroundPositionY: 'center',
-                backgroundSize: 'cover'
-            }}
-        >
-            <div className={"absolute inset-0 bg-black/60"} />
-
+        <div className="relative overflow-hidden p-8 md:p-10 rounded-2xl shadow-2xl bg-white text-black w-full max-w-md mx-auto border border-gray-200">
             <div className="relative z-10">
-                <div className="flex justify-center mb-6">
-                    <SiteLogo className="h-12 w-auto text-foreground" />
+                <div className="flex justify-center mb-8">
+                    <SiteLogo className="h-12 w-auto text-black" />
                 </div>
-                <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6">
+                <h2 className="text-3xl font-bold text-center mb-2 text-black">
                     {isLoginView ? 'Queue In' : 'Queue Up'}
                 </h2>
-                <p className="text-center text-sm text-muted-foreground mb-6 -mt-4">
+                <p className="text-center text-sm text-gray-500 mb-8">
                     Quality Computer Experiences
                 </p>
 
-                {error && <p className="mb-4 text-red-400 bg-red-900/40 p-3 rounded-md text-center text-sm">{error}</p>}
-                {message && <p className="mb-4 text-green-400 bg-green-900/40 p-3 rounded-md text-center text-sm">{message}</p>}
+                {error && <p className="mb-6 text-red-600 bg-red-50 p-3 rounded-lg text-center text-sm border border-red-100">{error}</p>}
+                {message && <p className="mb-6 text-green-600 bg-green-50 p-3 rounded-lg text-center text-sm border border-green-100">{message}</p>}
 
-                <form onSubmit={handleAuthAction} className="space-y-5">
+                <form onSubmit={handleAuthAction} className="space-y-6">
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-1">
+                        <label htmlFor="email" className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1">
                             Email address
                         </label>
                         <input
@@ -112,14 +100,14 @@ export function AuthForm() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
-                            className="mt-1 block w-full px-3 py-2.5 bg-white/10 border border-white/20 rounded-md shadow-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-white/30 sm:text-sm"
+                            className="block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition-all sm:text-sm"
                             placeholder="you@example.com"
                             disabled={loading}
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-400 mb-1">
+                        <label htmlFor="password" className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1">
                             Password
                         </label>
                         <input
@@ -129,7 +117,7 @@ export function AuthForm() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            className="mt-1 block w-full px-3 py-2.5 bg-white/10 border border-white/20 rounded-md shadow-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-white/30 sm:text-sm"
+                            className="block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition-all sm:text-sm"
                             placeholder="••••••••"
                             disabled={loading}
                         />
@@ -138,7 +126,7 @@ export function AuthForm() {
                     <Button
                         type="submit"
                         disabled={loading}
-                        className="w-full flex justify-center py-3 px-4 rounded-md shadow-sm text-sm font-medium text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white disabled:opacity-60 transition-colors duration-150"
+                        className="w-full flex justify-center py-4 px-4 rounded-xl shadow-lg text-sm font-bold text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50 transition-all duration-200"
                     >
                         {loading ? (isLoginView ? 'Queueing In...' : 'Queueing Up...') : (isLoginView ? 'Queue In' : 'Queue Up')}
                     </Button>
@@ -151,7 +139,7 @@ export function AuthForm() {
                                 setError(null);
                                 setMessage(null);
                             }}
-                            className="text-sm text-gray-400 hover:text-white hover:underline focus:outline-none"
+                            className="text-sm font-semibold text-gray-500 hover:text-black transition-colors focus:outline-none"
                             disabled={loading}
                         >
                             {isLoginView ? 'Need an account? Queue Up' : 'Already have an account? Queue In'}
@@ -159,19 +147,19 @@ export function AuthForm() {
                     </div>
                 </form>
 
-                <div className="relative my-6">
+                <div className="relative my-8">
                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                        <div className="w-full border-t border-white/20" />
+                        <div className="w-full border-t border-gray-100" />
                     </div>
-                    <div className="relative flex justify-center text-sm">
-                        <span className="px-2 bg-transparent text-gray-400">Or continue with</span>
+                    <div className="relative flex justify-center text-xs uppercase tracking-widest">
+                        <span className="px-4 bg-white text-gray-400 font-medium">Or continue with</span>
                     </div>
                 </div>
 
                 <div>
                     <Button
                         variant="outline"
-                        className="w-full flex items-center justify-center gap-2 border-white/20 text-white hover:bg-white/10"
+                        className="w-full flex items-center justify-center gap-3 py-4 rounded-xl border-gray-200 text-black hover:bg-gray-50 font-semibold transition-all"
                         onClick={handleGoogleLogin}
                         disabled={loading}
                         type="button"
