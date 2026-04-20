@@ -109,7 +109,7 @@ const CallToAction = ({ id }: { id?: string }) => {
                                 FAQ
                             </h2>
                             
-                            <div className={"max-w-3xl mx-auto bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-8 shadow-lg"}>
+                            <div className={"max-w-3xl mx-auto bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8"}>
                                 {faqs.map((faq, index) => (
                                     <FAQItem 
                                         key={index} 

@@ -6,6 +6,7 @@ import SiteFooter from "@/components/site-footer";
 import CallToAction  from "@/components/call-to-action";
 import BackgroundStars from "@/assets/stars.png";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 
 export default function RDPage() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -14,7 +15,7 @@ export default function RDPage() {
     offset: [`start end`, 'end start']
   });
   const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
-  const rdCount = 3; // Manually counted <details> elements
+  const rdCount = 4; // Manually counted <details> elements
 
   return (
     <React.Fragment>
@@ -108,7 +109,34 @@ export default function RDPage() {
               Fluidity Index
             </summary>
             <div className="text-center text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5 bg-white/20 backdrop-blur-sm rounded-lg p-4">
-              <p><a href="https://arxiv.org/abs/2510.20636v1" target="_blank" rel="noopener noreferrer">Next-Generation Super-Intelligence Benchmarks</a></p>            </div>
+              <p><a href="https://arxiv.org/abs/2510.20636v1" target="_blank" rel="noopener noreferrer">Next-Generation Super-Intelligence Benchmarks</a></p>
+            </div>
+          </details>
+
+          <details className="mb-8">
+            <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer bg-white/30 backdrop-blur-md border border-white/40 p-4 rounded-lg hover:bg-white/50 text-black shadow-sm transition-colors">
+              Earth Day
+            </summary>
+            <div className="text-center text-sm text-gray-500 mt-2">
+              April 22, 2026 · Q2
+            </div>
+            <div className="text-center text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5 bg-white/20 backdrop-blur-sm rounded-lg p-4">
+              <div className="flex justify-center mb-6">
+                <Image
+                  src="/image.png"
+                  alt="Earth Day Q2"
+                  width={800}
+                  height={534}
+                  className="rounded-xl w-full max-w-2xl object-contain"
+                />
+              </div>
+              <p className="text-2xl font-semibold tracking-tight mt-4">
+                E = mc<sup>2</sup>
+              </p>
+              <p className="mt-4">
+                On Earth Day, we reflect on our relationship with the planet that sustains us. Energy, matter, and intelligence are deeply intertwined — Einstein&apos;s equation reminds us that even the smallest matter holds immense potential energy. Our work at the intersection of nature and computation is guided by this principle: every data point, every resource, every environment signal carries the potential for transformative insight.
+              </p>
+            </div>
           </details>
         </div>
       </motion.section>
