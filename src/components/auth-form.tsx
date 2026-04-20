@@ -77,22 +77,24 @@ export function AuthForm() {
 
     return (
         <div
-            className="relative overflow-hidden p-6 md:p-8 rounded-lg shadow-xl border border-white/10 text-foreground w-full max-w-md mx-auto [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]" // Modified
-            style={{ // Added                backgroundImage: `url(${BackgroundStars.src})`,
+            className="relative overflow-hidden p-6 md:p-8 rounded-lg shadow-xl border border-white/10 text-foreground w-full max-w-md mx-auto [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
+            style={{
+                backgroundImage: `url(${BackgroundStars.src})`,
                 backgroundPositionY: 'center',
                 backgroundSize: 'cover'
             }}
         >
-            <div className={"absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgba(16,185,129,0.3)_15%,rgba(10,30,10,0.7)_78%,transparent)] opacity-80"} /> {/* Added */}
+            <div className={"absolute inset-0 bg-black/60"} />
 
-            <div className="relative z-10"> {/* Added wrapper for content */}
-                <div className="flex justify-center mb-6"> {/* Container for centering the logo */}
-                    <SiteLogo className="h-12 w-auto text-foreground" /> {/* Adjust size (h-12) and color if needed. SVGs might inherit text color. */}                </div>
+            <div className="relative z-10">
+                <div className="flex justify-center mb-6">
+                    <SiteLogo className="h-12 w-auto text-foreground" />
+                </div>
                 <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6">
                     {isLoginView ? 'Queue In' : 'Queue Up'}
                 </h2>
-                {/* New Subtitle Added Below */}
-                <p className="text-center text-sm text-muted-foreground mb-6 -mt-4">                    Quality Computer Experiences
+                <p className="text-center text-sm text-muted-foreground mb-6 -mt-4">
+                    Quality Computer Experiences
                 </p>
 
                 {error && <p className="mb-4 text-red-400 bg-red-900/40 p-3 rounded-md text-center text-sm">{error}</p>}
@@ -100,7 +102,7 @@ export function AuthForm() {
 
                 <form onSubmit={handleAuthAction} className="space-y-5">
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-1">
                             Email address
                         </label>
                         <input
@@ -110,14 +112,14 @@ export function AuthForm() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
-                            className="mt-1 block w-full px-3 py-2.5 bg-white/60 border border-gray-300 rounded-md shadow-sm text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                            className="mt-1 block w-full px-3 py-2.5 bg-white/10 border border-white/20 rounded-md shadow-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-white/30 sm:text-sm"
                             placeholder="you@example.com"
                             disabled={loading}
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="password" className="block text-sm font-medium text-gray-400 mb-1">
                             Password
                         </label>
                         <input
@@ -127,7 +129,7 @@ export function AuthForm() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            className="mt-1 block w-full px-3 py-2.5 bg-white/60 border border-gray-300 rounded-md shadow-sm text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                            className="mt-1 block w-full px-3 py-2.5 bg-white/10 border border-white/20 rounded-md shadow-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-white/30 sm:text-sm"
                             placeholder="••••••••"
                             disabled={loading}
                         />
@@ -136,7 +138,7 @@ export function AuthForm() {
                     <Button
                         type="submit"
                         disabled={loading}
-                        className="w-full flex justify-center py-3 px-4 rounded-md shadow-sm text-sm font-medium text-foreground bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-green-500 disabled:opacity-60 transition-colors duration-150" // Applied light green styling
+                        className="w-full flex justify-center py-3 px-4 rounded-md shadow-sm text-sm font-medium text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white disabled:opacity-60 transition-colors duration-150"
                     >
                         {loading ? (isLoginView ? 'Queueing In...' : 'Queueing Up...') : (isLoginView ? 'Queue In' : 'Queue Up')}
                     </Button>
@@ -149,7 +151,8 @@ export function AuthForm() {
                                 setError(null);
                                 setMessage(null);
                             }}
-                            className="text-sm text-green-600 hover:text-green-800 hover:underline focus:outline-none" // Changed to green                            disabled={loading}
+                            className="text-sm text-gray-400 hover:text-white hover:underline focus:outline-none"
+                            disabled={loading}
                         >
                             {isLoginView ? 'Need an account? Queue Up' : 'Already have an account? Queue In'}
                         </button>
@@ -158,17 +161,17 @@ export function AuthForm() {
 
                 <div className="relative my-6">
                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                        <div className="w-full border-t border-gray-300" />
+                        <div className="w-full border-t border-white/20" />
                     </div>
                     <div className="relative flex justify-center text-sm">
-                        <span className="px-2 bg-white text-gray-600">Or continue with</span>
+                        <span className="px-2 bg-transparent text-gray-400">Or continue with</span>
                     </div>
                 </div>
 
                 <div>
                     <Button
                         variant="outline"
-                        className="w-full flex items-center justify-center gap-2"
+                        className="w-full flex items-center justify-center gap-2 border-white/20 text-white hover:bg-white/10"
                         onClick={handleGoogleLogin}
                         disabled={loading}
                         type="button"
