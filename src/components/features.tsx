@@ -20,6 +20,18 @@ const tabs = [
     backgroundSizeX: 100,
     image: productGif,
     component: VimeoPlayer,
+    slideBackground: "from-green-50 via-emerald-50 to-green-100",
+  },
+  {
+    icon: "/assets/lottie/stars.lottie",
+    title: "Fluidity Index",
+    description: "FIX is an Energy Interface universal super-intelligence benchmark.",
+    isNew: true,
+    backgroundPositionX: 50,
+    backgroundPositionY: 50,
+    backgroundSizeX: 100,
+    image: evaScreenshot,
+    slideBackground: "from-yellow-50 via-amber-50 to-yellow-100",
   },
   {
     icon: "/assets/lottie/click.lottie",
@@ -30,16 +42,7 @@ const tabs = [
     backgroundPositionY: 50,
     backgroundSizeX: 100,
     image: fixScreenshot,
-  },
-  {
-    icon: "/assets/lottie/stars.lottie",
-    title: "Fluidity Index .",
-    description: "FIX is a Energy Interface universal super-intelligence benchmark.",
-    isNew: true,
-    backgroundPositionX: 50,
-    backgroundPositionY: 50,
-    backgroundSizeX: 100,
-    image: evaScreenshot,
+    slideBackground: "from-sky-50 via-blue-50 to-cyan-50",
   },
 ];
 
@@ -126,20 +129,25 @@ const FeatureTab = (
 };
 
 const DotIndicator = ({ index, scrollYProgress }: { index: number, scrollYProgress: MotionValue<number> }) => {
+  // Map the active dot range over the 0–0.75 horizontal scroll region
+  const segmentSize = 0.75 / 3;
+  const start = index * segmentSize;
+  const mid = start + segmentSize / 2;
+  const end = start + segmentSize;
   const opacity = useTransform(
     scrollYProgress,
-    [index / 3, (index + 0.5) / 3, (index + 1) / 3],
+    [start, mid, end],
     [0.3, 1, 0.3]
   );
   const scale = useTransform(
     scrollYProgress,
-    [index / 3, (index + 0.5) / 3, (index + 1) / 3],
+    [start, mid, end],
     [1, 1.5, 1]
   );
   return (
     <motion.div
       style={{ opacity, scale }}
-      className="size-2 rounded-full bg-white"
+      className="size-2.5 rounded-full bg-gray-400"
     />
   );
 };
@@ -154,9 +162,10 @@ export function Features({ id }: { id: string }) {
     offset: ["start start", "end end"]
   });
 
-  // Compress the horizontal scroll into the first 80% of the section's scroll range,
-  // leaving the final 20% (~60vh) as dwell time on the last slide before the next section appears.
-  const x = useTransform(scrollYProgress, [0, 0.8], ["0%", "-66.66%"]);
+  // Compress the horizontal scroll into the first 75% of the section's scroll range,
+  // leaving the final 25% (~87.5vh) as dwell time on the last slide before the next section appears.
+  // This ensures Environment Aware (the last slide) fully loads and is visible before vertical scroll resumes.
+  const x = useTransform(scrollYProgress, [0, 0.75], ["0%", "-66.66%"]);
 
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
@@ -166,49 +175,52 @@ export function Features({ id }: { id: string }) {
   return (
     <>
       <section className="bg-background" id={id}>
-        <div ref={containerRef} className="h-[300vh] relative">
-          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+        <div ref={containerRef} className="h-[350vh] relative">
+          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-20">
             <div className="container relative">
-              <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter mb-12">
+              <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter mb-8">
                 Discover the Power of QCX.
               </h2>
-              
-              <motion.div 
+
+              <motion.div
                 style={{ x }}
                 className="flex gap-8 w-[300%]"
               >
                 {tabs.map((tab, index) => (
                   <div key={index} className="w-full px-4">
                     <div className="max-w-5xl mx-auto">
-                      <div className="flex flex-col items-center gap-4 mb-8 text-center">
-                        <div className="flex flex-col items-center gap-3">
-                           <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-muted/10">
-                             <DotLottiePlayer src={tab.icon} className="size-8" autoplay loop />
-                           </div>
-                           <h3 className="text-3xl font-bold">{tab.title}</h3>
+                      {/* Per-slide background with fade */}
+                      <div className={`rounded-3xl p-6 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700`}>
+                        <div className="flex flex-col items-center gap-4 mb-6 text-center">
+                          <div className="flex flex-col items-center gap-3">
+                             <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm">
+                               <DotLottiePlayer src={tab.icon} className="size-8" autoplay loop />
+                             </div>
+                             <h3 className="text-3xl font-bold">{tab.title}</h3>
+                          </div>
+                          <p className="text-muted-foreground text-lg font-serif italic max-w-xl">
+                            {tab.description}
+                          </p>
                         </div>
-                        <p className="text-muted-foreground text-lg font-serif italic max-w-xl">
-                          {tab.description}
-                        </p>
-                      </div>
-                      
-                      <div className="border border-muted rounded-2xl p-4 bg-muted/5 backdrop-blur-sm">
-                        <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl">
-                          {tab.component ? (
-                            <VimeoPlayer />
-                          ) : (
-                            <Image
-                              src={tab.image.src}
-                              alt={tab.title}
-                              fill
-                              className="object-contain cursor-pointer hover:scale-[1.02] transition-transform duration-500"
-                              onClick={() => handleImageClick(tab.image.src)}
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                              priority
-                              quality={100}
-                              onError={handleImageError}
-                            />
-                          )}
+
+                        <div className="border border-muted/40 rounded-2xl p-3 bg-white/40 backdrop-blur-sm shadow-md">
+                          <div className="relative aspect-video rounded-xl overflow-hidden shadow-xl">
+                            {tab.component ? (
+                              <VimeoPlayer />
+                            ) : (
+                              <Image
+                                src={tab.image.src}
+                                alt={tab.title}
+                                fill
+                                className="object-contain cursor-pointer hover:scale-[1.02] transition-transform duration-500"
+                                onClick={() => handleImageClick(tab.image.src)}
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                                priority
+                                quality={100}
+                                onError={handleImageError}
+                              />
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -216,7 +228,7 @@ export function Features({ id }: { id: string }) {
                 ))}
               </motion.div>
 
-              <div className="flex justify-center gap-3 mt-12">
+              <div className="flex justify-center gap-3 mt-8">
                 {tabs.map((_, index) => (
                   <DotIndicator key={index} index={index} scrollYProgress={scrollYProgress} />
                 ))}
