@@ -77,18 +77,6 @@ const CallToAction = ({ id }: { id?: string }) => {
             answer: "Artificial General Intelligence is a system describing the interoperation of increasingly heterogenous data points without compression."
         },
         {
-            question: "What is QCX?",
-            answer: "QCX is a planet computer gravitational interface for Earth Observation."
-        },
-        {
-            question: "What is FIX?",
-            answer: "FIX is a Energy Interface universal super-intelligence benchmark."
-        },
-        {
-            question: "What is EVA?",
-            answer: "EVA is a vibrational interface autonomous new knowledge discovery functional intelligent material."
-        },
-        {
             question: "Why do we need Artificial General Intelligence?",
             answer: "AGI has the potential to solve complex global challenges, from medical breakthroughs to climate change, by processing information and generating solutions at a scale and speed impossible for humans alone."
         }
