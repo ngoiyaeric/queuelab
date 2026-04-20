@@ -52,7 +52,7 @@ const FAQItem = ({ question, answer, isOpen, onClick }: { question: string, answ
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                 >
-                    <div className="pb-6 text-white/70 leading-relaxed">
+                    <div className="pb-6 text-white/80 leading-relaxed font-medium">
                         {answer}
                     </div>
                 </motion.div>
@@ -74,19 +74,19 @@ const CallToAction = ({ id }: { id?: string }) => {
     const faqs = [
         {
             question: "What is Artificial General Intelligence?",
-            answer: "Artificial General Intelligence (AGI) refers to a type of artificial intelligence that possesses the ability to understand, learn, and apply knowledge across a wide range of tasks at a human-like level or beyond."
+            answer: "Artificial General Intelligence is a system describing the interoperation of increasingly heterogenous data points without compression."
         },
         {
             question: "What is QCX?",
-            answer: "QCX stands for Quality Computer Experiences, our core philosophy and framework for building intuitive, high-performance digital environments."
+            answer: "QCX is a planet computer gravitational interface for Earth Observation."
         },
         {
             question: "What is FIX?",
-            answer: "FIX is our specialized toolset designed to identify and resolve bottlenecks in complex computational workflows, ensuring seamless operation."
+            answer: "FIX is a Energy Interface universal super-intelligence benchmark."
         },
         {
             question: "What is EVA?",
-            answer: "EVA is our advanced AI assistant, designed to provide personalized support and automate routine tasks within the QueueLab ecosystem."
+            answer: "EVA is a vibrational interface autonomous new knowledge discovery functional intelligent material."
         },
         {
             question: "Why do we need Artificial General Intelligence?",
@@ -101,7 +101,7 @@ const CallToAction = ({ id }: { id?: string }) => {
                     <motion.div
                         animate={{backgroundPositionX: BackgroundStars.width,}}
                         transition={{duration: 120, repeat: Infinity, ease: 'linear'}}
-                        className={"border border-white/10 py-24 px-6 rounded-xl overflow-hidden relative group bg-black"}
+                        className={"border border-white/10 py-24 px-6 rounded-xl overflow-hidden relative group bg-transparent"}
                         style={{backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY}}>
                         {/* Yellow floating color instead of green */}
                         <div className={"absolute inset-0 bg-[rgb(250,204,21)] opacity-20 bg-blend-overlay [mask-image:radial-gradient(50%_50%_at_50%_35%,black,transparent)] group-hover:opacity-0 transition duration-700"} style={{backgroundImage: `url(${BackgroundGrid.src})`}}/>
@@ -114,7 +114,7 @@ const CallToAction = ({ id }: { id?: string }) => {
                                 FAQ
                             </h2>
                             
-                            <div className={"max-w-3xl mx-auto bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10"}>
+                            <div className={"max-w-3xl mx-auto bg-transparent rounded-2xl p-8"}>
                                 {faqs.map((faq, index) => (
                                     <FAQItem 
                                         key={index} 
