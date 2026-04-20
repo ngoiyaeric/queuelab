@@ -1,8 +1,8 @@
 "use client";
 
-import { DotLottiePlayer, DotLottieCommonPlayer } from "@dotlottie/react-player";
-import { animate, motion, useMotionTemplate, useMotionValue, ValueAnimationTransition, useScroll, useTransform, MotionValue } from "framer-motion";
-import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
+import { DotLottiePlayer } from "@dotlottie/react-player";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import VimeoPlayer from "./vimeo-player";
 import productGif from "@/assets/product-gif.gif";
@@ -15,9 +15,6 @@ const tabs = [
     title: "QCX",
     description: "QCX is a planet computer gravitational interface for Earth Observation.",
     isNew: false,
-    backgroundPositionX: 50,
-    backgroundPositionY: 50,
-    backgroundSizeX: 100,
     image: productGif,
     component: VimeoPlayer,
     slideBackground: "from-green-50 via-emerald-50 to-green-100",
@@ -27,9 +24,6 @@ const tabs = [
     title: "Fluidity Index",
     description: "FIX is an Energy Interface universal super-intelligence benchmark.",
     isNew: true,
-    backgroundPositionX: 50,
-    backgroundPositionY: 50,
-    backgroundSizeX: 100,
     image: evaScreenshot,
     slideBackground: "from-yellow-50 via-amber-50 to-yellow-100",
   },
@@ -38,9 +32,6 @@ const tabs = [
     title: "Environment Aware",
     description: "EVA is a vibrational interface autonomous new knowledge discovery functional intelligent material.",
     isNew: false,
-    backgroundPositionX: 50,
-    backgroundPositionY: 50,
-    backgroundSizeX: 100,
     image: fixScreenshot,
     slideBackground: "from-sky-50 via-blue-50 to-cyan-50",
   },
@@ -57,76 +48,6 @@ const handleImageError = (e: any) => {
   }
 };
 
-const FeatureTab = (
-  props: (typeof tabs)[number] & ComponentPropsWithoutRef<"div"> & { selected: boolean }
-) => {
-  const tabRef = useRef<HTMLDivElement>(null);
-  const dotLottieRef = useRef<DotLottieCommonPlayer>(null);
-
-  const xPercentage = useMotionValue(0);
-  const yPercentage = useMotionValue(0);
-
-  const maskImage = useMotionTemplate`radial-gradient(80px 80px at ${xPercentage}% ${yPercentage}%, black, transparent)`;
-
-  useEffect(() => {
-    if (!tabRef.current || !props.selected) return;
-
-    xPercentage.set(0);
-    yPercentage.set(0);
-    const { height, width } = tabRef.current?.getBoundingClientRect();
-    const circumference = height * 2 + width * 2;
-    const times = [
-      0,
-      width / circumference,
-      (width + height) / circumference,
-      (width * 2 + height) / circumference,
-      1,
-    ];
-
-    const options: ValueAnimationTransition = {
-      times,
-      duration: 5,
-      repeat: Infinity,
-      repeatType: "loop",
-      ease: "linear",
-    };
-
-    animate(xPercentage, [0, 100, 100, 0, 0], options);
-    animate(yPercentage, [0, 0, 100, 100, 0], options);
-  }, [props.selected, xPercentage, yPercentage]);
-
-  const handleTabHover = () => {
-    if (dotLottieRef.current === null) return;
-    dotLottieRef.current.seek(0);
-    dotLottieRef.current.play();
-  };
-
-  return (
-    <div
-      onMouseEnter={handleTabHover}
-      className="border border-muted flex items-center p-2.5 gap-2.5 rounded-xl relative cursor-pointer hover:bg-muted/30"
-      ref={tabRef}
-      onClick={props.onClick}
-    >
-      {props.selected && (
-        <motion.div
-          style={{ maskImage }}
-          className="absolute inset-0 -m-px border border-[#A369FF] rounded-xl"
-        />
-      )}
-
-      <div className="size-12 border border-muted rounded-lg inline-flex items-center justify-center">
-        <DotLottiePlayer src={props.icon} className="size-5" autoplay ref={dotLottieRef} />
-      </div>
-      <div className="font-medium">{props.title}</div>
-      {props.isNew && (
-        <div className="text-xs rounded-full text-foreground px-2 py-0.5 bg-[#7CFC00] font-semibold">
-          New
-        </div>
-      )}
-    </div>
-  );
-};
 
 const DotIndicator = ({ index, scrollYProgress }: { index: number, scrollYProgress: MotionValue<number> }) => {
   // Map the active dot range over the 0–0.75 horizontal scroll region
@@ -198,7 +119,7 @@ export function Features({ id }: { id: string }) {
                              </div>
                              <h3 className="text-3xl font-bold">{tab.title}</h3>
                           </div>
-                          <p className="text-muted-foreground text-lg font-serif italic max-w-xl">
+                          <p className="text-muted-foreground text-lg italic max-w-xl" style={{ fontFamily: "var(--font-instrument-serif)" }}>
                             {tab.description}
                           </p>
                         </div>
