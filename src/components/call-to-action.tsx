@@ -77,8 +77,16 @@ const CallToAction = ({ id }: { id?: string }) => {
             answer: "Artificial General Intelligence is a system describing the interoperation of increasingly heterogenous data points without compression."
         },
         {
-            question: "Why do we need Artificial General Intelligence?",
-            answer: "AGI has the potential to solve complex global challenges, from medical breakthroughs to climate change, by processing information and generating solutions at a scale and speed impossible for humans alone."
+            question: "Why Artificial General Intelligence?",
+            answer: "Artificial General Intelligence is here to guarantee new knowledge to enhance human adaptability across essential industries."
+        },
+        {
+            question: "How Artificial General Intelligence?",
+            answer: "As a functional intelligent material, Artificial General Intelligence is conscious at second order energy adaptability - like a human, self-sustained."
+        },
+        {
+            question: "Which models are used?",
+            answer: "Artificial General Intelligence is a system hence all models - past, present and future are useful per context and properly evaluated."
         }
     ];
 
@@ -101,7 +109,7 @@ const CallToAction = ({ id }: { id?: string }) => {
                                 FAQ
                             </h2>
                             
-                            <div className={"max-w-3xl mx-auto bg-transparent rounded-2xl p-8"}>
+                            <div className={"max-w-3xl mx-auto bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-8 shadow-lg"}>
                                 {faqs.map((faq, index) => (
                                     <FAQItem 
                                         key={index} 
