@@ -46,20 +46,18 @@ function CopilotCardComponent({ card }: { card: CopilotCard }) {
       className="relative group"
     >
       <div className="relative rounded-2xl overflow-hidden h-80 border border-white/20 shadow-xl">
-        {/* Looping video background */}
-        <img
-          
-          src={card.videoSrc}
-          
-          
-          
-          
-          className="absolute inset-0 w-full h-full object-cover"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-        />
+        {/* Looping GIF background */}
+        {card.videoSrc && (
+          <img
+            src={card.videoSrc}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+          />
+        )}
         {/* Fallback gradient background (visible when video is absent or errors) */}
         <div
-          className={`absolute inset-0 bg-gradient-to-br ${card.fallbackGradient}`}
+          className={`absolute inset-0 bg-gradient-to-br ${card.fallbackGradient} -z-10`}
         />
         {/* Glass UI overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
