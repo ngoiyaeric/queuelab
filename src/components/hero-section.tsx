@@ -31,13 +31,13 @@ export function HeroSection() {
             {/* WebGL Globe - visible when animation is not showing */}
             {!isAnimationVisible && (
                 <div
-                    className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] max-w-full max-h-full z-10 pointer-events-none flex items-center justify-center"
                     data-testid="webgl-globe-container"
                 >
                     <div className="w-full h-full pointer-events-auto">
                         <WebGLGlobe
                             onClick={() => setIsAnimationVisible(true)}
-                            className="w-full h-full"
+                            className="w-full h-full [&>div>div]:!flex [&>div>div]:!items-center [&>div>div]:!justify-center"
                         />
                     </div>
                 </div>            )}
