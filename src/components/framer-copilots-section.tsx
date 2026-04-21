@@ -15,7 +15,7 @@ const copilots: CopilotCard[] = [
     description: "Optimize crop yields and farm management with model powered insights",
     color: "from-emerald-400 to-green-500",
     delay: 0,
-    videoSrc: "/videos/agriculture.mp4",
+    videoSrc: "/agriculture.gif",
     fallbackGradient: "from-emerald-800 via-green-700 to-lime-600",
   },
   {
@@ -23,7 +23,7 @@ const copilots: CopilotCard[] = [
     description: "Enhance extraction efficiency and resource optimization",
     color: "from-emerald-400 to-teal-500",
     delay: 0.2,
-    videoSrc: "/videos/mining.mp4",
+    videoSrc: "/mining.gif",
     fallbackGradient: "from-stone-800 via-amber-900 to-yellow-800",
   },
   {
@@ -47,18 +47,15 @@ function CopilotCardComponent({ card }: { card: CopilotCard }) {
     >
       <div className="relative rounded-2xl overflow-hidden h-80 border border-white/20 shadow-xl">
         {/* Looping video background */}
-        <video
-          ref={videoRef}
+        <img
+          
           src={card.videoSrc}
-          autoPlay
-          loop
-          muted
-          playsInline
+          
+          
+          
+          
           className="absolute inset-0 w-full h-full object-cover"
-          onError={(e) => {
-            // Hide video element on error so fallback gradient shows
-            (e.target as HTMLVideoElement).style.display = "none";
-          }}
+          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
         />
         {/* Fallback gradient background (visible when video is absent or errors) */}
         <div
