@@ -31,7 +31,7 @@ const copilots: CopilotCard[] = [
     description: "Rapid response coordination and emergency management systems",
     color: "from-emerald-500 to-emerald-600",
     delay: 0.4,
-    videoSrc: "/background-map.png",
+    videoSrc: "/disaster-response.gif",
     fallbackGradient: "from-slate-800 via-blue-900 to-indigo-800",
   },
 ];
