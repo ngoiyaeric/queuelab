@@ -4,7 +4,7 @@ import MapAnimation from "./map-animation";
 import { ActionButton } from "./action-button";
 import BackgroundStars from "@/assets/stars.png";
 import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import React from "react";
 import WebGLGlobe from "./webgl-globe";
 import { AnimatedText } from "./animated-text";
@@ -21,6 +21,13 @@ export function HeroSection() {
             setIsAnimationVisible(false);
         }
     });
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsAnimationVisible(true);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
 
     return (
         <motion.section

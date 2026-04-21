@@ -8,6 +8,9 @@ import VimeoPlayer from "./vimeo-player";
 import productGif from "@/assets/product-gif.gif";
 import evaScreenshot from "@/assets/eva-screenshot.png";
 import fixScreenshot from "@/assets/fix-screenshot.png";
+import QCXLogo from "@/assets/logo-q-icon.png";
+import FIXLogo from "@/assets/fix-logo.png";
+import EVALogo from "@/assets/eva-logo.png";
 
 const tabs = [
   {
@@ -18,14 +21,16 @@ const tabs = [
     image: productGif,
     component: VimeoPlayer,
     slideBackground: "from-green-50 via-emerald-50 to-green-100",
+    logo: QCXLogo,
   },
   {
     icon: "/assets/lottie/stars.lottie",
     title: "Fluidity Index",
-    description: "FIX is an Energy Interface universal super-intelligence benchmark.",
+    description: "FIX - Fluidity Index, a signal abstraction energy based evaluation and alignment.",
     isNew: true,
     image: evaScreenshot,
     slideBackground: "from-yellow-50 via-amber-50 to-yellow-100",
+    logo: FIXLogo,
   },
   {
     icon: "/assets/lottie/click.lottie",
@@ -34,6 +39,7 @@ const tabs = [
     isNew: false,
     image: fixScreenshot,
     slideBackground: "from-sky-50 via-blue-50 to-cyan-50",
+    logo: EVALogo,
   },
 ];
 
@@ -114,9 +120,15 @@ export function Features({ id }: { id: string }) {
                       <div className={`rounded-3xl p-6 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700`}>
                         <div className="flex flex-col items-center gap-4 mb-6 text-center">
                           <div className="flex flex-col items-center gap-3">
-                             <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm">
-                               <DotLottiePlayer src={tab.icon} className="size-8" autoplay loop />
-                             </div>
+                             {tab.logo ? (
+                               <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm">
+                                 <Image src={tab.logo} alt={`${tab.title} Logo`} width={40} height={40} className="h-auto" />
+                               </div>
+                             ) : (
+                               <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm">
+                                 <DotLottiePlayer src={tab.icon} className="size-8" autoplay loop />
+                               </div>
+                             )}
                              <h3 className="text-3xl font-bold">{tab.title}</h3>
                           </div>
                           <p className="text-muted-foreground text-lg italic max-w-xl" style={{ fontFamily: "var(--font-instrument-serif)" }}>
