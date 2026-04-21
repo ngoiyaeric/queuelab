@@ -123,7 +123,7 @@ export default function RDPage() {
             <div className="text-center text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5 bg-white/20 backdrop-blur-sm rounded-lg p-4">
               <div className="flex justify-center mb-6">
                 <Image
-                  src="/image.png"
+                  src="/earth-day-q2.jpeg"
                   alt="Earth Day Q2"
                   width={800}
                   height={534}
