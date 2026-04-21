@@ -22,7 +22,7 @@ const tabs = [
   {
     icon: "/assets/lottie/stars.lottie",
     title: "Fluidity Index",
-    description: "FIX is an Energy Interface universal super-intelligence benchmark.",
+    description: "FIX is a signal abstraction energy based evaluation and alignment system.",
     isNew: true,
     image: evaScreenshot,
     slideBackground: "from-yellow-50 via-amber-50 to-yellow-100",
@@ -30,7 +30,7 @@ const tabs = [
   {
     icon: "/assets/lottie/click.lottie",
     title: "Environment Aware",
-    description: "EVA is a vibrational interface autonomous new knowledge discovery functional intelligent material.",
+    description: "EVA is a vibrational interface autonomous new knowledge discovery system.",
     isNew: false,
     image: fixScreenshot,
     slideBackground: "from-sky-50 via-blue-50 to-cyan-50",
