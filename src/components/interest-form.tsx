@@ -1,4 +1,4 @@
-"use client";
+s"use client";
 
 import { useState, FormEvent } from 'react';
 import { Button } from "@/components/ui/button"; // Assuming you have a Button component
