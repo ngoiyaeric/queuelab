@@ -14,7 +14,7 @@ const VimeoPlayer = dynamic(() => import("./vimeo-player"), { ssr: false });
 
 const tabs = [
   {
-    icon: "/assets/logos/qcx-logo.png",
+    icon: "/assets/logos/QCX.png",
     title: "QCX",
     description: "QCX is a planet computer gravitational interface for Earth Observation.",
     isNew: false,
@@ -23,7 +23,7 @@ const tabs = [
     slideBackground: "from-green-50 via-emerald-50 to-green-100",
   },
   {
-    icon: "/assets/logos/fix-logo.png",
+    icon: "/assets/logos/FIX.png",
     title: "FIX",
     description: "FIX is a signal abstraction energy based evaluation and alignment system.",
     isNew: true,
@@ -31,7 +31,7 @@ const tabs = [
     slideBackground: "from-yellow-50 via-amber-50 to-yellow-100",
   },
   {
-    icon: "/assets/logos/eva-logo.png",
+    icon: "/assets/logos/environment-aware.png",
     title: "EVA",
     description: "EVA is a vibrational interface autonomous new knowledge discovery system.",
     isNew: false,
@@ -100,7 +100,7 @@ export function Features({ id }: { id: string }) {
     <>
       <section className="bg-background" id={id}>
         <div ref={containerRef} className="h-[350vh] relative">
-          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-28">
+          <div className="sticky top-40 h-[calc(100vh-10rem)] flex flex-col justify-center overflow-hidden">
             <div className="container relative">
               <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter mb-8">
                 Discover the Power of QCX.
@@ -117,7 +117,7 @@ export function Features({ id }: { id: string }) {
                       <div className={`rounded-3xl p-6 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700`}>
                         <div className="flex flex-col items-center gap-4 mb-6 text-center">
                           <div className="flex flex-col items-center gap-3">
-                             <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm overflow-hidden p-2">
+                             <div className="size-24 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm overflow-hidden p-1">
                                <div className="relative size-full">
                                  <Image
                                    src={tab.icon}
