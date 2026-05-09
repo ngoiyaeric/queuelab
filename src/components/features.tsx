@@ -14,7 +14,7 @@ const VimeoPlayer = dynamic(() => import("./vimeo-player"), { ssr: false });
 
 const tabs = [
   {
-    icon: "/assets/lottie/vroom.lottie",
+    icon: "/assets/logos/qcx-logo.png",
     title: "QCX",
     description: "QCX is a planet computer gravitational interface for Earth Observation.",
     isNew: false,
@@ -23,19 +23,19 @@ const tabs = [
     slideBackground: "from-green-50 via-emerald-50 to-green-100",
   },
   {
-    icon: "/assets/lottie/stars.lottie",
-    title: "Fluidity Index",
+    icon: "/assets/logos/fix-logo.png",
+    title: "FIX",
     description: "FIX is a signal abstraction energy based evaluation and alignment system.",
     isNew: true,
-    image: evaScreenshot,
+    image: fixScreenshot,
     slideBackground: "from-yellow-50 via-amber-50 to-yellow-100",
   },
   {
-    icon: "/assets/lottie/click.lottie",
-    title: "Environment Aware",
+    icon: "/assets/logos/eva-logo.png",
+    title: "EVA",
     description: "EVA is a vibrational interface autonomous new knowledge discovery system.",
     isNew: false,
-    image: fixScreenshot,
+    image: evaScreenshot,
     slideBackground: "from-sky-50 via-blue-50 to-cyan-50",
   },
 ];
@@ -117,8 +117,15 @@ export function Features({ id }: { id: string }) {
                       <div className={`rounded-3xl p-6 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700`}>
                         <div className="flex flex-col items-center gap-4 mb-6 text-center">
                           <div className="flex flex-col items-center gap-3">
-                             <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm">
-                               <DotLottiePlayer src={tab.icon} className="size-8" />
+                             <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm overflow-hidden p-2">
+                               <div className="relative size-full">
+                                 <Image
+                                   src={tab.icon}
+                                   alt={tab.title}
+                                   fill
+                                   className="object-contain"
+                                 />
+                               </div>
                              </div>
                              <h3 className="text-3xl font-bold">{tab.title}</h3>
                           </div>
