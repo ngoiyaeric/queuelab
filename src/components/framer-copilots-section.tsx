@@ -1,6 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
+
 interface CopilotCard {
   title: string;
   description: string;
@@ -15,7 +17,7 @@ const copilots: CopilotCard[] = [
     description: "Optimize crop yields and farm management with model powered insights",
     color: "from-emerald-400 to-green-500",
     delay: 0,
-    videoSrc: "/agriculture.gif",
+    videoSrc: "/agriculture.webp",
     fallbackGradient: "from-emerald-800 via-green-700 to-lime-600",
   },
   {
@@ -23,7 +25,7 @@ const copilots: CopilotCard[] = [
     description: "Enhance extraction efficiency and resource optimization",
     color: "from-emerald-400 to-teal-500",
     delay: 0.2,
-    videoSrc: "/mining.gif",
+    videoSrc: "/mining.webp",
     fallbackGradient: "from-stone-800 via-amber-900 to-yellow-800",
   },
   {
@@ -31,12 +33,11 @@ const copilots: CopilotCard[] = [
     description: "Rapid response coordination and emergency management systems",
     color: "from-emerald-500 to-emerald-600",
     delay: 0.4,
-    videoSrc: "/disaster-response.gif",
+    videoSrc: "/disaster-response.webp",
     fallbackGradient: "from-slate-800 via-blue-900 to-indigo-800",
   },
 ];
 function CopilotCardComponent({ card }: { card: CopilotCard }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -46,16 +47,17 @@ function CopilotCardComponent({ card }: { card: CopilotCard }) {
       className="relative group"
     >
       <div className="relative rounded-2xl overflow-hidden h-80 border border-white/20 shadow-xl">
-        {/* Looping GIF background */}
+        {/* Looping WebP/GIF background */}
         {card.videoSrc && (
-          <img
+          <Image
             src={card.videoSrc}
             alt=""
+            fill
             className="absolute inset-0 w-full h-full object-cover z-0"
-            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+            unoptimized={card.videoSrc.endsWith('.webp') || card.videoSrc.endsWith('.gif')} // Animated webp needs to be unoptimized in some next versions or just handled as is
           />
         )}
-        {/* Fallback gradient background (visible when video is absent or errors) */}
+        {/* Fallback gradient background (visible when image is absent or errors) */}
         <div
           className={`absolute inset-0 bg-gradient-to-br ${card.fallbackGradient} -z-10`}
         />
