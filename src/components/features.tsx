@@ -84,6 +84,11 @@ export function Features({ id }: { id: string }) {
     setIsDialogOpen(true);
   };
 
+  const handleImageError = () => {
+    setIsDialogOpen(false);
+    setSelectedImage(null);
+  };
+
   return (
     <>
       <section className="bg-background" id={id}>

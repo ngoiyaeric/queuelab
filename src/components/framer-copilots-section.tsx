@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 interface CopilotCard {
   title: string;
   description: string;
@@ -48,9 +49,10 @@ function CopilotCardComponent({ card }: { card: CopilotCard }) {
       <div className="relative rounded-2xl overflow-hidden h-80 border border-white/20 shadow-xl">
         {/* Looping GIF background */}
         {card.videoSrc && (
-          <img
+          <Image
             src={card.videoSrc}
             alt=""
+            fill
             className="absolute inset-0 w-full h-full object-cover z-0"
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
           />
