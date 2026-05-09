@@ -14,7 +14,7 @@ const VimeoPlayer = dynamic(() => import("./vimeo-player"), { ssr: false });
 
 const tabs = [
   {
-    icon: "/assets/logos/QCX.png",
+    icon: "/assets/logos/qcx.png",
     title: "QCX",
     description: "QCX is a planet computer gravitational interface for Earth Observation.",
     isNew: false,
@@ -23,7 +23,7 @@ const tabs = [
     slideBackground: "from-green-50 via-emerald-50 to-green-100",
   },
   {
-    icon: "/assets/logos/FIX.png",
+    icon: "/assets/logos/fix.png",
     title: "FIX",
     description: "FIX is a signal abstraction energy based evaluation and alignment system.",
     isNew: true,
@@ -100,7 +100,7 @@ export function Features({ id }: { id: string }) {
     <>
       <section className="bg-background" id={id}>
         <div ref={containerRef} className="h-[350vh] relative">
-          <div className="sticky top-40 h-[calc(100vh-10rem)] flex flex-col justify-center overflow-hidden">
+          <div className="sticky top-48 h-[calc(100vh-12rem)] flex flex-col justify-center overflow-hidden">
             <div className="container relative">
               <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter mb-8">
                 Discover the Power of QCX.
