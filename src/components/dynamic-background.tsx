@@ -22,7 +22,7 @@ export const DynamicBackground = () => {
       >
         <div className="absolute inset-0">
           <Image
-            src="/assets/sun-material.png"
+            src="/assets/sun-material.webp"
             alt="Material Sun"
             fill
             className="object-cover object-top"
@@ -39,7 +39,7 @@ export const DynamicBackground = () => {
         className="absolute inset-0"
       >
         <Image
-          src="/assets/sky-background.png"
+          src="/assets/sky-background.webp"
           alt="Sky Background"
           fill
           className="object-cover"

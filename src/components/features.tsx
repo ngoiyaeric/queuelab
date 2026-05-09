@@ -1,13 +1,16 @@
 "use client";
 
-import { DotLottiePlayer } from "@dotlottie/react-player";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useRef, useState } from "react";
 import Image from "next/image";
-import VimeoPlayer from "./vimeo-player";
+import dynamic from "next/dynamic";
 import productGif from "@/assets/product-gif.gif";
-import evaScreenshot from "@/assets/eva-screenshot.png";
-import fixScreenshot from "@/assets/fix-screenshot.png";
+import evaScreenshot from "@/assets/eva-screenshot.webp";
+import fixScreenshot from "@/assets/fix-screenshot.webp";
+
+// Dynamically import heavy components
+const DotLottiePlayer = dynamic(() => import("@dotlottie/react-player").then(mod => mod.DotLottiePlayer), { ssr: false });
+const VimeoPlayer = dynamic(() => import("./vimeo-player"), { ssr: false });
 
 const tabs = [
   {
@@ -16,7 +19,7 @@ const tabs = [
     description: "QCX is a planet computer gravitational interface for Earth Observation.",
     isNew: false,
     image: productGif,
-    component: VimeoPlayer,
+    component: true, // Use boolean to indicate dynamic component
     slideBackground: "from-green-50 via-emerald-50 to-green-100",
   },
   {
@@ -115,7 +118,7 @@ export function Features({ id }: { id: string }) {
                         <div className="flex flex-col items-center gap-4 mb-6 text-center">
                           <div className="flex flex-col items-center gap-3">
                              <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm">
-                               <DotLottiePlayer src={tab.icon} className="size-8" autoplay loop />
+                               <DotLottiePlayer src={tab.icon} className="size-8" />
                              </div>
                              <h3 className="text-3xl font-bold">{tab.title}</h3>
                           </div>

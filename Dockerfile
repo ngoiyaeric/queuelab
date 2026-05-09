@@ -19,6 +19,9 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
+# Force standalone output for the Docker build
+ENV NEXT_STANDALONE=true
+
 # Provide dummy variables if needed for static generation, but the app should handle undefined gracefully
 # ENV NEXT_PUBLIC_FIREBASE_API_KEY="dummy" ...
 

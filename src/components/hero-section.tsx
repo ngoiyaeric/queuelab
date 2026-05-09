@@ -2,12 +2,15 @@
 
 import MapAnimation from "./map-animation";
 import { ActionButton } from "./action-button";
-import BackgroundStars from "@/assets/stars.png";
+import BackgroundStars from "@/assets/stars.webp";
 import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from "framer-motion";
 import { useRef, useState } from "react";
 import React from "react";
-import WebGLGlobe from "./webgl-globe";
+import dynamic from "next/dynamic";
 import { AnimatedText } from "./animated-text";
+
+// Dynamically import heavy WebGL component
+const WebGLGlobe = dynamic(() => import("./webgl-globe"), { ssr: false });
 
 export function HeroSection() {
     const [isAnimationVisible, setIsAnimationVisible] = useState(false);

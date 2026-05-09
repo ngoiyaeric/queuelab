@@ -2,14 +2,16 @@ import SiteHeader from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
 import { LogoTicker } from "@/components/logo-ticker";
 import SiteFooter from "@/components/site-footer";
-import  CallToAction  from "@/components/call-to-action";
-import { Features } from "@/components/features";
-import { Testimonials } from "@/components/testimonials";
-import { GithubIndicator } from "@/components/github-indicator";
-import { PricingSection } from "@/components/pricing-section";
-import { FramerCopilotSection } from "@/components/framer-copilots-section";
+import dynamic from "next/dynamic";
 import { EarthDayCountdown } from "@/components/earth-day-countdown";
-// Removed AnimatedText here as it will be inside HeroSection
+
+// Dynamically import heavy sections below the fold
+const Features = dynamic(() => import("@/components/features").then(mod => mod.Features));
+const FramerCopilotSection = dynamic(() => import("@/components/framer-copilots-section").then(mod => mod.FramerCopilotSection));
+const Testimonials = dynamic(() => import("@/components/testimonials").then(mod => mod.Testimonials));
+const PricingSection = dynamic(() => import("@/components/pricing-section").then(mod => mod.PricingSection));
+const CallToAction = dynamic(() => import("@/components/call-to-action"));
+const GithubIndicator = dynamic(() => import("@/components/github-indicator").then(mod => mod.GithubIndicator));
 
 export default function Home() {
     return (

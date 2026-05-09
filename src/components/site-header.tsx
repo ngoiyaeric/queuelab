@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import SiteLogo from "@/assets/logo.svg";
-import QIcon from "@/assets/new-logo.png";
+import QIcon from "@/assets/new-logo.webp";
 import { Home, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar, Globe, CloudSun } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect } from "react"; // useEffect Added

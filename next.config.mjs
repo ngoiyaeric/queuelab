@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    output: "export",
+    // Enable standalone output for Render (detected via RENDER env var) or manual override
+    output: (process.env.NEXT_STANDALONE === "true" || process.env.RENDER === "true") ? "standalone" : "export",
+
+    images: {
+        // Standalone builds on Render support optimized images; static exports require unoptimized
+        unoptimized: !(process.env.NEXT_STANDALONE === "true" || process.env.RENDER === "true"),
+    },
+
     webpack(config) {
         // Grab the existing rule that handles SVG imports
         const fileLoaderRule = config.module.rules.find((rule) =>
@@ -30,12 +37,4 @@ const nextConfig = {
     },
 };
 
-// Configuration for static export
-const config = {
-    ...nextConfig,
-    images: {
-        unoptimized: true,
-    },
-};
-
-export default config;
+export default nextConfig;
