@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Default to 'export' for CI (GitHub Pages/Firebase Hosting) unless explicitly requested 'standalone'
-    output: process.env.NEXT_STANDALONE === "true" ? "standalone" : "export",
+    // Enable standalone output for Render (detected via RENDER env var) or manual override
+    output: (process.env.NEXT_STANDALONE === "true" || process.env.RENDER === "true") ? "standalone" : "export",
 
     images: {
-        // Static export requires unoptimized images
-        unoptimized: process.env.NEXT_STANDALONE !== "true",
+        // Standalone builds on Render support optimized images; static exports require unoptimized
+        unoptimized: !(process.env.NEXT_STANDALONE === "true" || process.env.RENDER === "true"),
     },
 
     webpack(config) {

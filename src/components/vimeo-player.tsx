@@ -6,12 +6,13 @@ const VimeoPlayer = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
+    const currentIframe = iframeRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          iframeRef.current?.contentWindow?.postMessage('{"method":"play"}', '*');
+          currentIframe?.contentWindow?.postMessage('{"method":"play"}', '*');
         } else {
-          iframeRef.current?.contentWindow?.postMessage('{"method":"pause"}', '*');
+          currentIframe?.contentWindow?.postMessage('{"method":"pause"}', '*');
         }
       },
       {
@@ -19,13 +20,13 @@ const VimeoPlayer = () => {
       }
     );
 
-    if (iframeRef.current) {
-      observer.observe(iframeRef.current);
+    if (currentIframe) {
+      observer.observe(currentIframe);
     }
 
     return () => {
-      if (iframeRef.current) {
-        observer.unobserve(iframeRef.current);
+      if (currentIframe) {
+        observer.unobserve(currentIframe);
       }
     };
   }, []);
