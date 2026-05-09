@@ -35,7 +35,11 @@ const config = {
     ...nextConfig,
     images: {
         unoptimized: true,
+        formats: ['image/avif', 'image/webp'],
     },
+    // Since this is a static export, headers are usually handled by the hosting provider (Firebase/Vercel)
+    // But we can still provide hints or use a custom server if needed.
+    // For Firebase, we should update firebase.json for CDN caching.
 };
 
 export default config;
