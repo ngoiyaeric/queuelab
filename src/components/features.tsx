@@ -6,8 +6,8 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import VimeoPlayer from "./vimeo-player";
 import productGif from "@/assets/product-gif.gif";
-import evaScreenshot from "@/assets/eva-screenshot.png";
-import fixScreenshot from "@/assets/fix-screenshot.png";
+import evaScreenshot from "@/assets/eva-screenshot.webp";
+import fixScreenshot from "@/assets/fix-screenshot.webp";
 
 const tabs = [
   {
@@ -37,16 +37,7 @@ const tabs = [
   },
 ];
 
-const handleImageError = (e: any) => {
-  const imgElement = e.target as HTMLImageElement;
-  const currentSrc = imgElement.src;
 
-  if (currentSrc.endsWith(".PNG")) {
-    imgElement.src = currentSrc.replace(".PNG", ".png");
-  } else if (currentSrc.endsWith(".png")) {
-    imgElement.src = currentSrc.replace(".png", ".PNG");
-  }
-};
 
 
 const DotIndicator = ({ index, scrollYProgress }: { index: number, scrollYProgress: MotionValue<number> }) => {
@@ -91,6 +82,11 @@ export function Features({ id }: { id: string }) {
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
     setIsDialogOpen(true);
+  };
+
+  const handleImageError = () => {
+    setIsDialogOpen(false);
+    setSelectedImage(null);
   };
 
   return (
@@ -138,7 +134,7 @@ export function Features({ id }: { id: string }) {
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
                                 priority
                                 quality={100}
-                                onError={handleImageError}
+
                               />
                             )}
                           </div>

@@ -1,13 +1,13 @@
 "use client"
 
-import MapAnimation from "./map-animation";
 import { ActionButton } from "./action-button";
-import BackgroundStars from "@/assets/stars.png";
-import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { useRef, useState, Suspense, lazy } from "react";
 import React from "react";
-import WebGLGlobe from "./webgl-globe";
 import { AnimatedText } from "./animated-text";
+
+const WebGLGlobe = lazy(() => import("./webgl-globe"));
+const MapAnimation = lazy(() => import("./map-animation"));
 
 export function HeroSection() {
     const [isAnimationVisible, setIsAnimationVisible] = useState(false);
@@ -35,17 +35,21 @@ export function HeroSection() {
                     data-testid="webgl-globe-container"
                 >
                     <div className="w-full h-full pointer-events-auto">
-                        <WebGLGlobe
-                            onClick={() => setIsAnimationVisible(true)}
-                            className="w-full h-full"
-                        />
+                        <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
+                            <WebGLGlobe
+                                onClick={() => setIsAnimationVisible(true)}
+                                className="w-full h-full"
+                            />
+                        </Suspense>
                     </div>
                 </div>            )}
 
             {/* Map Animation - only visible when sphere is clicked */}
             {isAnimationVisible && (
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-full h-full z-20">
-                    <MapAnimation onClose={() => setIsAnimationVisible(false)} />
+                    <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
+                        <MapAnimation onClose={() => setIsAnimationVisible(false)} />
+                    </Suspense>
                 </div>
             )}
 

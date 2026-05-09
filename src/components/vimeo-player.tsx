@@ -19,13 +19,14 @@ const VimeoPlayer = () => {
       }
     );
 
-    if (iframeRef.current) {
-      observer.observe(iframeRef.current);
+    const currentIframe = iframeRef.current;
+    if (currentIframe) {
+      observer.observe(currentIframe);
     }
 
     return () => {
-      if (iframeRef.current) {
-        observer.unobserve(iframeRef.current);
+      if (currentIframe) {
+        observer.unobserve(currentIframe);
       }
     };
   }, []);

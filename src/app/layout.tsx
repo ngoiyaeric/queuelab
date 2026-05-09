@@ -5,7 +5,8 @@ import { clsx } from "clsx";
 import { Roboto } from "next/font/google";
 import { AuthProvider } from '@/components/auth-provider'; // Added import
 import { Analytics } from "@vercel/analytics/react"
-import IntercomMessenger from '@/components/IntercomMessenger';
+import { lazy, Suspense } from 'react';
+const IntercomMessenger = lazy(() => import('@/components/IntercomMessenger'));
 import FirebaseProvider from '@/components/firebase-provider';
 import { DynamicBackground } from '@/components/dynamic-background';
 
@@ -14,6 +15,7 @@ const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
 const instrumentSerif = Instrument_Serif({ subsets: ["latin"], weight: "400", variable: "--font-instrument-serif" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.queue.cx"),
   title: "Artificial General Intelligence",
   description: "QCX - Quality Computers Experience",
   openGraph: {
@@ -38,7 +40,9 @@ export default function RootLayout({
           <AuthProvider> {/* Added AuthProvider wrapper */}
             <DynamicBackground />
             {children}
-            <IntercomMessenger />
+            <Suspense fallback={null}>
+              <IntercomMessenger />
+            </Suspense>
             <Analytics />
           </AuthProvider>
         </FirebaseProvider>

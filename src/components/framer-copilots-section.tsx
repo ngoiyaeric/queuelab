@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import Image from "next/image";
 interface CopilotCard {
   title: string;
   description: string;
@@ -37,6 +38,7 @@ const copilots: CopilotCard[] = [
 ];
 function CopilotCardComponent({ card }: { card: CopilotCard }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [imgError, setImgError] = useState(false);
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -47,12 +49,13 @@ function CopilotCardComponent({ card }: { card: CopilotCard }) {
     >
       <div className="relative rounded-2xl overflow-hidden h-80 border border-white/20 shadow-xl">
         {/* Looping GIF background */}
-        {card.videoSrc && (
-          <img
+        {card.videoSrc && !imgError && (
+          <Image
             src={card.videoSrc}
             alt=""
+            fill
             className="absolute inset-0 w-full h-full object-cover z-0"
-            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+            onError={() => setImgError(true)}
           />
         )}
         {/* Fallback gradient background (visible when video is absent or errors) */}
