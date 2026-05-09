@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    output: "standalone",
+    // Default to 'export' for CI (GitHub Pages/Firebase Hosting) unless explicitly requested 'standalone'
+    output: process.env.NEXT_STANDALONE === "true" ? "standalone" : "export",
+
+    images: {
+        // Static export requires unoptimized images
+        unoptimized: process.env.NEXT_STANDALONE !== "true",
+    },
+
     webpack(config) {
         // Grab the existing rule that handles SVG imports
         const fileLoaderRule = config.module.rules.find((rule) =>
