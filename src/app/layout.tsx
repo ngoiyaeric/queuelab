@@ -14,6 +14,7 @@ const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
 const instrumentSerif = Instrument_Serif({ subsets: ["latin"], weight: "400", variable: "--font-instrument-serif" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.qcx.world"),
   title: "Artificial General Intelligence",
   description: "QCX - Quality Computers Experience",
   openGraph: {

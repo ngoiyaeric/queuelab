@@ -4,7 +4,7 @@ import MapAnimation from "./map-animation";
 import { ActionButton } from "./action-button";
 import BackgroundStars from "@/assets/stars.webp";
 import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
 import { AnimatedText } from "./animated-text";
@@ -15,6 +15,13 @@ const WebGLGlobe = dynamic(() => import("./webgl-globe"), { ssr: false });
 export function HeroSection() {
     const [isAnimationVisible, setIsAnimationVisible] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setIsAnimationVisible(true);
+        }, 1000);
+        return () => clearTimeout(timeout);
+    }, []);
 
     const { scrollY } = useScroll();
     useMotionValueEvent(scrollY, "change", (latest) => {

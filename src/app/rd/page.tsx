@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import CallToAction  from "@/components/call-to-action";
@@ -9,6 +9,21 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
 export default function RDPage() {
+  const [openStates, setOpenStates] = useState([true, true, true, true]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setOpenStates([false, false, false, false]);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleToggle = (index: number) => (e: React.SyntheticEvent<HTMLDetailsElement>) => {
+    const newStates = [...openStates];
+    newStates[index] = e.currentTarget.open;
+    setOpenStates(newStates);
+  };
+
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -26,7 +41,7 @@ export default function RDPage() {
       >
         {/* The div below used to be the <section> tag. We move its padding classes here and make it relative. */}
         <div className="container py-20 md:py-24 relative">
-          <details className="mb-8">
+          <details className="mb-8" open={openStates[0]} onToggle={handleToggle(0)}>
             <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer bg-white/30 backdrop-blur-md border border-white/40 p-4 rounded-lg hover:bg-white/50 text-black shadow-sm transition-colors">
               QueueCX
             </summary>
@@ -51,7 +66,7 @@ export default function RDPage() {
             </div>
           </details>
 
-          <details className="mb-8">
+          <details className="mb-8" open={openStates[1]} onToggle={handleToggle(1)}>
             <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer bg-white/30 backdrop-blur-md border border-white/40 p-4 rounded-lg hover:bg-white/50 text-black shadow-sm transition-colors">
               Environment Aware
             </summary>
@@ -104,7 +119,7 @@ export default function RDPage() {
             </div>
           </details>
 
-          <details className="mb-8">
+          <details className="mb-8" open={openStates[2]} onToggle={handleToggle(2)}>
             <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer bg-white/30 backdrop-blur-md border border-white/40 p-4 rounded-lg hover:bg-white/50 text-black shadow-sm transition-colors">
               Fluidity Index
             </summary>
@@ -113,7 +128,7 @@ export default function RDPage() {
             </div>
           </details>
 
-          <details className="mb-8">
+          <details className="mb-8" open={openStates[3]} onToggle={handleToggle(3)}>
             <summary className="text-5xl tracking-tighter text-center font-medium cursor-pointer bg-white/30 backdrop-blur-md border border-white/40 p-4 rounded-lg hover:bg-white/50 text-black shadow-sm transition-colors">
               Earth Day
             </summary>
