@@ -123,7 +123,11 @@ export function Features({ id }: { id: string }) {
                                    src={tab.icon}
                                    alt={tab.title}
                                    fill
-                                   className="object-contain"
+                                   className={`object-contain ${
+                                     tab.title === "QCX" ? "object-center" : 
+                                     tab.title === "FIX" ? "object-right" : 
+                                     tab.title === "EVA" ? "object-left" : ""
+                                   }`}
                                  />
                                </div>
                              </div>
