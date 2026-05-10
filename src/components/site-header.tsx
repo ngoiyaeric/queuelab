@@ -29,7 +29,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
     }, [user, isDemoModalOpen, setIsDemoModalOpen]);
     return (
         <>
-            <header className="py-4 border-b max-md:backdrop-blur md:border-none sticky top-0 z-50">
+            <header className="py-4 border-b max-md:backdrop-blur md:border-none sticky top-0 z-40">
                 <div className="container max-md:px-4">
                     <div className="flex items-center justify-between md:border md:p-2.5 md:rounded-xl max-w-3xl mx-auto md:backdrop-blur">
                         {/* Mobile: logo on the left */}
