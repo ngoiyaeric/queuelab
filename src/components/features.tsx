@@ -19,6 +19,7 @@ const tabs = [
     description: "QCX is a planet computer gravitational interface for Earth Observation.",
     isNew: false,
     image: productGif,
+    logo: "/assets/logos/qcx.png",
     component: true, // Use boolean to indicate dynamic component
     slideBackground: "from-green-50 via-emerald-50 to-green-100",
   },
@@ -27,7 +28,8 @@ const tabs = [
     title: "Fluidity Index",
     description: "FIX is a signal abstraction energy based evaluation and alignment system.",
     isNew: true,
-    image: evaScreenshot,
+    image: fixScreenshot,
+    logo: "/assets/logos/fix.png",
     slideBackground: "from-yellow-50 via-amber-50 to-yellow-100",
   },
   {
@@ -35,7 +37,8 @@ const tabs = [
     title: "Environment Aware",
     description: "EVA is a vibrational interface autonomous new knowledge discovery system.",
     isNew: false,
-    image: fixScreenshot,
+    image: evaScreenshot,
+    logo: "/assets/logos/environment-aware.png",
     slideBackground: "from-sky-50 via-blue-50 to-cyan-50",
   },
 ];
@@ -96,6 +99,8 @@ export function Features({ id }: { id: string }) {
     setIsDialogOpen(true);
   };
 
+  const selectedTabData = tabs.find(t => t.image.src === selectedImage);
+
   return (
     <>
       <section className="bg-background" id={id}>
@@ -144,6 +149,15 @@ export function Features({ id }: { id: string }) {
                                 onError={handleImageError}
                               />
                             )}
+                            <div className="absolute top-4 left-4 z-10 w-24 md:w-32 pointer-events-none">
+                               <Image
+                                 src={tab.logo}
+                                 alt={`${tab.title} logo`}
+                                 width={128}
+                                 height={128}
+                                 className="object-contain"
+                               />
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -175,6 +189,17 @@ export function Features({ id }: { id: string }) {
                 quality={100}
                 onError={handleImageError}
               />
+              {selectedTabData && (
+                <div className="absolute top-6 left-6 z-10 w-32 md:w-48 pointer-events-none">
+                  <Image
+                    src={selectedTabData.logo}
+                    alt={`${selectedTabData.title} logo`}
+                    width={192}
+                    height={192}
+                    className="object-contain"
+                  />
+                </div>
+              )}
             </div>
             <button
               onClick={() => setIsDialogOpen(false)}
