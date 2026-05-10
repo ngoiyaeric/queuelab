@@ -7,6 +7,9 @@ import dynamic from "next/dynamic";
 import productGif from "@/assets/product-gif.gif";
 import evaScreenshot from "@/assets/eva-screenshot.webp";
 import fixScreenshot from "@/assets/fix-screenshot.webp";
+import qcxLogo from "@/assets/qcx-logo.png";
+import fixLogo from "@/assets/fix-logo.png";
+import evaLogo from "@/assets/eva-logo.png";
 
 // Dynamically import heavy components
 const DotLottiePlayer = dynamic(() => import("@dotlottie/react-player").then(mod => mod.DotLottiePlayer), { ssr: false });
@@ -21,6 +24,7 @@ const tabs = [
     image: productGif,
     component: true, // Use boolean to indicate dynamic component
     slideBackground: "from-green-50 via-emerald-50 to-green-100",
+    logo: qcxLogo,
   },
   {
     icon: "/assets/lottie/stars.lottie",
@@ -29,6 +33,7 @@ const tabs = [
     isNew: true,
     image: evaScreenshot,
     slideBackground: "from-yellow-50 via-amber-50 to-yellow-100",
+    logo: fixLogo,
   },
   {
     icon: "/assets/lottie/click.lottie",
@@ -37,6 +42,7 @@ const tabs = [
     isNew: false,
     image: fixScreenshot,
     slideBackground: "from-sky-50 via-blue-50 to-cyan-50",
+    logo: evaLogo,
   },
 ];
 
@@ -114,7 +120,20 @@ export function Features({ id }: { id: string }) {
                   <div key={index} className="w-full px-4">
                     <div className="max-w-5xl mx-auto">
                       {/* Per-slide background with fade */}
-                      <div className={`rounded-3xl p-6 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700`}>
+                      <div className={`rounded-3xl p-6 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700 relative pt-24`}>
+                        {/* Logo positioned above the product section */}
+                        <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 z-40">
+                          <div className="relative w-32 h-32">
+                            <Image
+                              src={tab.logo.src}
+                              alt={`${tab.title} logo`}
+                              fill
+                              className="object-contain drop-shadow-lg"
+                              sizes="128px"
+                              priority
+                            />
+                          </div>
+                        </div>
                         <div className="flex flex-col items-center gap-4 mb-6 text-center">
                           <div className="flex flex-col items-center gap-3">
                              <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm">
