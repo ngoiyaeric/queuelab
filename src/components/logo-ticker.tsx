@@ -10,19 +10,34 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-const logos = [
+interface IconLogo {
+  src: object;
+  type: "icon";
+}
+
+interface LocalLogo {
+  src: string;
+  type: "local";
+  height: number;
+  width: number;
+  className?: string;
+}
+
+type Logo = IconLogo | LocalLogo;
+
+const logos: Logo[] = [
   { src: googleCloud, type: "icon" },
   { src: microsoft, type: "icon" },
   { src: aws, type: "icon" },
   { src: github, type: "icon" },
   { src: nvidia, type: "icon" },
-  { src: "/assets/logos/mit-logo.png", type: "local" },
+  { src: "/assets/logos/mit-logo.png", type: "local", height: 56, width: 168, className: "h-14" },
   { src: googleCloud, type: "icon" },
   { src: microsoft, type: "icon" },
   { src: aws, type: "icon" },
   { src: github, type: "icon" },
   { src: nvidia, type: "icon" },
-  { src: "/assets/logos/mit-logo.png", type: "local" },
+  { src: "/assets/logos/mit-logo.png", type: "local", height: 56, width: 168, className: "h-14" },
 ];
 
 export function LogoTicker() {
@@ -75,11 +90,11 @@ export function LogoTicker() {
                   ) : (
                     <div key={index} className="flex-none">
                       <Image
-                        src={logo.src as string}
+                        src={logo.src}
                         alt="Partner Logo"
-                        height={32}
-                        width={100}
-                        className={"h-8 w-auto object-contain"}
+                        height={logo.height}
+                        width={logo.width}
+                        className={`object-contain w-auto ${logo.className || "h-8"}`}
                       />
                     </div>
                   )
