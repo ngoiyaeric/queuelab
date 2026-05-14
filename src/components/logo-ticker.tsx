@@ -8,8 +8,22 @@ import github from "@iconify/icons-logos/github";
 import nvidia from "@iconify/icons-logos/nvidia";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
-const logos = [googleCloud, microsoft, aws, github, nvidia, googleCloud, microsoft, aws, github, nvidia];
+const logos = [
+  { src: googleCloud, type: "icon" },
+  { src: microsoft, type: "icon" },
+  { src: aws, type: "icon" },
+  { src: github, type: "icon" },
+  { src: nvidia, type: "icon" },
+  { src: "/assets/logos/mit-logo.png", type: "local" },
+  { src: googleCloud, type: "icon" },
+  { src: microsoft, type: "icon" },
+  { src: aws, type: "icon" },
+  { src: github, type: "icon" },
+  { src: nvidia, type: "icon" },
+  { src: "/assets/logos/mit-logo.png", type: "local" },
+];
 
 export function LogoTicker() {
   const [isMobile, setIsMobile] = useState(false);
@@ -48,15 +62,27 @@ export function LogoTicker() {
                   duration: isMobile ? 30 : 20,
                   ease: "linear",
                 }}
-                className={"flex flex-none gap-14 pr-14 w-max"}
+                className={"flex flex-none gap-14 pr-14 w-max items-center"}
               >
                 {logos.map((logo, index) => (
-                  <Icon
-                    icon={logo}
-                    key={index}
-                    height={32}
-                    className={"w-auto"}
-                  />
+                  logo.type === "icon" ? (
+                    <Icon
+                      icon={logo.src as any}
+                      key={index}
+                      height={32}
+                      className={"w-auto flex-none"}
+                    />
+                  ) : (
+                    <div key={index} className="flex-none">
+                      <Image
+                        src={logo.src as string}
+                        alt="Partner Logo"
+                        height={32}
+                        width={100}
+                        className={"h-8 w-auto object-contain"}
+                      />
+                    </div>
+                  )
                 ))}
               </motion.div>
             </div>
