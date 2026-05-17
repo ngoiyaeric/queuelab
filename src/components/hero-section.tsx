@@ -37,7 +37,7 @@ export function HeroSection() {
                     className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
                     data-testid="webgl-globe-container"
                 >
-                    <div className="w-full h-full pointer-events-auto">
+                    <div className="w-[800px] h-[800px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto [&>div>div]:!flex [&>div>div]:!items-center [&>div>div]:!justify-center">
                         <WebGLGlobe
                             onClick={() => setIsAnimationVisible(true)}
                             className="w-full h-full"
