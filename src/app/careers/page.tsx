@@ -51,7 +51,7 @@ export default function CareersPage() {
                     <p className="text-lg text-gray-600 mb-4">Chief Executive Officer</p>
                     {isBioExpanded && (
                       <p className="text-sm text-gray-700 mb-6 text-center max-w-md">
-                        Eric Ngoiya is an East African graduate scientist and researcher. Eric participated in Genesys GPT-2 hackathons in 2019 and wrote code on the nano satellite cubesat mission at Lassonde School of Engineering for Environment Observations. Eric is lead author of a cited scientific publication Fluidity Index: Next Generation Super-Intelligence Benchmarks research.
+                        I am a business leader and researcher at QueueCX Inc, an Artificial General Intelligence Company. Our AGI laboratory has recently published novel benchmarks research on Super-Intelligence featured at MIT Media Laboratory and University of Singapore&apos;s functional intelligent materials conference.
                       </p>
                     )}
                     <button
