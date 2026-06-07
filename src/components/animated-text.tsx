@@ -18,7 +18,7 @@ export const AnimatedText = () => {
 
     const handleClick = () => {
         if (isDefinitionVisible && isAnimationComplete) {
-            router.push("/white-paper");
+            router.push("/lab");
         } else {
             setIsDefinitionVisible(!isDefinitionVisible);
             setIsAnimationComplete(false);
