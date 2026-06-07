@@ -6,7 +6,7 @@ import SiteFooter from "@/components/site-footer";
 import { motion, useScroll, useTransform } from "framer-motion";
 import WebGLGlobe from "@/components/webgl-globe";
 
-export default function WhitePaper() {
+export default function LabPage() {
   const sectionRef = useRef<HTMLElement>(null);
 
   // Track scroll for background parallax (relative to section)
@@ -91,7 +91,7 @@ export default function WhitePaper() {
             <section className="border-t border-black/10 pt-10">
               <h2 className="text-2xl font-semibold text-black mb-4 tracking-tight">Contact</h2>
               <p>
-                For technical inquiries regarding our research and white paper, please reach out to us at <a href="mailto:relations@queue.cx" className="text-black font-medium underline underline-offset-4 hover:text-black/80 transition-colors">relations@queue.cx</a>.
+                For technical inquiries regarding our research and lab, please reach out to us at <a href="mailto:relations@queue.cx" className="text-black font-medium underline underline-offset-4 hover:text-black/80 transition-colors">relations@queue.cx</a>.
               </p>
             </section>
           </div>
