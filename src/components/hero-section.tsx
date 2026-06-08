@@ -79,9 +79,9 @@ export function HeroSection() {
                         className="text-center pointer-events-auto"
                     >
                         <p className={"font-handwriting text-lg md:text-xl max-w-xl mx-auto text-muted-foreground mt-5"}>
-                            is a planet-scale multi-agent intelligence platform for exploration and automation. Your environment aware planet computer for enterprise
+                            is a planet-scale multi-agent intelligence platform for exploration and automation. Your environment aware planet computer for
                         </p>
-                        <span className={"text-sm font-bold tracking-wider text-black block mt-2"}>                            QUALITY COMPUTER EXPERIENCES
+                        <span className={"text-sm font-bold tracking-wider text-black block mt-2"}>                            ENTERPRISE QUALITY COMPUTER EXPERIENCES
                         </span>
                         <div className={"flex justify-center mt-5 relative z-10"}>
                             <ActionButton label={"core"} href={"https://www.qcx.world"} />
