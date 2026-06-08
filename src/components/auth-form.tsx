@@ -82,7 +82,7 @@ export function AuthForm() {
                     {isLoginView ? 'Queue In' : 'Queue Up'}
                 </h2>
                 <p className="text-center text-sm text-gray-500 mb-8">
-                    Quality Computer Experiences
+                    Enterprise Quality Computer Experiences
                 </p>
 
                 {error && <p className="mb-6 text-red-600 bg-red-50 p-3 rounded-lg text-center text-sm border border-red-100">{error}</p>}

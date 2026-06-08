@@ -16,10 +16,10 @@ const instrumentSerif = Instrument_Serif({ subsets: ["latin"], weight: "400", va
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.queue.cx'),
   title: "Artificial General Intelligence",
-  description: "QCX - Quality Computers Experience",
+  description: "QCX - Enterprise Quality Computer Experiences",
   openGraph: {
     title: "Artificial General Intelligence",
-    description: "QCX - Quality Computers Experience",
+    description: "QCX - Enterprise Quality Computer Experiences",
     images: "/opengraph-image.jpg", // Relative path to the image
     url: "https://www.queue.cx", // Updated to queue.cx
     type: "website",
