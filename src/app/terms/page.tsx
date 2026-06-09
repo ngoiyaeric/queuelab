@@ -32,7 +32,7 @@ export default function TermsPage() {
           <div className="text-center mb-16">
             <h1 className="text-5xl tracking-tighter font-medium text-foreground">Terms of Service</h1>
             <p className="text-lg md:text-xl text-muted-foreground tracking-tight mt-4">
-              Last Updated: March 10, 2025
+              Last Updated: June 9, 2026
             </p>
           </div>
 

@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "out",
+    "cleanUrls": true,
     "frameworksBackend": {
       "omit": true
     },
@@ -8,12 +9,6 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   }
 }
