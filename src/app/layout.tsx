@@ -34,7 +34,24 @@ export default function RootLayout({
 
       </head>
       <body className={clsx(inter.className, roboto.className, instrumentSerif.variable, "antialiased")}>
-        <ClerkProvider dynamic>
+        <ClerkProvider
+          dynamic
+          afterSignUpUrl="/onboarding"
+          afterSignInUrl="/dashboard"
+          appearance={{
+            variables: {
+              colorPrimary: "#000000",
+              colorBackground: "#ffffff",
+              borderRadius: "0.75rem",
+              fontFamily: "Inter, sans-serif",
+            },
+            elements: {
+              card: "shadow-xl border border-black/5",
+              formButtonPrimary: "bg-black hover:bg-zinc-800 text-white",
+              footerActionLink: "text-black hover:text-zinc-700",
+            },
+          }}
+        >
           <DynamicBackground />
           {children}
           <IntercomMessenger />

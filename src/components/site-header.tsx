@@ -53,13 +53,10 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
 
                             <div className="flex items-center gap-4">
                                 <SignedOut>
-                                    <SignInButton mode="modal">
-                                        <Button variant="ghost" size="sm">Sign In</Button>
-                                    </SignInButton>
                                     <SignUpButton mode="modal">
                                         <ActionButton label="Queue Up" className="book-demo-button" />
                                     </SignUpButton>
-                                </SignedOut>
+
                                 <SignedIn>
                                     <Button variant="outline" size="sm" className="dashboard-button" asChild>
                                         <Link href="/dashboard">Dashboard</Link>

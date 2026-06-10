@@ -45,6 +45,21 @@
   }
 }
 
+/* Clerk modal overrides: counter the body zoom so modals display at correct scale */
+.cl-modalBackdrop {
+  zoom: calc(1 / 0.75);
+}
+
+/* Ensure Clerk modal is centered and properly sized */
+.cl-card {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12) !important;
+  border-radius: 1rem !important;
+}
+
+.cl-rootBox {
+  width: 100%;
+}
+
 .season-font {
   font-family: 'Inter', sans-serif;
   color: hsla(0, 0%, 0%, 0.7);
