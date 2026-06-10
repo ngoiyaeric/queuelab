@@ -1,16 +1,14 @@
 {
   "hosting": {
     "public": "out",
+    "cleanUrls": true,
+    "frameworksBackend": {
+      "omit": true
+    },
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   }
 }

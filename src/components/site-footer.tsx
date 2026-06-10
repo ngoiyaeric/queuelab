@@ -20,6 +20,10 @@ export default function SiteFooter() {
                             Privacy
                         </Link>
 
+                        <Link href="/terms" className="text-sm text-muted-foreground hover:underline">
+                            Terms
+                        </Link>
+
                         <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
                             ©️ 2026 QueueCX, Inc. All rights reserved. Built by <a
                             href={"https://discord.gg/NqGY9EWjWj"}
