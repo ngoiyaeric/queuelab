@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { X } from 'lucide-react';
 import MapAnimation from '@/components/map-animation';
-import { AuthForm } from '@/components/auth-form';
+import { SignIn } from '@clerk/nextjs';
 
 export default function LoginPage() {
   return (
@@ -19,8 +19,8 @@ export default function LoginPage() {
       </Link>
 
       {/* Auth Form */}
-      <div className="w-full max-w-[420px] z-10 relative">
-        <AuthForm />
+      <div className="w-full max-w-[420px] z-10 relative flex justify-center">
+        <SignIn routing="hash" />
       </div>
     </div>
   );

@@ -2,29 +2,30 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { FlowerScene } from "@/components/flower-scene";
 import SiteLogo from "@/assets/logo.svg";
+import { useUser, useClerk } from "@clerk/nextjs";
 
 export default function Dashboard() {
-    const { user, loading, signOut } = useAuth();
+    const { user, isLoaded } = useUser();
+    const { signOut } = useClerk();
     const router = useRouter();
     const [currentTime, setCurrentTime] = useState("");
 
     useEffect(() => {
-        if (!loading && !user) {
+        if (isLoaded && !user) {
             router.push("/");
         }
 
-        if (user && user.metadata.lastSignInTime) {
-           setCurrentTime(new Date(user.metadata.lastSignInTime).toLocaleString());
+        if (user && user.lastSignInAt) {
+           setCurrentTime(new Date(user.lastSignInAt).toLocaleString());
         } else {
            setCurrentTime(new Date().toLocaleString());
         }
-    }, [user, loading, router]);
+    }, [user, isLoaded, router]);
 
     const handleSignOut = async () => {
         try {
@@ -35,7 +36,7 @@ export default function Dashboard() {
         }
     };
 
-    if (loading || !user) {
+    if (!isLoaded || !user) {
         return (
             <div className="flex h-screen items-center justify-center bg-black">
                 <div className="text-white text-xl animate-pulse">Loading Dashboard...</div>
@@ -53,7 +54,7 @@ export default function Dashboard() {
                         <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Dashboard</h1>
                     </div>
                     <nav className="flex items-center gap-4 text-sm font-medium">
-                        <span className="text-zinc-400 hidden sm:inline-block">Logged in as: <span className="text-white font-semibold">{user.displayName || user.email}</span></span>
+                        <span className="text-zinc-400 hidden sm:inline-block">Logged in as: <span className="text-white font-semibold">{user.fullName || user.primaryEmailAddress?.emailAddress}</span></span>
                         <Button
                             variant="outline"
                             className="bg-transparent border-white/20 text-white hover:bg-white/10"
@@ -90,13 +91,13 @@ export default function Dashboard() {
                 <h2 className="text-xl font-semibold text-white mb-2 text-balance">Welcome Back!</h2>
                 <div className="space-y-2 mb-4">
                     <p className="text-sm text-zinc-300 leading-relaxed">
-                        <span className="text-zinc-500 mr-2">User:</span> {user.displayName || user.email}
+                        <span className="text-zinc-500 mr-2">User:</span> {user.fullName || user.primaryEmailAddress?.emailAddress}
                     </p>
                     <p className="text-sm text-zinc-300 leading-relaxed">
                         <span className="text-zinc-500 mr-2">Login Time:</span> {currentTime}
                     </p>
                     <p className="text-sm text-zinc-300 leading-relaxed">
-                        <span className="text-zinc-500 mr-2">User ID:</span> <span className="font-mono text-xs">{user.uid}</span>
+                        <span className="text-zinc-500 mr-2">User ID:</span> <span className="font-mono text-xs">{user.id}</span>
                     </p>
                 </div>
             </div>

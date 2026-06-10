@@ -2,16 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import SiteLogo from "@/assets/logo.svg";
 import QIcon from "@/assets/q-logo.png";
 import { Home, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar, Globe, CloudSun } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useState, useEffect } from "react"; // useEffect Added
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Modal, ModalContent, ModalTrigger } from "@/components/ui/modal";
-import { useAuth } from '@/components/auth-provider'; // New import
-import { AuthForm } from '@/components/auth-form';   // New import
 import { ActionButton } from '@/components/action-button';
+import { SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
 
 interface SiteHeaderProps {
   rdCount?: number;
@@ -19,14 +16,7 @@ interface SiteHeaderProps {
 
 export default function SiteHeader({ rdCount }: SiteHeaderProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
-    const { user, loading: authLoading, signOut } = useAuth(); // Get auth state
 
-    useEffect(() => {
-        if (user && isDemoModalOpen) {
-            setIsDemoModalOpen(false);
-        }
-    }, [user, isDemoModalOpen, setIsDemoModalOpen]);
     return (
         <>
             <header className="py-4 border-b max-md:backdrop-blur md:border-none sticky top-0 z-50">
@@ -60,32 +50,24 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                 </Link>
                                 <Link href="https://climate.stripe.com/3OeWSf" className="text-muted-foreground hover:text-foreground transition" target="_blank">Environment</Link>
                             </nav>
-                            {authLoading ? (
-                                <Button variant="default" size="sm" className="book-demo-button" disabled>
-                                    Loading...
-                                </Button>
-                            ) : user ? (
-                                <div className="flex gap-2">
+
+                            <div className="flex items-center gap-4">
+                                <Show when="signed-out">
+                                    <SignInButton mode="modal">
+                                        <Button variant="ghost" size="sm">Sign In</Button>
+                                    </SignInButton>
+                                    <SignUpButton mode="modal">
+                                        <ActionButton label="Queue Up" className="book-demo-button" />
+                                    </SignUpButton>
+                                </Show>
+                                <Show when="signed-in">
                                     <Button variant="outline" size="sm" className="dashboard-button" asChild>
                                         <Link href="/dashboard">Dashboard</Link>
                                     </Button>
-                                    <Button variant="outline" size="sm" onClick={signOut} className="logout-button">
-                                        Logout
-                                    </Button>
-                                </div>
-                            ) : (
-                                <Modal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
-                                    <ModalTrigger asChild>
-                                        <ActionButton label="Queue Up" href="https://www.qcx.world" target="_blank" className="book-demo-button" onClick={(e) => {
-                                            e.preventDefault();
-                                            setIsDemoModalOpen(true);
-                                        }} />
-                                    </ModalTrigger>
-                                    <ModalContent className="bg-background/80 backdrop-blur-lg border border-border text-foreground p-0">
-                                        <AuthForm />
-                                    </ModalContent>
-                                </Modal>
-                            )}
+                                    <UserButton />
+                                </Show>
+                            </div>
+
                             <div className="flex items-center gap-2">
                                 <Link href="https://cal.com/ericngoiya" target="_blank">
                                     <Calendar className="size-9 p-2 border rounded-lg hover:text-muted-foreground transition" />
@@ -128,6 +110,23 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                                 <CloudSun className="size-6" />
                                                 Environment
                                             </Link>
+                                            <Show when="signed-out">
+                                                <SignInButton mode="modal">
+                                                    <Button variant="outline" className="w-full">Sign In</Button>
+                                                </SignInButton>
+                                                <SignUpButton mode="modal">
+                                                    <Button className="w-full">Sign Up</Button>
+                                                </SignUpButton>
+                                            </Show>
+                                            <Show when="signed-in">
+                                                <Link href="/dashboard" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition">
+                                                    Dashboard
+                                                </Link>
+                                                <div className="flex items-center gap-3">
+                                                    <UserButton />
+                                                    <span className="text-muted-foreground">Profile</span>
+                                                </div>
+                                            </Show>
                                         </nav>
                                     </div>
                                 </SheetContent>

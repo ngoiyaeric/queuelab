@@ -3,10 +3,9 @@ import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { clsx } from "clsx";
 import { Roboto } from "next/font/google";
-import { AuthProvider } from '@/components/auth-provider'; // Added import
+import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/react"
 import IntercomMessenger from '@/components/IntercomMessenger';
-import FirebaseProvider from '@/components/firebase-provider';
 import { DynamicBackground } from '@/components/dynamic-background';
 
 const inter = Inter({ subsets: ["latin"] });
@@ -35,14 +34,12 @@ export default function RootLayout({
 
       </head>
       <body className={clsx(inter.className, roboto.className, instrumentSerif.variable, "antialiased")}>
-        <FirebaseProvider>
-          <AuthProvider> {/* Added AuthProvider wrapper */}
-            <DynamicBackground />
-            {children}
-            <IntercomMessenger />
-            <Analytics />
-          </AuthProvider>
-        </FirebaseProvider>
+        <ClerkProvider>
+          <DynamicBackground />
+          {children}
+          <IntercomMessenger />
+          <Analytics />
+        </ClerkProvider>
       </body>
     </html>
   );
