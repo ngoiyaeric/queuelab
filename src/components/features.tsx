@@ -85,17 +85,17 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: num
   const mid = start + segmentSize / 2;
   const end = start + segmentSize;
 
-  // Fade in as the slide becomes active, but keep it partially visible when adjacent
+  // Fade in as the slide becomes active
   const opacity = useTransform(
     scrollYProgress,
-    [start - 0.1, mid, end + 0.1],
+    [start - 0.05, mid, end + 0.05],
     [0, 1, 0]
   );
 
   return (
     <motion.span
       style={{ opacity, fontFamily: "var(--font-instrument-serif)" }}
-      className="hidden lg:block text-7xl xl:text-9xl italic text-muted-foreground/30 absolute left-[-15%] top-1/2 -translate-y-1/2 -translate-x-full whitespace-nowrap pointer-events-none select-none z-10"
+      className="hidden lg:block lg:text-4xl xl:text-6xl italic text-muted-foreground/60 absolute left-[-2%] top-1/2 -translate-y-1/2 -translate-x-full whitespace-nowrap pointer-events-none select-none z-10"
     >
       {word}
     </motion.span>
