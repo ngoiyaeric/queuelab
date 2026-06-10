@@ -34,7 +34,7 @@ export default function RootLayout({
 
       </head>
       <body className={clsx(inter.className, roboto.className, instrumentSerif.variable, "antialiased")}>
-        <ClerkProvider>
+        <ClerkProvider dynamic>
           <DynamicBackground />
           {children}
           <IntercomMessenger />

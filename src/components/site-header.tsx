@@ -8,7 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ActionButton } from '@/components/action-button';
-import { SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 interface SiteHeaderProps {
   rdCount?: number;
@@ -52,20 +52,20 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                             </nav>
 
                             <div className="flex items-center gap-4">
-                                <Show when="signed-out">
+                                <SignedOut>
                                     <SignInButton mode="modal">
                                         <Button variant="ghost" size="sm">Sign In</Button>
                                     </SignInButton>
                                     <SignUpButton mode="modal">
                                         <ActionButton label="Queue Up" className="book-demo-button" />
                                     </SignUpButton>
-                                </Show>
-                                <Show when="signed-in">
+                                </SignedOut>
+                                <SignedIn>
                                     <Button variant="outline" size="sm" className="dashboard-button" asChild>
                                         <Link href="/dashboard">Dashboard</Link>
                                     </Button>
                                     <UserButton />
-                                </Show>
+                                </SignedIn>
                             </div>
 
                             <div className="flex items-center gap-2">
@@ -110,15 +110,15 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                                 <CloudSun className="size-6" />
                                                 Environment
                                             </Link>
-                                            <Show when="signed-out">
+                                            <SignedOut>
                                                 <SignInButton mode="modal">
                                                     <Button variant="outline" className="w-full">Sign In</Button>
                                                 </SignInButton>
                                                 <SignUpButton mode="modal">
                                                     <Button className="w-full">Sign Up</Button>
                                                 </SignUpButton>
-                                            </Show>
-                                            <Show when="signed-in">
+                                            </SignedOut>
+                                            <SignedIn>
                                                 <Link href="/dashboard" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition">
                                                     Dashboard
                                                 </Link>
@@ -126,7 +126,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                                     <UserButton />
                                                     <span className="text-muted-foreground">Profile</span>
                                                 </div>
-                                            </Show>
+                                            </SignedIn>
                                         </nav>
                                     </div>
                                 </SheetContent>
