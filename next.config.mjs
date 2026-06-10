@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Enable standalone output for Render (detected via RENDER env var) or manual override
-    output: (process.env.NEXT_STANDALONE === "true" || process.env.RENDER === "true") ? "standalone" : "export",
+    // We remove 'output: export' as it is incompatible with Clerk's Server Actions and Middleware.
+    // Defaulting to serverful mode for full feature support.
 
     images: {
-        // Standalone builds on Render support optimized images; static exports require unoptimized
-        unoptimized: !(process.env.NEXT_STANDALONE === "true" || process.env.RENDER === "true"),
+        unoptimized: true,
     },
 
     webpack(config) {
