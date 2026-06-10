@@ -14,6 +14,16 @@ const VimeoPlayer = dynamic(() => import("./vimeo-player"), { ssr: false });
 
 const tabs = [
   {
+    prefix: "Why?",
+    icon: "/assets/lottie/stars.lottie",
+    title: "Fluidity Index",
+    description: "FIX is a signal abstraction energy based evaluation and alignment system.",
+    isNew: true,
+    image: fixScreenshot,
+    slideBackground: "from-yellow-50 via-amber-50 to-yellow-100",
+  },
+  {
+    prefix: "Where?",
     icon: "/assets/lottie/vroom.lottie",
     title: "QCX",
     description: "QCX is a planet computer gravitational interface for Earth Observation.",
@@ -23,19 +33,12 @@ const tabs = [
     slideBackground: "from-green-50 via-emerald-50 to-green-100",
   },
   {
-    icon: "/assets/lottie/stars.lottie",
-    title: "Fluidity Index",
-    description: "FIX is a signal abstraction energy based evaluation and alignment system.",
-    isNew: true,
-    image: evaScreenshot,
-    slideBackground: "from-yellow-50 via-amber-50 to-yellow-100",
-  },
-  {
+    prefix: "How?",
     icon: "/assets/lottie/click.lottie",
     title: "Environment Aware",
     description: "EVA is a vibrational interface autonomous new knowledge discovery system.",
     isNew: false,
-    image: fixScreenshot,
+    image: evaScreenshot,
     slideBackground: "from-sky-50 via-blue-50 to-cyan-50",
   },
 ];
@@ -73,6 +76,29 @@ const DotIndicator = ({ index, scrollYProgress }: { index: number, scrollYProgre
       style={{ opacity, scale }}
       className="size-2.5 rounded-full bg-gray-400"
     />
+  );
+};
+
+const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: number, scrollYProgress: MotionValue<number> }) => {
+  const segmentSize = 0.75 / 3;
+  const start = index * segmentSize;
+  const mid = start + segmentSize / 2;
+  const end = start + segmentSize;
+
+  // Fade in as the slide becomes active
+  const opacity = useTransform(
+    scrollYProgress,
+    [start, mid, end],
+    [0, 1, 0]
+  );
+
+  return (
+    <motion.span
+      style={{ opacity, fontFamily: "var(--font-instrument-serif)" }}
+      className="text-4xl md:text-5xl italic text-muted-foreground/60 mb-2 block"
+    >
+      {word}
+    </motion.span>
   );
 };
 
@@ -116,6 +142,7 @@ export function Features({ id }: { id: string }) {
                       {/* Per-slide background with fade */}
                       <div className={`rounded-3xl p-6 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700`}>
                         <div className="flex flex-col items-center gap-4 mb-6 text-center">
+                          <PrefixWord word={tab.prefix} index={index} scrollYProgress={scrollYProgress} />
                           <div className="flex flex-col items-center gap-3">
                              <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm">
                                <DotLottiePlayer src={tab.icon} className="size-8" />
