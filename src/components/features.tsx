@@ -85,17 +85,17 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: num
   const mid = start + segmentSize / 2;
   const end = start + segmentSize;
 
-  // Fade in as the slide becomes active
+  // Fade in as the slide becomes active, but keep it partially visible when adjacent
   const opacity = useTransform(
     scrollYProgress,
-    [start, mid, end],
+    [start - 0.1, mid, end + 0.1],
     [0, 1, 0]
   );
 
   return (
     <motion.span
       style={{ opacity, fontFamily: "var(--font-instrument-serif)" }}
-      className="text-4xl md:text-5xl italic text-muted-foreground/60 mb-2 block"
+      className="hidden lg:block text-7xl xl:text-9xl italic text-muted-foreground/30 absolute left-[-15%] top-1/2 -translate-y-1/2 -translate-x-full whitespace-nowrap pointer-events-none select-none z-10"
     >
       {word}
     </motion.span>
@@ -138,11 +138,11 @@ export function Features({ id }: { id: string }) {
               >
                 {tabs.map((tab, index) => (
                   <div key={index} className="w-full px-4">
-                    <div className="max-w-5xl mx-auto">
+                    <div className="max-w-5xl mx-auto relative">
+                      <PrefixWord word={tab.prefix} index={index} scrollYProgress={scrollYProgress} />
                       {/* Per-slide background with fade */}
                       <div className={`rounded-3xl p-6 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700`}>
                         <div className="flex flex-col items-center gap-4 mb-6 text-center">
-                          <PrefixWord word={tab.prefix} index={index} scrollYProgress={scrollYProgress} />
                           <div className="flex flex-col items-center gap-3">
                              <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm">
                                <DotLottiePlayer src={tab.icon} className="size-8" />
