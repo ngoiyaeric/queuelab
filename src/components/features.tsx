@@ -95,7 +95,7 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: num
   return (
     <motion.span
       style={{ opacity, fontFamily: "var(--font-instrument-serif)" }}
-      className="hidden lg:block lg:text-4xl xl:text-6xl italic text-muted-foreground/60 absolute left-[-2%] top-1/2 -translate-y-1/2 -translate-x-full whitespace-nowrap pointer-events-none select-none z-10"
+      className="hidden lg:block text-2xl xl:text-4xl italic text-muted-foreground/80 absolute left-[-24px] top-1/2 -translate-y-1/2 -translate-x-full whitespace-nowrap pointer-events-none select-none z-10"
     >
       {word}
     </motion.span>
@@ -134,7 +134,7 @@ export function Features({ id }: { id: string }) {
 
               <motion.div
                 style={{ x }}
-                className="flex gap-8 w-[300%]"
+                className="flex gap-48 w-[300%]"
               >
                 {tabs.map((tab, index) => (
                   <div key={index} className="w-full px-4">
