@@ -14,6 +14,16 @@ const VimeoPlayer = dynamic(() => import("./vimeo-player"), { ssr: false });
 
 const tabs = [
   {
+    prefix: "Why?",
+    icon: "/assets/lottie/stars.lottie",
+    title: "Fluidity Index",
+    description: "FIX is a signal abstraction energy based evaluation and alignment system.",
+    isNew: true,
+    image: evaScreenshot,
+    slideBackground: "from-yellow-50 via-amber-50 to-yellow-100",
+  },
+  {
+    prefix: "Where?",
     icon: "/assets/lottie/vroom.lottie",
     title: "QCX",
     description: "QCX is a planet computer gravitational interface for Earth Observation.",
@@ -23,14 +33,7 @@ const tabs = [
     slideBackground: "from-green-50 via-emerald-50 to-green-100",
   },
   {
-    icon: "/assets/lottie/stars.lottie",
-    title: "Fluidity Index",
-    description: "FIX is a signal abstraction energy based evaluation and alignment system.",
-    isNew: true,
-    image: evaScreenshot,
-    slideBackground: "from-yellow-50 via-amber-50 to-yellow-100",
-  },
-  {
+    prefix: "How?",
     icon: "/assets/lottie/click.lottie",
     title: "Environment Aware",
     description: "EVA is a vibrational interface autonomous new knowledge discovery system.",
@@ -76,6 +79,29 @@ const DotIndicator = ({ index, scrollYProgress }: { index: number, scrollYProgre
   );
 };
 
+const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: number, scrollYProgress: MotionValue<number> }) => {
+  const segmentSize = 0.75 / 3;
+  const start = index * segmentSize;
+  const mid = start + segmentSize / 2;
+  const end = start + segmentSize;
+
+  // Fade in as the slide becomes active
+  const opacity = useTransform(
+    scrollYProgress,
+    [start - 0.05, mid, end + 0.05],
+    [0, 1, 0]
+  );
+
+  return (
+    <motion.span
+      style={{ opacity, fontFamily: "var(--font-instrument-serif)" }}
+      className="hidden lg:block text-2xl xl:text-4xl italic text-muted-foreground/80 absolute left-[-24px] top-1/2 -translate-y-1/2 -translate-x-full whitespace-nowrap pointer-events-none select-none z-10"
+    >
+      {word}
+    </motion.span>
+  );
+};
+
 export function Features({ id }: { id: string }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -108,11 +134,12 @@ export function Features({ id }: { id: string }) {
 
               <motion.div
                 style={{ x }}
-                className="flex gap-8 w-[300%]"
+                className="flex gap-48 w-[300%]"
               >
                 {tabs.map((tab, index) => (
                   <div key={index} className="w-full px-4">
-                    <div className="max-w-5xl mx-auto">
+                    <div className="max-w-5xl mx-auto relative">
+                      <PrefixWord word={tab.prefix} index={index} scrollYProgress={scrollYProgress} />
                       {/* Per-slide background with fade */}
                       <div className={`rounded-3xl p-6 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700`}>
                         <div className="flex flex-col items-center gap-4 mb-6 text-center">
