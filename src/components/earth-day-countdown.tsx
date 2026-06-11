@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const EarthDayCountdown = () => {
@@ -59,7 +60,7 @@ export const EarthDayCountdown = () => {
                         transition={{ duration: 0.5, ease: "easeInOut" }}
                         className="flex items-center gap-2"
                     >
-                        <span>Earth Day</span>
+                        <span>Earth Day</span><span className="text-white/30">•</span><Link href="https://youtu.be/_uAyox15xNQ?si=t_qcWxWZtxZN72x5" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition-colors">Watch Demo</Link>
                     </motion.div>
                 ) : (
                     <motion.div
@@ -70,7 +71,7 @@ export const EarthDayCountdown = () => {
                         transition={{ duration: 0.5, ease: "easeInOut" }}
                         className="flex items-center gap-2"
                     >
-                        <span>Earth Day • {timeLeft}</span>
+                        <span>Earth Day • {timeLeft}</span><span className="text-white/30">•</span><Link href="https://youtu.be/_uAyox15xNQ?si=t_qcWxWZtxZN72x5" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition-colors">Watch Demo</Link>
                     </motion.div>
                 )}
             </AnimatePresence>
