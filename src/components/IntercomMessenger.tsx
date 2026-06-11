@@ -11,7 +11,7 @@ export default function IntercomMessenger() {
     Intercom({
       app_id: INTERCOM_APP_ID,
       // Set alignment to 'left' to place the messenger on the bottom left.
-      alignment: 'right',
+      alignment: 'left',
       // The 'talk to sales' button text is typically configured in the Intercom
       // workspace settings, as the SDK does not provide a direct option for
       // the default launcher's text.

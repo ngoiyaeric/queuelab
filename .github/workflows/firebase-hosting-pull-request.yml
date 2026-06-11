@@ -1,5 +1,7 @@
 name: Deploy to Firebase Hosting on PR
 on: pull_request
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 permissions:
   checks: write
   contents: read
@@ -14,7 +16,17 @@ jobs:
         with:
           node-version: "22.x"
           cache: "npm"
-      - run: npm ci
+      - name: Validate Firebase Secret
+        run: |
+          if [[ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" ]]; then
+            echo "::error::FIREBASE_SERVICE_ACCOUNT secret is missing!"
+            /usr/bin/false
+          fi
+          if [[ ! "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" =~ ^\{ ]]; then
+            echo "::error::FIREBASE_SERVICE_ACCOUNT secret is not valid JSON! It must start with '{'. Current value appears to be malformed."
+            /usr/bin/false
+          fi
+      - run: npm ci --legacy-peer-deps
       - run: npm run build
         env:
           NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
