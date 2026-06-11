@@ -25,6 +25,17 @@ jobs:
           node-version: "22.x"
           cache: "npm"
       
+      - name: Validate Firebase Secret
+        run: |
+          if [[ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" ]]; then
+            echo "::error::FIREBASE_SERVICE_ACCOUNT secret is missing!"
+            /usr/bin/false
+          fi
+          if [[ ! "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" =~ ^\{ ]]; then
+            echo "::error::FIREBASE_SERVICE_ACCOUNT secret is not valid JSON! It must start with '{'. Current value appears to be malformed."
+            /usr/bin/false
+          fi
+
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
         
