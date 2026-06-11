@@ -10,7 +10,7 @@ import fixScreenshot from "@/assets/fix-screenshot.webp";
 
 // Dynamically import heavy components
 const DotLottiePlayer = dynamic(() => import("@dotlottie/react-player").then(mod => mod.DotLottiePlayer), { ssr: false });
-const VimeoPlayer = dynamic(() => import("./vimeo-player"), { ssr: false });
+const YouTubePlayer = dynamic(() => import("./youtube-player"), { ssr: false });
 
 const tabs = [
   {
@@ -157,7 +157,7 @@ export function Features({ id }: { id: string }) {
                         <div className="border border-muted/40 rounded-2xl p-3 bg-white/40 backdrop-blur-sm shadow-md">
                           <div className="relative aspect-video rounded-xl overflow-hidden shadow-xl">
                             {tab.component ? (
-                              <VimeoPlayer />
+                              <YouTubePlayer />
                             ) : (
                               <Image
                                 src={tab.image.src}

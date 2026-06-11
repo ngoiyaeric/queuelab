@@ -135,7 +135,7 @@ export function InterestForm({ formTitle, submissionContext, onSuccessCallback }
 
             <div className="text-center text-xs text-muted-foreground">
                 <p>We Are Pre-Selling our software to help us launch. <a href="https://www.queue.cx/#pricing" target="_blank" rel="noopener noreferrer" className="text-emerald-600 dark:text-emerald-400 hover:underline">Learn more</a>.</p>
-                <p>Closed alpha available on request. <a href="https://vimeo.com/1014706363" target="_blank" rel="noopener noreferrer" className="text-emerald-600 dark:text-emerald-400 hover:underline">Watch video</a>.</p>
+                <p>Closed alpha available on request. <a href="https://youtu.be/y8M6qaFeZOw?si=CxsXpXHOPsukc0oa" target="_blank" rel="noopener noreferrer" className="text-emerald-600 dark:text-emerald-400 hover:underline">Watch video</a>.</p>
             </div>
 
             <Button
