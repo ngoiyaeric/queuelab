@@ -19,7 +19,8 @@ jobs:
           node-version: "22.x"
           cache: "npm"
       - run: npm ci
-      - run: npm run build
+      - name: Build Application
+        run: npm run build
         env:
           NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
           NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}

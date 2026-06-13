@@ -45,7 +45,7 @@ export default function RootLayout({
             },
             elements: {
               card: 'shadow-xl border border-border',
-              navbar: 'hidden', // Optional: simplify user button popover
+              navbar: 'hidden',
             }
           }}
         >
