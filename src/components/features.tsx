@@ -35,7 +35,7 @@ const tabs = [
     description: "QCX is a planet computer gravitational interface for Earth Observation.",
     isNew: false,
     image: productGif,
-    component: true, // Use boolean to indicate dynamic component
+    component: true,
     slideBackground: "from-green-50 via-emerald-50 to-green-100",
   },
   {
@@ -53,7 +53,6 @@ const tabs = [
 const handleImageError = (e: any) => {
   const imgElement = e.target as HTMLImageElement;
   const currentSrc = imgElement.src;
-
   if (currentSrc.endsWith(".PNG")) {
     imgElement.src = currentSrc.replace(".PNG", ".png");
   } else if (currentSrc.endsWith(".png")) {
@@ -61,28 +60,15 @@ const handleImageError = (e: any) => {
   }
 };
 
-
 const DotIndicator = ({ index, scrollYProgress }: { index: number, scrollYProgress: MotionValue<number> }) => {
-  // Map the active dot range over the 0–0.75 horizontal scroll region
   const segmentSize = 0.75 / 3;
   const start = index * segmentSize;
   const mid = start + segmentSize / 2;
   const end = start + segmentSize;
-  const opacity = useTransform(
-    scrollYProgress,
-    [start, mid, end],
-    [0.3, 1, 0.3]
-  );
-  const scale = useTransform(
-    scrollYProgress,
-    [start, mid, end],
-    [1, 1.5, 1]
-  );
+  const opacity = useTransform(scrollYProgress, [start, mid, end], [0.3, 1, 0.3]);
+  const scale = useTransform(scrollYProgress, [start, mid, end], [1, 1.5, 1]);
   return (
-    <motion.div
-      style={{ opacity, scale }}
-      className="size-2.5 rounded-full bg-gray-400"
-    />
+    <motion.div style={{ opacity, scale }} className="size-2.5 rounded-full bg-gray-400" />
   );
 };
 
@@ -91,14 +77,7 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: num
   const start = index * segmentSize;
   const mid = start + segmentSize / 2;
   const end = start + segmentSize;
-
-  // Fade in as the slide becomes active
-  const opacity = useTransform(
-    scrollYProgress,
-    [start - 0.05, mid, end + 0.05],
-    [0, 1, 0]
-  );
-
+  const opacity = useTransform(scrollYProgress, [start - 0.05, mid, end + 0.05], [0, 1, 0]);
   return (
     <motion.span
       style={{ opacity, fontFamily: "var(--font-instrument-serif)" }}
@@ -121,9 +100,6 @@ export function Features({ id }: { id: string }) {
     offset: ["start start", "end end"]
   });
 
-  // Compress the horizontal scroll into the first 75% of the section's scroll range,
-  // leaving the final 25% (~87.5vh) as dwell time on the last slide before the next section appears.
-  // This ensures Environment Aware (the last slide) fully loads and is visible before vertical scroll resumes.
   const x = useTransform(scrollYProgress, [0, 0.75], ["0%", "-66.66%"]);
 
   const handleImageClick = (tab: FeatureTab) => {
@@ -135,40 +111,32 @@ export function Features({ id }: { id: string }) {
     <>
       <section className="bg-background" id={id}>
         <div ref={containerRef} className="h-[350vh] relative">
-          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-28">
-            <div className="container relative">
-              <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter mb-8">
-               
-              </h2>
-
-              <motion.div
-                style={{ x }}
-                className="flex gap-48 w-[300%]"
-              >
+          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-20 lg:pt-28">
+            <div className="container px-1 md:px-4 lg:px-8 relative">
+              <motion.div style={{ x }} className="flex w-[300%]">
                 {tabs.map((tab, index) => (
-                  <div key={index} className="w-full px-4">
+                  <div key={index} className="w-full px-0 md:px-4">
                     <div className="max-w-5xl mx-auto relative">
                       <PrefixWord word={tab.prefix} index={index} scrollYProgress={scrollYProgress} />
-                      {/* Per-slide background with fade */}
-                      <div className={`rounded-3xl p-6 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700`}>
-                        <div className="flex flex-col items-center gap-4 mb-6 text-center">
-                          <div className="flex flex-col items-center gap-3">
-                             <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm p-2 overflow-hidden">
-                               {tab.logo ? (
-                                 <Image
-                                   src={tab.logo}
-                                   alt={`${tab.title} logo`}
-                                   width={48}
-                                   height={48}
-                                   className="w-full h-full object-contain"
-                                 />
-                               ) : (
-                                 <DotLottiePlayer src={tab.icon} className="size-8" />
-                               )}
-                             </div>
-                             <h3 className="text-3xl font-bold">{tab.title}</h3>
+                      <div className={`rounded-3xl p-2 md:p-6 lg:p-8 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700 shadow-sm`}>
+                        <div className="flex flex-col items-center gap-3 md:gap-4 mb-6 md:mb-8 text-center">
+                          <div className="flex flex-col items-center gap-2 md:gap-3">
+                            <div className="size-12 md:size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm p-2 overflow-hidden">
+                              {tab.logo ? (
+                                <Image
+                                  src={tab.logo}
+                                  alt={`${tab.title} logo`}
+                                  width={48}
+                                  height={48}
+                                  className="w-full h-full object-contain"
+                                />
+                              ) : (
+                                <DotLottiePlayer src={tab.icon} className="size-6 md:size-8" />
+                              )}
+                            </div>
+                            <h3 className="text-3xl md:text-4xl font-bold tracking-tight">{tab.title}</h3>
                           </div>
-                          <p className="text-muted-foreground text-lg italic max-w-xl" style={{ fontFamily: "var(--font-instrument-serif)" }}>
+                          <p className="text-muted-foreground text-base md:text-xl italic max-w-2xl px-2" style={{ fontFamily: "var(--font-instrument-serif)" }}>
                             {tab.description}
                             {tab.title === "Fluidity Index" && (
                               <a
@@ -183,12 +151,12 @@ export function Features({ id }: { id: string }) {
                           </p>
                         </div>
 
-                        <div className="border border-muted/40 rounded-2xl p-3 bg-white/40 backdrop-blur-sm shadow-md">
-                          <div className="relative aspect-video rounded-xl overflow-hidden shadow-xl">
-
-
+                        <div className="border border-muted/20 rounded-xl md:rounded-2xl p-0.5 md:p-3 bg-white/40 backdrop-blur-sm shadow-xl overflow-hidden">
+                          <div className="relative aspect-[16/10] md:aspect-video rounded-xl overflow-hidden shadow-2xl">
                             {tab.component ? (
-                              <VimeoPlayer />
+                              <div className="w-full h-full scale-[1.01] md:scale-[1.01]">
+                                <VimeoPlayer />
+                              </div>
                             ) : (
                               <Image
                                 src={tab.image.src}
@@ -210,7 +178,7 @@ export function Features({ id }: { id: string }) {
                 ))}
               </motion.div>
 
-              <div className="flex justify-center gap-3 mt-8">
+              <div className="flex justify-center gap-3 mt-6 md:mt-12">
                 {tabs.map((_, index) => (
                   <DotIndicator key={index} index={index} scrollYProgress={scrollYProgress} />
                 ))}
@@ -247,19 +215,8 @@ export function Features({ id }: { id: string }) {
               onClick={() => { setIsDialogOpen(false); setSelectedTab(null); }}
               className="absolute top-6 right-6 bg-black/10 hover:bg-black/20 rounded-full p-3 transition-all"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-black"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
