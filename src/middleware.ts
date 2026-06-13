@@ -1,6 +1,50 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
-export default clerkMiddleware();
+const isPublicRoute = createRouteMatcher([
+  '/',
+  '/login(.*)',
+  '/api/submit-interest-form',
+  '/rd(.*)',
+  '/careers(.*)',
+  '/privacy(.*)',
+  '/terms(.*)',
+  '/lab(.*)',
+  '/__clerk/(.*)'
+]);
+
+const isOnboardingRoute = createRouteMatcher(['/onboarding']);
+
+export default clerkMiddleware(async (auth, req) => {
+  const { userId, sessionClaims, redirectToSignIn } = await auth();
+
+  // For public routes, let them through
+  if (isPublicRoute(req)) {
+    return NextResponse.next();
+  }
+
+  // If user is not logged in and trying to access a protected route
+  if (!userId) {
+    return redirectToSignIn({ returnBackUrl: req.url });
+  }
+
+  // If user is logged in but hasn't completed onboarding
+  // @ts-ignore - Clerk sessionClaims.unsafeMetadata might not be typed out of the box
+  const onboarded = sessionClaims?.unsafeMetadata?.onboarded;
+
+  if (!onboarded && !isOnboardingRoute(req)) {
+    const onboardingUrl = new URL('/onboarding', req.url);
+    return NextResponse.redirect(onboardingUrl);
+  }
+
+  // If user is logged in and trying to access onboarding after completion
+  if (onboarded && isOnboardingRoute(req)) {
+    const dashboardUrl = new URL('/dashboard', req.url);
+    return NextResponse.redirect(dashboardUrl);
+  }
+
+  return NextResponse.next();
+});
 
 export const config = {
   matcher: [

@@ -38,6 +38,7 @@
     "three": "^0.183.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@svgr/webpack": "^8.1.0",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.17",

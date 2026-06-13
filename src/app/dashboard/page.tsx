@@ -6,8 +6,17 @@ import { Button } from "@/components/ui/button";
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { FlowerScene } from "@/components/flower-scene";
-import SiteLogo from "@/assets/logo.svg";
+import Image from "next/image";
+import QIcon from "@/assets/q-logo.png";
 import { useUser, useClerk } from "@clerk/nextjs";
+import dynamic from 'next/dynamic';
+
+// Dynamically import Three.js components to prevent SSR errors
+const Scene = dynamic(() => Promise.resolve(({ children }: { children: React.ReactNode }) => (
+    <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full">
+        {children}
+    </Canvas>
+)), { ssr: false });
 
 export default function Dashboard() {
     const { user, isLoaded } = useUser();
@@ -38,26 +47,28 @@ export default function Dashboard() {
 
     if (!isLoaded || !user) {
         return (
-            <div className="flex h-screen items-center justify-center bg-black">
-                <div className="text-white text-xl animate-pulse">Loading Dashboard...</div>
+            <div className="flex h-screen items-center justify-center bg-background">
+                <div className="text-foreground text-xl animate-pulse">Loading Dashboard...</div>
             </div>
         );
     }
 
     return (
-        <div className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-black via-zinc-900 to-black">
+        <div className="relative w-full h-screen overflow-hidden bg-background">
             {/* Header / Dashboard UI */}
             <header className="absolute top-0 left-0 right-0 z-10 p-6 md:p-8">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <SiteLogo className="h-8 w-auto text-white" />
-                        <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Dashboard</h1>
+                        <div className="inline-flex items-center justify-center p-2 rounded-xl bg-white/50 backdrop-blur-md border border-black/5 shadow-sm">
+                            <Image src={QIcon} alt="QCX Logo" width={40} height={40} className="h-auto" />
+                        </div>
+                        <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Dashboard</h1>
                     </div>
                     <nav className="flex items-center gap-4 text-sm font-medium">
-                        <span className="text-zinc-400 hidden sm:inline-block">Logged in as: <span className="text-white font-semibold">{user.fullName || user.primaryEmailAddress?.emailAddress}</span></span>
+                        <span className="text-muted-foreground hidden sm:inline-block">Logged in as: <span className="text-foreground font-semibold">{user.fullName || user.primaryEmailAddress?.emailAddress}</span></span>
                         <Button
                             variant="outline"
-                            className="bg-transparent border-white/20 text-white hover:bg-white/10"
+                            className="bg-white/50 backdrop-blur-md border-border text-foreground hover:bg-white/80"
                             onClick={handleSignOut}
                         >
                             Log Out
@@ -67,43 +78,45 @@ export default function Dashboard() {
             </header>
 
             {/* 3D Canvas */}
-            <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full">
-                <ambientLight intensity={0.6} />
-                <directionalLight position={[5, 5, 5]} intensity={1.2} />
-                <directionalLight position={[-5, 3, -5]} intensity={0.4} />
-                <pointLight position={[0, 2, 0]} intensity={0.8} color="#f4d03f" />
+            <div className="w-full h-full">
+                <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full">
+                    <ambientLight intensity={0.8} />
+                    <directionalLight position={[5, 5, 5]} intensity={1.5} />
+                    <directionalLight position={[-5, 3, -5]} intensity={0.5} />
+                    <pointLight position={[0, 2, 0]} intensity={1.0} color="#f4d03f" />
 
-                <FlowerScene />
+                    <FlowerScene />
 
-                <Environment preset="dawn" />
-                <OrbitControls
-                    enableZoom={true}
-                    enablePan={false}
-                    minDistance={4}
-                    maxDistance={10}
-                    autoRotate
-                    autoRotateSpeed={0.5}
-                />
-            </Canvas>
+                    <Environment preset="dawn" />
+                    <OrbitControls
+                        enableZoom={true}
+                        enablePan={false}
+                        minDistance={4}
+                        maxDistance={10}
+                        autoRotate
+                        autoRotateSpeed={0.5}
+                    />
+                </Canvas>
+            </div>
 
             {/* Info Panel */}
-            <div className="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-96 z-10 bg-black/60 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/10">
-                <h2 className="text-xl font-semibold text-white mb-2 text-balance">Welcome Back!</h2>
+            <div className="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-96 z-10 bg-white/60 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-border">
+                <h2 className="text-xl font-semibold text-foreground mb-2 text-balance">Welcome Back!</h2>
                 <div className="space-y-2 mb-4">
-                    <p className="text-sm text-zinc-300 leading-relaxed">
-                        <span className="text-zinc-500 mr-2">User:</span> {user.fullName || user.primaryEmailAddress?.emailAddress}
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                        <span className="text-muted-foreground/60 mr-2">User:</span> {user.fullName || user.primaryEmailAddress?.emailAddress}
                     </p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">
-                        <span className="text-zinc-500 mr-2">Login Time:</span> {currentTime}
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                        <span className="text-muted-foreground/60 mr-2">Login Time:</span> {currentTime}
                     </p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">
-                        <span className="text-zinc-500 mr-2">User ID:</span> <span className="font-mono text-xs">{user.id}</span>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                        <span className="text-muted-foreground/60 mr-2">User ID:</span> <span className="font-mono text-xs">{user.id}</span>
                     </p>
                 </div>
             </div>
 
             {/* Interaction Hint */}
-            <div className="absolute top-24 right-8 z-10 hidden md:flex items-center gap-2 text-sm text-zinc-400 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
+            <div className="absolute top-24 right-8 z-10 hidden md:flex items-center gap-2 text-sm text-muted-foreground bg-white/50 backdrop-blur-sm px-4 py-2 rounded-full border border-border">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                         strokeLinecap="round"

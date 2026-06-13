@@ -34,7 +34,21 @@ export default function RootLayout({
 
       </head>
       <body className={clsx(inter.className, roboto.className, instrumentSerif.variable, "antialiased")}>
-        <ClerkProvider dynamic>
+        <ClerkProvider
+          dynamic
+          appearance={{
+            variables: {
+              colorPrimary: 'hsl(120, 15%, 25%)',
+              colorBackground: 'hsl(30, 20%, 98%)',
+              colorText: 'hsl(20, 10%, 10%)',
+              borderRadius: '0.75rem',
+            },
+            elements: {
+              card: 'shadow-xl border border-border',
+              navbar: 'hidden', // Optional: simplify user button popover
+            }
+          }}
+        >
           <DynamicBackground />
           {children}
           <IntercomMessenger />
