@@ -9,6 +9,9 @@ import productGif from "@/assets/product-gif.gif";
 import evaScreenshot from "@/assets/eva-screenshot.webp";
 import fixScreenshot from "@/assets/fix-screenshot.webp";
 
+import logoFi from "@/assets/logo-fi.png";
+import logoQcx from "@/assets/logo-qcx.png";
+import logoEa from "@/assets/logo-ea.png";
 // Dynamically import heavy components
 const DotLottiePlayer = dynamic(() => import("@dotlottie/react-player").then(mod => mod.DotLottiePlayer), { ssr: false });
 const VimeoPlayer = dynamic(() => import("./vimeo-player"), { ssr: false });
@@ -18,6 +21,7 @@ const tabs = [
     prefix: "Why?",
     icon: "/assets/lottie/stars.lottie",
     title: "Fluidity Index",
+    logo: logoFi,
     description: "FIX is a signal abstraction energy based evaluation and alignment system.",
     isNew: true,
     image: evaScreenshot,
@@ -27,16 +31,18 @@ const tabs = [
     prefix: "Where?",
     icon: "/assets/lottie/vroom.lottie",
     title: "QCX",
+    logo: logoQcx,
     description: "QCX is a planet computer gravitational interface for Earth Observation.",
     isNew: false,
     image: productGif,
-    component: true, // Use boolean to indicate dynamic component
+    component: true,
     slideBackground: "from-green-50 via-emerald-50 to-green-100",
   },
   {
     prefix: "How?",
     icon: "/assets/lottie/click.lottie",
     title: "Environment Aware",
+    logo: logoEa,
     description: "EVA is a vibrational interface autonomous new knowledge discovery system.",
     isNew: false,
     image: fixScreenshot,
@@ -47,7 +53,6 @@ const tabs = [
 const handleImageError = (e: any) => {
   const imgElement = e.target as HTMLImageElement;
   const currentSrc = imgElement.src;
-
   if (currentSrc.endsWith(".PNG")) {
     imgElement.src = currentSrc.replace(".PNG", ".png");
   } else if (currentSrc.endsWith(".png")) {
@@ -55,28 +60,15 @@ const handleImageError = (e: any) => {
   }
 };
 
-
 const DotIndicator = ({ index, scrollYProgress }: { index: number, scrollYProgress: MotionValue<number> }) => {
-  // Map the active dot range over the 0–0.75 horizontal scroll region
   const segmentSize = 0.75 / 3;
   const start = index * segmentSize;
   const mid = start + segmentSize / 2;
   const end = start + segmentSize;
-  const opacity = useTransform(
-    scrollYProgress,
-    [start, mid, end],
-    [0.3, 1, 0.3]
-  );
-  const scale = useTransform(
-    scrollYProgress,
-    [start, mid, end],
-    [1, 1.5, 1]
-  );
+  const opacity = useTransform(scrollYProgress, [start, mid, end], [0.3, 1, 0.3]);
+  const scale = useTransform(scrollYProgress, [start, mid, end], [1, 1.5, 1]);
   return (
-    <motion.div
-      style={{ opacity, scale }}
-      className="size-2.5 rounded-full bg-gray-400"
-    />
+    <motion.div style={{ opacity, scale }} className="size-2.5 rounded-full bg-gray-400" />
   );
 };
 
@@ -85,14 +77,7 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: num
   const start = index * segmentSize;
   const mid = start + segmentSize / 2;
   const end = start + segmentSize;
-
-  // Fade in as the slide becomes active
-  const opacity = useTransform(
-    scrollYProgress,
-    [start - 0.05, mid, end + 0.05],
-    [0, 1, 0]
-  );
-
+  const opacity = useTransform(scrollYProgress, [start - 0.05, mid, end + 0.05], [0, 1, 0]);
   return (
     <motion.span
       style={{ opacity, fontFamily: "var(--font-instrument-serif)" }}
@@ -103,8 +88,10 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: num
   );
 };
 
+type FeatureTab = (typeof tabs)[number];
+
 export function Features({ id }: { id: string }) {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedTab, setSelectedTab] = useState<FeatureTab | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
@@ -113,12 +100,10 @@ export function Features({ id }: { id: string }) {
     offset: ["start start", "end end"]
   });
 
-  // Compress the horizontal scroll into the first 75% of the section's scroll range,
-  // leaving the final 25% (~87.5vh) as dwell time on the last slide before the next section appears.
   const x = useTransform(scrollYProgress, [0, 0.75], ["0%", "-66.66%"]);
 
-  const handleImageClick = (image: string) => {
-    setSelectedImage(image);
+  const handleImageClick = (tab: FeatureTab) => {
+    setSelectedTab(tab);
     setIsDialogOpen(true);
   };
 
@@ -128,22 +113,28 @@ export function Features({ id }: { id: string }) {
         <div ref={containerRef} className="h-[350vh] relative">
           <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-20 lg:pt-28">
             <div className="container px-1 md:px-4 lg:px-8 relative">
-              <motion.div
-                style={{ x }}
-                className="flex w-[300%]"
-              >
+              <motion.div style={{ x }} className="flex w-[300%]">
                 {tabs.map((tab, index) => (
                   <div key={index} className="w-full px-0 md:px-4">
                     <div className="max-w-5xl mx-auto relative">
                       <PrefixWord word={tab.prefix} index={index} scrollYProgress={scrollYProgress} />
-                      {/* Per-slide background with fade */}
                       <div className={`rounded-3xl p-2 md:p-6 lg:p-8 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700 shadow-sm`}>
                         <div className="flex flex-col items-center gap-3 md:gap-4 mb-6 md:mb-8 text-center">
                           <div className="flex flex-col items-center gap-2 md:gap-3">
-                             <div className="size-12 md:size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm">
-                               <DotLottiePlayer src={tab.icon} className="size-6 md:size-8" />
-                             </div>
-                             <h3 className="text-3xl md:text-4xl font-bold tracking-tight">{tab.title}</h3>
+                            <div className="size-12 md:size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm p-2 overflow-hidden">
+                              {tab.logo ? (
+                                <Image
+                                  src={tab.logo}
+                                  alt={`${tab.title} logo`}
+                                  width={48}
+                                  height={48}
+                                  className="w-full h-full object-contain"
+                                />
+                              ) : (
+                                <DotLottiePlayer src={tab.icon} className="size-6 md:size-8" />
+                              )}
+                            </div>
+                            <h3 className="text-3xl md:text-4xl font-bold tracking-tight">{tab.title}</h3>
                           </div>
                           <p className="text-muted-foreground text-base md:text-xl italic max-w-2xl px-2" style={{ fontFamily: "var(--font-instrument-serif)" }}>
                             {tab.description}
@@ -171,8 +162,8 @@ export function Features({ id }: { id: string }) {
                                 src={tab.image.src}
                                 alt={tab.title}
                                 fill
-                                className="object-cover cursor-pointer hover:scale-[1.02] transition-transform duration-500"
-                                onClick={() => handleImageClick(tab.image.src)}
+                                className="object-contain cursor-pointer hover:scale-[1.02] transition-transform duration-500"
+                                onClick={() => handleImageClick(tab)}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
                                 priority
                                 quality={100}
@@ -197,12 +188,12 @@ export function Features({ id }: { id: string }) {
         </div>
       </section>
 
-      {isDialogOpen && selectedImage && (
+      {isDialogOpen && selectedTab && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
           <div className="relative bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
             <div className="relative aspect-video">
               <Image
-                src={selectedImage}
+                src={selectedTab.image.src}
                 alt="Preview"
                 fill
                 className="object-contain"
@@ -210,24 +201,22 @@ export function Features({ id }: { id: string }) {
                 quality={100}
                 onError={handleImageError}
               />
+              {selectedTab.logo && (
+                <Image
+                  src={selectedTab.logo}
+                  alt={`${selectedTab.title} logo`}
+                  width={200}
+                  height={60}
+                  className="absolute top-4 left-4 h-14 w-auto z-10 object-contain"
+                />
+              )}
             </div>
             <button
-              onClick={() => setIsDialogOpen(false)}
+              onClick={() => { setIsDialogOpen(false); setSelectedTab(null); }}
               className="absolute top-6 right-6 bg-black/10 hover:bg-black/20 rounded-full p-3 transition-all"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-black"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
