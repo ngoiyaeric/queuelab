@@ -9,16 +9,8 @@ import { FlowerScene } from "@/components/flower-scene";
 import Image from "next/image";
 import QIcon from "@/assets/q-logo.png";
 import { useUser, useClerk } from "@clerk/nextjs";
-import dynamic from 'next/dynamic';
 
-// Dynamically import Three.js components to prevent SSR errors
-const Scene = dynamic(() => Promise.resolve(({ children }: { children: React.ReactNode }) => (
-    <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full">
-        {children}
-    </Canvas>
-)), { ssr: false });
-
-export default function Dashboard() {
+export default function Base() {
     const { user, isLoaded } = useUser();
     const { signOut } = useClerk();
     const router = useRouter();
@@ -48,21 +40,21 @@ export default function Dashboard() {
     if (!isLoaded || !user) {
         return (
             <div className="flex h-screen items-center justify-center bg-background">
-                <div className="text-foreground text-xl animate-pulse">Loading Dashboard...</div>
+                <div className="text-foreground text-xl animate-pulse">Loading Base...</div>
             </div>
         );
     }
 
     return (
         <div className="relative w-full h-screen overflow-hidden bg-background">
-            {/* Header / Dashboard UI */}
+            {/* Header / Base UI */}
             <header className="absolute top-0 left-0 right-0 z-10 p-6 md:p-8">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <div className="inline-flex items-center justify-center p-2 rounded-xl bg-white/50 backdrop-blur-md border border-black/5 shadow-sm">
                             <Image src={QIcon} alt="QCX Logo" width={40} height={40} className="h-auto" />
                         </div>
-                        <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Dashboard</h1>
+                        <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Base</h1>
                     </div>
                     <nav className="flex items-center gap-4 text-sm font-medium">
                         <span className="text-muted-foreground hidden sm:inline-block">Logged in as: <span className="text-foreground font-semibold">{user.fullName || user.primaryEmailAddress?.emailAddress}</span></span>
@@ -79,7 +71,7 @@ export default function Dashboard() {
 
             {/* 3D Canvas */}
             <div className="w-full h-full">
-                <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full">
+                <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full shadow-inner">
                     <ambientLight intensity={0.8} />
                     <directionalLight position={[5, 5, 5]} intensity={1.5} />
                     <directionalLight position={[-5, 3, -5]} intensity={0.5} />

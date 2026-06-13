@@ -59,7 +59,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                 </SignedOut>
                                 <SignedIn>
                                     <Button variant="outline" size="sm" className="dashboard-button" asChild>
-                                        <Link href="/dashboard">Dashboard</Link>
+                                        <Link href="/base">Base</Link>
                                     </Button>
                                     <UserButton />
                                 </SignedIn>
@@ -113,8 +113,8 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                                 </SignInButton>
                                             </SignedOut>
                                             <SignedIn>
-                                                <Link href="/dashboard" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition">
-                                                    Dashboard
+                                                <Link href="/base" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition">
+                                                    Base
                                                 </Link>
                                                 <div className="flex items-center gap-3">
                                                     <UserButton />

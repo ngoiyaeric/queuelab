@@ -29,7 +29,7 @@ export default clerkMiddleware(async (auth, req) => {
   }
 
   // If user is logged in but hasn't completed onboarding
-  // @ts-ignore - Clerk sessionClaims.unsafeMetadata might not be typed out of the box
+  // @ts-ignore
   const onboarded = sessionClaims?.unsafeMetadata?.onboarded;
 
   if (!onboarded && !isOnboardingRoute(req)) {
@@ -39,8 +39,8 @@ export default clerkMiddleware(async (auth, req) => {
 
   // If user is logged in and trying to access onboarding after completion
   if (onboarded && isOnboardingRoute(req)) {
-    const dashboardUrl = new URL('/dashboard', req.url);
-    return NextResponse.redirect(dashboardUrl);
+    const baseUrl = new URL('/base', req.url);
+    return NextResponse.redirect(baseUrl);
   }
 
   return NextResponse.next();
