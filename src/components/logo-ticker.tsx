@@ -68,6 +68,7 @@ export function LogoTicker() {
               className={
                 "flex-1 w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]"
               }
+              style={{ touchAction: "pan-y" }}
             >
               <motion.div
                 initial={{ translateX: "-50%" }}

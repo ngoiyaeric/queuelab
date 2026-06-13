@@ -61,23 +61,40 @@ const handleImageError = (e: any) => {
 };
 
 const DotIndicator = ({ index, scrollYProgress }: { index: number, scrollYProgress: MotionValue<number> }) => {
-  const segmentSize = 0.75 / 3;
-  const start = index * segmentSize;
-  const mid = start + segmentSize / 2;
-  const end = start + segmentSize;
-  const opacity = useTransform(scrollYProgress, [start, mid, end], [0.3, 1, 0.3]);
-  const scale = useTransform(scrollYProgress, [start, mid, end], [1, 1.5, 1]);
+  // Ranges adjusted to match the stepped horizontal scroll x transform plateaus
+  const ranges = [
+    [0, 0.075, 0.15],      // Tab 0 active plateau
+    [0.25, 0.325, 0.4],    // Tab 1 active plateau
+    [0.5, 0.575, 0.65]     // Tab 2 active plateau
+  ];
+
+  const currentRange = ranges[index];
+  const opacity = useTransform(scrollYProgress,
+    [currentRange[0] - 0.05, currentRange[1], currentRange[2] + 0.05],
+    [0.3, 1, 0.3]
+  );
+  const scale = useTransform(scrollYProgress,
+    [currentRange[0] - 0.05, currentRange[1], currentRange[2] + 0.05],
+    [1, 1.5, 1]
+  );
+
   return (
     <motion.div style={{ opacity, scale }} className="size-2.5 rounded-full bg-gray-400" />
   );
 };
 
 const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: number, scrollYProgress: MotionValue<number> }) => {
-  const segmentSize = 0.75 / 3;
-  const start = index * segmentSize;
-  const mid = start + segmentSize / 2;
-  const end = start + segmentSize;
-  const opacity = useTransform(scrollYProgress, [start - 0.05, mid, end + 0.05], [0, 1, 0]);
+  const ranges = [
+    [0, 0.075, 0.15],
+    [0.25, 0.325, 0.4],
+    [0.5, 0.575, 0.65]
+  ];
+
+  const currentRange = ranges[index];
+  const opacity = useTransform(scrollYProgress,
+    [currentRange[0] - 0.05, currentRange[1], currentRange[2] + 0.05],
+    [0, 1, 0]
+  );
   return (
     <motion.span
       style={{ opacity, fontFamily: "var(--font-instrument-serif)" }}
@@ -100,7 +117,13 @@ export function Features({ id }: { id: string }) {
     offset: ["start start", "end end"]
   });
 
-  const x = useTransform(scrollYProgress, [0, 0.75], ["0%", "-66.66%"]);
+  // Create a stepped transition to allow descriptions to be read
+  // Each tab stays stationary for a while (the plateaus) before sliding to the next
+  const x = useTransform(
+    scrollYProgress,
+    [0, 0.15, 0.25, 0.4, 0.5, 0.65, 0.75],
+    ["0%", "0%", "-33.33%", "-33.33%", "-66.66%", "-66.66%", "-66.66%"]
+  );
 
   const handleImageClick = (tab: FeatureTab) => {
     setSelectedTab(tab);
@@ -113,7 +136,7 @@ export function Features({ id }: { id: string }) {
         <div ref={containerRef} className="h-[350vh] relative">
           <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-20 lg:pt-28">
             <div className="container px-1 md:px-4 lg:px-8 relative">
-              <motion.div style={{ x }} className="flex w-[300%]">
+              <motion.div style={{ x, touchAction: "pan-y" }} className="flex w-[300%]">
                 {tabs.map((tab, index) => (
                   <div key={index} className="w-full px-0 md:px-4">
                     <div className="max-w-5xl mx-auto relative">

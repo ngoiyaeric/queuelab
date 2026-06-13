@@ -37,7 +37,7 @@ export function Testimonials({ id }: TestimonialsProps) {
                 <div className={"container"}>
                     <h2 className={"text-5xl md:text-6xl font-medium text-center tracking-tighter"} style={{ fontFamily: "var(--font-instrument-serif)" }}>Autonomous Adaptability, Artificial Creativity</h2>
                     <p className={"text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5"}>Our entire suite of products collectively function as an Artificial General Intelligence, starting with QCX.</p>
-                    <div className={"flex overflow-hidden mt-10 [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]"}>
+                    <div className={"flex overflow-hidden mt-10 [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]"} style={{ touchAction: "pan-y" }}>
                         <motion.div
                             initial={{translateX: '-50%'}}
                             animate={{translateX: '0'}}
