@@ -18,9 +18,11 @@ export function HeroSection() {
 
     const { scrollY } = useScroll();
     useMotionValueEvent(scrollY, "change", (latest) => {
-        if (latest > 50 && !isAnimationVisible) {
+        // Reduced threshold for mobile to show descriptions earlier
+        const threshold = typeof window !== 'undefined' && window.innerWidth < 768 ? 20 : 50;
+        if (latest > threshold && !isAnimationVisible) {
             setIsAnimationVisible(true);
-        } else if (latest < 50 && isAnimationVisible) {
+        } else if (latest < threshold && isAnimationVisible) {
             setIsAnimationVisible(false);
         }
     });
