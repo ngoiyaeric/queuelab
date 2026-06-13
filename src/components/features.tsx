@@ -109,8 +109,10 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: num
   );
 };
 
+type FeatureTab = (typeof tabs)[number];
+
 export function Features({ id }: { id: string }) {
-  const [selectedTab, setSelectedTab] = useState<any | null>(null);
+  const [selectedTab, setSelectedTab] = useState<FeatureTab | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
@@ -124,7 +126,7 @@ export function Features({ id }: { id: string }) {
   // This ensures Environment Aware (the last slide) fully loads and is visible before vertical scroll resumes.
   const x = useTransform(scrollYProgress, [0, 0.75], ["0%", "-66.66%"]);
 
-  const handleImageClick = (tab: any) => {
+  const handleImageClick = (tab: FeatureTab) => {
     setSelectedTab(tab);
     setIsDialogOpen(true);
   };
@@ -151,8 +153,18 @@ export function Features({ id }: { id: string }) {
                       <div className={`rounded-3xl p-6 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700`}>
                         <div className="flex flex-col items-center gap-4 mb-6 text-center">
                           <div className="flex flex-col items-center gap-3">
-                             <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm">
-                               <DotLottiePlayer src={tab.icon} className="size-8" />
+                             <div className="size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm p-2 overflow-hidden">
+                               {tab.logo ? (
+                                 <Image
+                                   src={tab.logo}
+                                   alt={`${tab.title} logo`}
+                                   width={48}
+                                   height={48}
+                                   className="w-full h-full object-contain"
+                                 />
+                               ) : (
+                                 <DotLottiePlayer src={tab.icon} className="size-8" />
+                               )}
                              </div>
                              <h3 className="text-3xl font-bold">{tab.title}</h3>
                           </div>
@@ -173,15 +185,7 @@ export function Features({ id }: { id: string }) {
 
                         <div className="border border-muted/40 rounded-2xl p-3 bg-white/40 backdrop-blur-sm shadow-md">
                           <div className="relative aspect-video rounded-xl overflow-hidden shadow-xl">
-                            {tab.logo && (
-                              <Image
-                                src={tab.logo}
-                                alt={`${tab.title} logo`}
-                                width={200}
-                                height={60}
-                                className="absolute top-4 left-4 h-14 w-auto z-10 object-contain"
-                              />
-                            )}
+
 
                             {tab.component ? (
                               <VimeoPlayer />
@@ -229,13 +233,15 @@ export function Features({ id }: { id: string }) {
                 quality={100}
                 onError={handleImageError}
               />
-              <Image
-                src={selectedTab.logo}
-                alt={`${selectedTab.title} logo`}
-                width={200}
-                height={60}
-                className="absolute top-4 left-4 h-14 w-auto z-10 object-contain"
-              />
+              {selectedTab.logo && (
+                <Image
+                  src={selectedTab.logo}
+                  alt={`${selectedTab.title} logo`}
+                  width={200}
+                  height={60}
+                  className="absolute top-4 left-4 h-14 w-auto z-10 object-contain"
+                />
+              )}
             </div>
             <button
               onClick={() => { setIsDialogOpen(false); setSelectedTab(null); }}
