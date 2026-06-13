@@ -9,6 +9,9 @@ import productGif from "@/assets/product-gif.gif";
 import evaScreenshot from "@/assets/eva-screenshot.webp";
 import fixScreenshot from "@/assets/fix-screenshot.webp";
 
+import logoFi from "@/assets/logo-fi.png";
+import logoQcx from "@/assets/logo-qcx.png";
+import logoEa from "@/assets/logo-ea.png";
 // Dynamically import heavy components
 const DotLottiePlayer = dynamic(() => import("@dotlottie/react-player").then(mod => mod.DotLottiePlayer), { ssr: false });
 const VimeoPlayer = dynamic(() => import("./vimeo-player"), { ssr: false });
@@ -18,6 +21,7 @@ const tabs = [
     prefix: "Why?",
     icon: "/assets/lottie/stars.lottie",
     title: "Fluidity Index",
+    logo: logoFi,
     description: "FIX is a signal abstraction energy based evaluation and alignment system.",
     isNew: true,
     image: evaScreenshot,
@@ -27,6 +31,7 @@ const tabs = [
     prefix: "Where?",
     icon: "/assets/lottie/vroom.lottie",
     title: "QCX",
+    logo: logoQcx,
     description: "QCX is a planet computer gravitational interface for Earth Observation.",
     isNew: false,
     image: productGif,
@@ -37,6 +42,7 @@ const tabs = [
     prefix: "How?",
     icon: "/assets/lottie/click.lottie",
     title: "Environment Aware",
+    logo: logoEa,
     description: "EVA is a vibrational interface autonomous new knowledge discovery system.",
     isNew: false,
     image: fixScreenshot,
@@ -104,7 +110,7 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: num
 };
 
 export function Features({ id }: { id: string }) {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedTab, setSelectedTab] = useState<any | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
@@ -118,8 +124,8 @@ export function Features({ id }: { id: string }) {
   // This ensures Environment Aware (the last slide) fully loads and is visible before vertical scroll resumes.
   const x = useTransform(scrollYProgress, [0, 0.75], ["0%", "-66.66%"]);
 
-  const handleImageClick = (image: string) => {
-    setSelectedImage(image);
+  const handleImageClick = (tab: any) => {
+    setSelectedTab(tab);
     setIsDialogOpen(true);
   };
 
@@ -167,6 +173,16 @@ export function Features({ id }: { id: string }) {
 
                         <div className="border border-muted/40 rounded-2xl p-3 bg-white/40 backdrop-blur-sm shadow-md">
                           <div className="relative aspect-video rounded-xl overflow-hidden shadow-xl">
+                            {tab.logo && (
+                              <Image
+                                src={tab.logo}
+                                alt={`${tab.title} logo`}
+                                width={200}
+                                height={60}
+                                className="absolute top-4 left-4 h-14 w-auto z-10 object-contain"
+                              />
+                            )}
+
                             {tab.component ? (
                               <VimeoPlayer />
                             ) : (
@@ -175,7 +191,7 @@ export function Features({ id }: { id: string }) {
                                 alt={tab.title}
                                 fill
                                 className="object-contain cursor-pointer hover:scale-[1.02] transition-transform duration-500"
-                                onClick={() => handleImageClick(tab.image.src)}
+                                onClick={() => handleImageClick(tab)}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
                                 priority
                                 quality={100}
@@ -200,12 +216,12 @@ export function Features({ id }: { id: string }) {
         </div>
       </section>
 
-      {isDialogOpen && selectedImage && (
+      {isDialogOpen && selectedTab && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
           <div className="relative bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
             <div className="relative aspect-video">
               <Image
-                src={selectedImage}
+                src={selectedTab.image.src}
                 alt="Preview"
                 fill
                 className="object-contain"
@@ -213,9 +229,16 @@ export function Features({ id }: { id: string }) {
                 quality={100}
                 onError={handleImageError}
               />
+              <Image
+                src={selectedTab.logo}
+                alt={`${selectedTab.title} logo`}
+                width={200}
+                height={60}
+                className="absolute top-4 left-4 h-14 w-auto z-10 object-contain"
+              />
             </div>
             <button
-              onClick={() => setIsDialogOpen(false)}
+              onClick={() => { setIsDialogOpen(false); setSelectedTab(null); }}
               className="absolute top-6 right-6 bg-black/10 hover:bg-black/20 rounded-full p-3 transition-all"
             >
               <svg
