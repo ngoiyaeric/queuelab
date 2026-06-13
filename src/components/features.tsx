@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { FileText } from "lucide-react";
 import { useRef, useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
@@ -151,6 +152,16 @@ export function Features({ id }: { id: string }) {
                           </div>
                           <p className="text-muted-foreground text-lg italic max-w-xl" style={{ fontFamily: "var(--font-instrument-serif)" }}>
                             {tab.description}
+                            {tab.title === "Fluidity Index" && (
+                              <a
+                                href="https://arxiv.org/abs/2510.20636"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center ml-2 text-muted-foreground hover:text-black transition-colors"
+                              >
+                                <FileText className="size-5" />
+                              </a>
+                            )}
                           </p>
                         </div>
 
