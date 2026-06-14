@@ -57,14 +57,6 @@ export default function Base() {
         }
     };
 
-    if (!isLoaded || !user) {
-        return (
-            <div className="flex h-screen items-center justify-center bg-background">
-                <div className="text-foreground text-xl animate-pulse">Loading Base...</div>
-            </div>
-        );
-    }
-
     return (
         <div className="relative w-full h-screen overflow-hidden bg-background flex flex-col">
             {/* Faded Background Colors behind flower */}
@@ -84,7 +76,7 @@ export default function Base() {
                         <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Base</h1>
                     </div>
                     <nav className="flex items-center gap-4 text-sm font-medium">
-                        <span className="text-muted-foreground hidden sm:inline-block">Logged in as: <span className="text-foreground font-semibold">{user.fullName || user.primaryEmailAddress?.emailAddress}</span></span>
+                        <span className="text-muted-foreground hidden sm:inline-block">Logged in as: <span className="text-foreground font-semibold">{user?.fullName || user?.primaryEmailAddress?.emailAddress}</span></span>
                         <Button
                             variant="outline"
                             className="bg-white/50 backdrop-blur-md border-border text-foreground hover:bg-white/80"
@@ -100,67 +92,63 @@ export default function Base() {
             <main className="flex-1 flex flex-col relative z-10">
                 {/* 3D Canvas - Upper half */}
                 <div className="flex-[3] w-full relative">
-                    <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full">
-                        <ambientLight intensity={0.8} />
-                        <directionalLight position={[5, 5, 5]} intensity={1.5} />
-                        <directionalLight position={[-5, 3, -5]} intensity={0.5} />
-                        <pointLight position={[0, 2, 0]} intensity={1.0} color="#f4d03f" />
+                    {(!isLoaded || !user) ? (
+                        <div className="w-full h-full flex items-center justify-center bg-background/50">
+                             <div className="text-foreground/40 text-xl animate-pulse">Loading Interface...</div>
+                        </div>
+                    ) : (
+                        <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full">
+                            <ambientLight intensity={0.8} />
+                            <directionalLight position={[5, 5, 5]} intensity={1.5} />
+                            <directionalLight position={[-5, 3, -5]} intensity={0.5} />
+                            <pointLight position={[0, 2, 0]} intensity={1.0} color="#f4d03f" />
 
-                        <FlowerScene />
+                            <FlowerScene />
 
-                        <Environment preset="dawn" />
-                        <OrbitControls
-                            enableZoom={true}
-                            enablePan={false}
-                            minDistance={4}
-                            maxDistance={10}
-                            autoRotate
-                            autoRotateSpeed={0.5}
-                        />
-                    </Canvas>
-
-                    {/* Interaction Hint */}
-                    <div className="absolute top-24 right-8 z-10 hidden md:flex items-center gap-2 text-sm text-muted-foreground bg-white/50 backdrop-blur-sm px-4 py-2 rounded-full border border-border">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
+                            <Environment preset="dawn" />
+                            <OrbitControls
+                                enableZoom={true}
+                                enablePan={false}
+                                minDistance={4}
+                                maxDistance={10}
+                                autoRotate
+                                autoRotateSpeed={0.5}
                             />
-                        </svg>
-                        <span>Drag to rotate • Scroll to zoom</span>
-                    </div>
+                        </Canvas>
+                    )}
                 </div>
 
                 {/* Info Panel - Lower section */}
-                <div className="flex-1 w-full bg-background relative overflow-hidden flex items-center justify-center border-t border-border">
-                    {/* Sky background filling the entire bottom section */}
-                    <div className="absolute inset-0">
-                        <Image
-                            src="/assets/sky-background.webp"
-                            alt="Background"
-                            fill
-                            className="object-cover"
-                        />
-                    </div>
-
-                    <div className="max-w-4xl w-full px-8 py-10 relative z-20 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
-                        <div className="space-y-2">
-                            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-balance">
-                                {greeting} from {location}, {user.firstName || user.fullName || "Friend"}!
-                            </h2>
-                            <p className="text-lg text-foreground/70 leading-relaxed">
-                                Welcome back to your planet computer interface.
-                            </p>
+                <div className="flex-1 w-full bg-background relative overflow-hidden flex items-center justify-center border-t border-border p-8">
+                    <div className="max-w-4xl w-full h-full relative z-20 overflow-hidden rounded-3xl border border-white/30 shadow-2xl">
+                        {/* Sky background div on the square */}
+                        <div className="absolute inset-0">
+                            <Image
+                                src="/assets/sky-background.webp"
+                                alt="Background"
+                                fill
+                                className="object-cover"
+                            />
+                            <div className="absolute inset-0 bg-white/10 backdrop-blur-sm" />
                         </div>
 
-                        <div className="flex flex-col items-center md:items-end gap-3">
-                            <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 shadow-lg">
-                                <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
-                                <span className="text-lg font-semibold text-foreground">
-                                    It&apos;s currently {currentTime}
-                                </span>
+                        <div className="relative h-full px-8 py-8 md:px-12 md:py-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                            <div className="space-y-3 text-center md:text-left">
+                                <h2 className="text-3xl md:text-4xl font-bold text-foreground text-balance">
+                                    {greeting} from {location}, {user?.firstName || user?.fullName || "Friend"}!
+                                </h2>
+                                <p className="text-lg text-foreground/80 leading-relaxed">
+                                    Welcome back to your planet computer interface.
+                                </p>
+                            </div>
+
+                            <div className="flex flex-col items-center md:items-end gap-3 shrink-0">
+                                <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/30 border border-white/40 shadow-lg backdrop-blur-md">
+                                    <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
+                                    <span className="text-xl font-bold text-foreground">
+                                        {currentTime || "--:--"}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
