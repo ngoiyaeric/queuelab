@@ -39,7 +39,17 @@ export default function Base() {
 
     if (!isLoaded || !user) {
         return (
-            <div className="flex h-screen items-center justify-center bg-background">
+            <div className="relative flex h-screen items-center justify-center bg-background">
+                {/* Persistent Sky Background */}
+                <div className="fixed inset-0 -z-10">
+                    <Image
+                        src="/assets/sky-background.webp"
+                        alt="Sky Background"
+                        fill
+                        className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-white/20" />
+                </div>
                 <div className="text-foreground text-xl animate-pulse">Loading Base...</div>
             </div>
         );
@@ -47,6 +57,17 @@ export default function Base() {
 
     return (
         <div className="relative w-full h-screen overflow-hidden bg-background">
+            {/* Persistent Sky Background */}
+            <div className="fixed inset-0 -z-10">
+                <Image
+                    src="/assets/sky-background.webp"
+                    alt="Sky Background"
+                    fill
+                    className="object-cover"
+                />
+                <div className="absolute inset-0 bg-white/20" />
+            </div>
+
             {/* Header / Base UI */}
             <header className="absolute top-0 left-0 right-0 z-10 p-6 md:p-8">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -71,7 +92,7 @@ export default function Base() {
 
             {/* 3D Canvas */}
             <div className="w-full h-full">
-                <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full shadow-inner">
+                <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full">
                     <ambientLight intensity={0.8} />
                     <directionalLight position={[5, 5, 5]} intensity={1.5} />
                     <directionalLight position={[-5, 3, -5]} intensity={0.5} />
@@ -107,17 +128,14 @@ export default function Base() {
                 </div>
             </div>
 
-            {/* Interaction Hint */}
-            <div className="absolute top-24 right-8 z-10 hidden md:flex items-center gap-2 text-sm text-muted-foreground bg-white/50 backdrop-blur-sm px-4 py-2 rounded-full border border-border">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
-                    />
-                </svg>
-                <span>Drag to rotate • Scroll to zoom</span>
+            {/* Sky Background Square at Bottom */}
+            <div className="absolute bottom-0 left-0 w-32 h-32 m-8 -z-10 rounded-2xl overflow-hidden border border-white/30 shadow-lg">
+                <Image
+                    src="/assets/sky-background.webp"
+                    alt="Sky Preview"
+                    fill
+                    className="object-cover"
+                />
             </div>
         </div>
     );
