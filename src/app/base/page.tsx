@@ -108,7 +108,7 @@ export default function Base() {
             </header>
 
             {/* Main Content: Flower (Above) and Info (Below) */}
-            <main className="flex-1 flex flex-col relative z-10">
+            <main className="flex-1 flex flex-col relative z-10 pt-20">
                 {/* 3D Canvas - Upper half */}
                 <div className="flex-[3] w-full relative">
                     {(!isLoaded || !user) ? (
@@ -137,9 +137,9 @@ export default function Base() {
                     )}
                 </div>
 
-                {/* Info Panel - Lower section */}
-                <div className="flex-1 w-full bg-background relative overflow-hidden flex items-center justify-center border-t border-black/5 p-6 md:p-10">
-                    <div className="max-w-5xl w-full h-full relative z-20 overflow-hidden rounded-[2.5rem] border border-white/40 shadow-2xl">
+                {/* Info Panel - Lower section (Centrally placed under the flower) */}
+                <div className="w-full flex items-center justify-center p-6 md:p-10 -mt-16 relative z-20">
+                    <div className="max-w-5xl w-full h-[400px] relative overflow-hidden rounded-[2.5rem] border border-white/40 shadow-2xl">
                         {/* Sky background div on the square */}
                         <div className="absolute inset-0">
                             <Image
