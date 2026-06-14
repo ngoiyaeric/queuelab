@@ -95,8 +95,8 @@ export function SphereLatticeAnimation() {
 
       let text = "";
       if (isCenter) text = "QCX";
-      else if (isLeft) text = "EVA";
-      else if (isRight) text = "FIX";
+      else if (isLeft) text = "FIX";
+      else if (isRight) text = "EVA";
 
       squares.push(
         <group key={`${i}-${j}`} position={[i * spacing, j * spacing, 0]}>

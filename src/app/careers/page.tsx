@@ -41,7 +41,7 @@ export default function CareersPage() {
                   <div className="flex flex-col items-center text-black">
                     <div className="relative w-40 h-40 mb-6">
                       <Image
-                        src="/ceo-profile.png"
+                        src="/eric-ngoiya.jpg"
                         alt="Eric Ngoiya"
                         fill
                         className="rounded-full object-cover"
