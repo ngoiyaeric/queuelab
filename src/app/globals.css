@@ -6,26 +6,66 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 95%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 95%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 0 0% 95%;
-    --accent-foreground: 0 0% 0%;
+    /* White Light Earth Tone Palette */
+    --background: 30 20% 98%; /* Cream/Stone-50ish */
+    --foreground: 20 10% 10%; /* Dark Stone */
+
+    --card: 30 20% 98%;
+    --card-foreground: 20 10% 10%;
+
+    --popover: 30 20% 98%;
+    --popover-foreground: 20 10% 10%;
+
+    --primary: 120 15% 25%; /* Deep Sage/Forest Green */
+    --primary-foreground: 30 20% 98%;
+
+    --secondary: 30 20% 90%; /* Light Tan/Warm Brown */
+    --secondary-foreground: 20 10% 10%;
+
+    --muted: 30 10% 90%;
+    --muted-foreground: 20 5% 40%;
+
+    --accent: 70 20% 85%; /* Soft Sage Green */
+    --accent-foreground: 20 10% 10%;
+
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 0% 0%;
-    --radius: 0.5rem;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 30 10% 85%;
+    --input: 30 10% 85%;
+    --ring: 120 15% 25%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 20 10% 10%;
+    --foreground: 30 20% 98%;
+
+    --card: 20 10% 10%;
+    --card-foreground: 30 20% 98%;
+
+    --popover: 20 10% 10%;
+    --popover-foreground: 30 20% 98%;
+
+    --primary: 120 15% 45%;
+    --primary-foreground: 30 20% 98%;
+
+    --secondary: 20 10% 20%;
+    --secondary-foreground: 30 20% 98%;
+
+    --muted: 20 10% 20%;
+    --muted-foreground: 20 5% 60%;
+
+    --accent: 120 15% 25%;
+    --accent-foreground: 30 20% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 30 20% 98%;
+
+    --border: 20 10% 20%;
+    --input: 20 10% 20%;
+    --ring: 120 15% 45%;
   }
 }
 
@@ -39,15 +79,11 @@
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    zoom: 0.75;
-  }
-}
+/* Removed non-standard zoom property as per CodeRabbit recommendation */
 
 .season-font {
   font-family: 'Inter', sans-serif;
-  color: hsla(0, 0%, 0%, 0.7);
+  color: hsla(20, 10%, 10%, 0.7);
   text-align: center;
   padding: 1rem 0;
   font-size: 0.8rem;

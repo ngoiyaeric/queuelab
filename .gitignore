@@ -40,3 +40,5 @@ next-env.d.ts
 # firebase
 .firebaserc
 public/firebase-messaging-sw.js
+# clerk configuration (can include secrets)
+/.clerk/

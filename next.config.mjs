@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Enable standalone output for Render (detected via RENDER env var) or manual override
-    output: (process.env.NEXT_STANDALONE === "true" || process.env.RENDER === "true") ? "standalone" : "export",
+    // Reverting static export as it conflicts with Clerk's server-side needs
+    // and this project seems to prefer a dynamic runtime.
+    // To support Firebase Hosting, we'll ensure the build output is handled.
 
     images: {
-        // Standalone builds on Render support optimized images; static exports require unoptimized
-        unoptimized: !(process.env.NEXT_STANDALONE === "true" || process.env.RENDER === "true"),
+        unoptimized: true,
     },
 
     webpack(config) {

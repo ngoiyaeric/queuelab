@@ -1,19 +1,40 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
-  const session = request.cookies.get('session');
+const isPublicRoute = createRouteMatcher([
+  '/',
+  '/api/submit-interest-form',
+  '/rd(.*)',
+  '/careers(.*)',
+  '/privacy(.*)',
+  '/terms(.*)',
+  '/lab(.*)',
+  '/__clerk/(.*)'
+]);
 
-  // If the user is trying to access the dashboard without a valid session,
-  // redirect them to the home page (or a dedicated login page).
-  if (!session) {
-    return NextResponse.redirect(new URL('/', request.url));
+export default clerkMiddleware(async (auth, req) => {
+  const { userId, redirectToSignIn } = await auth();
+
+  // For public routes, let them through
+  if (isPublicRoute(req)) {
+    return NextResponse.next();
+  }
+
+  // If user is not logged in and trying to access a protected route
+  if (!userId) {
+    return redirectToSignIn({ returnBackUrl: req.url });
   }
 
   return NextResponse.next();
-}
+});
 
-// Config to specify the routes where the middleware should run.
 export const config = {
-  matcher: ['/dashboard/:path*'],
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)',
+    // Always run for Clerk's auto-proxy path
+    '/__clerk/:path*',
+  ],
 };
