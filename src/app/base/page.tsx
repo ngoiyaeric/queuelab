@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
@@ -9,6 +9,8 @@ import Image from "next/image";
 import QIcon from "@/assets/q-logo.png";
 import { useUser, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
+import { BalanceDisplay } from "@/components/balance-display";
+import { AddFunds } from "@/components/add-funds";
 
 export default function Base() {
     const { user, isLoaded } = useUser();
@@ -152,7 +154,7 @@ export default function Base() {
 
                         {/* Info Card — pulled up to overlap flower canvas bottom */}
                         <div
-                            className="w-full flex items-start justify-center px-10 pb-20 relative z-20"
+                            className="w-full flex items-start justify-center px-10 pb-12 relative z-20"
                             style={{ marginTop: '-120px' }}
                         >
                             <div className="max-w-6xl w-full h-[280px] relative overflow-hidden rounded-[3rem] border border-white/40 shadow-2xl">
@@ -183,6 +185,16 @@ export default function Base() {
                                         Welcome back to your planet computer interface.
                                     </p>
                                 </div>
+                            </div>
+                        </div>
+
+                        {/* Financials Section */}
+                        <div className="w-full max-w-6xl px-10 pb-20 relative z-20">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <Suspense fallback={<div className="h-[160px] rounded-[2rem] bg-white/10 animate-pulse" />}>
+                                    <BalanceDisplay />
+                                </Suspense>
+                                <AddFunds />
                             </div>
                         </div>
 
