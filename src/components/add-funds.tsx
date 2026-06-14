@@ -48,7 +48,7 @@ export function AddFunds({ className, variant = "card" }: AddFundsProps) {
 
   const content = (
     <>
-      <div className="grid grid-cols-4 gap-2 mb-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
         {PRESET_AMOUNTS.map((val) => (
           <Button
             key={val}
@@ -67,7 +67,7 @@ export function AddFunds({ className, variant = "card" }: AddFundsProps) {
 
       <form
         onSubmit={handleCheckout}
-        className="flex gap-2 items-end"
+        className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-end"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex-1 space-y-1">

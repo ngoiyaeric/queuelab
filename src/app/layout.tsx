@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Inter, Instrument_Serif, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { clsx } from "clsx";
 import { Roboto } from "next/font/google";
@@ -11,6 +11,7 @@ import { DynamicBackground } from '@/components/dynamic-background';
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
 const instrumentSerif = Instrument_Serif({ subsets: ["latin"], weight: "400", variable: "--font-instrument-serif" });
+const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-plus-jakarta-sans" });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.queue.cx'),
@@ -33,7 +34,7 @@ export default function RootLayout({
       <head>
 
       </head>
-      <body className={clsx(inter.className, roboto.className, instrumentSerif.variable, "antialiased")}>
+      <body className={clsx(inter.className, roboto.className, instrumentSerif.variable, plusJakartaSans.variable, "antialiased")}>
         <ClerkProvider
           dynamic
           signInFallbackRedirectUrl="/base"
