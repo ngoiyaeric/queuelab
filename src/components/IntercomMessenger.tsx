@@ -14,7 +14,12 @@ export default function IntercomMessenger() {
   useEffect(() => {
     // Intercom should not be shown inside the base
     if (pathname.startsWith('/base')) {
-      (Intercom as any)('shutdown');
+      try {
+        (Intercom as any)('shutdown');
+        // Extra assurance to hide launcher if shutdown doesn't immediately remove it
+        const launcher = document.querySelector('.intercom-lightweight-app-launcher');
+        if (launcher) (launcher as HTMLElement).style.display = 'none';
+      } catch (e) {}
       return;
     }
 

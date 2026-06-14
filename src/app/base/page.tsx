@@ -45,6 +45,9 @@ export default function Base() {
             })
             .catch(() => setLocation("Earth"));
 
+        // Ensure page doesn't auto-scroll down
+        window.scrollTo(0, 0);
+
         return () => clearInterval(timer);
     }, [user, isLoaded, router]);
 
