@@ -34,7 +34,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                     <div className="flex items-center justify-between md:border md:p-2.5 md:rounded-xl max-w-3xl mx-auto md:backdrop-blur">
                         {/* Mobile: logo on the left */}
                         <Link href="/" className="md:hidden">
-                            <div className="inline-flex items-center justify-center p-2 rounded-xl bg-white/50 backdrop-blur-md border border-black/5 hover:bg-white/80 transition shadow-sm">
+                            <div className="inline-flex items-center justify-center p-2 rounded-xl bg-white/20 backdrop-blur-xl border border-white/30 hover:bg-white/40 transition-all duration-300 shadow-lg">
                                 <Image src={QIcon} alt="QCX Logo" width={56} height={56} className="h-auto" />
                             </div>
                         </Link>
@@ -48,7 +48,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                         </section>
                         {/* Desktop: center logo between Careers and Reads */}
                         <Link href="/" className="max-md:hidden">
-                            <div className="inline-flex items-center justify-center p-2 rounded-xl bg-white/50 backdrop-blur-md border border-black/5 hover:bg-white/80 transition shadow-sm">
+                            <div className="inline-flex items-center justify-center p-2 rounded-xl bg-white/20 backdrop-blur-xl border border-white/30 hover:bg-white/40 transition-all duration-300 shadow-lg">
                                 <Image src={QIcon} alt="QCX Logo" width={56} height={56} className="h-auto" />
                             </div>
                         </Link>

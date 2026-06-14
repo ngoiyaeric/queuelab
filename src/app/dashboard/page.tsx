@@ -13,10 +13,33 @@ export default function Dashboard() {
     const { user, loading, signOut } = useAuth();
     const router = useRouter();
     const [currentTime, setCurrentTime] = useState("");
+    const [welcomeMessage, setWelcomeMessage] = useState("Welcome Back!");
+    const [location, setLocation] = useState<string>("");
 
     useEffect(() => {
         if (!loading && !user) {
             router.push("/");
+        }
+
+        // Time-based greeting
+        const hour = new Date().getHours();
+        let greeting = "Good Evening";
+        if (hour < 12) greeting = "Good Morning";
+        else if (hour < 18) greeting = "Good Afternoon";
+        
+        // Contextual message
+        const baseMessage = user?.displayName ? `${greeting}, ${user.displayName.split(' ')[0]}` : `${greeting}`;
+        setWelcomeMessage(baseMessage);
+
+        // Fetch location (simple approximation or placeholder for now)
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                // In a real app, you'd reverse geocode here. 
+                // For now, we'll just indicate we have the context.
+                setLocation("your current location");
+            }, () => {
+                setLocation("the cloud");
+            });
         }
 
         if (user && user.metadata.lastSignInTime) {
@@ -44,7 +67,19 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-black via-zinc-900 to-black">
+        <div className="relative w-full h-screen overflow-hidden bg-[#87CEEB]">
+            {/* Sky Background Layer */}
+            <div className="absolute inset-0 z-0 opacity-40 bg-[url('/assets/sky-background.webp')] bg-cover bg-center" />
+            
+            {/* Tri-color faded background behind flower */}
+            <div className="absolute inset-0 z-0 flex items-center justify-center overflow-hidden pointer-events-none">
+                <div className="relative w-full h-full max-w-4xl max-h-4xl opacity-30 blur-[120px]">
+                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400 rounded-full animate-pulse" />
+                    <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-yellow-200 rounded-full animate-pulse delay-700" />
+                    <div className="absolute bottom-1/4 left-1/2 w-96 h-96 bg-green-300 rounded-full animate-pulse delay-1000" />
+                </div>
+            </div>
+
             {/* Header / Dashboard UI */}
             <header className="absolute top-0 left-0 right-0 z-10 p-6 md:p-8">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -86,18 +121,24 @@ export default function Dashboard() {
             </Canvas>
 
             {/* Info Panel */}
-            <div className="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-96 z-10 bg-black/60 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/10">
-                <h2 className="text-xl font-semibold text-white mb-2 text-balance">Welcome Back!</h2>
-                <div className="space-y-2 mb-4">
-                    <p className="text-sm text-zinc-300 leading-relaxed">
-                        <span className="text-zinc-500 mr-2">User:</span> {user.displayName || user.email}
-                    </p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">
-                        <span className="text-zinc-500 mr-2">Login Time:</span> {currentTime}
-                    </p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">
-                        <span className="text-zinc-500 mr-2">User ID:</span> <span className="font-mono text-xs">{user.uid}</span>
-                    </p>
+            <div className="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-96 z-10 bg-white/10 backdrop-blur-2xl rounded-3xl p-8 shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] border border-white/20">
+                <h2 className="text-2xl font-bold text-white mb-1 tracking-tight">{welcomeMessage}</h2>
+                <p className="text-xs text-white/60 mb-6 font-medium uppercase tracking-widest">
+                    Streaming from {location || "the cloud"}
+                </p>
+                <div className="space-y-3 mb-2">
+                    <div className="flex items-center justify-between py-2 border-b border-white/10">
+                        <span className="text-[10px] font-bold text-white/40 uppercase tracking-tighter">Identity</span>
+                        <span className="text-sm text-white font-medium">{user.displayName || user.email?.split('@')[0]}</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2 border-b border-white/10">
+                        <span className="text-[10px] font-bold text-white/40 uppercase tracking-tighter">Session</span>
+                        <span className="text-sm text-white font-medium">{currentTime.split(',')[1]}</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2">
+                        <span className="text-[10px] font-bold text-white/40 uppercase tracking-tighter">Node</span>
+                        <span className="font-mono text-[10px] text-white/60">{user.uid.substring(0, 12)}...</span>
+                    </div>
                 </div>
             </div>
 

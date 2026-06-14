@@ -11,7 +11,7 @@ interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
 
 export function ActionButton({ label, href, target, className, type = "button", ...props }: ActionButtonProps) {
   // Internal classes for the button's consistent appearance
-  const buttonInternalClass = "relative py-2 px-4 rounded-lg font-medium text-sm text-black bg-white/30 backdrop-blur-lg border border-white/40 shadow-[0_4px_30px_rgba(0,0,0,0.1)] hover:bg-white/50 transition-all duration-300 group overflow-hidden";
+  const buttonInternalClass = "relative py-2 px-6 rounded-xl font-semibold text-sm text-black bg-white/20 backdrop-blur-xl border border-white/30 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] hover:bg-white/40 hover:border-white/50 transition-all duration-500 group overflow-hidden tracking-tight";
 
   // JSX for the visual elements inside the button (icons, text, etc.)
   const buttonVisuals = (

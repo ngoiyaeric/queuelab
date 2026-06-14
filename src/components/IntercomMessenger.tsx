@@ -2,27 +2,35 @@
 
 import { useEffect } from 'react';
 import Intercom from '@intercom/messenger-js-sdk';
+import { useAuth } from '@/components/auth-provider';
+import { usePathname } from 'next/navigation';
 
 const INTERCOM_APP_ID = 'ggimhqjf';
 
 export default function IntercomMessenger() {
+  const { user } = useAuth();
+  const pathname = usePathname();
+
   useEffect(() => {
-    // Initialize Intercom
-    Intercom({
-      app_id: INTERCOM_APP_ID,
-      // Set alignment to 'left' to place the messenger on the bottom left.
-      alignment: 'left',
-      // The 'talk to sales' button text is typically configured in the Intercom
-      // workspace settings, as the SDK does not provide a direct option for
-      // the default launcher's text.
-    });
+    // Only initialize Intercom if user is logged in and on dashboard (the "base")
+    if (user && pathname.startsWith('/dashboard')) {
+      Intercom({
+        app_id: INTERCOM_APP_ID,
+        alignment: 'left',
+      });
+    } else {
+      // Shutdown Intercom if not in the right context
+      try {
+        (Intercom as any)('shutdown');
+      } catch (e) {}
+    }
 
-    // Clean up function to shut down Intercom when the component unmounts
     return () => {
-      (Intercom as any)('shutdown');
+      try {
+        (Intercom as any)('shutdown');
+      } catch (e) {}
     };
-  }, []);
+  }, [user, pathname]);
 
-  // The component does not need to render anything visible itself.
   return null;
 }
