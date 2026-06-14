@@ -100,7 +100,7 @@ export default function Base() {
                              <div className="text-foreground/40 text-xl animate-pulse">Loading Interface...</div>
                         </div>
                     ) : (
-                        <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full">
+                        <Canvas camera={{ position: [0, 0, 7], fov: 45 }} className="w-full h-full">
                             <ambientLight intensity={0.8} />
                             <directionalLight position={[5, 5, 5]} intensity={1.5} />
                             <directionalLight position={[-5, 3, -5]} intensity={0.5} />
