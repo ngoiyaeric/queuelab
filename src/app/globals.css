@@ -39,11 +39,33 @@
   }
 
   .dark {
-    /* Keep it light even in dark mode for now as per "white light earth tone" requirement */
-    --background: 30 20% 98%;
-    --foreground: 20 10% 10%;
-    --primary: 120 15% 25%;
-    /* ... other variables ... */
+    --background: 20 10% 10%;
+    --foreground: 30 20% 98%;
+
+    --card: 20 10% 10%;
+    --card-foreground: 30 20% 98%;
+
+    --popover: 20 10% 10%;
+    --popover-foreground: 30 20% 98%;
+
+    --primary: 120 15% 45%;
+    --primary-foreground: 30 20% 98%;
+
+    --secondary: 20 10% 20%;
+    --secondary-foreground: 30 20% 98%;
+
+    --muted: 20 10% 20%;
+    --muted-foreground: 20 5% 60%;
+
+    --accent: 120 15% 25%;
+    --accent-foreground: 30 20% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 30 20% 98%;
+
+    --border: 20 10% 20%;
+    --input: 20 10% 20%;
+    --ring: 120 15% 45%;
   }
 }
 
@@ -57,11 +79,7 @@
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    zoom: 0.75;
-  }
-}
+/* Removed non-standard zoom property as per CodeRabbit recommendation */
 
 .season-font {
   font-family: 'Inter', sans-serif;

@@ -41,42 +41,36 @@ export async function POST(request: NextRequest) {
     }
 
     // --- Nodemailer Configuration ---
-    // IMPORTANT: Store sensitive credentials in environment variables, not directly in code.
-    // For this example, we'll use placeholder values.
-    // You'll need to configure an SMTP transporter. This might be Gmail, SendGrid, etc.
-    // For Gmail, you might need to "allow less secure app access" or use an "App Password".
+    // IMPORTANT: Ensure these environment variables are set in your production environment (e.g., Vercel)
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.example.com', // Replace with your SMTP host
-      port: Number(process.env.SMTP_PORT || 587), // Replace with your SMTP port
-      secure: (process.env.SMTP_SECURE === 'true') || false, // true for 465, false for other ports
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT || 587),
+      secure: process.env.SMTP_SECURE === 'true',
       auth: {
-        user: process.env.SMTP_USER || 'your-email@example.com', // Replace with your email
-        pass: process.env.SMTP_PASS || 'your-email-password', // Replace with your email password
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
       tls: {
-        // do not fail on invalid certs for development/testing if needed
-        // rejectUnauthorized: process.env.NODE_ENV === 'production',
-        ciphers:'SSLv3' // Adjust if necessary, some servers might require specific ciphers
+        ciphers: 'SSLv3'
       }
     });
-
 
     // Determine a more descriptive subject prefix based on context
     const subjectPrefix = submissionContext.toLowerCase().includes('demo')
       ? "New QCX Demo Request"
-      : `New QCX ${submissionContext} Submission`; // Or a more generic fallback if context is varied
+      : `New QCX ${submissionContext} Submission`;
 
     const mailOptions = {
-      from: `"QCX Interest Form" <${process.env.SMTP_FROM_EMAIL || email}>`, // Sender address (can be same as SMTP_USER or a "no-reply" address)
-      to: 'relations@queue.cx', // Destination email address provided by user
-      replyTo: email, // Set reply-to to the user's email
+      from: `"QCX Interest Form" <${process.env.SMTP_FROM_EMAIL || email}>`,
+      to: 'relations@queue.cx',
+      replyTo: email,
       subject: `${subjectPrefix} from ${email}`,
       html: `
         <div style="font-family: Arial, sans-serif; line-height: 1.6;">
           <h2 style="color: #333;">New Submission: ${submissionContext}</h2>
           <p><strong>Email:</strong> ${email}</p>
           <p><strong>Identity:</strong> ${identity}</p>
-          <p><strong>Context:</strong> ${submissionContext}</p> <!-- Added context to email body for clarity -->
+          <p><strong>Context:</strong> ${submissionContext}</p>
           <p><strong>Message:</strong></p>
           <p style="white-space: pre-wrap; background-color: #f9f9f9; border: 1px solid #eee; padding: 10px;">${message}</p>
           <hr/>
@@ -87,11 +81,13 @@ export async function POST(request: NextRequest) {
 
     // --- Send Mail ---
     try {
+      if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+        throw new Error('SMTP configuration is missing. Please set SMTP_HOST, SMTP_USER, and SMTP_PASS environment variables.');
+      }
       await transporter.sendMail(mailOptions);
       return NextResponse.json({ message: 'Form submitted successfully! We will be in touch.' }, { status: 200 });
     } catch (mailError: any) {
       console.error('Error sending email:', mailError);
-      // It's good practice to check the error type and message for more specific user feedback
       let errorMessage = 'An error occurred while sending your message.';
       if (mailError.code === 'EENVELOPE') {
           errorMessage = "Error with sender/recipient email addresses. Please check and try again.";
@@ -103,7 +99,6 @@ export async function POST(request: NextRequest) {
 
   } catch (error: any) {
     console.error('Error processing request:', error);
-    // Check if it's a JSON parsing error or other type
     if (error instanceof SyntaxError) {
         return NextResponse.json({ message: 'Invalid request format.' }, { status: 400 });
     }

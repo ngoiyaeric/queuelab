@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useUser } from "@clerk/nextjs";
+import { useUser, useClerk } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,10 +10,12 @@ import Image from "next/image";
 
 export default function OnboardingPage() {
   const { user, isLoaded } = useUser();
+  const { session } = useClerk();
   const router = useRouter();
   const [role, setRole] = useState("");
   const [orgType, setOrgType] = useState("");
   const [loading, setLoading] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
   useEffect(() => {
     if (isLoaded && !user) {
@@ -28,6 +30,7 @@ export default function OnboardingPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setFormError(null);
     try {
       await user?.update({
         unsafeMetadata: {
@@ -37,10 +40,14 @@ export default function OnboardingPage() {
         },
       });
 
+      // Force session token refresh so middleware sees updated claims
+      await session?.reload();
+      
       // Force a window location change to ensure the middleware picks up the new metadata
       window.location.href = "/base";
     } catch (err) {
       console.error("Error updating user metadata:", err);
+      setFormError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -98,6 +105,7 @@ export default function OnboardingPage() {
               </select>
             </div>
           </div>
+          {formError && <p className="text-red-400 text-sm text-center">{formError}</p>}
           <Button type="submit" className="w-full bg-white/20 hover:bg-white/30 text-white border-white/20 transition-all" disabled={loading}>
             {loading ? "Setting things up..." : "Complete Setup"}
           </Button>
