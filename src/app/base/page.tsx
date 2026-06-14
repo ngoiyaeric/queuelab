@@ -115,8 +115,8 @@ export default function Base() {
                     </div>
                 ) : (
                     <>
-                        {/* 3D Canvas - Upper half */}
-                        <div className="flex-[3] w-full relative">
+                        {/* 3D Canvas - Upper section */}
+                        <div className="h-[130vh] w-full relative">
                             <Canvas camera={{ position: [0, 0, 8.5], fov: 45 }} className="w-full h-full">
                                 <ambientLight intensity={0.8} />
                                 <directionalLight position={[5, 5, 5]} intensity={1.5} />
@@ -137,9 +137,9 @@ export default function Base() {
                             </Canvas>
                         </div>
 
-                        {/* Info Panel - Centered directly under the flower */}
-                        <div className="w-full max-w-5xl mx-auto p-6 md:p-10 -mt-24 relative z-20">
-                            <div className="relative w-full h-[400px] overflow-hidden rounded-[2.5rem] border border-white/40 shadow-2xl">
+                        {/* Info Panel - Bottom section */}
+                        <div className="h-[70vh] w-full flex items-start justify-center px-10 pb-20 relative z-20">
+                            <div className="max-w-6xl w-full h-[450px] relative overflow-hidden rounded-[3rem] border border-white/40 shadow-2xl">
                                 {/* Sky background */}
                                 <div className="absolute inset-0">
                                     <Image
@@ -151,20 +151,20 @@ export default function Base() {
                                     <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px]" />
                                 </div>
 
-                                <div className="relative h-full px-10 py-10 md:px-14 md:py-12 flex flex-col justify-center">
-                                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                                        <h2 className="text-3xl md:text-4xl font-bold text-foreground text-balance text-center md:text-left">
+                                <div className="relative h-full px-12 py-12 md:px-16 md:py-14 flex flex-col justify-center">
+                                    <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                                        <h2 className="text-4xl md:text-5xl font-bold text-foreground text-balance text-center md:text-left leading-tight">
                                             {greeting} from {location}, {user?.firstName || user?.fullName?.split(' ')[0] || "Friend"}!
                                         </h2>
 
-                                        <div className="flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md shrink-0">
-                                            <span className="w-2 h-2 rounded-full bg-blue-500" />
-                                            <span className="text-xl font-semibold text-foreground">
+                                        <div className="flex items-center gap-4 px-8 py-3 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md shrink-0">
+                                            <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+                                            <span className="text-2xl font-semibold text-foreground">
                                                 {currentTime || "00:00"}
                                             </span>
                                         </div>
                                     </div>
-                                    <p className="text-lg md:text-xl text-foreground/70 leading-relaxed mt-4 text-center md:text-left">
+                                    <p className="text-xl md:text-2xl text-foreground/70 leading-relaxed mt-6 text-center md:text-left">
                                         Welcome back to your planet computer interface.
                                     </p>
                                 </div>
