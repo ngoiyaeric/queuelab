@@ -66,16 +66,16 @@ export default function Base() {
     }
 
     return (
-        <div className="relative w-full h-screen overflow-hidden bg-background">
+        <div className="relative w-full h-screen overflow-hidden bg-background flex flex-col">
             {/* Faded Background Colors behind flower */}
-            <div className="absolute inset-0 -z-0">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-200/30 rounded-full blur-[120px]" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-[120%] -translate-y-[20%] w-[500px] h-[500px] bg-yellow-100/20 rounded-full blur-[100px]" />
-                <div className="absolute top-1/2 left-1/2 translate-x-[20%] -translate-y-[80%] w-[550px] h-[550px] bg-green-100/20 rounded-full blur-[110px]" />
+            <div className="absolute inset-0 z-0">
+                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-200/30 rounded-full blur-[120px]" />
+                <div className="absolute top-1/4 left-1/2 -translate-x-[120%] -translate-y-[20%] w-[500px] h-[500px] bg-yellow-100/20 rounded-full blur-[100px]" />
+                <div className="absolute top-1/4 left-1/2 translate-x-[20%] -translate-y-[80%] w-[550px] h-[550px] bg-green-100/20 rounded-full blur-[110px]" />
             </div>
 
             {/* Header / Base UI */}
-            <header className="absolute top-0 left-0 right-0 z-10 p-6 md:p-8">
+            <header className="absolute top-0 left-0 right-0 z-50 p-6 md:p-8">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <Link href="/" className="inline-flex items-center justify-center p-2 rounded-xl bg-white/50 backdrop-blur-md border border-black/5 shadow-sm hover:bg-white/80 transition group">
@@ -96,77 +96,76 @@ export default function Base() {
                 </div>
             </header>
 
-            {/* 3D Canvas */}
-            <div className="w-full h-full">
-                <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full shadow-inner">
-                    <ambientLight intensity={0.8} />
-                    <directionalLight position={[5, 5, 5]} intensity={1.5} />
-                    <directionalLight position={[-5, 3, -5]} intensity={0.5} />
-                    <pointLight position={[0, 2, 0]} intensity={1.0} color="#f4d03f" />
+            {/* Main Content: Flower (Above) and Info (Below) */}
+            <main className="flex-1 flex flex-col relative z-10">
+                {/* 3D Canvas - Upper half */}
+                <div className="flex-[3] w-full relative">
+                    <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full">
+                        <ambientLight intensity={0.8} />
+                        <directionalLight position={[5, 5, 5]} intensity={1.5} />
+                        <directionalLight position={[-5, 3, -5]} intensity={0.5} />
+                        <pointLight position={[0, 2, 0]} intensity={1.0} color="#f4d03f" />
 
-                    <FlowerScene />
+                        <FlowerScene />
 
-                    <Environment preset="dawn" />
-                    <OrbitControls
-                        enableZoom={true}
-                        enablePan={false}
-                        minDistance={4}
-                        maxDistance={10}
-                        autoRotate
-                        autoRotateSpeed={0.5}
-                    />
-                </Canvas>
-            </div>
+                        <Environment preset="dawn" />
+                        <OrbitControls
+                            enableZoom={true}
+                            enablePan={false}
+                            minDistance={4}
+                            maxDistance={10}
+                            autoRotate
+                            autoRotateSpeed={0.5}
+                        />
+                    </Canvas>
 
-            {/* Info Panel */}
-            <div className="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-96 z-20 overflow-hidden rounded-3xl border border-white/20 shadow-2xl transition-all hover:scale-[1.02]">
-                {/* Sky background inside the panel */}
-                <div className="absolute inset-0 -z-10">
-                    <Image
-                        src="/assets/sky-background.webp"
-                        alt="Background"
-                        fill
-                        className="object-cover opacity-60"
-                    />
-                    <div className="absolute inset-0 bg-white/30 backdrop-blur-xl" />
+                    {/* Interaction Hint */}
+                    <div className="absolute top-24 right-8 z-10 hidden md:flex items-center gap-2 text-sm text-muted-foreground bg-white/50 backdrop-blur-sm px-4 py-2 rounded-full border border-border">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
+                            />
+                        </svg>
+                        <span>Drag to rotate • Scroll to zoom</span>
+                    </div>
                 </div>
 
-                <div className="p-8 relative">
-                    <h2 className="text-2xl font-bold text-foreground mb-4 text-balance">
-                        {greeting} from {location}, {user.firstName || user.fullName || "Friend"}!
-                    </h2>
-                    <div className="space-y-3">
-                        <p className="text-sm text-foreground/80 leading-relaxed flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-                            It&apos;s currently <span className="font-semibold">{currentTime}</span>
-                        </p>
-                        <p className="text-sm text-foreground/70 leading-relaxed">
-                            Welcome back to your planet computer interface.
-                        </p>
-                        <div className="pt-4 mt-4 border-t border-black/5">
-                             <p className="text-[10px] uppercase tracking-widest text-foreground/40 font-bold">
-                                Authentication ID
-                             </p>
-                             <p className="font-mono text-[10px] text-foreground/50 truncate">
-                                {user.id}
-                             </p>
+                {/* Info Panel - Lower section */}
+                <div className="flex-1 w-full bg-background relative overflow-hidden flex items-center justify-center border-t border-border">
+                    {/* Sky background filling the entire bottom section */}
+                    <div className="absolute inset-0">
+                        <Image
+                            src="/assets/sky-background.webp"
+                            alt="Background"
+                            fill
+                            className="object-cover"
+                        />
+                    </div>
+
+                    <div className="max-w-4xl w-full px-8 py-10 relative z-20 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div className="space-y-2">
+                            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-balance">
+                                {greeting} from {location}, {user.firstName || user.fullName || "Friend"}!
+                            </h2>
+                            <p className="text-lg text-foreground/70 leading-relaxed">
+                                Welcome back to your planet computer interface.
+                            </p>
+                        </div>
+
+                        <div className="flex flex-col items-center md:items-end gap-3">
+                            <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 shadow-lg">
+                                <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
+                                <span className="text-lg font-semibold text-foreground">
+                                    It&apos;s currently {currentTime}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            {/* Interaction Hint */}
-            <div className="absolute top-24 right-8 z-10 hidden md:flex items-center gap-2 text-sm text-muted-foreground bg-white/50 backdrop-blur-sm px-4 py-2 rounded-full border border-border">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
-                    />
-                </svg>
-                <span>Drag to rotate • Scroll to zoom</span>
-            </div>
+            </main>
         </div>
     );
 }
