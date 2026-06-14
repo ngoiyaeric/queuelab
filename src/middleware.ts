@@ -1,4 +1,4 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher, clerkClient as getClerkClient } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 const isPublicRoute = createRouteMatcher([
@@ -14,6 +14,28 @@ const isPublicRoute = createRouteMatcher([
 
 export default clerkMiddleware(async (auth, req) => {
   const { userId, redirectToSignIn } = await auth();
+  const url = req.nextUrl;
+
+  // Intercept requests matching /api/py/* before they are proxied
+  if (url.pathname.startsWith('/api/py/')) {
+    if (!userId) {
+      return redirectToSignIn({ returnBackUrl: req.url });
+    }
+
+    const client = await getClerkClient();
+    const user = await client.users.getUser(userId);
+    const email = user.primaryEmailAddress?.emailAddress ?? "";
+
+    const headers = new Headers(req.headers);
+    headers.set("X-User-Id", userId);
+    headers.set("X-User-Email", email);
+
+    return NextResponse.next({
+      request: {
+        headers,
+      },
+    });
+  }
 
   // For public routes, let them through
   if (isPublicRoute(req)) {

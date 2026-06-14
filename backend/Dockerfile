@@ -1,0 +1,34 @@
+# Build stage
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir --user -r requirements.txt
+
+# Runtime stage
+FROM python:3.11-slim AS runtime
+
+WORKDIR /app
+
+# Create non-root user
+RUN addgroup --system --gid 1001 python && \
+    adduser --system --uid 1001 --gid 1001 fastapi
+
+# Copy installed dependencies from builder
+COPY --from=builder --chown=fastapi:python /root/.local /home/fastapi/.local
+
+# Copy application code
+COPY --chown=fastapi:python . .
+
+# Set environment variables
+ENV PATH=/home/fastapi/.local/bin:$PATH
+ENV PYTHONUNBUFFERED=1
+
+USER fastapi
+
+EXPOSE 8000
+
+# Run uvicorn
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]

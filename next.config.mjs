@@ -1,4 +1,14 @@
 /** @type {import('next').NextConfig} */
+
+const FASTAPI_BASE_URL = process.env.FASTAPI_BASE_URL ?? "http://localhost:8000";
+
+if (!process.env.FASTAPI_BASE_URL && process.env.NODE_ENV === "production") {
+    console.warn(
+        "[next.config] WARNING: FASTAPI_BASE_URL is not set. " +
+        "Falling back to http://localhost:8000 — this is likely wrong in production."
+    );
+}
+
 const nextConfig = {
     // Reverting static export as it conflicts with Clerk's server-side needs
     // and this project seems to prefer a dynamic runtime.
@@ -6,6 +16,15 @@ const nextConfig = {
 
     images: {
         unoptimized: true,
+    },
+
+    async rewrites() {
+        return [
+            {
+                source: "/api/py/:path*",
+                destination: `${FASTAPI_BASE_URL}/:path*`,
+            },
+        ];
     },
 
     webpack(config) {
