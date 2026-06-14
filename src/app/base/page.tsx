@@ -7,6 +7,7 @@ import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { FlowerScene } from "@/components/flower-scene";
 import Image from "next/image";
+import Link from "next/link";
 import QIcon from "@/assets/q-logo.png";
 import { useUser, useClerk } from "@clerk/nextjs";
 
@@ -47,13 +48,21 @@ export default function Base() {
 
     return (
         <div className="relative w-full h-screen overflow-hidden bg-background">
+            {/* Three-color sky gradient behind the canvas */}
+            <div
+                className="absolute inset-0 z-0"
+                style={{
+                    background: "radial-gradient(ellipse at 20% 60%, rgba(173, 216, 230, 0.55) 0%, transparent 55%), radial-gradient(ellipse at 80% 30%, rgba(255, 255, 180, 0.45) 0%, transparent 55%), radial-gradient(ellipse at 50% 80%, rgba(180, 230, 180, 0.45) 0%, transparent 55%), linear-gradient(160deg, #e8f4fd 0%, #fefdf0 50%, #f0faf0 100%)"
+                }}
+            />
+
             {/* Header / Base UI */}
             <header className="absolute top-0 left-0 right-0 z-10 p-6 md:p-8">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <div className="inline-flex items-center justify-center p-2 rounded-xl bg-white/50 backdrop-blur-md border border-black/5 shadow-sm">
+                        <Link href="/" className="inline-flex items-center justify-center p-2 rounded-xl bg-white/50 backdrop-blur-md border border-black/5 shadow-sm hover:bg-white/75 transition">
                             <Image src={QIcon} alt="QCX Logo" width={40} height={40} className="h-auto" />
-                        </div>
+                        </Link>
                         <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Base</h1>
                     </div>
                     <nav className="flex items-center gap-4 text-sm font-medium">
@@ -71,7 +80,7 @@ export default function Base() {
 
             {/* 3D Canvas */}
             <div className="w-full h-full">
-                <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full shadow-inner">
+                <Canvas camera={{ position: [0, 0, 6], fov: 45 }} className="w-full h-full" gl={{ alpha: true }} style={{ background: "transparent" }}>
                     <ambientLight intensity={0.8} />
                     <directionalLight position={[5, 5, 5]} intensity={1.5} />
                     <directionalLight position={[-5, 3, -5]} intensity={0.5} />
@@ -92,7 +101,7 @@ export default function Base() {
             </div>
 
             {/* Info Panel */}
-            <div className="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-96 z-10 bg-white/60 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-border">
+            <div className="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-96 z-10 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/40" style={{ background: "linear-gradient(135deg, rgba(173,216,230,0.45) 0%, rgba(255,255,180,0.35) 50%, rgba(180,230,180,0.40) 100%)" }}>
                 <h2 className="text-xl font-semibold text-foreground mb-2 text-balance">Welcome Back!</h2>
                 <div className="space-y-2 mb-4">
                     <p className="text-sm text-muted-foreground leading-relaxed">
