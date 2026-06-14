@@ -110,10 +110,25 @@ export default function Base() {
                                 camera={{ position: [0, 0, 8.5], fov: 45 }}
                                 style={{ width: '100%', height: '100%' }}
                                 gl={{ antialias: true }}
-                                onCreated={({ gl, camera, size }) => {
+                                onCreated={({ gl, camera, size, scene }) => {
                                     gl.setPixelRatio(window.devicePixelRatio);
-                                    camera.aspect = size.width / size.height;
-                                    camera.updateProjectionMatrix();
+
+                                    // Safely update aspect ratio (only PerspectiveCamera has it)
+                                    if ('aspect' in camera) {
+                                        (camera as any).aspect = size.width / size.height;
+                                        camera.updateProjectionMatrix();
+                                    }
+
+                                    // Handle window resize
+                                    const handleResize = () => {
+                                        if ('aspect' in camera) {
+                                            (camera as any).aspect = window.innerWidth / window.innerHeight;
+                                            camera.updateProjectionMatrix();
+                                        }
+                                    };
+
+                                    window.addEventListener('resize', handleResize);
+                                    return () => window.removeEventListener('resize', handleResize);
                                 }}
                             >
                                 <ambientLight intensity={0.8} />
