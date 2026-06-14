@@ -19,22 +19,33 @@ export default clerkMiddleware(async (auth, req) => {
   // Intercept requests matching /api/py/* before they are proxied
   if (url.pathname.startsWith('/api/py/')) {
     if (!userId) {
-      return redirectToSignIn({ returnBackUrl: req.url });
+      return NextResponse.json(
+        { error: "Unauthorized", message: "Authentication required for API access" },
+        { status: 401 }
+      );
     }
 
-    const client = await getClerkClient();
-    const user = await client.users.getUser(userId);
-    const email = user.primaryEmailAddress?.emailAddress ?? "";
+    try {
+      const client = await getClerkClient();
+      const user = await client.users.getUser(userId);
+      const email = user.primaryEmailAddress?.emailAddress ?? "";
 
-    const headers = new Headers(req.headers);
-    headers.set("X-User-Id", userId);
-    headers.set("X-User-Email", email);
+      const headers = new Headers(req.headers);
+      headers.set("X-User-Id", userId);
+      headers.set("X-User-Email", email);
 
-    return NextResponse.next({
-      request: {
-        headers,
-      },
-    });
+      return NextResponse.next({
+        request: {
+          headers,
+        },
+      });
+    } catch (error) {
+      console.error("Clerk service error in middleware:", error);
+      return NextResponse.json(
+        { error: "Service Unavailable", message: "Failed to fetch user context from Clerk" },
+        { status: 503 }
+      );
+    }
   }
 
   // For public routes, let them through

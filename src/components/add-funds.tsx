@@ -36,9 +36,17 @@ export function AddFunds({ className, variant = "card" }: AddFundsProps) {
         body: JSON.stringify({ amount: numAmount }),
       });
 
+      if (!response.ok) {
+        throw new Error("Checkout session creation failed");
+      }
+
       const data = await response.json();
       if (data.url) {
         window.location.href = data.url;
+        // Reset loading state after redirect is initiated
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
       }
     } catch (error) {
       console.error("Checkout error:", error);

@@ -8,7 +8,7 @@ export async function getUserStripeCustomerId(userId: string): Promise<string | 
 
 export async function setUserStripeCustomerId(userId: string, stripeCustomerId: string): Promise<void> {
   const client = await clerkClient();
-  await client.users.updateUser(userId, {
+  await client.users.updateUserMetadata(userId, {
     privateMetadata: {
       stripeCustomerId,
     },

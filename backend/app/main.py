@@ -8,6 +8,13 @@ app = FastAPI(
     debug=settings.DEBUG,
 )
 
+# CORS Safety Validation
+if "*" in settings.CORS_ORIGINS:
+    raise RuntimeError(
+        "Security Error: CORS_ORIGINS cannot contain '*' when allow_credentials is True. "
+        "Please specify explicit origins or disable credentials."
+    )
+
 # Set up CORS
 app.add_middleware(
     CORSMiddleware,
