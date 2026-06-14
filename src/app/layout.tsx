@@ -36,6 +36,8 @@ export default function RootLayout({
       <body className={clsx(inter.className, roboto.className, instrumentSerif.variable, "antialiased")}>
         <ClerkProvider
           dynamic
+          signInFallbackRedirectUrl="/base"
+          signUpFallbackRedirectUrl="/base"
           appearance={{
             variables: {
               colorPrimary: 'hsl(120, 15%, 25%)',
