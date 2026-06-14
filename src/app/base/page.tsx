@@ -32,10 +32,16 @@ export default function Base() {
         else setGreeting("Good evening");
 
         const timer = setInterval(() => {
-            setCurrentTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+            const timeStr = new Date().toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            });
+            setCurrentTime(timeStr);
         }, 1000);
 
-        // Fetch approximate location
+        // Default to Earth, try to fetch city
+        setLocation("Earth");
         fetch("https://ipapi.co/json/")
             .then(res => res.json())
             .then(data => {
@@ -64,29 +70,30 @@ export default function Base() {
         <div className="relative w-full h-screen overflow-hidden bg-background flex flex-col">
             {/* Faded Background Colors behind flower */}
             <div className="absolute inset-0 z-0">
-                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-200/30 rounded-full blur-[120px]" />
-                <div className="absolute top-1/4 left-1/2 -translate-x-[120%] -translate-y-[20%] w-[500px] h-[500px] bg-yellow-100/20 rounded-full blur-[100px]" />
-                <div className="absolute top-1/4 left-1/2 translate-x-[20%] -translate-y-[80%] w-[550px] h-[550px] bg-green-100/20 rounded-full blur-[110px]" />
+                <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-100/20 rounded-full blur-[160px]" />
+                <div className="absolute top-1/3 left-1/2 -translate-x-[100%] -translate-y-[10%] w-[700px] h-[700px] bg-yellow-50/15 rounded-full blur-[140px]" />
+                <div className="absolute top-1/3 left-1/2 translate-x-[10%] -translate-y-[70%] w-[750px] h-[750px] bg-green-50/15 rounded-full blur-[150px]" />
             </div>
 
             {/* Header / Base UI */}
             <header className="absolute top-0 left-0 right-0 z-50 p-6 md:p-8">
-                <div className="max-w-7xl mx-auto flex items-center justify-between">
+                <div className="w-full flex items-center justify-between px-4">
                     <div className="flex items-center gap-4">
                         <Link href="/" className="inline-flex items-center justify-center p-2 rounded-xl bg-white/50 backdrop-blur-md border border-black/5 shadow-sm hover:bg-white/80 transition group">
                             <Image src={QIcon} alt="QCX Logo" width={40} height={40} className="h-auto group-hover:scale-105 transition-transform" />
                         </Link>
-                        <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Base</h1>
+                        <h1 className="text-xl md:text-2xl font-bold text-foreground tracking-tight">Base</h1>
                     </div>
-                    <nav className="flex items-center gap-4 text-sm font-medium">
-                        <span className="text-muted-foreground hidden sm:inline-block">Logged in as: <span className="text-foreground font-semibold">{user?.fullName || user?.primaryEmailAddress?.emailAddress}</span></span>
-                        <Button
-                            variant="outline"
-                            className="bg-white/50 backdrop-blur-md border-border text-foreground hover:bg-white/80"
+                    <nav className="flex items-center gap-6 text-xs md:text-sm">
+                        <span className="text-muted-foreground hidden sm:inline-block">
+                            Logged in as: <span className="text-foreground font-semibold">{user?.fullName}</span>
+                        </span>
+                        <button
                             onClick={handleSignOut}
+                            className="px-4 py-1.5 rounded-lg bg-white border border-black/10 text-foreground hover:bg-gray-50 transition-colors shadow-sm text-sm"
                         >
                             Log Out
-                        </Button>
+                        </button>
                     </nav>
                 </div>
             </header>
@@ -122,8 +129,8 @@ export default function Base() {
                 </div>
 
                 {/* Info Panel - Lower section */}
-                <div className="flex-1 w-full bg-background relative overflow-hidden flex items-center justify-center border-t border-border p-8">
-                    <div className="max-w-4xl w-full h-full relative z-20 overflow-hidden rounded-3xl border border-white/30 shadow-2xl">
+                <div className="flex-1 w-full bg-background relative overflow-hidden flex items-center justify-center border-t border-black/5 p-6 md:p-10">
+                    <div className="max-w-5xl w-full h-full relative z-20 overflow-hidden rounded-[2.5rem] border border-white/40 shadow-2xl">
                         {/* Sky background div on the square */}
                         <div className="absolute inset-0">
                             <Image
@@ -132,27 +139,25 @@ export default function Base() {
                                 fill
                                 className="object-cover"
                             />
-                            <div className="absolute inset-0 bg-white/10 backdrop-blur-sm" />
+                            <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px]" />
                         </div>
 
-                        <div className="relative h-full px-8 py-8 md:px-12 md:py-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                            <div className="space-y-3 text-center md:text-left">
+                        <div className="relative h-full px-10 py-10 md:px-14 md:py-12 flex flex-col justify-center">
+                            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                                 <h2 className="text-3xl md:text-4xl font-bold text-foreground text-balance">
-                                    {greeting} from {location}, {user?.firstName || user?.fullName || "Friend"}!
+                                    {greeting} from {location}, {user?.firstName || user?.fullName?.split(' ')[0] || "Friend"}!
                                 </h2>
-                                <p className="text-lg text-foreground/80 leading-relaxed">
-                                    Welcome back to your planet computer interface.
-                                </p>
-                            </div>
 
-                            <div className="flex flex-col items-center md:items-end gap-3 shrink-0">
-                                <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/30 border border-white/40 shadow-lg backdrop-blur-md">
-                                    <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
-                                    <span className="text-xl font-bold text-foreground">
-                                        {currentTime || "--:--"}
+                                <div className="flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md shrink-0">
+                                    <span className="w-2 h-2 rounded-full bg-blue-500" />
+                                    <span className="text-xl font-semibold text-foreground">
+                                        {currentTime || "00:00"}
                                     </span>
                                 </div>
                             </div>
+                            <p className="text-lg md:text-xl text-foreground/70 leading-relaxed mt-4 text-center md:text-left">
+                                Welcome back to your planet computer interface.
+                            </p>
                         </div>
                     </div>
                 </div>
