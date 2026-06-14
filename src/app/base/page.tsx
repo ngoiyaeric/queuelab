@@ -193,7 +193,7 @@ function BaseContent() {
                                     <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px]" />
                                 </div>
 
-                                <div className="relative z-10 h-full px-8 py-10 md:px-16 md:py-14">
+                                <div className="relative z-10 h-full px-6 py-8 md:px-16 md:py-14">
                                     <AnimatePresence mode="wait">
                                         {view === "greeting" ? (
                                             <motion.div
@@ -203,20 +203,20 @@ function BaseContent() {
                                                 exit={{ opacity: 0, x: 20 }}
                                                 className="flex flex-col justify-center h-full"
                                             >
-                                                <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                                                <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
                                                     <div className="space-y-2">
-                                                        <h2 className="text-4xl md:text-5xl font-bold text-foreground text-balance text-center md:text-left leading-tight">
+                                                        <h2 className="text-3xl md:text-5xl font-bold text-foreground text-balance text-center md:text-left leading-tight" style={{ fontFamily: 'var(--font-plus-jakarta-sans), sans-serif' }}>
                                                             {greeting}, {user?.firstName || user?.fullName?.split(' ')[0] || "Friend"}!
                                                         </h2>
-                                                        <p className="text-xl md:text-2xl text-foreground/70 leading-relaxed text-center md:text-left">
+                                                        <p className="text-lg md:text-2xl text-foreground/70 leading-relaxed text-center md:text-left">
                                                             Welcome back to your planet computer interface.
                                                         </p>
                                                     </div>
 
                                                     <div className="flex flex-col items-center md:items-end gap-4 shrink-0">
-                                                        <div className="flex items-center gap-4 px-8 py-3 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md">
+                                                        <div className="flex items-center gap-4 px-6 py-2 md:px-8 md:py-3 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md">
                                                             <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
-                                                            <span className="text-2xl font-semibold text-foreground tracking-tight">
+                                                            <span className="text-xl md:text-2xl font-semibold text-foreground tracking-tight">
                                                                 {currentTime || "00:00"}
                                                             </span>
                                                         </div>
