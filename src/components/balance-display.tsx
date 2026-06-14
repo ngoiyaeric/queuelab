@@ -7,9 +7,10 @@ import { cn } from "@/lib/utils";
 
 interface BalanceDisplayProps {
   className?: string;
+  variant?: "card" | "inline";
 }
 
-export function BalanceDisplay({ className }: BalanceDisplayProps) {
+export function BalanceDisplay({ className, variant = "card" }: BalanceDisplayProps) {
   const [balance, setBalance] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const searchParams = useSearchParams();
@@ -38,6 +39,35 @@ export function BalanceDisplay({ className }: BalanceDisplayProps) {
       fetchBalance();
     }
   }, [checkoutStatus, fetchBalance]);
+
+  if (variant === "inline") {
+    return (
+      <div className={cn("flex flex-col", className)}>
+        <div className="flex items-center justify-between gap-4">
+          <span className="text-sm font-medium text-foreground/60 uppercase tracking-wider">Available Balance</span>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              fetchBalance();
+            }}
+            disabled={isLoading}
+            className="p-1.5 rounded-full hover:bg-white/20 transition-colors disabled:opacity-50"
+          >
+            <RefreshCw className={cn("w-4 h-4 text-foreground/40", isLoading && "animate-spin")} />
+          </button>
+        </div>
+        <div className="mt-1">
+          {isLoading && balance === null ? (
+            <div className="h-8 w-24 bg-foreground/10 animate-pulse rounded-md" />
+          ) : (
+            <span className="text-3xl font-bold text-foreground tracking-tight">
+              ${balance?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || "0.00"}
+            </span>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={cn("relative overflow-hidden rounded-[2rem] border border-white/40 shadow-xl bg-white/20 backdrop-blur-md p-8 flex flex-col justify-center min-h-[160px]", className)}>

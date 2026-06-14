@@ -11,9 +11,10 @@ const PRESET_AMOUNTS = [10, 25, 50, 100];
 
 interface AddFundsProps {
   className?: string;
+  variant?: "card" | "inline";
 }
 
-export function AddFunds({ className }: AddFundsProps) {
+export function AddFunds({ className, variant = "card" }: AddFundsProps) {
   const [amount, setAmount] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -45,28 +46,34 @@ export function AddFunds({ className }: AddFundsProps) {
     }
   };
 
-  return (
-    <div className={cn("relative overflow-hidden rounded-[2rem] border border-white/40 shadow-xl bg-white/20 backdrop-blur-md p-8", className)}>
-      <h3 className="text-xl font-semibold text-foreground/70 mb-6">Add Funds</h3>
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+  const content = (
+    <>
+      <div className="grid grid-cols-4 gap-2 mb-4">
         {PRESET_AMOUNTS.map((val) => (
           <Button
             key={val}
+            type="button"
             variant="outline"
-            className="bg-white/30 border-white/40 hover:bg-white/50"
-            onClick={() => handlePresetClick(val)}
+            className="bg-white/20 border-white/20 hover:bg-white/40 h-9 text-xs"
+            onClick={(e) => {
+              e.stopPropagation();
+              handlePresetClick(val);
+            }}
           >
             ${val}
           </Button>
         ))}
       </div>
 
-      <form onSubmit={handleCheckout} className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="custom-amount" className="text-foreground/60 text-sm">Custom Amount</Label>
+      <form
+        onSubmit={handleCheckout}
+        className="flex gap-2 items-end"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex-1 space-y-1">
+          <Label htmlFor="custom-amount" className="text-foreground/50 text-[10px] uppercase font-bold tracking-wider ml-1">Custom Amount</Label>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/40 font-medium">$</span>
+            <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-foreground/30 text-xs font-medium">$</span>
             <Input
               id="custom-amount"
               type="number"
@@ -75,7 +82,7 @@ export function AddFunds({ className }: AddFundsProps) {
               placeholder="0.00"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="pl-7 bg-white/30 border-white/40"
+              className="pl-6 h-9 bg-white/20 border-white/20 text-sm focus:bg-white/30 transition-all"
               disabled={isLoading}
             />
           </div>
@@ -83,19 +90,31 @@ export function AddFunds({ className }: AddFundsProps) {
 
         <Button
           type="submit"
-          className="w-full h-12 text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white"
+          className="h-9 px-4 text-xs font-bold bg-blue-600/80 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/20 transition-all shrink-0"
           disabled={isLoading || !amount || parseFloat(amount) <= 0}
         >
           {isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-              Preparing...
-            </>
+            <Loader2 className="h-4 w-4 animate-spin" />
           ) : (
-            "Continue to Checkout"
+            "Add Funds"
           )}
         </Button>
       </form>
+    </>
+  );
+
+  if (variant === "inline") {
+    return (
+      <div className={cn("w-full", className)}>
+        {content}
+      </div>
+    );
+  }
+
+  return (
+    <div className={cn("relative overflow-hidden rounded-[2rem] border border-white/40 shadow-xl bg-white/20 backdrop-blur-md p-8", className)}>
+      <h3 className="text-xl font-semibold text-foreground/70 mb-6">Add Funds</h3>
+      {content}
     </div>
   );
 }

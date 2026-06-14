@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, Suspense } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { FlowerScene } from "@/components/flower-scene";
@@ -11,18 +11,35 @@ import { useUser, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import { BalanceDisplay } from "@/components/balance-display";
 import { AddFunds } from "@/components/add-funds";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, X } from "lucide-react";
 
 export default function Base() {
+    return (
+        <Suspense fallback={<div className="flex-1 w-full flex items-center justify-center h-screen bg-background text-foreground/40 text-xl animate-pulse">Loading Interface...</div>}>
+            <BaseContent />
+        </Suspense>
+    );
+}
+
+function BaseContent() {
     const { user, isLoaded } = useUser();
     const { signOut } = useClerk();
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [currentTime, setCurrentTime] = useState("");
     const [location, setLocation] = useState("Earth");
     const [greeting, setGreeting] = useState("Welcome");
+    const [view, setView] = useState<"greeting" | "financials">("greeting");
 
     useEffect(() => {
         if (isLoaded && !user) {
             router.push("/");
+        }
+
+        const checkout = searchParams.get("checkout");
+        if (checkout === "success") {
+            setView("financials");
         }
 
         const now = new Date();
@@ -51,7 +68,7 @@ export default function Base() {
         window.scrollTo(0, 0);
 
         return () => clearInterval(timer);
-    }, [user, isLoaded, router]);
+    }, [user, isLoaded, router, searchParams]);
 
     const handleSignOut = async () => {
         try {
@@ -106,7 +123,7 @@ export default function Base() {
                         {/* 3D Canvas — full width, centered, overlaps card */}
                         <div
                             className="w-full relative z-10"
-                            style={{ height: '80vh' }}
+                            style={{ height: '70vh' }}
                         >
                             <Canvas
                                 camera={{ position: [0, 0, 8.5], fov: 45 }}
@@ -152,50 +169,119 @@ export default function Base() {
                             </Canvas>
                         </div>
 
-                        {/* Info Card — pulled up to overlap flower canvas bottom */}
+                        {/* Adaptive Adaptive Card */}
                         <div
-                            className="w-full flex items-start justify-center px-10 pb-12 relative z-20"
-                            style={{ marginTop: '-120px' }}
+                            className="w-full flex items-start justify-center px-6 md:px-10 pb-20 relative z-20"
+                            style={{ marginTop: '-80px' }}
                         >
-                            <div className="max-w-6xl w-full h-[280px] relative overflow-hidden rounded-[3rem] border border-white/40 shadow-2xl">
+                            <motion.div
+                                layout
+                                onClick={() => view === 'greeting' && setView('financials')}
+                                className="max-w-6xl w-full relative overflow-hidden rounded-[3rem] border border-white/40 shadow-2xl cursor-pointer group"
+                                initial={false}
+                                animate={{ height: view === 'greeting' ? 280 : 'auto' }}
+                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            >
                                 {/* Sky background */}
-                                <div className="absolute inset-0">
+                                <div className="absolute inset-0 z-0">
                                     <Image
                                         src="/assets/sky-background.webp"
                                         alt="Background"
                                         fill
-                                        className="object-cover"
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px]" />
                                 </div>
 
-                                <div className="relative h-full px-12 py-12 md:px-16 md:py-14 flex flex-col justify-center">
-                                    <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                                        <h2 className="text-4xl md:text-5xl font-bold text-foreground text-balance text-center md:text-left leading-tight">
-                                            {greeting} from {location}, {user?.firstName || user?.fullName?.split(' ')[0] || "Friend"}!
-                                        </h2>
-                                        <div className="flex items-center gap-4 px-8 py-3 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md shrink-0">
-                                            <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
-                                            <span className="text-2xl font-semibold text-foreground">
-                                                {currentTime || "00:00"}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <p className="text-xl md:text-2xl text-foreground/70 leading-relaxed mt-6 text-center md:text-left">
-                                        Welcome back to your planet computer interface.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                                <div className="relative z-10 h-full px-8 py-10 md:px-16 md:py-14">
+                                    <AnimatePresence mode="wait">
+                                        {view === "greeting" ? (
+                                            <motion.div
+                                                key="greeting"
+                                                initial={{ opacity: 0, x: -20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                exit={{ opacity: 0, x: 20 }}
+                                                className="flex flex-col justify-center h-full"
+                                            >
+                                                <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                                                    <div className="space-y-2">
+                                                        <h2 className="text-4xl md:text-5xl font-bold text-foreground text-balance text-center md:text-left leading-tight">
+                                                            {greeting}, {user?.firstName || user?.fullName?.split(' ')[0] || "Friend"}!
+                                                        </h2>
+                                                        <p className="text-xl md:text-2xl text-foreground/70 leading-relaxed text-center md:text-left">
+                                                            Welcome back to your planet computer interface.
+                                                        </p>
+                                                    </div>
 
-                        {/* Financials Section */}
-                        <div className="w-full max-w-6xl px-10 pb-20 relative z-20">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <Suspense fallback={<div className="h-[160px] rounded-[2rem] bg-white/10 animate-pulse" />}>
-                                    <BalanceDisplay />
-                                </Suspense>
-                                <AddFunds />
-                            </div>
+                                                    <div className="flex flex-col items-center md:items-end gap-4 shrink-0">
+                                                        <div className="flex items-center gap-4 px-8 py-3 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md">
+                                                            <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
+                                                            <span className="text-2xl font-semibold text-foreground tracking-tight">
+                                                                {currentTime || "00:00"}
+                                                            </span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2 text-foreground/40 text-sm font-medium group-hover:text-foreground/60 transition-colors">
+                                                            Manage Account & Funds <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                        ) : (
+                                            <motion.div
+                                                key="financials"
+                                                initial={{ opacity: 0, scale: 0.95 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                exit={{ opacity: 0, scale: 0.95 }}
+                                                className="w-full space-y-10"
+                                            >
+                                                <div className="flex items-center justify-between">
+                                                    <div>
+                                                        <h2 className="text-3xl font-bold text-foreground tracking-tight">Account Interface</h2>
+                                                        <p className="text-foreground/50 text-sm font-medium mt-1">Manage your planet credits and system balance</p>
+                                                    </div>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setView('greeting');
+                                                        }}
+                                                        className="p-2 rounded-full bg-black/5 hover:bg-black/10 transition-colors"
+                                                    >
+                                                        <X className="w-6 h-6 text-foreground/40" />
+                                                    </button>
+                                                </div>
+
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                                                    <div className="space-y-6">
+                                                        <BalanceDisplay variant="inline" />
+                                                        <div className="p-6 rounded-2xl bg-white/10 border border-white/20">
+                                                            <h4 className="text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">System Identity</h4>
+                                                            <div className="flex items-center gap-4">
+                                                                <div className="w-12 h-12 rounded-full border-2 border-white/40 overflow-hidden">
+                                                                    {user?.imageUrl && <Image src={user.imageUrl} alt="Profile" width={48} height={48} />}
+                                                                </div>
+                                                                <div>
+                                                                    <p className="font-bold text-foreground">{user?.fullName}</p>
+                                                                    <p className="text-xs text-foreground/50">{user?.primaryEmailAddress?.emailAddress}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="space-y-6">
+                                                        <div>
+                                                            <h4 className="text-sm font-bold text-foreground/60 mb-4">Add System Credits</h4>
+                                                            <AddFunds variant="inline" />
+                                                        </div>
+                                                        <p className="text-[10px] text-foreground/40 leading-relaxed">
+                                                            Transactions are handled securely via Stripe. Credits are applied instantly to your account interface for use across the computer network.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            </motion.div>
                         </div>
 
                     </div>
