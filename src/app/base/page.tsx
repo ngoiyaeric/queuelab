@@ -20,6 +20,15 @@ export default function Base() {
     const [greeting, setGreeting] = useState("Welcome");
 
     useEffect(() => {
+        // Simulate 50% browser zoom
+        document.documentElement.style.zoom = '0.5';
+        return () => {
+            // Reset zoom when leaving the base page
+            document.documentElement.style.zoom = '';
+        };
+    }, []);
+
+    useEffect(() => {
         if (isLoaded && !user) {
             router.push("/");
         }
@@ -67,7 +76,7 @@ export default function Base() {
     };
 
     return (
-        <div className="relative w-full h-screen overflow-hidden bg-background flex flex-col">
+        <div className="relative w-full overflow-hidden bg-background flex flex-col" style={{ height: '200vh' }}>
             {/* Faded Background Colors behind flower */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-100/20 rounded-full blur-[160px]" />
