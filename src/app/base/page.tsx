@@ -9,23 +9,43 @@ import { FlowerScene } from "@/components/flower-scene";
 import Image from "next/image";
 import QIcon from "@/assets/q-logo.png";
 import { useUser, useClerk } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default function Base() {
     const { user, isLoaded } = useUser();
     const { signOut } = useClerk();
     const router = useRouter();
     const [currentTime, setCurrentTime] = useState("");
+    const [location, setLocation] = useState("your location");
+    const [greeting, setGreeting] = useState("Welcome");
 
     useEffect(() => {
         if (isLoaded && !user) {
             router.push("/");
         }
 
-        if (user && user.lastSignInAt) {
-           setCurrentTime(new Date(user.lastSignInAt).toLocaleString());
-        } else {
-           setCurrentTime(new Date().toLocaleString());
-        }
+        // Set time and greeting
+        const now = new Date();
+        const hours = now.getHours();
+        if (hours < 12) setGreeting("Good morning");
+        else if (hours < 18) setGreeting("Good afternoon");
+        else setGreeting("Good evening");
+
+        const timer = setInterval(() => {
+            setCurrentTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+        }, 1000);
+
+        // Fetch approximate location
+        fetch("https://ipapi.co/json/")
+            .then(res => res.json())
+            .then(data => {
+                if (data.city) {
+                    setLocation(data.city);
+                }
+            })
+            .catch(() => setLocation("Earth"));
+
+        return () => clearInterval(timer);
     }, [user, isLoaded, router]);
 
     const handleSignOut = async () => {
@@ -47,13 +67,20 @@ export default function Base() {
 
     return (
         <div className="relative w-full h-screen overflow-hidden bg-background">
+            {/* Faded Background Colors behind flower */}
+            <div className="absolute inset-0 -z-0">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-200/30 rounded-full blur-[120px]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-[120%] -translate-y-[20%] w-[500px] h-[500px] bg-yellow-100/20 rounded-full blur-[100px]" />
+                <div className="absolute top-1/2 left-1/2 translate-x-[20%] -translate-y-[80%] w-[550px] h-[550px] bg-green-100/20 rounded-full blur-[110px]" />
+            </div>
+
             {/* Header / Base UI */}
             <header className="absolute top-0 left-0 right-0 z-10 p-6 md:p-8">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <div className="inline-flex items-center justify-center p-2 rounded-xl bg-white/50 backdrop-blur-md border border-black/5 shadow-sm">
-                            <Image src={QIcon} alt="QCX Logo" width={40} height={40} className="h-auto" />
-                        </div>
+                        <Link href="/" className="inline-flex items-center justify-center p-2 rounded-xl bg-white/50 backdrop-blur-md border border-black/5 shadow-sm hover:bg-white/80 transition group">
+                            <Image src={QIcon} alt="QCX Logo" width={40} height={40} className="h-auto group-hover:scale-105 transition-transform" />
+                        </Link>
                         <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Base</h1>
                     </div>
                     <nav className="flex items-center gap-4 text-sm font-medium">
@@ -92,18 +119,39 @@ export default function Base() {
             </div>
 
             {/* Info Panel */}
-            <div className="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-96 z-10 bg-white/60 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-border">
-                <h2 className="text-xl font-semibold text-foreground mb-2 text-balance">Welcome Back!</h2>
-                <div className="space-y-2 mb-4">
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                        <span className="text-muted-foreground/60 mr-2">User:</span> {user.fullName || user.primaryEmailAddress?.emailAddress}
-                    </p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                        <span className="text-muted-foreground/60 mr-2">Login Time:</span> {currentTime}
-                    </p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                        <span className="text-muted-foreground/60 mr-2">User ID:</span> <span className="font-mono text-xs">{user.id}</span>
-                    </p>
+            <div className="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-96 z-20 overflow-hidden rounded-3xl border border-white/20 shadow-2xl transition-all hover:scale-[1.02]">
+                {/* Sky background inside the panel */}
+                <div className="absolute inset-0 -z-10">
+                    <Image
+                        src="/assets/sky-background.webp"
+                        alt="Background"
+                        fill
+                        className="object-cover opacity-60"
+                    />
+                    <div className="absolute inset-0 bg-white/30 backdrop-blur-xl" />
+                </div>
+
+                <div className="p-8 relative">
+                    <h2 className="text-2xl font-bold text-foreground mb-4 text-balance">
+                        {greeting} from {location}, {user.firstName || user.fullName || "Friend"}!
+                    </h2>
+                    <div className="space-y-3">
+                        <p className="text-sm text-foreground/80 leading-relaxed flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                            It&apos;s currently <span className="font-semibold">{currentTime}</span>
+                        </p>
+                        <p className="text-sm text-foreground/70 leading-relaxed">
+                            Welcome back to your planet computer interface.
+                        </p>
+                        <div className="pt-4 mt-4 border-t border-black/5">
+                             <p className="text-[10px] uppercase tracking-widest text-foreground/40 font-bold">
+                                Authentication ID
+                             </p>
+                             <p className="font-mono text-[10px] text-foreground/50 truncate">
+                                {user.id}
+                             </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
