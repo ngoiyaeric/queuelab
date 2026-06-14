@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { FlowerScene } from "@/components/flower-scene";
@@ -16,24 +15,14 @@ export default function Base() {
     const { signOut } = useClerk();
     const router = useRouter();
     const [currentTime, setCurrentTime] = useState("");
-    const [location, setLocation] = useState("your location");
+    const [location, setLocation] = useState("Earth");
     const [greeting, setGreeting] = useState("Welcome");
-
-    useEffect(() => {
-        // Simulate 50% browser zoom
-        document.documentElement.style.zoom = '0.5';
-        return () => {
-            // Reset zoom when leaving the base page
-            document.documentElement.style.zoom = '';
-        };
-    }, []);
 
     useEffect(() => {
         if (isLoaded && !user) {
             router.push("/");
         }
 
-        // Set time and greeting
         const now = new Date();
         const hours = now.getHours();
         if (hours < 12) setGreeting("Good morning");
@@ -49,18 +38,14 @@ export default function Base() {
             setCurrentTime(timeStr);
         }, 1000);
 
-        // Default to Earth, try to fetch city
         setLocation("Earth");
         fetch("https://ipapi.co/json/")
             .then(res => res.json())
             .then(data => {
-                if (data.city) {
-                    setLocation(data.city);
-                }
+                if (data.city) setLocation(data.city);
             })
             .catch(() => setLocation("Earth"));
 
-        // Ensure page doesn't auto-scroll down
         window.scrollTo(0, 0);
 
         return () => clearInterval(timer);
@@ -76,15 +61,15 @@ export default function Base() {
     };
 
     return (
-        <div className="relative w-full overflow-hidden bg-background flex flex-col" style={{ height: '200vh' }}>
-            {/* Faded Background Colors behind flower */}
+        <div className="relative w-full overflow-hidden bg-background flex flex-col" style={{ minHeight: '100vh' }}>
+            {/* Faded Background Colors */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-100/20 rounded-full blur-[160px]" />
                 <div className="absolute top-1/3 left-1/2 -translate-x-[100%] -translate-y-[10%] w-[700px] h-[700px] bg-yellow-50/15 rounded-full blur-[140px]" />
                 <div className="absolute top-1/3 left-1/2 translate-x-[10%] -translate-y-[70%] w-[750px] h-[750px] bg-green-50/15 rounded-full blur-[150px]" />
             </div>
 
-            {/* Header / Base UI */}
+            {/* Header */}
             <header className="absolute top-0 left-0 right-0 z-50 p-6 md:p-8">
                 <div className="w-full flex items-center justify-between px-4">
                     <div className="flex items-center gap-4">
@@ -107,17 +92,30 @@ export default function Base() {
                 </div>
             </header>
 
-            {/* Main Content: Flower (Above) and Info (Below) */}
+            {/* Main Content */}
             <main className="flex-1 flex flex-col relative z-10">
                 {(!isLoaded || !user) ? (
-                    <div className="flex-1 w-full flex items-center justify-center">
-                         <div className="text-foreground/40 text-xl animate-pulse">Loading Interface...</div>
+                    <div className="flex-1 w-full flex items-center justify-center" style={{ height: '100vh' }}>
+                        <div className="text-foreground/40 text-xl animate-pulse">Loading Interface...</div>
                     </div>
                 ) : (
-                    <>
-                        {/* 3D Canvas - Upper section */}
-                        <div className="h-[130vh] w-full relative">
-                            <Canvas camera={{ position: [0, 0, 8.5], fov: 45 }} className="w-full h-full">
+                    <div className="relative flex flex-col items-center" style={{ minHeight: '100vh' }}>
+
+                        {/* 3D Canvas — full width, centered, overlaps card */}
+                        <div
+                            className="w-full relative z-10"
+                            style={{ height: '80vh' }}
+                        >
+                            <Canvas
+                                camera={{ position: [0, 0, 8.5], fov: 45 }}
+                                style={{ width: '100%', height: '100%' }}
+                                gl={{ antialias: true }}
+                                onCreated={({ gl, camera, size }) => {
+                                    gl.setPixelRatio(window.devicePixelRatio);
+                                    camera.aspect = size.width / size.height;
+                                    camera.updateProjectionMatrix();
+                                }}
+                            >
                                 <ambientLight intensity={0.8} />
                                 <directionalLight position={[5, 5, 5]} intensity={1.5} />
                                 <directionalLight position={[-5, 3, -5]} intensity={0.5} />
@@ -137,9 +135,12 @@ export default function Base() {
                             </Canvas>
                         </div>
 
-                        {/* Info Panel - Bottom section */}
-                        <div className="h-[70vh] w-full flex items-start justify-center px-10 pb-20 relative z-20">
-                            <div className="max-w-6xl w-full h-[450px] relative overflow-hidden rounded-[3rem] border border-white/40 shadow-2xl">
+                        {/* Info Card — pulled up to overlap flower canvas bottom */}
+                        <div
+                            className="w-full flex items-start justify-center px-10 pb-20 relative z-20"
+                            style={{ marginTop: '-120px' }}
+                        >
+                            <div className="max-w-6xl w-full h-[280px] relative overflow-hidden rounded-[3rem] border border-white/40 shadow-2xl">
                                 {/* Sky background */}
                                 <div className="absolute inset-0">
                                     <Image
@@ -156,7 +157,6 @@ export default function Base() {
                                         <h2 className="text-4xl md:text-5xl font-bold text-foreground text-balance text-center md:text-left leading-tight">
                                             {greeting} from {location}, {user?.firstName || user?.fullName?.split(' ')[0] || "Friend"}!
                                         </h2>
-
                                         <div className="flex items-center gap-4 px-8 py-3 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md shrink-0">
                                             <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
                                             <span className="text-2xl font-semibold text-foreground">
@@ -170,7 +170,8 @@ export default function Base() {
                                 </div>
                             </div>
                         </div>
-                    </>
+
+                    </div>
                 )}
             </main>
         </div>
