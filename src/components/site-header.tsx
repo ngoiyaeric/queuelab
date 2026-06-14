@@ -109,7 +109,7 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                             </Link>
                                             <SignedOut>
                                                 <SignInButton mode="modal">
-                                                    <Button className="w-full">Queue Up</Button>
+                                                    <ActionButton label="Queue Up" className="w-full" />
                                                 </SignInButton>
                                             </SignedOut>
                                             <SignedIn>

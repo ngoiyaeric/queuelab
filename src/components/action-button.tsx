@@ -10,11 +10,17 @@ interface ActionButtonProps {
 }
 
 export const ActionButton = ({ label, className, onClick, href }: ActionButtonProps) => {
+  const isGlassmorphic = label.toLowerCase() === "queue up" || label.toLowerCase() === "core";
+
   const content = (
     <Button
-      variant="default"
+      variant={isGlassmorphic ? "outline" : "default"}
       className={cn(
-        "bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 py-2 font-medium transition-all shadow-md active:scale-95",
+        "rounded-full px-6 py-2 font-medium transition-all active:scale-95",
+        isGlassmorphic
+          ? "bg-white/40 backdrop-blur-md border-white/50 text-foreground shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:bg-white/60"
+          : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md",
+        label.toLowerCase() === "queue up" && "bg-yellow-100/30 border-yellow-200/50",
         className
       )}
       onClick={onClick}
