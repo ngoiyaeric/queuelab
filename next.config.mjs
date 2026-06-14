@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // We remove 'output: export' as it is incompatible with Clerk's Server Actions and Middleware.
-    // Defaulting to serverful mode for full feature support.
+    // Reverting static export as it conflicts with Clerk's server-side needs
+    // and this project seems to prefer a dynamic runtime.
+    // To support Firebase Hosting, we'll ensure the build output is handled.
 
     images: {
         unoptimized: true,

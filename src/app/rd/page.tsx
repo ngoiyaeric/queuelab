@@ -109,7 +109,7 @@ export default function RDPage() {
               Fluidity Index
             </summary>
             <div className="text-center text-lg md:text-xl text-gray-700 tracking-tight px-4 mt-5 bg-white/20 backdrop-blur-sm rounded-lg p-4">
-              <p><a href="https://arxiv.org/abs/2510.20636v1" target="_blank" rel="noopener noreferrer">Next-Generation Super-Intelligence Benchmarks</a></p>
+              <p><a href="https://arxiv.org/abs/2510.20636" target="_blank" rel="noopener noreferrer">Next-Generation Super-Intelligence Benchmarks</a></p>
             </div>
           </details>
 

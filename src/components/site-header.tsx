@@ -8,7 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ActionButton } from '@/components/action-button';
-import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 interface SiteHeaderProps {
   rdCount?: number;
@@ -54,15 +54,12 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                             <div className="flex items-center gap-4">
                                 <SignedOut>
                                     <SignInButton mode="modal">
-                                        <Button variant="ghost" size="sm">Sign In</Button>
-                                    </SignInButton>
-                                    <SignUpButton mode="modal">
                                         <ActionButton label="Queue Up" className="book-demo-button" />
-                                    </SignUpButton>
+                                    </SignInButton>
                                 </SignedOut>
                                 <SignedIn>
                                     <Button variant="outline" size="sm" className="dashboard-button" asChild>
-                                        <Link href="/dashboard">Dashboard</Link>
+                                        <Link href="/base">Base</Link>
                                     </Button>
                                     <UserButton />
                                 </SignedIn>
@@ -112,15 +109,12 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                             </Link>
                                             <SignedOut>
                                                 <SignInButton mode="modal">
-                                                    <Button variant="outline" className="w-full">Sign In</Button>
+                                                    <ActionButton label="Queue Up" className="w-full" />
                                                 </SignInButton>
-                                                <SignUpButton mode="modal">
-                                                    <Button className="w-full">Sign Up</Button>
-                                                </SignUpButton>
                                             </SignedOut>
                                             <SignedIn>
-                                                <Link href="/dashboard" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition">
-                                                    Dashboard
+                                                <Link href="/base" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition">
+                                                    Base
                                                 </Link>
                                                 <div className="flex items-center gap-3">
                                                     <UserButton />

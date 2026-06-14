@@ -1,6 +1,32 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
-export default clerkMiddleware();
+const isPublicRoute = createRouteMatcher([
+  '/',
+  '/api/submit-interest-form',
+  '/rd(.*)',
+  '/careers(.*)',
+  '/privacy(.*)',
+  '/terms(.*)',
+  '/lab(.*)',
+  '/__clerk/(.*)'
+]);
+
+export default clerkMiddleware(async (auth, req) => {
+  const { userId, redirectToSignIn } = await auth();
+
+  // For public routes, let them through
+  if (isPublicRoute(req)) {
+    return NextResponse.next();
+  }
+
+  // If user is not logged in and trying to access a protected route
+  if (!userId) {
+    return redirectToSignIn({ returnBackUrl: req.url });
+  }
+
+  return NextResponse.next();
+});
 
 export const config = {
   matcher: [
