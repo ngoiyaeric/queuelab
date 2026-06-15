@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import Intercom from '@intercom/messenger-js-sdk';
+import { shutdown, boot } from '@intercom/messenger-js-sdk';
 import { usePathname } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
 
@@ -14,12 +14,7 @@ export default function IntercomMessenger() {
   useEffect(() => {
     // Intercom should not be shown inside the base
     if (pathname.startsWith('/base')) {
-      try {
-        (Intercom as any)('shutdown');
-        // Extra assurance to hide launcher if shutdown doesn't immediately remove it
-        const launcher = document.querySelector('.intercom-lightweight-app-launcher');
-        if (launcher) (launcher as HTMLElement).style.display = 'none';
-      } catch (e) {}
+      shutdown();
       return;
     }
 
@@ -38,10 +33,10 @@ export default function IntercomMessenger() {
       intercomConfig.created_at = user.createdAt ? Math.floor(new Date(user.createdAt).getTime() / 1000) : undefined;
     }
 
-    Intercom(intercomConfig);
+    boot(intercomConfig);
 
     return () => {
-      (Intercom as any)('shutdown');
+      shutdown();
     };
   }, [pathname, user, isLoaded]);
 
