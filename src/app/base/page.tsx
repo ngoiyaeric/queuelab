@@ -4,7 +4,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
-import { FlowerScene } from "@/components/flower-scene";
+import { TreeScene } from "@/components/tree-scene";
 import Image from "next/image";
 import QIcon from "@/assets/q-logo.png";
 import { useUser, useClerk } from "@clerk/nextjs";
@@ -155,7 +155,7 @@ function BaseContent() {
                                 <directionalLight position={[-5, 3, -5]} intensity={0.5} />
                                 <pointLight position={[0, 2, 0]} intensity={1.0} color="#f4d03f" />
 
-                                <FlowerScene />
+                                <TreeScene />
 
                                 <Environment preset="dawn" />
                                 <OrbitControls
