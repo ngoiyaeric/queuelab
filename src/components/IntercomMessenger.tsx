@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { shutdown, boot } from '@intercom/messenger-js-sdk';
+import Intercom, { shutdown, boot } from '@intercom/messenger-js-sdk';
 import { usePathname } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
 
@@ -33,6 +33,7 @@ export default function IntercomMessenger() {
       intercomConfig.created_at = user.createdAt ? Math.floor(new Date(user.createdAt).getTime() / 1000) : undefined;
     }
 
+    Intercom(intercomConfig);
     boot(intercomConfig);
 
     return () => {
