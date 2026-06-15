@@ -2,9 +2,6 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Canvas } from "@react-three/fiber";
-import { Environment, OrbitControls } from "@react-three/drei";
-import { TreeScene } from "@/components/tree-scene";
 import Image from "next/image";
 import QIcon from "@/assets/q-logo.png";
 import { useUser, useClerk } from "@clerk/nextjs";
@@ -125,48 +122,22 @@ function BaseContent() {
                             className="w-full relative z-10"
                             style={{ height: '70vh' }}
                         >
-                            <Canvas
-                                camera={{ position: [0, 0, 8.5], fov: 45 }}
-                                style={{ width: '100%', height: '100%' }}
-                                gl={{ antialias: true }}
-                                onCreated={({ gl, camera, size, scene }) => {
-                                    gl.setPixelRatio(window.devicePixelRatio);
-
-                                    // Safely update aspect ratio (only PerspectiveCamera has it)
-                                    if ('aspect' in camera) {
-                                        (camera as any).aspect = size.width / size.height;
-                                        camera.updateProjectionMatrix();
-                                    }
-
-                                    // Handle window resize
-                                    const handleResize = () => {
-                                        if ('aspect' in camera) {
-                                            (camera as any).aspect = window.innerWidth / window.innerHeight;
-                                            camera.updateProjectionMatrix();
-                                        }
-                                    };
-
-                                    window.addEventListener('resize', handleResize);
-                                    return () => window.removeEventListener('resize', handleResize);
-                                }}
-                            >
-                                <ambientLight intensity={0.8} />
-                                <directionalLight position={[5, 5, 5]} intensity={1.5} />
-                                <directionalLight position={[-5, 3, -5]} intensity={0.5} />
-                                <pointLight position={[0, 2, 0]} intensity={1.0} color="#f4d03f" />
-
-                                <TreeScene />
-
-                                <Environment preset="dawn" />
-                                <OrbitControls
-                                    enableZoom={true}
-                                    enablePan={false}
-                                    minDistance={4}
-                                    maxDistance={15}
-                                    autoRotate
-                                    autoRotateSpeed={0.5}
-                                />
-                            </Canvas>
+                            <div className="flex justify-center items-center w-full h-full pt-20">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 1, ease: "easeOut" }}
+                                    className="relative w-64 h-64 md:w-96 md:h-96"
+                                >
+                                    <Image
+                                        src="/assets/tree.png"
+                                        alt="Tree"
+                                        fill
+                                        className="object-contain drop-shadow-2xl"
+                                        priority
+                                    />
+                                </motion.div>
+                            </div>
                         </div>
 
                         {/* Adaptive Adaptive Card */}
