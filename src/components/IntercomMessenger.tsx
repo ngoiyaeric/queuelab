@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import Intercom from '@intercom/messenger-js-sdk';
+import { boot, shutdown, update } from '@intercom/messenger-js-sdk';
 import { usePathname } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
 
@@ -11,24 +11,18 @@ export default function IntercomMessenger() {
   const pathname = usePathname();
   const { user, isLoaded } = useUser();
 
+  // Handle Authentication and Initialization
   useEffect(() => {
-    // Intercom should not be shown inside the base
-    if (pathname.startsWith('/base')) {
-      try {
-        (Intercom as any)('shutdown');
-        // Extra assurance to hide launcher if shutdown doesn't immediately remove it
-        const launcher = document.querySelector('.intercom-lightweight-app-launcher');
-        if (launcher) (launcher as HTMLElement).style.display = 'none';
-      } catch (e) {}
-      return;
-    }
-
     if (!isLoaded) return;
 
-    // Initialize/Update Intercom
+    // Shutdown previous session to ensure clean state
+    shutdown();
+
+    const isBaseRoute = pathname.startsWith('/base');
     const intercomConfig: any = {
       app_id: INTERCOM_APP_ID,
       alignment: 'left',
+      hide_default_launcher: isBaseRoute,
     };
 
     if (user) {
@@ -38,11 +32,30 @@ export default function IntercomMessenger() {
       intercomConfig.created_at = user.createdAt ? Math.floor(new Date(user.createdAt).getTime() / 1000) : undefined;
     }
 
-    Intercom(intercomConfig);
+    boot(intercomConfig);
 
     return () => {
-      (Intercom as any)('shutdown');
+      shutdown();
     };
+    // We only want to reboot when the user identity actually changes.
+    // Route-based visibility is handled by the second effect.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id, isLoaded]);
+
+  // Handle Visibility and metadata updates on route or user changes
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    const updateConfig: any = {
+      hide_default_launcher: pathname.startsWith('/base'),
+    };
+
+    if (user) {
+      updateConfig.email = user.primaryEmailAddress?.emailAddress;
+      updateConfig.name = user.fullName;
+    }
+
+    update(updateConfig);
   }, [pathname, user, isLoaded]);
 
   return null;
