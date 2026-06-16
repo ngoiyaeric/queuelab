@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import QIcon from "@/assets/q-logo.png";
-import { Home, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar, Globe, CloudSun } from "lucide-react";
+import { Home, MenuIcon, Newspaper, Wallet2, BookOpen, Calendar, Globe, CloudSun, Settings } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -61,7 +61,13 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                     <Button variant="outline" size="sm" className="dashboard-button" asChild>
                                         <Link href="/base">Base</Link>
                                     </Button>
-                                    <UserButton />
+                                    <UserButton userProfileMode="navigation" userProfileUrl="/settings">
+                                        <UserButton.UserProfilePage
+                                            label="Settings"
+                                            url="/settings"
+                                            labelIcon={<Settings className="size-4" />}
+                                        />
+                                    </UserButton>
                                 </SignedIn>
                             </div>
 
@@ -116,8 +122,18 @@ export default function SiteHeader({ rdCount }: SiteHeaderProps) {
                                                 <Link href="/base" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition">
                                                     Base
                                                 </Link>
+                                                <Link href="/settings" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition">
+                                                    <Settings className="size-6" />
+                                                    Settings
+                                                </Link>
                                                 <div className="flex items-center gap-3">
-                                                    <UserButton />
+                                                    <UserButton userProfileMode="navigation" userProfileUrl="/settings">
+                                                        <UserButton.UserProfilePage
+                                                            label="Settings"
+                                                            url="/settings"
+                                                            labelIcon={<Settings className="size-4" />}
+                                                        />
+                                                    </UserButton>
                                                     <span className="text-muted-foreground">Profile</span>
                                                 </div>
                                             </SignedIn>

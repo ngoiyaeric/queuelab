@@ -12,7 +12,7 @@ import Link from "next/link";
 import { BalanceDisplay } from "@/components/balance-display";
 import { AddFunds } from "@/components/add-funds";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, X } from "lucide-react";
+import { ChevronRight, X, Settings } from "lucide-react";
 
 export default function Base() {
     return (
@@ -23,269 +23,179 @@ export default function Base() {
 }
 
 function BaseContent() {
-    const { user, isLoaded } = useUser();
+    const { isLoaded, user } = useUser();
     const { signOut } = useClerk();
     const router = useRouter();
     const searchParams = useSearchParams();
+    const [view, setView] = useState<'greeting' | 'financials'>('greeting');
     const [currentTime, setCurrentTime] = useState("");
-    const [location, setLocation] = useState("Earth");
-    const [greeting, setGreeting] = useState("Welcome");
-    const [view, setView] = useState<"greeting" | "financials">("greeting");
+    const [greeting, setGreeting] = useState("");
 
     useEffect(() => {
-        if (isLoaded && !user) {
-            router.push("/");
-        }
+        const updateTime = () => {
+            const now = new Date();
+            setCurrentTime(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }));
 
-        const checkout = searchParams.get("checkout");
-        if (checkout === "success") {
-            setView("financials");
-        }
+            const hour = now.getHours();
+            if (hour < 12) setGreeting("Good Morning");
+            else if (hour < 18) setGreeting("Good Afternoon");
+            else setGreeting("Good Evening");
+        };
 
-        const now = new Date();
-        const hours = now.getHours();
-        if (hours < 12) setGreeting("Good morning");
-        else if (hours < 18) setGreeting("Good afternoon");
-        else setGreeting("Good evening");
-
-        const timer = setInterval(() => {
-            const timeStr = new Date().toLocaleTimeString([], {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false
-            });
-            setCurrentTime(timeStr);
-        }, 1000);
-
-        setLocation("Earth");
-        fetch("https://ipapi.co/json/")
-            .then(res => res.json())
-            .then(data => {
-                if (data.city) setLocation(data.city);
-            })
-            .catch(() => setLocation("Earth"));
-
-        window.scrollTo(0, 0);
-
+        updateTime();
+        const timer = setInterval(updateTime, 60000);
         return () => clearInterval(timer);
-    }, [user, isLoaded, router, searchParams]);
+    }, []);
 
-    const handleSignOut = async () => {
-        try {
-            await signOut();
-            router.push("/");
-        } catch (error) {
-            console.error("Failed to sign out", error);
-        }
-    };
+    if (!isLoaded) return null;
 
     return (
-        <div className="relative w-full overflow-hidden bg-background flex flex-col" style={{ minHeight: '100vh' }}>
-            {/* Faded Background Colors */}
-            <div className="absolute inset-0 z-0">
-                <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-100/20 rounded-full blur-[160px]" />
-                <div className="absolute top-1/3 left-1/2 -translate-x-[100%] -translate-y-[10%] w-[700px] h-[700px] bg-yellow-50/15 rounded-full blur-[140px]" />
-                <div className="absolute top-1/3 left-1/2 translate-x-[10%] -translate-y-[70%] w-[750px] h-[750px] bg-green-50/15 rounded-full blur-[150px]" />
-            </div>
-
-            {/* Header */}
-            <header className="absolute top-0 left-0 right-0 z-50 p-6 md:p-8">
-                <div className="w-full flex items-center justify-between px-4">
-                    <div className="flex items-center gap-4">
-                        <Link href="/" className="inline-flex items-center justify-center p-2 rounded-xl bg-white/50 backdrop-blur-md border border-black/5 shadow-sm hover:bg-white/80 transition group">
-                            <Image src={QIcon} alt="QCX Logo" width={40} height={40} className="h-auto group-hover:scale-105 transition-transform" />
-                        </Link>
-                        <h1 className="text-xl md:text-2xl font-bold text-foreground tracking-tight">Base</h1>
+        <div className="min-h-screen bg-background flex flex-col font-sans selection:bg-blue-500/30">
+            {/* Minimal Navigation */}
+            <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between pointer-events-none">
+                <Link href="/" className="pointer-events-auto">
+                    <div className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/40 border border-white/50 backdrop-blur-md shadow-sm hover:bg-white/60 transition-all group">
+                        <Image src={QIcon} alt="Logo" width={28} height={28} className="group-hover:rotate-12 transition-transform" />
+                        <span className="font-bold tracking-tight text-foreground/80">QCX</span>
                     </div>
-                    <nav className="flex items-center gap-6 text-xs md:text-sm">
-                        <span className="text-muted-foreground hidden sm:inline-block">
-                            Logged in as: <span className="text-foreground font-semibold">{user?.fullName}</span>
-                        </span>
-                        <button
-                            onClick={handleSignOut}
-                            className="px-4 py-1.5 rounded-lg bg-white border border-black/10 text-foreground hover:bg-gray-50 transition-colors shadow-sm text-sm"
-                        >
-                            Log Out
-                        </button>
-                    </nav>
+                </Link>
+                <div className="flex items-center gap-3 pointer-events-auto">
+                    <Link href="/settings" className="p-2 rounded-xl bg-white/40 border border-white/50 backdrop-blur-md shadow-sm hover:bg-white/60 transition-all">
+                        <Settings className="w-5 h-5 text-foreground/60" />
+                    </Link>
+                    <button
+                        onClick={() => signOut(() => router.push("/"))}
+                        className="px-5 py-2 rounded-2xl bg-white/40 border border-white/50 backdrop-blur-md text-sm font-bold text-foreground/60 hover:text-red-500/80 hover:bg-white/60 transition-all shadow-sm"
+                    >
+                        Disconnect
+                    </button>
                 </div>
-            </header>
+            </nav>
 
-            {/* Main Content */}
-            <main className="flex-1 flex flex-col relative z-10">
-                {(!isLoaded || !user) ? (
-                    <div className="flex-1 w-full flex items-center justify-center" style={{ height: '100vh' }}>
-                        <div className="text-foreground/40 text-xl animate-pulse">Loading Interface...</div>
-                    </div>
-                ) : (
-                    <div className="relative flex flex-col items-center" style={{ minHeight: '100vh' }}>
+            <main className="flex-1 flex flex-col relative overflow-hidden">
+                {/* 3D Environment Background */}
+                <div className="absolute inset-0 z-0">
+                    <Canvas shadows camera={{ position: [0, 2, 8], fov: 45 }}>
+                        <color attach="background" args={["#f8f9fa"]} />
+                        <fog attach="fog" args={["#f8f9fa", 10, 25]} />
+                        <ambientLight intensity={0.8} />
+                        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1.5} castShadow />
+                        <Suspense fallback={null}>
+                            <FlowerScene />
+                        </Suspense>
+                        <Environment preset="dawn" />
+                        <OrbitControls
+                            enableZoom={true}
+                            enablePan={false}
+                            minDistance={4}
+                            maxDistance={15}
+                            autoRotate
+                            autoRotateSpeed={0.5}
+                        />
+                    </Canvas>
+                </div>
 
-                        {/* 3D Canvas — full width, centered, overlaps card */}
-                        <div
-                            className="w-full relative z-10"
-                            style={{ height: '70vh' }}
-                        >
-                            <Canvas
-                                camera={{ position: [0, 0, 8.5], fov: 45 }}
-                                style={{ width: '100%', height: '100%' }}
-                                gl={{ antialias: true }}
-                                onCreated={({ gl, camera, size, scene }) => {
-                                    gl.setPixelRatio(window.devicePixelRatio);
-
-                                    // Safely update aspect ratio (only PerspectiveCamera has it)
-                                    if ('aspect' in camera) {
-                                        (camera as any).aspect = size.width / size.height;
-                                        camera.updateProjectionMatrix();
-                                    }
-
-                                    // Handle window resize
-                                    const handleResize = () => {
-                                        if ('aspect' in camera) {
-                                            (camera as any).aspect = window.innerWidth / window.innerHeight;
-                                            camera.updateProjectionMatrix();
-                                        }
-                                    };
-
-                                    window.addEventListener('resize', handleResize);
-                                    return () => window.removeEventListener('resize', handleResize);
-                                }}
-                            >
-                                <ambientLight intensity={0.8} />
-                                <directionalLight position={[5, 5, 5]} intensity={1.5} />
-                                <directionalLight position={[-5, 3, -5]} intensity={0.5} />
-                                <pointLight position={[0, 2, 0]} intensity={1.0} color="#f4d03f" />
-
-                                <FlowerScene />
-
-                                <Environment preset="dawn" />
-                                <OrbitControls
-                                    enableZoom={true}
-                                    enablePan={false}
-                                    minDistance={4}
-                                    maxDistance={15}
-                                    autoRotate
-                                    autoRotateSpeed={0.5}
-                                />
-                            </Canvas>
-                        </div>
-
-                        {/* Adaptive Adaptive Card */}
-                        <div
-                            className="w-full flex items-start justify-center px-6 md:px-10 pb-20 relative z-20"
-                            style={{ marginTop: '-80px' }}
-                        >
+                {/* Main Interface Content */}
+                <div className="relative z-10 flex-1 flex flex-col items-center justify-end pb-12 px-6">
+                    <AnimatePresence mode="wait">
+                        {view === 'greeting' ? (
                             <motion.div
-                                layout
-                                onClick={() => view === 'greeting' && setView('financials')}
-                                className="max-w-6xl w-full relative overflow-hidden rounded-[3rem] border border-white/40 shadow-2xl cursor-pointer group"
-                                initial={false}
-                                animate={{ height: view === 'greeting' ? 280 : 'auto' }}
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                key="greeting-view"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                className="w-full max-w-4xl"
                             >
-                                {/* Sky background */}
-                                <div className="absolute inset-0 z-0">
-                                    <Image
-                                        src="/assets/sky-background.webp"
-                                        alt="Background"
-                                        fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                    />
-                                    <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px]" />
-                                </div>
+                                <div
+                                    onClick={() => setView('financials')}
+                                    className="group relative overflow-hidden rounded-[3rem] border border-white/50 bg-white/30 backdrop-blur-2xl p-10 md:p-16 shadow-2xl cursor-pointer hover:bg-white/40 transition-all duration-500"
+                                >
+                                    <div className="flex flex-col md:flex-row items-center justify-between gap-10">
+                                        <div className="space-y-4">
+                                            <h2 className="text-4xl md:text-6xl font-bold text-foreground tracking-tight leading-none" style={{ fontFamily: 'var(--font-instrument-serif)' }}>
+                                                {greeting},<br />
+                                                <span className="text-blue-600/70">{user?.firstName || "Explorer"}</span>
+                                            </h2>
+                                            <p className="text-lg md:text-xl text-foreground/50 font-medium">
+                                                Welcome back to your planet computer interface.
+                                            </p>
+                                        </div>
 
-                                <div className="relative z-10 h-full px-6 py-8 md:px-16 md:py-14">
-                                    <AnimatePresence mode="wait">
-                                        {view === "greeting" ? (
-                                            <motion.div
-                                                key="greeting"
-                                                initial={{ opacity: 0, x: -20 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                exit={{ opacity: 0, x: 20 }}
-                                                className="flex flex-col justify-center h-full"
-                                            >
-                                                <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-                                                    <div className="space-y-2">
-                                                        <h2 className="text-3xl md:text-5xl font-bold text-foreground text-balance text-center md:text-left leading-tight" style={{ fontFamily: 'var(--font-plus-jakarta-sans), sans-serif' }}>
-                                                            {greeting}, {user?.firstName || user?.fullName?.split(' ')[0] || "Friend"}!
-                                                        </h2>
-                                                        <p className="text-lg md:text-2xl text-foreground/70 leading-relaxed text-center md:text-left">
-                                                            Welcome back to your planet computer interface.
-                                                        </p>
-                                                    </div>
-
-                                                    <div className="flex flex-col items-center md:items-end gap-4 shrink-0">
-                                                        <div className="flex items-center gap-4 px-6 py-2 md:px-8 md:py-3 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md">
-                                                            <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
-                                                            <span className="text-xl md:text-2xl font-semibold text-foreground tracking-tight">
-                                                                {currentTime || "00:00"}
-                                                            </span>
-                                                        </div>
-                                                        <div className="flex items-center gap-2 text-foreground/40 text-sm font-medium group-hover:text-foreground/60 transition-colors">
-                                                            Manage Account & Funds <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </motion.div>
-                                        ) : (
-                                            <motion.div
-                                                key="financials"
-                                                initial={{ opacity: 0, scale: 0.95 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                exit={{ opacity: 0, scale: 0.95 }}
-                                                className="w-full space-y-10"
-                                            >
-                                                <div className="flex items-center justify-between">
-                                                    <div>
-                                                        <h2 className="text-3xl font-bold text-foreground tracking-tight">Account Interface</h2>
-                                                        <p className="text-foreground/50 text-sm font-medium mt-1">Manage your planet credits and system balance</p>
-                                                    </div>
-                                                    <button
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            setView('greeting');
-                                                        }}
-                                                        className="p-2 rounded-full bg-black/5 hover:bg-black/10 transition-colors"
-                                                    >
-                                                        <X className="w-6 h-6 text-foreground/40" />
-                                                    </button>
-                                                </div>
-
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                                                    <div className="space-y-6">
-                                                        <BalanceDisplay variant="inline" />
-                                                        <div className="p-6 rounded-2xl bg-white/10 border border-white/20">
-                                                            <h4 className="text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">System Identity</h4>
-                                                            <div className="flex items-center gap-4">
-                                                                <div className="w-12 h-12 rounded-full border-2 border-white/40 overflow-hidden">
-                                                                    {user?.imageUrl && <Image src={user.imageUrl} alt="Profile" width={48} height={48} />}
-                                                                </div>
-                                                                <div>
-                                                                    <p className="font-bold text-foreground">{user?.fullName}</p>
-                                                                    <p className="text-xs text-foreground/50">{user?.primaryEmailAddress?.emailAddress}</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="space-y-6">
-                                                        <div>
-                                                            <h4 className="text-sm font-bold text-foreground/60 mb-4">Add System Credits</h4>
-                                                            <AddFunds variant="inline" />
-                                                        </div>
-                                                        <p className="text-[10px] text-foreground/40 leading-relaxed">
-                                                            Transactions are handled securely via Stripe. Credits are applied instantly to your account interface for use across the computer network.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
+                                        <div className="flex flex-col items-center md:items-end gap-6 shrink-0">
+                                            <div className="flex items-center gap-4 px-8 py-3 rounded-3xl bg-white/50 border border-white/60 shadow-inner">
+                                                <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                                                <span className="text-2xl md:text-3xl font-bold text-foreground/80 tracking-tighter">
+                                                    {currentTime}
+                                                </span>
+                                            </div>
+                                            <div className="flex items-center gap-3 text-foreground/40 font-bold uppercase tracking-widest text-xs group-hover:text-blue-600/60 transition-colors">
+                                                Manage Credits <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </motion.div>
-                        </div>
+                        ) : (
+                            <motion.div
+                                key="financial-view"
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                className="w-full max-w-5xl bg-white/40 backdrop-blur-3xl rounded-[3.5rem] border border-white/60 shadow-2xl overflow-hidden p-8 md:p-12"
+                            >
+                                <div className="flex items-center justify-between mb-12">
+                                    <div>
+                                        <h3 className="text-3xl font-bold text-foreground tracking-tight">Credit Interface</h3>
+                                        <p className="text-foreground/40 font-medium mt-1 uppercase tracking-widest text-[10px]">Financial Control System</p>
+                                    </div>
+                                    <button
+                                        onClick={() => setView('greeting')}
+                                        className="p-3 rounded-2xl bg-black/5 hover:bg-black/10 transition-colors"
+                                    >
+                                        <X className="w-6 h-6 text-foreground/40" />
+                                    </button>
+                                </div>
 
-                    </div>
-                )}
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                                    <div className="space-y-10">
+                                        <div className="p-8 rounded-[2.5rem] bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20">
+                                            <BalanceDisplay variant="inline" />
+                                        </div>
+
+                                        <div className="space-y-4">
+                                            <h4 className="text-xs font-bold text-foreground/30 uppercase tracking-[0.2em] ml-2">Connected Identity</h4>
+                                            <div className="flex items-center gap-5 p-6 rounded-3xl bg-white/30 border border-white/40">
+                                                <div className="w-14 h-14 rounded-2xl border-2 border-white/80 overflow-hidden shadow-sm">
+                                                    {user?.imageUrl && <Image src={user.imageUrl} alt="Avatar" width={56} height={56} />}
+                                                </div>
+                                                <div className="flex-1">
+                                                    <p className="font-bold text-foreground text-lg">{user?.fullName}</p>
+                                                    <p className="text-sm text-foreground/40 font-medium">{user?.primaryEmailAddress?.emailAddress}</p>
+                                                </div>
+                                                <Link href="/settings" className="p-2 hover:bg-white/50 rounded-xl transition-colors">
+                                                    <Settings className="w-5 h-5 text-foreground/30" />
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-8">
+                                        <div className="p-2">
+                                            <h4 className="text-sm font-bold text-foreground/60 mb-6 flex items-center gap-2">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                                                Injection Points
+                                            </h4>
+                                            <AddFunds variant="inline" />
+                                        </div>
+                                        <div className="px-6 py-4 rounded-2xl bg-blue-50/50 border border-blue-100 text-[11px] text-blue-600/70 leading-relaxed font-medium">
+                                            System credits are applied instantly via secure Stripe gateway. Use these credits to interact with autonomous agents and compute resources across the planet network.
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
             </main>
         </div>
     );
