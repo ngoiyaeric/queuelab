@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^3.0.71",
+    "@ai-sdk/react": "^3.0.208",
     "@clerk/nextjs": "^6.39.5",
     "@dotlottie/react-player": "^1.6.19",
     "@iconify/icons-logos": "^1.2.36",
@@ -23,6 +25,7 @@
     "@stripe/stripe-js": "^9.8.0",
     "@types/three": "^0.183.1",
     "@vercel/analytics": "^1.5.0",
+    "ai": "^6.0.206",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "firebase": "^12.10.0",
