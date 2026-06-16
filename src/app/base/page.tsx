@@ -7,6 +7,7 @@ import { Environment, OrbitControls } from "@react-three/drei";
 import { FlowerScene } from "@/components/flower-scene";
 import Image from "next/image";
 import QIcon from "@/assets/q-logo.png";
+import LoaderGif from "@/assets/loader.gif";
 import { useUser, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import { BalanceDisplay } from "@/components/balance-display";
@@ -16,7 +17,11 @@ import { ChevronRight, X } from "lucide-react";
 
 export default function Base() {
     return (
-        <Suspense fallback={<div className="flex-1 w-full flex items-center justify-center h-screen bg-background text-foreground/40 text-xl animate-pulse">Loading Interface...</div>}>
+        <Suspense fallback={
+            <div className="flex-1 w-full flex items-center justify-center h-screen bg-background">
+                <Image src={LoaderGif} alt="Loading..." width={480} height={480} unoptimized={true} />
+            </div>
+        }>
             <BaseContent />
         </Suspense>
     );
@@ -115,7 +120,7 @@ function BaseContent() {
             <main className="flex-1 flex flex-col relative z-10">
                 {(!isLoaded || !user) ? (
                     <div className="flex-1 w-full flex items-center justify-center" style={{ height: '100vh' }}>
-                        <div className="text-foreground/40 text-xl animate-pulse">Loading Interface...</div>
+                        <Image src={LoaderGif} alt="Loading..." width={480} height={480} unoptimized={true} />
                     </div>
                 ) : (
                     <div className="relative flex flex-col items-center" style={{ minHeight: '100vh' }}>
