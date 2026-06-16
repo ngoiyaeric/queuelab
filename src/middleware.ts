@@ -9,6 +9,8 @@ const isPublicRoute = createRouteMatcher([
   '/privacy(.*)',
   '/terms(.*)',
   '/lab(.*)',
+  '/sign-in(.*)',
+  '/sign-up(.*)',
   '/__clerk/(.*)'
 ]);
 
