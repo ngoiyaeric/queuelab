@@ -40,5 +40,8 @@ Render services within the same workspace and region can communicate via **inter
 - **NEXT_PUBLIC_WS_URL**: WebSockets initiated from the client browser must use the **Render public URL** (e.g., `wss://your-backend.onrender.com`).
 - **NEXT_PUBLIC_APP_URL**: Used for Stripe checkout redirect URLs (e.g., `https://your-frontend.onrender.com`).
 
+## Migration from Firebase Hosting
+The application has migrated from Firebase Hosting to a containerized deployment (e.g., on Render). All Firebase-related configuration files and build scripts have been removed.
+
 ## Code Integration
 The `next.config.mjs` file is already configured to read `FASTAPI_BASE_URL` from the environment. No code changes are required for production deployment, only correct configuration in the Render dashboard.
