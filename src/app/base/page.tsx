@@ -375,7 +375,7 @@ function BaseContent() {
                                                         <div className="p-6 rounded-2xl bg-white/10 border border-white/20">
                                                             <h4 className="text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">You said</h4>
                                                             <p className="text-xl text-foreground font-medium italic">
-                                                                "{transcript || "..."}"
+                                                                &quot;{transcript || "..."}&quot;
                                                             </p>
                                                         </div>
 
