@@ -4,6 +4,7 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, END
 from app.core.config import settings
 from app.schemas.messages import ChatMessage, StreamChunk, MessageType
+from app.services.session_service import session_service
 
 class AgentState(TypedDict):
     messages: Annotated[List[Dict[str, Any]], "Messages in the conversation"]
@@ -14,7 +15,8 @@ class AgentService:
     def __init__(self):
         self.llm = ChatOpenAI(
             model=settings.MODEL_NAME,
-            api_key=settings.OPENAI_API_KEY,
+            api_key=settings.XAI_API_KEY,
+            base_url=settings.XAI_BASE_URL,
             streaming=True
         )
         self.graph = self._build_graph()
@@ -70,18 +72,26 @@ class AgentService:
         """
         Invokes the agent graph and yields stream chunks.
         """
-        # Simplified streaming generator for the foundation
-        # In a full implementation, we'd wrap the LLM callback or graph events
-
-        # Simulated "Thinking" status
+        # Yield "Thinking" status
         yield StreamChunk(agent_id="coordinator", content="", type=MessageType.STATUS, metadata={"status": "thinking"})
 
-        # Simulated token-by-token response
-        response_text = f"Processing your request: {message}"
-        words = response_text.split()
+        # Store user message
+        session_service.add_message(session_id, "user", message)
 
-        for word in words:
-            await asyncio.sleep(0.1)
-            yield StreamChunk(agent_id="coordinator", content=word + " ", type=MessageType.TEXT)
+        # Retrieve session history
+        history = session_service.get_formatted_history(session_id)
+
+        # Prepare messages (history already includes the message we just added)
+        messages = history
+
+        full_response = ""
+        async for chunk in self.llm.astream(messages):
+            content = chunk.content
+            if content:
+                full_response += content
+                yield StreamChunk(agent_id="coordinator", content=content, type=MessageType.TEXT)
+
+        # Append assistant response to history
+        session_service.add_message(session_id, "assistant", full_response)
 
 agent_service = AgentService()

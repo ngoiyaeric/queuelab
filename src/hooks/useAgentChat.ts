@@ -14,25 +14,42 @@ export const useAgentChat = (sessionId?: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const [ws, setWs] = useState<WebSocket | null>(null);
   const [status, setStatus] = useState<string>("idle");
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const audioQueue = useRef<string[]>([]);
-  const isPlaying = useRef(false);
+  const isPlayingRef = useRef(false);
 
   const playNextAudio = useCallback(() => {
-    if (isPlaying.current || audioQueue.current.length === 0) return;
+    if (isPlayingRef.current || audioQueue.current.length === 0) {
+      if (audioQueue.current.length === 0 && isPlayingRef.current === false) {
+        setIsSpeaking(false);
+      }
+      return;
+    }
 
-    isPlaying.current = true;
+    isPlayingRef.current = true;
+    setIsSpeaking(true);
     const base64Audio = audioQueue.current.shift();
-    if (!base64Audio) return;
+    if (!base64Audio) {
+      isPlayingRef.current = false;
+      setIsSpeaking(false);
+      return;
+    }
 
     const audio = new Audio(`data:audio/mpeg;base64,${base64Audio}`);
     audio.onended = () => {
-      isPlaying.current = false;
+      isPlayingRef.current = false;
+      if (audioQueue.current.length === 0) {
+        setIsSpeaking(false);
+      }
       playNextAudio();
     };
     audio.play().catch(e => {
       console.error("Audio playback failed", e);
-      isPlaying.current = false;
+      isPlayingRef.current = false;
+      if (audioQueue.current.length === 0) {
+        setIsSpeaking(false);
+      }
       playNextAudio();
     });
   }, []);
@@ -109,5 +126,6 @@ export const useAgentChat = (sessionId?: string) => {
     sendMessage,
     isLoading,
     status,
+    isSpeaking,
   };
 };

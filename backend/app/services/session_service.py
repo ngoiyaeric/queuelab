@@ -22,6 +22,13 @@ class SessionService:
     def get_history(self, session_id: str) -> List[Dict[str, str]]:
         return self.sessions.get(session_id, {}).get("history", [])
 
+    def get_formatted_history(self, session_id: str) -> List[Dict[str, str]]:
+        """
+        Returns history in the format expected by the LLM (list of dicts with role and content).
+        """
+        history = self.get_history(session_id)
+        return [{"role": m["role"], "content": m["content"]} for m in history]
+
     def cleanup_session(self, session_id: str):
         if session_id in self.sessions:
             del self.sessions[session_id]
