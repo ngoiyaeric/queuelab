@@ -6,11 +6,13 @@ import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { FlowerScene } from "@/components/flower-scene";
 import Image from "next/image";
+import QCXLogo from "@/assets/logo-qcx.png";
 import QIcon from "@/assets/q-logo.png";
 import { useUser, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import { BalanceDisplay } from "@/components/balance-display";
 import { AddFunds } from "@/components/add-funds";
+import { ActionButton } from "@/components/action-button";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, X } from "lucide-react";
 
@@ -263,6 +265,21 @@ function BaseContent() {
                                                                     <p className="font-bold text-foreground">{user?.fullName}</p>
                                                                     <p className="text-xs text-foreground/50">{user?.primaryEmailAddress?.emailAddress}</p>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="p-6 rounded-2xl bg-white/10 border border-white/20">
+                                                            <h4 className="text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">AGI Subscription</h4>
+                                                            <div className="flex items-center justify-between gap-4">
+                                                                <div className="flex items-center gap-3">
+                                                                    <Image src={QCXLogo} alt="QCX" width={24} height={24} className="opacity-80" />
+                                                                    <p className="font-bold text-foreground text-sm">Standard/yr (AGI)</p>
+                                                                </div>
+                                                                <ActionButton
+                                                                    label="Purchase"
+                                                                    href="https://buy.stripe.com/14A3cv7K72TR3go14Nasg02"
+                                                                    className="h-8 px-4 text-[10px] uppercase tracking-wider bg-white/20 hover:bg-white/30 border-white/20 text-foreground"
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
