@@ -9,13 +9,17 @@ if (!process.env.FASTAPI_BASE_URL && process.env.NODE_ENV === "production") {
     );
 }
 
+const isStandalone = process.env.NEXT_STANDALONE === "true";
+
 const nextConfig = {
     // Reverting static export as it conflicts with Clerk's server-side needs
     // and this project seems to prefer a dynamic runtime.
     // To support Firebase Hosting, we'll ensure the build output is handled.
 
+    ...(isStandalone ? { output: "standalone" } : {}),
+
     images: {
-        unoptimized: true,
+        unoptimized: !isStandalone,
     },
 
     async rewrites() {
