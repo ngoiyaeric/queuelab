@@ -14,7 +14,9 @@ import { BalanceDisplay } from "@/components/balance-display";
 import { AddFunds } from "@/components/add-funds";
 import { ActionButton } from "@/components/action-button";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, X } from "lucide-react";
+import { ChevronRight, X, Mic } from "lucide-react";
+import { useAgentChat } from "@/hooks/useAgentChat";
+import { FlowerSpinner } from "@/components/chat/FlowerSpinner";
 
 export default function Base() {
     return (
@@ -32,7 +34,10 @@ function BaseContent() {
     const [currentTime, setCurrentTime] = useState("");
     const [location, setLocation] = useState("Earth");
     const [greeting, setGreeting] = useState("Welcome");
-    const [view, setView] = useState<"greeting" | "financials">("greeting");
+    const [view, setView] = useState<"greeting" | "financials" | "voice">("greeting");
+    const { messages, sendMessage, status, isSpeaking } = useAgentChat();
+    const [transcript, setTranscript] = useState("");
+    const [isListening, setIsListening] = useState(false);
 
     useEffect(() => {
         if (isLoaded && !user) {
@@ -79,6 +84,42 @@ function BaseContent() {
         } catch (error) {
             console.error("Failed to sign out", error);
         }
+    };
+
+    const startListening = () => {
+        const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            alert("Speech recognition not supported in this browser.");
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.onstart = () => {
+            setIsListening(true);
+            setTranscript("");
+        };
+
+        recognition.onresult = (event: any) => {
+            const speechToText = event.results[0][0].transcript;
+            setTranscript(speechToText);
+            sendMessage(speechToText, true);
+            setView("voice");
+        };
+
+        recognition.onerror = (event: any) => {
+            console.error("Speech recognition error", event.error);
+            setIsListening(false);
+        };
+
+        recognition.onend = () => {
+            setIsListening(false);
+        };
+
+        recognition.start();
     };
 
     return (
@@ -179,7 +220,7 @@ function BaseContent() {
                             <motion.div
                                 layout
                                 onClick={() => view === 'greeting' && setView('financials')}
-                                className="max-w-6xl w-full relative overflow-hidden rounded-[3rem] border border-white/40 shadow-2xl cursor-pointer group"
+                                className={`max-w-6xl w-full relative overflow-hidden rounded-[3rem] border border-white/40 shadow-2xl cursor-pointer group ${isSpeaking ? 'animate-glow' : ''}`}
                                 initial={false}
                                 animate={{ height: view === 'greeting' ? 280 : 'auto' }}
                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -225,10 +266,20 @@ function BaseContent() {
                                                         <div className="flex items-center gap-2 text-foreground/40 text-sm font-medium group-hover:text-foreground/60 transition-colors">
                                                             Manage Account & Funds <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                                         </div>
+
+                                                        <button
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                startListening();
+                                                            }}
+                                                            className={`mt-4 p-4 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md transition-all duration-300 ${isListening ? 'scale-110 border-blue-500/50 ring-4 ring-blue-500/20' : 'hover:bg-white/60'}`}
+                                                        >
+                                                            <Mic className={`w-6 h-6 ${isListening ? 'text-blue-500 animate-pulse' : 'text-foreground'}`} />
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </motion.div>
-                                        ) : (
+                                        ) : view === "financials" ? (
                                             <motion.div
                                                 key="financials"
                                                 initial={{ opacity: 0, scale: 0.95 }}
@@ -292,6 +343,59 @@ function BaseContent() {
                                                         <p className="text-[10px] text-foreground/40 leading-relaxed">
                                                             Transactions are handled securely via Stripe. Credits are applied instantly to your account interface for use across the computer network.
                                                         </p>
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                        ) : (
+                                            <motion.div
+                                                key="voice"
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -20 }}
+                                                className="w-full space-y-8"
+                                            >
+                                                <div className="flex items-center justify-between">
+                                                    <div>
+                                                        <h2 className="text-3xl font-bold text-foreground tracking-tight">Voice Interface</h2>
+                                                        <p className="text-foreground/50 text-sm font-medium mt-1">Live interaction with your planet computer</p>
+                                                    </div>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setView('greeting');
+                                                        }}
+                                                        className="p-2 rounded-full bg-black/5 hover:bg-black/10 transition-colors"
+                                                    >
+                                                        <X className="w-6 h-6 text-foreground/40" />
+                                                    </button>
+                                                </div>
+
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                                    <div className="space-y-6">
+                                                        <div className="p-6 rounded-2xl bg-white/10 border border-white/20">
+                                                            <h4 className="text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">You said</h4>
+                                                            <p className="text-xl text-foreground font-medium italic">
+                                                                &quot;{transcript || "..."}&quot;
+                                                            </p>
+                                                        </div>
+
+                                                        {status === "disconnected" && (
+                                                            <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-sm">
+                                                                Connection dropped. Please refresh.
+                                                            </div>
+                                                        )}
+                                                    </div>
+
+                                                    <div className="space-y-6">
+                                                        <div className="p-6 rounded-2xl bg-white/10 border border-white/20 min-h-[200px]">
+                                                            <h4 className="text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">AI Response</h4>
+                                                            {(status === "thinking" || status === "processing") && (
+                                                                <FlowerSpinner />
+                                                            )}
+                                                            <div className="text-lg text-foreground/80 leading-relaxed">
+                                                                {messages.filter(m => m.role === 'assistant').slice(-1)[0]?.content || (status === "idle" ? "" : "...")}
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </motion.div>

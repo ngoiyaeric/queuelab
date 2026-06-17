@@ -9,7 +9,9 @@ class Settings(BaseSettings):
 
     # AI Config
     OPENAI_API_KEY: str = ""
-    MODEL_NAME: str = "gpt-4o"  # Updated to 4o as gpt-4 is older
+    XAI_API_KEY: str = ""
+    XAI_BASE_URL: str = "https://api.x.ai/v1"
+    MODEL_NAME: str = "grok-2"
     AGENT_TIMEOUT: int = 30
 
     # Voice Config (ElevenLabs)
