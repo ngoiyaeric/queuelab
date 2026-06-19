@@ -20,7 +20,6 @@ export const ActionButton = ({ label, className, onClick, href }: ActionButtonPr
         isGlassmorphic
           ? "bg-white/40 backdrop-blur-md border-white/50 text-foreground shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:bg-white/60"
           : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md",
-        label.toLowerCase() === "queue up" && "bg-yellow-100/30 border-yellow-200/50",
         className
       )}
       onClick={onClick}
