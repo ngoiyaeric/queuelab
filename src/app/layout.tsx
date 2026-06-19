@@ -7,6 +7,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/react"
 import IntercomMessenger from '@/components/IntercomMessenger';
 import { DynamicBackground } from '@/components/dynamic-background';
+import { CookieConsent } from "@/components/cookie-consent";
 
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
@@ -54,6 +55,7 @@ export default function RootLayout({
         >
           <DynamicBackground />
           {children}
+          <CookieConsent />
           <IntercomMessenger />
           <Analytics />
         </ClerkProvider>
