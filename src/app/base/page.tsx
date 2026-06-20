@@ -259,13 +259,21 @@ function BaseContent() {
                                 }}
                                 onWheel={(e) => {
                                     if (view === 'voice') return;
-                                    if ((view === 'greeting' || view === 'financials') && e.deltaY > 50) {
+                                    // Threshold for view switching
+                                    const threshold = 30;
+                                    if ((view === 'greeting' || view === 'financials') && e.deltaY > threshold) {
                                         setView('knowledge');
                                         if (knowledge.length === 0) {
                                             sendMessage("Initiate knowledge discovery", false);
                                         }
-                                    } else if (view === 'knowledge' && e.deltaY < -50) {
-                                        setView('greeting');
+                                    } else if (view === 'knowledge' && e.deltaY < -threshold) {
+                                        // Only scroll up to greeting if we are at the top of the knowledge log
+                                        const logElement = document.querySelector('.custom-scrollbar');
+                                        if (logElement && logElement.scrollTop <= 0) {
+                                            setView('greeting');
+                                        } else if (!logElement) {
+                                            setView('greeting');
+                                        }
                                     }
                                 }}
                                 drag={view !== 'voice' ? "y" : false}
@@ -277,13 +285,28 @@ function BaseContent() {
                                             sendMessage("Initiate knowledge discovery", false);
                                         }
                                     } else if (view === 'knowledge' && info.offset.y > 50) {
-                                        setView('greeting');
+                                        const logElement = document.querySelector('.custom-scrollbar');
+                                        if (logElement && logElement.scrollTop <= 0) {
+                                            setView('greeting');
+                                        } else if (!logElement) {
+                                            setView('greeting');
+                                        }
                                     }
                                 }}
-                                className={`max-w-6xl w-full relative overflow-hidden rounded-[3rem] border border-white/40 shadow-2xl cursor-pointer group ${isSpeaking ? 'animate-glow' : ''}`}
+                                className={`max-w-6xl w-full relative overflow-hidden rounded-[2rem] md:rounded-[3rem] border border-white/40 shadow-2xl cursor-pointer group ${isSpeaking ? 'animate-glow' : ''}`}
                                 initial={false}
-                                animate={{ height: view === 'greeting' ? 'auto' : 'auto', minHeight: view === 'greeting' ? 280 : 0 }}
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                animate={{
+                                    height: 'auto',
+                                    minHeight: view === 'greeting' ? 240 : 0,
+                                    scale: 1,
+                                    opacity: 1
+                                }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 260,
+                                    damping: 26,
+                                    mass: 1
+                                }}
                             >
                                 {/* Sky background */}
                                 <div className="absolute inset-0 z-0">
@@ -319,19 +342,19 @@ function BaseContent() {
                                                 className="flex flex-col justify-center h-full"
                                             >
                                                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-                                                    <div className="space-y-2">
-                                                        <h2 className="text-3xl md:text-5xl font-bold text-foreground text-balance text-center md:text-left leading-tight">
+                                                    <div className="space-y-2 flex flex-col items-center md:items-start">
+                                                        <h2 className="text-2xl md:text-5xl font-bold text-foreground text-balance text-center md:text-left leading-tight">
                                                             {greeting}, {user?.firstName || user?.fullName?.split(' ')[0] || "Friend"}!
                                                         </h2>
-                                                        <p className="text-lg md:text-2xl text-foreground/70 leading-relaxed text-center md:text-left">
+                                                        <p className="text-base md:text-2xl text-foreground/70 leading-relaxed text-center md:text-left max-w-[280px] md:max-w-none">
                                                             Welcome back to your planet computer interface.
                                                         </p>
                                                     </div>
 
-                                                    <div className="flex flex-col items-center md:items-end gap-4 shrink-0">
-                                                        <div className="flex items-center gap-4 px-6 py-2 md:px-8 md:py-3 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md">
-                                                            <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
-                                                            <span className="text-xl md:text-2xl font-semibold text-foreground tracking-tight">
+                                                    <div className="flex flex-col items-center md:items-end gap-3 md:gap-4 shrink-0">
+                                                        <div className="flex items-center gap-3 md:gap-4 px-5 py-2 md:px-8 md:py-3 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md">
+                                                            <span className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-blue-500 animate-pulse" />
+                                                            <span className="text-lg md:text-2xl font-semibold text-foreground tracking-tight">
                                                                 {currentTime || "00:00"}
                                                             </span>
                                                         </div>
@@ -342,10 +365,10 @@ function BaseContent() {
                                                                 startListening();
                                                             }}
                                                             disabled={isListening}
-                                                            className={`mt-4 p-4 min-w-[56px] min-h-[56px] flex items-center justify-center rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md transition-all duration-300 ${isListening ? 'scale-110 border-blue-500/50 ring-4 ring-blue-500/20 opacity-50 cursor-not-allowed' : 'hover:bg-white/60 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/40'}`}
+                                                            className={`mt-2 md:mt-4 p-3 md:p-4 min-w-[48px] md:min-w-[56px] min-h-[48px] md:min-h-[56px] flex items-center justify-center rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md transition-all duration-300 ${isListening ? 'scale-110 border-blue-500/50 ring-4 ring-blue-500/20 opacity-50 cursor-not-allowed' : 'hover:bg-white/60 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/40'}`}
                                                             aria-label="Start voice interaction"
                                                         >
-                                                            <Mic className={`w-6 h-6 ${isListening ? 'text-blue-500 animate-pulse' : 'text-foreground'}`} />
+                                                            <Mic className={`w-5 h-5 md:w-6 md:h-6 ${isListening ? 'text-blue-500 animate-pulse' : 'text-foreground'}`} />
                                                         </button>
                                                     </div>
                                                 </div>
@@ -353,17 +376,21 @@ function BaseContent() {
                                         ) : view === "financials" ? (
                                             <motion.div
                                                 key="financials"
-                                                initial={{ opacity: 0, y: 40 }}
+                                                initial={{ opacity: 0, y: 20 }}
                                                 animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: -40 }}
-                                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                                exit={{ opacity: 0, y: -20 }}
+                                                transition={{
+                                                    type: "spring",
+                                                    stiffness: 260,
+                                                    damping: 26
+                                                }}
                                                 onClick={(e) => e.stopPropagation()}
-                                                className="w-full space-y-10"
+                                                className="w-full space-y-6 md:space-y-10"
                                             >
-                                                <div className="flex items-center justify-between">
+                                                <div className="flex items-center justify-between gap-4">
                                                     <div>
-                                                        <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Account Interface</h2>
-                                                        <p className="text-foreground/50 text-sm font-medium mt-1">Manage your planet credits and system balance</p>
+                                                        <h2 className="text-xl md:text-3xl font-bold text-foreground tracking-tight">Account Interface</h2>
+                                                        <p className="text-foreground/50 text-[10px] md:text-sm font-medium mt-0.5 md:mt-1">Manage your planet credits and system balance</p>
                                                     </div>
                                                     <button
                                                         onClick={(e) => {
@@ -377,9 +404,9 @@ function BaseContent() {
                                                 </div>
 
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start">
-                                                    <div className="space-y-6">
+                                                    <div className="space-y-4 md:space-y-6">
                                                         <BalanceDisplay variant="inline" />
-                                                        <div className="p-6 rounded-2xl bg-white/10 border border-white/20">
+                                                        <div className="p-4 md:p-6 rounded-xl md:rounded-2xl bg-white/10 border border-white/20">
                                                             <h4 className="text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">System Identity</h4>
                                                             <div className="flex items-center gap-4">
                                                                 <div className="w-12 h-12 rounded-full border-2 border-white/40 overflow-hidden">
@@ -392,12 +419,12 @@ function BaseContent() {
                                                             </div>
                                                         </div>
 
-                                                        <div className="p-6 rounded-2xl bg-white/10 border border-white/20">
-                                                            <h4 className="text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">AGI Subscription</h4>
+                                                        <div className="p-4 md:p-6 rounded-xl md:rounded-2xl bg-white/10 border border-white/20">
+                                                            <h4 className="text-[10px] md:text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">AGI Subscription</h4>
                                                             <div className="flex items-center justify-between gap-4">
                                                                 <div className="flex items-center gap-3">
-                                                                    <Image src={QCXLogo} alt="QCX" width={24} height={24} className="opacity-80" />
-                                                                    <p className="font-bold text-foreground text-sm">Standard/yr (AGI)</p>
+                                                                    <Image src={QCXLogo} alt="QCX" width={20} height={20} className="opacity-80 md:w-6 md:h-6" />
+                                                                    <p className="font-bold text-foreground text-xs md:text-sm">Standard/yr (AGI)</p>
                                                                 </div>
                                                                 <ActionButton
                                                                     label="Purchase"
@@ -422,29 +449,33 @@ function BaseContent() {
                                         ) : view === "knowledge" ? (
                                             <motion.div
                                                 key="knowledge"
-                                                initial={{ opacity: 0, y: 40 }}
+                                                initial={{ opacity: 0, y: 20 }}
                                                 animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: -40 }}
-                                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                                exit={{ opacity: 0, y: -20 }}
+                                                transition={{
+                                                    type: "spring",
+                                                    stiffness: 260,
+                                                    damping: 26
+                                                }}
                                                 onClick={(e) => e.stopPropagation()}
-                                                className="w-full space-y-8"
+                                                className="w-full space-y-6 md:space-y-8"
                                             >
-                                                <div className="flex items-center justify-between">
-                                                    <div className="flex items-center gap-6">
-                                                        <div className="flex -space-x-3">
-                                                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2.5 flex items-center justify-center shadow-lg relative z-30 transform hover:-translate-y-1 transition-transform">
+                                                <div className="flex items-center justify-between gap-4">
+                                                    <div className="flex items-center gap-4 md:gap-6">
+                                                        <div className="flex -space-x-3 scale-90 md:scale-100">
+                                                            <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2 md:p-2.5 flex items-center justify-center shadow-lg relative z-30 transform hover:-translate-y-1 transition-transform">
                                                                 <Image src={QIcon} alt="Q" width={32} height={32} className="w-full h-full object-contain" />
                                                             </div>
-                                                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2.5 flex items-center justify-center shadow-lg relative z-20 transform hover:-translate-y-1 transition-transform">
+                                                            <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2 md:p-2.5 flex items-center justify-center shadow-lg relative z-20 transform hover:-translate-y-1 transition-transform">
                                                                 <Image src={EVALogo} alt="EVA" width={32} height={32} className="w-full h-full object-contain" />
                                                             </div>
-                                                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2.5 flex items-center justify-center shadow-lg relative z-10 transform hover:-translate-y-1 transition-transform">
+                                                            <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2 md:p-2.5 flex items-center justify-center shadow-lg relative z-10 transform hover:-translate-y-1 transition-transform">
                                                                 <Image src={FIXLogo} alt="FIX" width={32} height={32} className="w-full h-full object-contain" />
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">New Knowledge</h2>
-                                                            <p className="text-foreground/50 text-sm font-medium mt-1">saved by artificial general intelligence</p>
+                                                            <h2 className="text-xl md:text-3xl font-bold text-foreground tracking-tight">New Knowledge</h2>
+                                                            <p className="text-foreground/50 text-[10px] md:text-sm font-medium mt-0.5 md:mt-1">saved by artificial general intelligence</p>
                                                         </div>
                                                     </div>
                                                     <button
@@ -458,26 +489,28 @@ function BaseContent() {
                                                     </button>
                                                 </div>
 
-                                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                                                    <div className="lg:col-span-1 space-y-6">
-                                                        <div className="p-6 rounded-3xl bg-white/20 border border-white/30 backdrop-blur-sm shadow-sm">
-                                                            <h4 className="text-[10px] font-bold text-foreground/40 uppercase tracking-[0.2em] mb-6">Discovery Metrics</h4>
-                                                            <div className="space-y-6">
-                                                                <div>
-                                                                    <p className="text-3xl md:text-4xl font-bold text-foreground tabular-nums tracking-tight">
+                                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+                                                    <div className="lg:col-span-1 flex flex-col gap-4 md:gap-6">
+                                                        <div className="p-5 md:p-6 rounded-2xl md:rounded-3xl bg-white/20 border border-white/30 backdrop-blur-sm shadow-sm flex flex-row lg:flex-col justify-between lg:justify-start gap-4">
+                                                            <div className="hidden lg:block">
+                                                                <h4 className="text-[9px] md:text-[10px] font-bold text-foreground/40 uppercase tracking-[0.2em] mb-6">Discovery Metrics</h4>
+                                                            </div>
+                                                            <div className="flex flex-row lg:flex-col gap-6 md:gap-8 lg:space-y-6 flex-1">
+                                                                <div className="flex-1">
+                                                                    <p className="text-2xl md:text-4xl font-bold text-foreground tabular-nums tracking-tight">
                                                                         {knowledge.findLast(k => k.metadata?.capital)?.metadata.capital || "$0.00"}
                                                                     </p>
-                                                                    <p className="text-[10px] text-foreground/50 font-bold uppercase tracking-wider mt-1">Capital Optimized</p>
+                                                                    <p className="text-[8px] md:text-[10px] text-foreground/50 font-bold uppercase tracking-wider mt-0.5 md:mt-1">Capital Optimized</p>
                                                                 </div>
-                                                                <div className="pt-6 border-t border-black/5">
-                                                                    <p className="text-3xl md:text-4xl font-bold text-foreground tabular-nums tracking-tight">
+                                                                <div className="lg:pt-6 lg:border-t lg:border-black/5 flex-1">
+                                                                    <p className="text-2xl md:text-4xl font-bold text-foreground tabular-nums tracking-tight">
                                                                         {knowledge.findLast(k => k.metadata?.time)?.metadata.time || "0 Hours"}
                                                                     </p>
-                                                                    <p className="text-[10px] text-foreground/50 font-bold uppercase tracking-wider mt-1">Time to Generate</p>
+                                                                    <p className="text-[8px] md:text-[10px] text-foreground/50 font-bold uppercase tracking-wider mt-0.5 md:mt-1">Time to Generate</p>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="p-5 rounded-2xl bg-green-500/5 border border-green-500/10 flex items-center justify-between">
+                                                        <div className="p-4 md:p-5 rounded-xl md:rounded-2xl bg-green-500/5 border border-green-500/10 flex items-center justify-between">
                                                             <div className="flex items-center gap-3">
                                                                 <div className={`w-2 h-2 rounded-full bg-green-500 ${knowledge.length > 0 ? 'animate-pulse' : 'opacity-20'}`} />
                                                                 <span className="text-xs font-bold text-green-700/70 uppercase tracking-widest">
@@ -491,16 +524,16 @@ function BaseContent() {
                                                     </div>
 
                                                     <div className="lg:col-span-2">
-                                                        <div className="rounded-3xl bg-white/20 border border-white/30 backdrop-blur-sm shadow-sm overflow-hidden flex flex-col h-[400px]">
-                                                            <div className="px-6 py-4 border-b border-black/5 bg-white/10 flex items-center justify-between">
-                                                                <h4 className="text-[10px] font-bold text-foreground/40 uppercase tracking-[0.2em]">Abstraction Log</h4>
+                                                        <div className="rounded-2xl md:rounded-3xl bg-white/20 border border-white/30 backdrop-blur-sm shadow-sm overflow-hidden flex flex-col h-[350px] md:h-[400px]">
+                                                            <div className="px-5 md:px-6 py-3 md:py-4 border-b border-black/5 bg-white/10 flex items-center justify-between">
+                                                                <h4 className="text-[9px] md:text-[10px] font-bold text-foreground/40 uppercase tracking-[0.2em]">Abstraction Log</h4>
                                                                 <div className="flex gap-1">
                                                                     <div className="w-1 h-1 rounded-full bg-foreground/20" />
                                                                     <div className="w-1 h-1 rounded-full bg-foreground/20" />
                                                                     <div className="w-1 h-1 rounded-full bg-foreground/20" />
                                                                 </div>
                                                             </div>
-                                                            <div className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar flex flex-col">
+                                                            <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-3 md:space-y-4 custom-scrollbar flex flex-col">
                                                                 {knowledge.length === 0 && (
                                                                     <div className="flex-1 flex flex-col items-center justify-center text-foreground/20 space-y-4">
                                                                         <div className="w-12 h-12 rounded-full border-2 border-current border-dashed animate-[spin_10s_linear_infinite]" />
@@ -511,18 +544,19 @@ function BaseContent() {
                                                                     {knowledge.map((msg) => (
                                                                         <motion.div
                                                                             key={msg.id}
-                                                                            initial={{ opacity: 0, y: 20 }}
+                                                                            initial={{ opacity: 0, y: 10 }}
                                                                             animate={{ opacity: 1, y: 0 }}
+                                                                            transition={{ duration: 0.3, ease: "easeOut" }}
                                                                             className={`flex ${msg.role === 'system' ? 'justify-center' : 'justify-start'}`}
                                                                         >
-                                                                            <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed ${
-                                                                                msg.role === 'system' ? 'bg-black/5 text-foreground/40 italic text-[11px] px-6' :
+                                                                            <div className={`max-w-[90%] md:max-w-[85%] p-3 md:p-4 rounded-2xl text-xs md:text-sm leading-relaxed ${
+                                                                                msg.role === 'system' ? 'bg-black/5 text-foreground/40 italic text-[10px] md:text-[11px] px-6' :
                                                                                 msg.role === 'eva' ? 'bg-blue-500/10 border border-blue-500/20 text-blue-900 shadow-sm' :
                                                                                 msg.role === 'fix' ? 'bg-amber-500/10 border border-amber-500/20 text-amber-900 shadow-sm' :
                                                                                 'bg-white/60 border border-white/80 text-foreground shadow-md font-medium'
                                                                             }`}>
                                                                                 {msg.role !== 'system' && (
-                                                                                    <span className="block text-[9px] font-bold uppercase tracking-widest mb-1 opacity-50">
+                                                                                    <span className="block text-[8px] md:text-[9px] font-bold uppercase tracking-widest mb-1 opacity-50">
                                                                                         {msg.role}
                                                                                     </span>
                                                                                 )}
@@ -531,7 +565,6 @@ function BaseContent() {
                                                                         </motion.div>
                                                                     ))}
                                                                 </AnimatePresence>
-                                                                <div ref={(el) => el?.scrollIntoView({ behavior: 'smooth' })} />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -543,9 +576,13 @@ function BaseContent() {
                                                 initial={{ opacity: 0, y: 10, scale: 0.98 }}
                                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                                 exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                                transition={{
+                                                    type: "spring",
+                                                    stiffness: 260,
+                                                    damping: 26
+                                                }}
                                                 onClick={(e) => e.stopPropagation()}
-                                                className="w-full space-y-8"
+                                                className="w-full space-y-6 md:space-y-8"
                                             >
                                                 <div className="flex items-center justify-between">
                                                     <div>
