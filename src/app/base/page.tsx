@@ -16,7 +16,7 @@ import { BalanceDisplay } from "@/components/balance-display";
 import { AddFunds } from "@/components/add-funds";
 import { ActionButton } from "@/components/action-button";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, X, Mic } from "lucide-react";
+import { ChevronRight, X, Mic, Plus } from "lucide-react";
 import { useAgentChat } from "@/hooks/useAgentChat";
 import { FlowerSpinner } from "@/components/chat/FlowerSpinner";
 
@@ -252,7 +252,33 @@ function BaseContent() {
                         >
                             <motion.div
                                 layout
-                                onClick={() => view === 'greeting' && setView('financials')}
+                                onClick={() => {
+                                    if (view === 'greeting') {
+                                        setView('financials');
+                                    }
+                                }}
+                                onWheel={(e) => {
+                                    if (view === 'financials' && e.deltaY > 50) {
+                                        setView('knowledge');
+                                        if (knowledge.length === 0) {
+                                            sendMessage("Initiate knowledge discovery", false);
+                                        }
+                                    } else if (view === 'knowledge' && e.deltaY < -50) {
+                                        setView('financials');
+                                    }
+                                }}
+                                drag={view !== 'greeting' ? "y" : false}
+                                dragConstraints={{ top: 0, bottom: 0 }}
+                                onDragEnd={(e, info) => {
+                                    if (view === 'financials' && info.offset.y < -50) {
+                                        setView('knowledge');
+                                        if (knowledge.length === 0) {
+                                            sendMessage("Initiate knowledge discovery", false);
+                                        }
+                                    } else if (view === 'knowledge' && info.offset.y > 50) {
+                                        setView('financials');
+                                    }
+                                }}
                                 className={`max-w-6xl w-full relative overflow-hidden rounded-[3rem] border border-white/40 shadow-2xl cursor-pointer group ${isSpeaking ? 'animate-glow' : ''}`}
                                 initial={false}
                                 animate={{ height: view === 'greeting' ? 'auto' : 'auto', minHeight: view === 'greeting' ? 280 : 0 }}
@@ -270,7 +296,7 @@ function BaseContent() {
                                 </div>
 
                                 <div className="relative z-10 h-full px-6 py-8 md:px-16 md:py-14">
-                                    <AnimatePresence mode="wait">
+                                    <AnimatePresence mode="wait" initial={false}>
                                         {view === "greeting" ? (
                                             <motion.div
                                                 key="greeting"
@@ -296,22 +322,6 @@ function BaseContent() {
                                                                 {currentTime || "00:00"}
                                                             </span>
                                                         </div>
-                                                        <div className="flex items-center gap-2 text-foreground/40 text-sm font-medium group-hover:text-foreground/60 transition-colors">
-                                                            Manage Account & Funds <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                                        </div>
-
-                                                        <button
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                setView('knowledge');
-                                                                if (knowledge.length === 0) {
-                                                                    sendMessage("Initiate knowledge discovery", false);
-                                                                }
-                                                            }}
-                                                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 hover:bg-black/10 text-foreground/60 text-xs font-bold uppercase tracking-widest transition-all"
-                                                        >
-                                                            New Knowledge Discovery <ChevronRight className="w-3 h-3" />
-                                                        </button>
 
                                                         <button
                                                             onClick={(e) => {
@@ -330,9 +340,10 @@ function BaseContent() {
                                         ) : view === "financials" ? (
                                             <motion.div
                                                 key="financials"
-                                                initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                                exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                                                initial={{ opacity: 0, y: 40 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -40 }}
+                                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                                 className="w-full space-y-10"
                                             >
                                                 <div className="flex items-center justify-between">
@@ -397,9 +408,10 @@ function BaseContent() {
                                         ) : view === "knowledge" ? (
                                             <motion.div
                                                 key="knowledge"
-                                                initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                                exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                                                initial={{ opacity: 0, y: 40 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -40 }}
+                                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                                 className="w-full space-y-8"
                                             >
                                                 <div className="flex items-center justify-between">
