@@ -48,7 +48,7 @@ function BaseContent() {
         }
         _setView(newView);
     };
-    const { messages, sendMessage, status, isSpeaking } = useAgentChat();
+    const { messages, knowledge, sendMessage, status, isSpeaking } = useAgentChat();
     const [transcript, setTranscript] = useState("");
     const [isListening, setIsListening] = useState(false);
     const isListeningRef = useRef(false);
@@ -304,6 +304,9 @@ function BaseContent() {
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
                                                                 setView('knowledge');
+                                                                if (knowledge.length === 0) {
+                                                                    sendMessage("Initiate knowledge discovery", false);
+                                                                }
                                                             }}
                                                             className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 hover:bg-black/10 text-foreground/60 text-xs font-bold uppercase tracking-widest transition-all"
                                                         >
@@ -434,21 +437,29 @@ function BaseContent() {
                                                             <h4 className="text-[10px] font-bold text-foreground/40 uppercase tracking-[0.2em] mb-6">Discovery Metrics</h4>
                                                             <div className="space-y-6">
                                                                 <div>
-                                                                    <p className="text-3xl md:text-4xl font-bold text-foreground tabular-nums tracking-tight">$1,240.50</p>
+                                                                    <p className="text-3xl md:text-4xl font-bold text-foreground tabular-nums tracking-tight">
+                                                                        {knowledge.findLast(k => k.metadata?.capital)?.metadata.capital || "$0.00"}
+                                                                    </p>
                                                                     <p className="text-[10px] text-foreground/50 font-bold uppercase tracking-wider mt-1">Capital Optimized</p>
                                                                 </div>
                                                                 <div className="pt-6 border-t border-black/5">
-                                                                    <p className="text-3xl md:text-4xl font-bold text-foreground tabular-nums tracking-tight">14.2 Hours</p>
+                                                                    <p className="text-3xl md:text-4xl font-bold text-foreground tabular-nums tracking-tight">
+                                                                        {knowledge.findLast(k => k.metadata?.time)?.metadata.time || "0 Hours"}
+                                                                    </p>
                                                                     <p className="text-[10px] text-foreground/50 font-bold uppercase tracking-wider mt-1">Time to Generate</p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className="p-5 rounded-2xl bg-green-500/5 border border-green-500/10 flex items-center justify-between">
                                                             <div className="flex items-center gap-3">
-                                                                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                                                                <span className="text-xs font-bold text-green-700/70 uppercase tracking-widest">Active Discovery</span>
+                                                                <div className={`w-2 h-2 rounded-full bg-green-500 ${knowledge.length > 0 ? 'animate-pulse' : 'opacity-20'}`} />
+                                                                <span className="text-xs font-bold text-green-700/70 uppercase tracking-widest">
+                                                                    {knowledge.length > 0 ? 'Active Discovery' : 'Standby'}
+                                                                </span>
                                                             </div>
-                                                            <span className="text-[10px] font-bold text-green-700/40">99.8% Sync</span>
+                                                            <span className="text-[10px] font-bold text-green-700/40">
+                                                                {knowledge.length > 0 ? '99.8% Sync' : '0% Sync'}
+                                                            </span>
                                                         </div>
                                                     </div>
 
@@ -462,32 +473,38 @@ function BaseContent() {
                                                                     <div className="w-1 h-1 rounded-full bg-foreground/20" />
                                                                 </div>
                                                             </div>
-                                                            <div className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
-                                                                {[
-                                                                    { role: 'system', content: 'Initializing EVA discovery module...' },
-                                                                    { role: 'eva', content: 'Vibrational interface detected 42 novel patterns in orbital data sets.' },
-                                                                    { role: 'fix', content: 'Signal abstraction applied. Evaluation alignment at 99.8%.' },
-                                                                    { role: 'system', content: 'Synthesizing knowledge core for planetary integration.' },
-                                                                    { role: 'q', content: 'Knowledge abstracted. Ready for planet computer deployment.' },
-                                                                    { role: 'system', content: 'Discovery metrics: $1,240.50 saved through automated alignment.' },
-                                                                    { role: 'eva', content: 'Beginning next phase: Environmental awareness check.' }
-                                                                ].map((msg, i) => (
-                                                                    <div key={i} className={`flex ${msg.role === 'system' ? 'justify-center' : 'justify-start'}`}>
-                                                                        <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed ${
-                                                                            msg.role === 'system' ? 'bg-black/5 text-foreground/40 italic text-[11px] px-6' :
-                                                                            msg.role === 'eva' ? 'bg-blue-500/10 border border-blue-500/20 text-blue-900 shadow-sm' :
-                                                                            msg.role === 'fix' ? 'bg-amber-500/10 border border-amber-500/20 text-amber-900 shadow-sm' :
-                                                                            'bg-white/60 border border-white/80 text-foreground shadow-md font-medium'
-                                                                        }`}>
-                                                                            {msg.role !== 'system' && (
-                                                                                <span className="block text-[9px] font-bold uppercase tracking-widest mb-1 opacity-50">
-                                                                                    {msg.role}
-                                                                                </span>
-                                                                            )}
-                                                                            {msg.content}
-                                                                        </div>
+                                                            <div className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar flex flex-col">
+                                                                {knowledge.length === 0 && (
+                                                                    <div className="flex-1 flex flex-col items-center justify-center text-foreground/20 space-y-4">
+                                                                        <div className="w-12 h-12 rounded-full border-2 border-current border-dashed animate-[spin_10s_linear_infinite]" />
+                                                                        <p className="text-[10px] font-bold uppercase tracking-widest">Waiting for Signal...</p>
                                                                     </div>
-                                                                ))}
+                                                                )}
+                                                                <AnimatePresence initial={false}>
+                                                                    {knowledge.map((msg) => (
+                                                                        <motion.div
+                                                                            key={msg.id}
+                                                                            initial={{ opacity: 0, y: 20 }}
+                                                                            animate={{ opacity: 1, y: 0 }}
+                                                                            className={`flex ${msg.role === 'system' ? 'justify-center' : 'justify-start'}`}
+                                                                        >
+                                                                            <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed ${
+                                                                                msg.role === 'system' ? 'bg-black/5 text-foreground/40 italic text-[11px] px-6' :
+                                                                                msg.role === 'eva' ? 'bg-blue-500/10 border border-blue-500/20 text-blue-900 shadow-sm' :
+                                                                                msg.role === 'fix' ? 'bg-amber-500/10 border border-amber-500/20 text-amber-900 shadow-sm' :
+                                                                                'bg-white/60 border border-white/80 text-foreground shadow-md font-medium'
+                                                                            }`}>
+                                                                                {msg.role !== 'system' && (
+                                                                                    <span className="block text-[9px] font-bold uppercase tracking-widest mb-1 opacity-50">
+                                                                                        {msg.role}
+                                                                                    </span>
+                                                                                )}
+                                                                                {msg.content}
+                                                                            </div>
+                                                                        </motion.div>
+                                                                    ))}
+                                                                </AnimatePresence>
+                                                                <div ref={(el) => el?.scrollIntoView({ behavior: 'smooth' })} />
                                                             </div>
                                                         </div>
                                                     </div>

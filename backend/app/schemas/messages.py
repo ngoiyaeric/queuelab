@@ -7,6 +7,7 @@ class MessageType(str, Enum):
     AUDIO = "audio"
     TOOL_CALL = "tool_call"
     STATUS = "status"
+    KNOWLEDGE = "knowledge"
 
 class ChatMessage(BaseModel):
     role: str

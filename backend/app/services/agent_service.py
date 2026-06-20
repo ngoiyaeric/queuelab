@@ -72,6 +72,23 @@ class AgentService:
         """
         Invokes the agent graph and yields stream chunks.
         """
+        # Simulated "New Knowledge" discovery flow
+        if message == "Initiate knowledge discovery":
+            yield StreamChunk(agent_id="system", content="Initializing EVA discovery module...", type=MessageType.KNOWLEDGE, metadata={"role": "system"})
+            await asyncio.sleep(0.5)
+            yield StreamChunk(agent_id="eva", content="Vibrational interface detected 42 novel patterns in orbital data sets.", type=MessageType.KNOWLEDGE, metadata={"role": "eva"})
+            await asyncio.sleep(0.8)
+            yield StreamChunk(agent_id="fix", content="Signal abstraction applied. Evaluation alignment at 99.8%.", type=MessageType.KNOWLEDGE, metadata={"role": "fix"})
+            await asyncio.sleep(0.6)
+            yield StreamChunk(agent_id="system", content="Synthesizing knowledge core for planetary integration.", type=MessageType.KNOWLEDGE, metadata={"role": "system"})
+            await asyncio.sleep(0.7)
+            yield StreamChunk(agent_id="q", content="Knowledge abstracted. Ready for planet computer deployment.", type=MessageType.KNOWLEDGE, metadata={"role": "q", "capital": "$1,240.50", "time": "14.2 Hours"})
+            await asyncio.sleep(0.5)
+            yield StreamChunk(agent_id="system", content="Discovery metrics: $1,240.50 saved through automated alignment.", type=MessageType.KNOWLEDGE, metadata={"role": "system"})
+            await asyncio.sleep(0.4)
+            yield StreamChunk(agent_id="eva", content="Beginning next phase: Environmental awareness check.", type=MessageType.KNOWLEDGE, metadata={"role": "eva"})
+            return
+
         # Yield "Thinking" status
         yield StreamChunk(agent_id="coordinator", content="", type=MessageType.STATUS, metadata={"status": "thinking"})
 
