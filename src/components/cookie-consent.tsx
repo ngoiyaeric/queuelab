@@ -36,17 +36,17 @@ export function CookieConsent() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="fixed bottom-0 left-0 right-0 z-[100] p-4 md:p-6 pointer-events-none"
         >
-          <div className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-white/50 bg-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-md pointer-events-auto">
+          <div className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-white/50 bg-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-md pointer-events-auto font-sans" style={{ fontFamily: 'var(--font-plus-jakarta-sans)' }}>
             <div className="flex flex-col items-center gap-4 p-6 md:flex-row md:justify-between">
               <div className="flex items-start gap-4">
                 <div className="rounded-full bg-white/20 p-2 text-stone-600 shrink-0">
                   <Cookie className="h-5 w-5" />
                 </div>
                 <div className="space-y-1">
-                  <h3 className="font-serif text-lg font-medium text-stone-900" style={{ fontFamily: 'var(--font-instrument-serif)' }}>
+                  <h3 className="text-lg font-medium text-stone-900">
                     Cookie Policy
                   </h3>
-                  <p className="font-sans text-sm text-stone-600 leading-relaxed max-w-xl" style={{ fontFamily: 'var(--font-plus-jakarta-sans)' }}>
+                  <p className="text-sm text-stone-600 leading-relaxed max-w-xl">
                     We use cookies to enhance your experience and analyze our traffic.
                     Please choose whether you accept or decline our use of cookies.
                   </p>
