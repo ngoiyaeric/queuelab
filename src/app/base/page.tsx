@@ -37,6 +37,7 @@ function BaseContent() {
     const [location, setLocation] = useState("Earth");
     const [greeting, setGreeting] = useState("Welcome");
     const [view, _setView] = useState<"greeting" | "financials" | "voice" | "knowledge">("greeting");
+    const logContainerRef = useRef<HTMLDivElement>(null);
 
     const setView = (newView: "greeting" | "financials" | "voice" | "knowledge") => {
         if (isListeningRef.current) {
@@ -260,7 +261,7 @@ function BaseContent() {
                                 onWheel={(e) => {
                                     if (view === 'voice') return;
                                     // Threshold for view switching
-                                    const threshold = 30;
+                                    const threshold = 20;
                                     if ((view === 'greeting' || view === 'financials') && e.deltaY > threshold) {
                                         setView('knowledge');
                                         if (knowledge.length === 0) {
@@ -268,10 +269,9 @@ function BaseContent() {
                                         }
                                     } else if (view === 'knowledge' && e.deltaY < -threshold) {
                                         // Only scroll up to greeting if we are at the top of the knowledge log
-                                        const logElement = document.querySelector('.custom-scrollbar');
-                                        if (logElement && logElement.scrollTop <= 0) {
+                                        if (logContainerRef.current && logContainerRef.current.scrollTop <= 0) {
                                             setView('greeting');
-                                        } else if (!logElement) {
+                                        } else if (!logContainerRef.current) {
                                             setView('greeting');
                                         }
                                     }
@@ -279,16 +279,17 @@ function BaseContent() {
                                 drag={view !== 'voice' ? "y" : false}
                                 dragConstraints={{ top: 0, bottom: 0 }}
                                 onDragEnd={(e, info) => {
-                                    if ((view === 'greeting' || view === 'financials') && info.offset.y < -50) {
+                                    const dragThreshold = 50;
+                                    if ((view === 'greeting' || view === 'financials') && info.offset.y < -dragThreshold) {
                                         setView('knowledge');
                                         if (knowledge.length === 0) {
                                             sendMessage("Initiate knowledge discovery", false);
                                         }
-                                    } else if (view === 'knowledge' && info.offset.y > 50) {
-                                        const logElement = document.querySelector('.custom-scrollbar');
-                                        if (logElement && logElement.scrollTop <= 0) {
+                                    } else if (view === 'knowledge' && info.offset.y > dragThreshold) {
+                                        // Only transition back if dragging down (scrolling up) at top of log
+                                        if (logContainerRef.current && logContainerRef.current.scrollTop <= 0) {
                                             setView('greeting');
-                                        } else if (!logElement) {
+                                        } else if (!logContainerRef.current) {
                                             setView('greeting');
                                         }
                                     }
@@ -533,7 +534,10 @@ function BaseContent() {
                                                                     <div className="w-1 h-1 rounded-full bg-foreground/20" />
                                                                 </div>
                                                             </div>
-                                                            <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-3 md:space-y-4 custom-scrollbar flex flex-col">
+                                                            <div
+                                                                ref={logContainerRef}
+                                                                className="flex-1 overflow-y-auto p-4 md:p-6 space-y-3 md:space-y-4 custom-scrollbar flex flex-col"
+                                                            >
                                                                 {knowledge.length === 0 && (
                                                                     <div className="flex-1 flex flex-col items-center justify-center text-foreground/20 space-y-4">
                                                                         <div className="w-12 h-12 rounded-full border-2 border-current border-dashed animate-[spin_10s_linear_infinite]" />
