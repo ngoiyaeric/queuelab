@@ -607,7 +607,6 @@ function BaseContent() {
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
                                                     <div className="space-y-6">
                                                         <div className={`p-6 rounded-2xl bg-white/10 border transition-all duration-500 min-h-[120px] ${isListening ? 'border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.2)] animate-pulse' : 'border-white/20'}`}>
-                                                            <h4 className="text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">You said</h4>
                                                             <p className="text-lg md:text-xl text-foreground font-medium italic">
                                                                 &quot;{transcript || "..."}&quot;
                                                             </p>
@@ -622,7 +621,6 @@ function BaseContent() {
 
                                                     <div className="space-y-6">
                                                         <div className="p-6 rounded-2xl bg-white/10 border border-white/20 min-h-[200px] flex flex-col">
-                                                            <h4 className="text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">AI Response</h4>
                                                             {(status === "thinking" || status === "processing") && (
                                                                 <div className="flex-1 flex items-center justify-center py-8">
                                                                     <FlowerSpinner />
