@@ -88,3 +88,7 @@
   padding: 1rem 0;
   font-size: 0.8rem;
 }
+
+html, body {
+  min-height: 100dvh;
+}
