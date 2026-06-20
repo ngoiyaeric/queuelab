@@ -8,6 +8,8 @@ import { FlowerScene } from "@/components/flower-scene";
 import Image from "next/image";
 import QCXLogo from "@/assets/logo-qcx.png";
 import QIcon from "@/assets/q-logo.png";
+import FIXLogo from "@/assets/logo-fi.png";
+import EVALogo from "@/assets/logo-ea.png";
 import { useUser, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import { BalanceDisplay } from "@/components/balance-display";
@@ -34,9 +36,9 @@ function BaseContent() {
     const [currentTime, setCurrentTime] = useState("");
     const [location, setLocation] = useState("Earth");
     const [greeting, setGreeting] = useState("Welcome");
-    const [view, _setView] = useState<"greeting" | "financials" | "voice">("greeting");
+    const [view, _setView] = useState<"greeting" | "financials" | "voice" | "knowledge">("greeting");
 
-    const setView = (newView: "greeting" | "financials" | "voice") => {
+    const setView = (newView: "greeting" | "financials" | "voice" | "knowledge") => {
         if (isListeningRef.current) {
             isListeningRef.current = false;
             setIsListening(false);
@@ -301,6 +303,16 @@ function BaseContent() {
                                                         <button
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
+                                                                setView('knowledge');
+                                                            }}
+                                                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 hover:bg-black/10 text-foreground/60 text-xs font-bold uppercase tracking-widest transition-all"
+                                                        >
+                                                            New Knowledge Discovery <ChevronRight className="w-3 h-3" />
+                                                        </button>
+
+                                                        <button
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
                                                                 startListening();
                                                             }}
                                                             disabled={isListening}
@@ -376,6 +388,108 @@ function BaseContent() {
                                                         <p className="text-[10px] text-foreground/40 leading-relaxed">
                                                             Transactions are handled securely via Stripe. Credits are applied instantly to your account interface for use across the computer network.
                                                         </p>
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                        ) : view === "knowledge" ? (
+                                            <motion.div
+                                                key="knowledge"
+                                                initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                                                className="w-full space-y-8"
+                                            >
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex items-center gap-6">
+                                                        <div className="flex -space-x-3">
+                                                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2.5 flex items-center justify-center shadow-lg relative z-30 transform hover:-translate-y-1 transition-transform">
+                                                                <Image src={QIcon} alt="Q" width={32} height={32} className="w-full h-full object-contain" />
+                                                            </div>
+                                                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2.5 flex items-center justify-center shadow-lg relative z-20 transform hover:-translate-y-1 transition-transform">
+                                                                <Image src={EVALogo} alt="EVA" width={32} height={32} className="w-full h-full object-contain" />
+                                                            </div>
+                                                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2.5 flex items-center justify-center shadow-lg relative z-10 transform hover:-translate-y-1 transition-transform">
+                                                                <Image src={FIXLogo} alt="FIX" width={32} height={32} className="w-full h-full object-contain" />
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">New Knowledge</h2>
+                                                            <p className="text-foreground/50 text-sm font-medium mt-1">Abstracted from planet computer intelligence</p>
+                                                        </div>
+                                                    </div>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setView('greeting');
+                                                        }}
+                                                        className="p-3 md:p-2 rounded-full bg-black/5 hover:bg-black/10 transition-colors"
+                                                    >
+                                                        <X className="w-6 h-6 text-foreground/40" />
+                                                    </button>
+                                                </div>
+
+                                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                                    <div className="lg:col-span-1 space-y-6">
+                                                        <div className="p-6 rounded-3xl bg-white/20 border border-white/30 backdrop-blur-sm shadow-sm">
+                                                            <h4 className="text-[10px] font-bold text-foreground/40 uppercase tracking-[0.2em] mb-6">Discovery Metrics</h4>
+                                                            <div className="space-y-6">
+                                                                <div>
+                                                                    <p className="text-3xl md:text-4xl font-bold text-foreground tabular-nums tracking-tight">$1,240.50</p>
+                                                                    <p className="text-[10px] text-foreground/50 font-bold uppercase tracking-wider mt-1">Capital Optimized</p>
+                                                                </div>
+                                                                <div className="pt-6 border-t border-black/5">
+                                                                    <p className="text-3xl md:text-4xl font-bold text-foreground tabular-nums tracking-tight">14.2 Hours</p>
+                                                                    <p className="text-[10px] text-foreground/50 font-bold uppercase tracking-wider mt-1">Time to Generate</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="p-5 rounded-2xl bg-green-500/5 border border-green-500/10 flex items-center justify-between">
+                                                            <div className="flex items-center gap-3">
+                                                                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                                                <span className="text-xs font-bold text-green-700/70 uppercase tracking-widest">Active Discovery</span>
+                                                            </div>
+                                                            <span className="text-[10px] font-bold text-green-700/40">99.8% Sync</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="lg:col-span-2">
+                                                        <div className="rounded-3xl bg-white/20 border border-white/30 backdrop-blur-sm shadow-sm overflow-hidden flex flex-col h-[400px]">
+                                                            <div className="px-6 py-4 border-b border-black/5 bg-white/10 flex items-center justify-between">
+                                                                <h4 className="text-[10px] font-bold text-foreground/40 uppercase tracking-[0.2em]">Abstraction Log</h4>
+                                                                <div className="flex gap-1">
+                                                                    <div className="w-1 h-1 rounded-full bg-foreground/20" />
+                                                                    <div className="w-1 h-1 rounded-full bg-foreground/20" />
+                                                                    <div className="w-1 h-1 rounded-full bg-foreground/20" />
+                                                                </div>
+                                                            </div>
+                                                            <div className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
+                                                                {[
+                                                                    { role: 'system', content: 'Initializing EVA discovery module...' },
+                                                                    { role: 'eva', content: 'Vibrational interface detected 42 novel patterns in orbital data sets.' },
+                                                                    { role: 'fix', content: 'Signal abstraction applied. Evaluation alignment at 99.8%.' },
+                                                                    { role: 'system', content: 'Synthesizing knowledge core for planetary integration.' },
+                                                                    { role: 'q', content: 'Knowledge abstracted. Ready for planet computer deployment.' },
+                                                                    { role: 'system', content: 'Discovery metrics: $1,240.50 saved through automated alignment.' },
+                                                                    { role: 'eva', content: 'Beginning next phase: Environmental awareness check.' }
+                                                                ].map((msg, i) => (
+                                                                    <div key={i} className={`flex ${msg.role === 'system' ? 'justify-center' : 'justify-start'}`}>
+                                                                        <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed ${
+                                                                            msg.role === 'system' ? 'bg-black/5 text-foreground/40 italic text-[11px] px-6' :
+                                                                            msg.role === 'eva' ? 'bg-blue-500/10 border border-blue-500/20 text-blue-900 shadow-sm' :
+                                                                            msg.role === 'fix' ? 'bg-amber-500/10 border border-amber-500/20 text-amber-900 shadow-sm' :
+                                                                            'bg-white/60 border border-white/80 text-foreground shadow-md font-medium'
+                                                                        }`}>
+                                                                            {msg.role !== 'system' && (
+                                                                                <span className="block text-[9px] font-bold uppercase tracking-widest mb-1 opacity-50">
+                                                                                    {msg.role}
+                                                                                </span>
+                                                                            )}
+                                                                            {msg.content}
+                                                                        </div>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </motion.div>
