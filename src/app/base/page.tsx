@@ -388,7 +388,7 @@ function BaseContent() {
                                                 onClick={(e) => e.stopPropagation()}
                                                 className="w-full space-y-6 md:space-y-10"
                                             >
-                                                <div className="flex items-center justify-between gap-4">
+                                                <div className="flex items-center justify-between gap-4 relative">
                                                     <div>
                                                         <h2 className="text-xl md:text-3xl font-bold text-foreground tracking-tight">Account Interface</h2>
                                                         <p className="text-foreground/50 text-[10px] md:text-sm font-medium mt-0.5 md:mt-1">Manage your planet credits and system balance</p>
@@ -398,9 +398,9 @@ function BaseContent() {
                                                             e.stopPropagation();
                                                             setView('greeting');
                                                         }}
-                                                        className="p-3 md:p-2 rounded-full bg-black/5 hover:bg-black/10 transition-colors"
+                                                        className="absolute top-6 right-6 z-50 md:top-8 md:right-8 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-blue-500/10 backdrop-blur-md hover:bg-blue-500/20 transition-colors"
                                                     >
-                                                        <X className="w-6 h-6 text-foreground/40" />
+                                                        <X className="w-8 h-8 text-foreground/40" />
                                                     </button>
                                                 </div>
 
@@ -461,17 +461,17 @@ function BaseContent() {
                                                 onClick={(e) => e.stopPropagation()}
                                                 className="w-full space-y-6 md:space-y-8"
                                             >
-                                                <div className="flex items-center justify-between gap-4">
+                                                <div className="flex items-center justify-between gap-4 relative">
                                                     <div className="flex items-center gap-4 md:gap-6">
                                                         <div className="flex -space-x-3 scale-90 md:scale-100">
                                                             <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2 md:p-2.5 flex items-center justify-center shadow-lg relative z-30 transform hover:-translate-y-1 transition-transform">
-                                                                <Image src={QIcon} alt="Q" width={32} height={32} className="w-full h-full object-contain" />
+                                                                <Image src="/FIX-T.png" alt="FIX" width={32} height={32} className="w-full h-full object-contain" />
                                                             </div>
                                                             <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2 md:p-2.5 flex items-center justify-center shadow-lg relative z-20 transform hover:-translate-y-1 transition-transform">
-                                                                <Image src={EVALogo} alt="EVA" width={32} height={32} className="w-full h-full object-contain" />
+                                                                <Image src="/EVA-T.png" alt="EVA" width={32} height={32} className="w-full h-full object-contain" />
                                                             </div>
                                                             <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2 md:p-2.5 flex items-center justify-center shadow-lg relative z-10 transform hover:-translate-y-1 transition-transform">
-                                                                <Image src={FIXLogo} alt="FIX" width={32} height={32} className="w-full h-full object-contain" />
+                                                                <Image src="/assets/Logo-T.png" alt="QCX" width={32} height={32} className="w-full h-full object-contain" />
                                                             </div>
                                                         </div>
                                                         <div>
@@ -484,9 +484,9 @@ function BaseContent() {
                                                             e.stopPropagation();
                                                             setView('greeting');
                                                         }}
-                                                        className="p-3 md:p-2 rounded-full bg-black/5 hover:bg-black/10 transition-colors"
+                                                        className="absolute top-6 right-6 z-50 md:top-8 md:right-8 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-blue-500/10 backdrop-blur-md hover:bg-blue-500/20 transition-colors"
                                                     >
-                                                        <X className="w-6 h-6 text-foreground/40" />
+                                                        <X className="w-8 h-8 text-foreground/40" />
                                                     </button>
                                                 </div>
 
@@ -588,7 +588,7 @@ function BaseContent() {
                                                 onClick={(e) => e.stopPropagation()}
                                                 className="w-full space-y-6 md:space-y-8"
                                             >
-                                                <div className="flex items-center justify-between">
+                                                <div className="flex items-center justify-between relative">
                                                     <div>
                                                         <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Voice Interface</h2>
                                                         <p className="text-foreground/50 text-sm font-medium mt-1">Live interaction with your planet computer</p>
@@ -598,9 +598,9 @@ function BaseContent() {
                                                             e.stopPropagation();
                                                             setView('greeting');
                                                         }}
-                                                        className="p-3 md:p-2 rounded-full bg-black/5 hover:bg-black/10 transition-colors"
+                                                        className="absolute top-6 right-6 z-50 md:top-8 md:right-8 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-blue-500/10 backdrop-blur-md hover:bg-blue-500/20 transition-colors"
                                                     >
-                                                        <X className="w-6 h-6 text-foreground/40" />
+                                                        <X className="w-8 h-8 text-foreground/40" />
                                                     </button>
                                                 </div>
 
