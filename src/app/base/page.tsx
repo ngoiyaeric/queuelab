@@ -146,7 +146,6 @@ function BaseContent() {
 
         try {
             recognition.start();
-            isListeningRef.current = true;
         } catch (error) {
             console.error("Speech recognition start error", error);
             isListeningRef.current = false;
