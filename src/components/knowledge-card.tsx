@@ -33,7 +33,7 @@ export const KnowledgeCard = ({ data, className }: KnowledgeCardProps) => {
     <div
       className={cn("relative w-full max-w-md aspect-[3/4] cursor-pointer group", className)}
       style={{ perspective: "1000px" }}
-      onClick={() => setIsFlipped(!isFlipped)}
+      onClick={(e) => { e.stopPropagation(); setIsFlipped(!isFlipped); }}
     >
       <motion.div
         className="w-full h-full relative"
