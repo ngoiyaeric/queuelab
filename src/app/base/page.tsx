@@ -91,7 +91,9 @@ function BaseContent() {
             clearInterval(timer);
             if (recognitionRef.current) {
                 recognitionRef.current.abort();
+                recognitionRef.current = null;
             }
+            isListeningRef.current = false;
         };
     }, [user, isLoaded, router, searchParams]);
 
@@ -129,8 +131,11 @@ function BaseContent() {
             const speechToText = event.results[0][0].transcript;
             setTranscript(speechToText);
             sendMessage(speechToText, true);
-            setView("voice");
+            // Reset BEFORE setView so the wrapper guard doesn't call abort()
+            isListeningRef.current = false;
+            setIsListening(false);
             recognition.stop();
+            setView("voice");
         };
 
         recognition.onerror = (event: any) => {
