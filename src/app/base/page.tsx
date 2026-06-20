@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
@@ -20,7 +20,7 @@ import { FlowerSpinner } from "@/components/chat/FlowerSpinner";
 
 export default function Base() {
     return (
-        <Suspense fallback={<div className="flex-1 w-full flex items-center justify-center h-screen bg-background text-foreground/40 text-xl animate-pulse">Loading Interface...</div>}>
+        <Suspense fallback={<div className="flex-1 w-full flex items-center justify-center h-dvh bg-background text-foreground/40 text-xl animate-pulse">Loading Interface...</div>}>
             <BaseContent />
         </Suspense>
     );
@@ -34,10 +34,23 @@ function BaseContent() {
     const [currentTime, setCurrentTime] = useState("");
     const [location, setLocation] = useState("Earth");
     const [greeting, setGreeting] = useState("Welcome");
-    const [view, setView] = useState<"greeting" | "financials" | "voice">("greeting");
+    const [view, _setView] = useState<"greeting" | "financials" | "voice">("greeting");
+
+    const setView = (newView: "greeting" | "financials" | "voice") => {
+        if (isListeningRef.current) {
+            isListeningRef.current = false;
+            setIsListening(false);
+            if (recognitionRef.current) {
+                recognitionRef.current.abort();
+            }
+        }
+        _setView(newView);
+    };
     const { messages, sendMessage, status, isSpeaking } = useAgentChat();
     const [transcript, setTranscript] = useState("");
     const [isListening, setIsListening] = useState(false);
+    const isListeningRef = useRef(false);
+    const recognitionRef = useRef<any>(null);
 
     useEffect(() => {
         if (isLoaded && !user) {
@@ -74,7 +87,12 @@ function BaseContent() {
 
         window.scrollTo(0, 0);
 
-        return () => clearInterval(timer);
+        return () => {
+            clearInterval(timer);
+            if (recognitionRef.current) {
+                recognitionRef.current.abort();
+            }
+        };
     }, [user, isLoaded, router, searchParams]);
 
     const handleSignOut = async () => {
@@ -87,6 +105,8 @@ function BaseContent() {
     };
 
     const startListening = () => {
+        if (isListeningRef.current) return;
+
         const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
         if (!SpeechRecognition) {
             alert("Speech recognition not supported in this browser.");
@@ -94,11 +114,13 @@ function BaseContent() {
         }
 
         const recognition = new SpeechRecognition();
+        recognitionRef.current = recognition;
         recognition.lang = 'en-US';
         recognition.interimResults = false;
         recognition.maxAlternatives = 1;
 
         recognition.onstart = () => {
+            isListeningRef.current = true;
             setIsListening(true);
             setTranscript("");
         };
@@ -108,22 +130,32 @@ function BaseContent() {
             setTranscript(speechToText);
             sendMessage(speechToText, true);
             setView("voice");
+            recognition.stop();
         };
 
         recognition.onerror = (event: any) => {
             console.error("Speech recognition error", event.error);
+            isListeningRef.current = false;
             setIsListening(false);
         };
 
         recognition.onend = () => {
+            isListeningRef.current = false;
             setIsListening(false);
         };
 
-        recognition.start();
+        try {
+            recognition.start();
+            isListeningRef.current = true;
+        } catch (error) {
+            console.error("Speech recognition start error", error);
+            isListeningRef.current = false;
+            setIsListening(false);
+        }
     };
 
     return (
-        <div className="relative w-full overflow-hidden bg-background flex flex-col" style={{ minHeight: '100vh' }}>
+        <div className="relative w-full overflow-hidden bg-background flex flex-col" style={{ minHeight: '100dvh' }}>
             {/* Faded Background Colors */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-100/20 rounded-full blur-[160px]" />
@@ -157,11 +189,11 @@ function BaseContent() {
             {/* Main Content */}
             <main className="flex-1 flex flex-col relative z-10">
                 {(!isLoaded || !user) ? (
-                    <div className="flex-1 w-full flex items-center justify-center" style={{ height: '100vh' }}>
+                    <div className="flex-1 w-full flex items-center justify-center" style={{ height: '100dvh' }}>
                         <div className="text-foreground/40 text-xl animate-pulse">Loading Interface...</div>
                     </div>
                 ) : (
-                    <div className="relative flex flex-col items-center" style={{ minHeight: '100vh' }}>
+                    <div className="relative flex flex-col items-center" style={{ minHeight: '100dvh' }}>
 
                         {/* 3D Canvas — full width, centered, overlaps card */}
                         <div
@@ -222,7 +254,7 @@ function BaseContent() {
                                 onClick={() => view === 'greeting' && setView('financials')}
                                 className={`max-w-6xl w-full relative overflow-hidden rounded-[3rem] border border-white/40 shadow-2xl cursor-pointer group ${isSpeaking ? 'animate-glow' : ''}`}
                                 initial={false}
-                                animate={{ height: view === 'greeting' ? 280 : 'auto' }}
+                                animate={{ height: view === 'greeting' ? 'auto' : 'auto', minHeight: view === 'greeting' ? 280 : 0 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                             >
                                 {/* Sky background */}
@@ -272,7 +304,9 @@ function BaseContent() {
                                                                 e.stopPropagation();
                                                                 startListening();
                                                             }}
-                                                            className={`mt-4 p-4 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md transition-all duration-300 ${isListening ? 'scale-110 border-blue-500/50 ring-4 ring-blue-500/20' : 'hover:bg-white/60'}`}
+                                                            disabled={isListening}
+                                                            className={`mt-4 p-4 min-w-[56px] min-h-[56px] flex items-center justify-center rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md transition-all duration-300 ${isListening ? 'scale-110 border-blue-500/50 ring-4 ring-blue-500/20 opacity-50 cursor-not-allowed' : 'hover:bg-white/60 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/40'}`}
+                                                            aria-label="Start voice interaction"
                                                         >
                                                             <Mic className={`w-6 h-6 ${isListening ? 'text-blue-500 animate-pulse' : 'text-foreground'}`} />
                                                         </button>
@@ -282,14 +316,14 @@ function BaseContent() {
                                         ) : view === "financials" ? (
                                             <motion.div
                                                 key="financials"
-                                                initial={{ opacity: 0, scale: 0.95 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                exit={{ opacity: 0, scale: 0.95 }}
+                                                initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                exit={{ opacity: 0, y: -10, scale: 0.98 }}
                                                 className="w-full space-y-10"
                                             >
                                                 <div className="flex items-center justify-between">
                                                     <div>
-                                                        <h2 className="text-3xl font-bold text-foreground tracking-tight">Account Interface</h2>
+                                                        <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Account Interface</h2>
                                                         <p className="text-foreground/50 text-sm font-medium mt-1">Manage your planet credits and system balance</p>
                                                     </div>
                                                     <button
@@ -297,13 +331,13 @@ function BaseContent() {
                                                             e.stopPropagation();
                                                             setView('greeting');
                                                         }}
-                                                        className="p-2 rounded-full bg-black/5 hover:bg-black/10 transition-colors"
+                                                        className="p-3 md:p-2 rounded-full bg-black/5 hover:bg-black/10 transition-colors"
                                                     >
                                                         <X className="w-6 h-6 text-foreground/40" />
                                                     </button>
                                                 </div>
 
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start">
                                                     <div className="space-y-6">
                                                         <BalanceDisplay variant="inline" />
                                                         <div className="p-6 rounded-2xl bg-white/10 border border-white/20">
@@ -349,14 +383,14 @@ function BaseContent() {
                                         ) : (
                                             <motion.div
                                                 key="voice"
-                                                initial={{ opacity: 0, y: 20 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: -20 }}
+                                                initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                exit={{ opacity: 0, y: -10, scale: 0.98 }}
                                                 className="w-full space-y-8"
                                             >
                                                 <div className="flex items-center justify-between">
                                                     <div>
-                                                        <h2 className="text-3xl font-bold text-foreground tracking-tight">Voice Interface</h2>
+                                                        <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Voice Interface</h2>
                                                         <p className="text-foreground/50 text-sm font-medium mt-1">Live interaction with your planet computer</p>
                                                     </div>
                                                     <button
@@ -364,17 +398,17 @@ function BaseContent() {
                                                             e.stopPropagation();
                                                             setView('greeting');
                                                         }}
-                                                        className="p-2 rounded-full bg-black/5 hover:bg-black/10 transition-colors"
+                                                        className="p-3 md:p-2 rounded-full bg-black/5 hover:bg-black/10 transition-colors"
                                                     >
                                                         <X className="w-6 h-6 text-foreground/40" />
                                                     </button>
                                                 </div>
 
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
                                                     <div className="space-y-6">
-                                                        <div className="p-6 rounded-2xl bg-white/10 border border-white/20">
+                                                        <div className={`p-6 rounded-2xl bg-white/10 border transition-all duration-500 min-h-[120px] ${isListening ? 'border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.2)] animate-pulse' : 'border-white/20'}`}>
                                                             <h4 className="text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">You said</h4>
-                                                            <p className="text-xl text-foreground font-medium italic">
+                                                            <p className="text-lg md:text-xl text-foreground font-medium italic">
                                                                 &quot;{transcript || "..."}&quot;
                                                             </p>
                                                         </div>
@@ -387,12 +421,14 @@ function BaseContent() {
                                                     </div>
 
                                                     <div className="space-y-6">
-                                                        <div className="p-6 rounded-2xl bg-white/10 border border-white/20 min-h-[200px]">
+                                                        <div className="p-6 rounded-2xl bg-white/10 border border-white/20 min-h-[200px] flex flex-col">
                                                             <h4 className="text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">AI Response</h4>
                                                             {(status === "thinking" || status === "processing") && (
-                                                                <FlowerSpinner />
+                                                                <div className="flex-1 flex items-center justify-center py-8">
+                                                                    <FlowerSpinner />
+                                                                </div>
                                                             )}
-                                                            <div className="text-lg text-foreground/80 leading-relaxed">
+                                                            <div className="text-base md:text-lg text-foreground/80 leading-relaxed">
                                                                 {messages.filter(m => m.role === 'assistant').slice(-1)[0]?.content || (status === "idle" ? "" : "...")}
                                                             </div>
                                                         </div>
