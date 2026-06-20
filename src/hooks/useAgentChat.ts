@@ -2,15 +2,17 @@ import { useState, useEffect, useCallback, useRef } from "react";
 
 export interface AgentMessage {
   id: string;
-  role: "user" | "assistant" | "system" | "data";
+  role: "user" | "assistant" | "system" | "data" | "eva" | "fix" | "q";
   content: string;
   agent_id?: string;
-  type?: "text" | "audio" | "status";
+  type?: "text" | "audio" | "status" | "knowledge";
   audio_data?: string;
+  metadata?: any;
 }
 
 export const useAgentChat = (sessionId?: string) => {
   const [messages, setMessages] = useState<AgentMessage[]>([]);
+  const [knowledge, setKnowledge] = useState<AgentMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [ws, setWs] = useState<WebSocket | null>(null);
   const [status, setStatus] = useState<string>("idle");
@@ -85,6 +87,17 @@ export const useAgentChat = (sessionId?: string) => {
         });
       } else if (data.type === "status") {
         setStatus(data.metadata?.status || "processing");
+      } else if (data.type === "knowledge") {
+        setKnowledge((prev) => [
+          ...prev,
+          {
+            id: Date.now().toString(),
+            role: data.metadata?.role || "system",
+            content: data.content || "",
+            type: "knowledge",
+            metadata: data.metadata
+          }
+        ]);
       }
     };
 
@@ -123,6 +136,7 @@ export const useAgentChat = (sessionId?: string) => {
 
   return {
     messages,
+    knowledge,
     sendMessage,
     isLoading,
     status,

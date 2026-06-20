@@ -8,6 +8,8 @@ import { FlowerScene } from "@/components/flower-scene";
 import Image from "next/image";
 import QCXLogo from "@/assets/logo-qcx.png";
 import QIcon from "@/assets/q-logo.png";
+import FIXLogo from "@/assets/logo-fi.png";
+import EVALogo from "@/assets/logo-ea.png";
 import { useUser, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import { BalanceDisplay } from "@/components/balance-display";
@@ -34,9 +36,10 @@ function BaseContent() {
     const [currentTime, setCurrentTime] = useState("");
     const [location, setLocation] = useState("Earth");
     const [greeting, setGreeting] = useState("Welcome");
-    const [view, _setView] = useState<"greeting" | "financials" | "voice">("greeting");
+    const [view, _setView] = useState<"greeting" | "financials" | "voice" | "knowledge">("greeting");
+    const logContainerRef = useRef<HTMLDivElement>(null);
 
-    const setView = (newView: "greeting" | "financials" | "voice") => {
+    const setView = (newView: "greeting" | "financials" | "voice" | "knowledge") => {
         if (isListeningRef.current) {
             isListeningRef.current = false;
             setIsListening(false);
@@ -46,7 +49,7 @@ function BaseContent() {
         }
         _setView(newView);
     };
-    const { messages, sendMessage, status, isSpeaking } = useAgentChat();
+    const { messages, knowledge, sendMessage, status, isSpeaking } = useAgentChat();
     const [transcript, setTranscript] = useState("");
     const [isListening, setIsListening] = useState(false);
     const isListeningRef = useRef(false);
@@ -250,11 +253,61 @@ function BaseContent() {
                         >
                             <motion.div
                                 layout
-                                onClick={() => view === 'greeting' && setView('financials')}
-                                className={`max-w-6xl w-full relative overflow-hidden rounded-[3rem] border border-white/40 shadow-2xl cursor-pointer group ${isSpeaking ? 'animate-glow' : ''}`}
+                                onClick={() => {
+                                    if (view === 'greeting') {
+                                        setView('financials');
+                                    }
+                                }}
+                                onWheel={(e) => {
+                                    if (view === 'voice') return;
+                                    // Threshold for view switching
+                                    const threshold = 20;
+                                    if ((view === 'greeting' || view === 'financials') && e.deltaY > threshold) {
+                                        setView('knowledge');
+                                        if (knowledge.length === 0) {
+                                            sendMessage("Initiate knowledge discovery", false);
+                                        }
+                                    } else if (view === 'knowledge' && e.deltaY < -threshold) {
+                                        // Only scroll up to greeting if we are at the top of the knowledge log
+                                        if (logContainerRef.current && logContainerRef.current.scrollTop <= 0) {
+                                            setView('greeting');
+                                        } else if (!logContainerRef.current) {
+                                            setView('greeting');
+                                        }
+                                    }
+                                }}
+                                drag={view !== 'voice' ? "y" : false}
+                                dragConstraints={{ top: 0, bottom: 0 }}
+                                onDragEnd={(e, info) => {
+                                    const dragThreshold = 50;
+                                    if ((view === 'greeting' || view === 'financials') && info.offset.y < -dragThreshold) {
+                                        setView('knowledge');
+                                        if (knowledge.length === 0) {
+                                            sendMessage("Initiate knowledge discovery", false);
+                                        }
+                                    } else if (view === 'knowledge' && info.offset.y > dragThreshold) {
+                                        // Only transition back if dragging down (scrolling up) at top of log
+                                        if (logContainerRef.current && logContainerRef.current.scrollTop <= 0) {
+                                            setView('greeting');
+                                        } else if (!logContainerRef.current) {
+                                            setView('greeting');
+                                        }
+                                    }
+                                }}
+                                className={`max-w-6xl w-full relative overflow-hidden rounded-[2rem] md:rounded-[3rem] border border-white/40 shadow-2xl cursor-pointer group ${isSpeaking ? 'animate-glow' : ''}`}
                                 initial={false}
-                                animate={{ height: view === 'greeting' ? 'auto' : 'auto', minHeight: view === 'greeting' ? 280 : 0 }}
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                animate={{
+                                    height: 'auto',
+                                    minHeight: view === 'greeting' ? 240 : 0,
+                                    scale: 1,
+                                    opacity: 1
+                                }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 260,
+                                    damping: 26,
+                                    mass: 1
+                                }}
                             >
                                 {/* Sky background */}
                                 <div className="absolute inset-0 z-0">
@@ -267,35 +320,44 @@ function BaseContent() {
                                     <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px]" />
                                 </div>
 
-                                <div className="relative z-10 h-full px-6 py-8 md:px-16 md:py-14">
-                                    <AnimatePresence mode="wait">
+                                <div
+                                    className="relative z-10 h-full px-6 py-8 md:px-16 md:py-14"
+                                    style={{ fontFamily: 'var(--font-plus-jakarta-sans), sans-serif' }}
+                                    onClick={() => {
+                                        if (view !== 'greeting') {
+                                            setView('greeting');
+                                        }
+                                    }}
+                                >
+                                    <AnimatePresence mode="wait" initial={false}>
                                         {view === "greeting" ? (
                                             <motion.div
                                                 key="greeting"
                                                 initial={{ opacity: 0, x: -20 }}
                                                 animate={{ opacity: 1, x: 0 }}
                                                 exit={{ opacity: 0, x: 20 }}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setView('financials');
+                                                }}
                                                 className="flex flex-col justify-center h-full"
                                             >
                                                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-                                                    <div className="space-y-2">
-                                                        <h2 className="text-3xl md:text-5xl font-bold text-foreground text-balance text-center md:text-left leading-tight" style={{ fontFamily: 'var(--font-plus-jakarta-sans), sans-serif' }}>
+                                                    <div className="space-y-2 flex flex-col items-center md:items-start">
+                                                        <h2 className="text-2xl md:text-5xl font-bold text-foreground text-balance text-center md:text-left leading-tight">
                                                             {greeting}, {user?.firstName || user?.fullName?.split(' ')[0] || "Friend"}!
                                                         </h2>
-                                                        <p className="text-lg md:text-2xl text-foreground/70 leading-relaxed text-center md:text-left">
+                                                        <p className="text-base md:text-2xl text-foreground/70 leading-relaxed text-center md:text-left max-w-[280px] md:max-w-none">
                                                             Welcome back to your planet computer interface.
                                                         </p>
                                                     </div>
 
-                                                    <div className="flex flex-col items-center md:items-end gap-4 shrink-0">
-                                                        <div className="flex items-center gap-4 px-6 py-2 md:px-8 md:py-3 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md">
-                                                            <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
-                                                            <span className="text-xl md:text-2xl font-semibold text-foreground tracking-tight">
+                                                    <div className="flex flex-col items-center md:items-end gap-3 md:gap-4 shrink-0">
+                                                        <div className="flex items-center gap-3 md:gap-4 px-5 py-2 md:px-8 md:py-3 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md">
+                                                            <span className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-blue-500 animate-pulse" />
+                                                            <span className="text-lg md:text-2xl font-semibold text-foreground tracking-tight">
                                                                 {currentTime || "00:00"}
                                                             </span>
-                                                        </div>
-                                                        <div className="flex items-center gap-2 text-foreground/40 text-sm font-medium group-hover:text-foreground/60 transition-colors">
-                                                            Manage Account & Funds <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                                         </div>
 
                                                         <button
@@ -304,10 +366,10 @@ function BaseContent() {
                                                                 startListening();
                                                             }}
                                                             disabled={isListening}
-                                                            className={`mt-4 p-4 min-w-[56px] min-h-[56px] flex items-center justify-center rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md transition-all duration-300 ${isListening ? 'scale-110 border-blue-500/50 ring-4 ring-blue-500/20 opacity-50 cursor-not-allowed' : 'hover:bg-white/60 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/40'}`}
+                                                            className={`mt-2 md:mt-4 p-3 md:p-4 min-w-[48px] md:min-w-[56px] min-h-[48px] md:min-h-[56px] flex items-center justify-center rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md transition-all duration-300 ${isListening ? 'scale-110 border-blue-500/50 ring-4 ring-blue-500/20 opacity-50 cursor-not-allowed' : 'hover:bg-white/60 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/40'}`}
                                                             aria-label="Start voice interaction"
                                                         >
-                                                            <Mic className={`w-6 h-6 ${isListening ? 'text-blue-500 animate-pulse' : 'text-foreground'}`} />
+                                                            <Mic className={`w-5 h-5 md:w-6 md:h-6 ${isListening ? 'text-blue-500 animate-pulse' : 'text-foreground'}`} />
                                                         </button>
                                                     </div>
                                                 </div>
@@ -315,15 +377,21 @@ function BaseContent() {
                                         ) : view === "financials" ? (
                                             <motion.div
                                                 key="financials"
-                                                initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                                exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                                                className="w-full space-y-10"
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -20 }}
+                                                transition={{
+                                                    type: "spring",
+                                                    stiffness: 260,
+                                                    damping: 26
+                                                }}
+                                                onClick={(e) => e.stopPropagation()}
+                                                className="w-full space-y-6 md:space-y-10"
                                             >
-                                                <div className="flex items-center justify-between">
+                                                <div className="flex items-center justify-between gap-4">
                                                     <div>
-                                                        <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Account Interface</h2>
-                                                        <p className="text-foreground/50 text-sm font-medium mt-1">Manage your planet credits and system balance</p>
+                                                        <h2 className="text-xl md:text-3xl font-bold text-foreground tracking-tight">Account Interface</h2>
+                                                        <p className="text-foreground/50 text-[10px] md:text-sm font-medium mt-0.5 md:mt-1">Manage your planet credits and system balance</p>
                                                     </div>
                                                     <button
                                                         onClick={(e) => {
@@ -337,9 +405,9 @@ function BaseContent() {
                                                 </div>
 
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start">
-                                                    <div className="space-y-6">
+                                                    <div className="space-y-4 md:space-y-6">
                                                         <BalanceDisplay variant="inline" />
-                                                        <div className="p-6 rounded-2xl bg-white/10 border border-white/20">
+                                                        <div className="p-4 md:p-6 rounded-xl md:rounded-2xl bg-white/10 border border-white/20">
                                                             <h4 className="text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">System Identity</h4>
                                                             <div className="flex items-center gap-4">
                                                                 <div className="w-12 h-12 rounded-full border-2 border-white/40 overflow-hidden">
@@ -352,12 +420,12 @@ function BaseContent() {
                                                             </div>
                                                         </div>
 
-                                                        <div className="p-6 rounded-2xl bg-white/10 border border-white/20">
-                                                            <h4 className="text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">AGI Subscription</h4>
+                                                        <div className="p-4 md:p-6 rounded-xl md:rounded-2xl bg-white/10 border border-white/20">
+                                                            <h4 className="text-[10px] md:text-xs font-bold text-foreground/40 uppercase tracking-widest mb-3">AGI Subscription</h4>
                                                             <div className="flex items-center justify-between gap-4">
                                                                 <div className="flex items-center gap-3">
-                                                                    <Image src={QCXLogo} alt="QCX" width={24} height={24} className="opacity-80" />
-                                                                    <p className="font-bold text-foreground text-sm">Standard/yr (AGI)</p>
+                                                                    <Image src={QCXLogo} alt="QCX" width={20} height={20} className="opacity-80 md:w-6 md:h-6" />
+                                                                    <p className="font-bold text-foreground text-xs md:text-sm">Standard/yr (AGI)</p>
                                                                 </div>
                                                                 <ActionButton
                                                                     label="Purchase"
@@ -379,13 +447,146 @@ function BaseContent() {
                                                     </div>
                                                 </div>
                                             </motion.div>
+                                        ) : view === "knowledge" ? (
+                                            <motion.div
+                                                key="knowledge"
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -20 }}
+                                                transition={{
+                                                    type: "spring",
+                                                    stiffness: 260,
+                                                    damping: 26
+                                                }}
+                                                onClick={(e) => e.stopPropagation()}
+                                                className="w-full space-y-6 md:space-y-8"
+                                            >
+                                                <div className="flex items-center justify-between gap-4">
+                                                    <div className="flex items-center gap-4 md:gap-6">
+                                                        <div className="flex -space-x-3 scale-90 md:scale-100">
+                                                            <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2 md:p-2.5 flex items-center justify-center shadow-lg relative z-30 transform hover:-translate-y-1 transition-transform">
+                                                                <Image src={QIcon} alt="Q" width={32} height={32} className="w-full h-full object-contain" />
+                                                            </div>
+                                                            <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2 md:p-2.5 flex items-center justify-center shadow-lg relative z-20 transform hover:-translate-y-1 transition-transform">
+                                                                <Image src={EVALogo} alt="EVA" width={32} height={32} className="w-full h-full object-contain" />
+                                                            </div>
+                                                            <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/60 backdrop-blur-md border border-white/40 p-2 md:p-2.5 flex items-center justify-center shadow-lg relative z-10 transform hover:-translate-y-1 transition-transform">
+                                                                <Image src={FIXLogo} alt="FIX" width={32} height={32} className="w-full h-full object-contain" />
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <h2 className="text-xl md:text-3xl font-bold text-foreground tracking-tight">New Knowledge</h2>
+                                                            <p className="text-foreground/50 text-[10px] md:text-sm font-medium mt-0.5 md:mt-1">saved by artificial general intelligence</p>
+                                                        </div>
+                                                    </div>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setView('greeting');
+                                                        }}
+                                                        className="p-3 md:p-2 rounded-full bg-black/5 hover:bg-black/10 transition-colors"
+                                                    >
+                                                        <X className="w-6 h-6 text-foreground/40" />
+                                                    </button>
+                                                </div>
+
+                                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+                                                    <div className="lg:col-span-1 flex flex-col gap-4 md:gap-6">
+                                                        <div className="p-5 md:p-6 rounded-2xl md:rounded-3xl bg-white/20 border border-white/30 backdrop-blur-sm shadow-sm flex flex-row lg:flex-col justify-between lg:justify-start gap-4">
+                                                            <div className="hidden lg:block">
+                                                                <h4 className="text-[9px] md:text-[10px] font-bold text-foreground/40 uppercase tracking-[0.2em] mb-6">Discovery Metrics</h4>
+                                                            </div>
+                                                            <div className="flex flex-row lg:flex-col gap-6 md:gap-8 lg:space-y-6 flex-1">
+                                                                <div className="flex-1">
+                                                                    <p className="text-2xl md:text-4xl font-bold text-foreground tabular-nums tracking-tight">
+                                                                        {knowledge.findLast(k => k.metadata?.capital)?.metadata.capital || "$0.00"}
+                                                                    </p>
+                                                                    <p className="text-[8px] md:text-[10px] text-foreground/50 font-bold uppercase tracking-wider mt-0.5 md:mt-1">Capital Optimized</p>
+                                                                </div>
+                                                                <div className="lg:pt-6 lg:border-t lg:border-black/5 flex-1">
+                                                                    <p className="text-2xl md:text-4xl font-bold text-foreground tabular-nums tracking-tight">
+                                                                        {knowledge.findLast(k => k.metadata?.time)?.metadata.time || "0 Hours"}
+                                                                    </p>
+                                                                    <p className="text-[8px] md:text-[10px] text-foreground/50 font-bold uppercase tracking-wider mt-0.5 md:mt-1">Time to Generate</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="p-4 md:p-5 rounded-xl md:rounded-2xl bg-green-500/5 border border-green-500/10 flex items-center justify-between">
+                                                            <div className="flex items-center gap-3">
+                                                                <div className={`w-2 h-2 rounded-full bg-green-500 ${knowledge.length > 0 ? 'animate-pulse' : 'opacity-20'}`} />
+                                                                <span className="text-xs font-bold text-green-700/70 uppercase tracking-widest">
+                                                                    {knowledge.length > 0 ? 'Active Discovery' : 'Standby'}
+                                                                </span>
+                                                            </div>
+                                                            <span className="text-[10px] font-bold text-green-700/40">
+                                                                {knowledge.length > 0 ? '99.8% Sync' : '0% Sync'}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="lg:col-span-2">
+                                                        <div className="rounded-2xl md:rounded-3xl bg-white/20 border border-white/30 backdrop-blur-sm shadow-sm overflow-hidden flex flex-col h-[350px] md:h-[400px]">
+                                                            <div className="px-5 md:px-6 py-3 md:py-4 border-b border-black/5 bg-white/10 flex items-center justify-between">
+                                                                <h4 className="text-[9px] md:text-[10px] font-bold text-foreground/40 uppercase tracking-[0.2em]">Abstraction Log</h4>
+                                                                <div className="flex gap-1">
+                                                                    <div className="w-1 h-1 rounded-full bg-foreground/20" />
+                                                                    <div className="w-1 h-1 rounded-full bg-foreground/20" />
+                                                                    <div className="w-1 h-1 rounded-full bg-foreground/20" />
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                ref={logContainerRef}
+                                                                className="flex-1 overflow-y-auto p-4 md:p-6 space-y-3 md:space-y-4 custom-scrollbar flex flex-col"
+                                                            >
+                                                                {knowledge.length === 0 && (
+                                                                    <div className="flex-1 flex flex-col items-center justify-center text-foreground/20 space-y-4">
+                                                                        <div className="w-12 h-12 rounded-full border-2 border-current border-dashed animate-[spin_10s_linear_infinite]" />
+                                                                        <p className="text-[10px] font-bold uppercase tracking-widest">Waiting for Signal...</p>
+                                                                    </div>
+                                                                )}
+                                                                <AnimatePresence initial={false}>
+                                                                    {knowledge.map((msg) => (
+                                                                        <motion.div
+                                                                            key={msg.id}
+                                                                            initial={{ opacity: 0, y: 10 }}
+                                                                            animate={{ opacity: 1, y: 0 }}
+                                                                            transition={{ duration: 0.3, ease: "easeOut" }}
+                                                                            className={`flex ${msg.role === 'system' ? 'justify-center' : 'justify-start'}`}
+                                                                        >
+                                                                            <div className={`max-w-[90%] md:max-w-[85%] p-3 md:p-4 rounded-2xl text-xs md:text-sm leading-relaxed ${
+                                                                                msg.role === 'system' ? 'bg-black/5 text-foreground/40 italic text-[10px] md:text-[11px] px-6' :
+                                                                                msg.role === 'eva' ? 'bg-blue-500/10 border border-blue-500/20 text-blue-900 shadow-sm' :
+                                                                                msg.role === 'fix' ? 'bg-amber-500/10 border border-amber-500/20 text-amber-900 shadow-sm' :
+                                                                                'bg-white/60 border border-white/80 text-foreground shadow-md font-medium'
+                                                                            }`}>
+                                                                                {msg.role !== 'system' && (
+                                                                                    <span className="block text-[8px] md:text-[9px] font-bold uppercase tracking-widest mb-1 opacity-50">
+                                                                                        {msg.role}
+                                                                                    </span>
+                                                                                )}
+                                                                                {msg.content}
+                                                                            </div>
+                                                                        </motion.div>
+                                                                    ))}
+                                                                </AnimatePresence>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </motion.div>
                                         ) : (
                                             <motion.div
                                                 key="voice"
                                                 initial={{ opacity: 0, y: 10, scale: 0.98 }}
                                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                                 exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                                                className="w-full space-y-8"
+                                                transition={{
+                                                    type: "spring",
+                                                    stiffness: 260,
+                                                    damping: 26
+                                                }}
+                                                onClick={(e) => e.stopPropagation()}
+                                                className="w-full space-y-6 md:space-y-8"
                                             >
                                                 <div className="flex items-center justify-between">
                                                     <div>
