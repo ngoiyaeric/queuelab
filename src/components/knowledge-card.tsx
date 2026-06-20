@@ -17,6 +17,7 @@ export interface KnowledgeCardProps {
 }
 
 export const KnowledgeCard = ({ data, className }: KnowledgeCardProps) => {
+  // state to track if the card is currently flipped to the back face
   const [isFlipped, setIsFlipped] = useState(false);
 
   const appIcons = [logoQCX, logoEA, logoFI];
