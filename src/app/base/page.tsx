@@ -16,7 +16,7 @@ import { BalanceDisplay } from "@/components/balance-display";
 import { AddFunds } from "@/components/add-funds";
 import { ActionButton } from "@/components/action-button";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, X, Mic, Plus } from "lucide-react";
+import { ChevronRight, X, Mic } from "lucide-react";
 import { useAgentChat } from "@/hooks/useAgentChat";
 import { FlowerSpinner } from "@/components/chat/FlowerSpinner";
 
@@ -258,25 +258,26 @@ function BaseContent() {
                                     }
                                 }}
                                 onWheel={(e) => {
-                                    if (view === 'financials' && e.deltaY > 50) {
+                                    if (view === 'voice') return;
+                                    if ((view === 'greeting' || view === 'financials') && e.deltaY > 50) {
                                         setView('knowledge');
                                         if (knowledge.length === 0) {
                                             sendMessage("Initiate knowledge discovery", false);
                                         }
                                     } else if (view === 'knowledge' && e.deltaY < -50) {
-                                        setView('financials');
+                                        setView('greeting');
                                     }
                                 }}
-                                drag={view !== 'greeting' ? "y" : false}
+                                drag={view !== 'voice' ? "y" : false}
                                 dragConstraints={{ top: 0, bottom: 0 }}
                                 onDragEnd={(e, info) => {
-                                    if (view === 'financials' && info.offset.y < -50) {
+                                    if ((view === 'greeting' || view === 'financials') && info.offset.y < -50) {
                                         setView('knowledge');
                                         if (knowledge.length === 0) {
                                             sendMessage("Initiate knowledge discovery", false);
                                         }
                                     } else if (view === 'knowledge' && info.offset.y > 50) {
-                                        setView('financials');
+                                        setView('greeting');
                                     }
                                 }}
                                 className={`max-w-6xl w-full relative overflow-hidden rounded-[3rem] border border-white/40 shadow-2xl cursor-pointer group ${isSpeaking ? 'animate-glow' : ''}`}
@@ -295,7 +296,15 @@ function BaseContent() {
                                     <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px]" />
                                 </div>
 
-                                <div className="relative z-10 h-full px-6 py-8 md:px-16 md:py-14">
+                                <div
+                                    className="relative z-10 h-full px-6 py-8 md:px-16 md:py-14"
+                                    style={{ fontFamily: 'var(--font-plus-jakarta-sans), sans-serif' }}
+                                    onClick={() => {
+                                        if (view !== 'greeting') {
+                                            setView('greeting');
+                                        }
+                                    }}
+                                >
                                     <AnimatePresence mode="wait" initial={false}>
                                         {view === "greeting" ? (
                                             <motion.div
@@ -303,11 +312,15 @@ function BaseContent() {
                                                 initial={{ opacity: 0, x: -20 }}
                                                 animate={{ opacity: 1, x: 0 }}
                                                 exit={{ opacity: 0, x: 20 }}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setView('financials');
+                                                }}
                                                 className="flex flex-col justify-center h-full"
                                             >
                                                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
                                                     <div className="space-y-2">
-                                                        <h2 className="text-3xl md:text-5xl font-bold text-foreground text-balance text-center md:text-left leading-tight" style={{ fontFamily: 'var(--font-plus-jakarta-sans), sans-serif' }}>
+                                                        <h2 className="text-3xl md:text-5xl font-bold text-foreground text-balance text-center md:text-left leading-tight">
                                                             {greeting}, {user?.firstName || user?.fullName?.split(' ')[0] || "Friend"}!
                                                         </h2>
                                                         <p className="text-lg md:text-2xl text-foreground/70 leading-relaxed text-center md:text-left">
@@ -344,6 +357,7 @@ function BaseContent() {
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0, y: -40 }}
                                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                                onClick={(e) => e.stopPropagation()}
                                                 className="w-full space-y-10"
                                             >
                                                 <div className="flex items-center justify-between">
@@ -412,6 +426,7 @@ function BaseContent() {
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0, y: -40 }}
                                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                                onClick={(e) => e.stopPropagation()}
                                                 className="w-full space-y-8"
                                             >
                                                 <div className="flex items-center justify-between">
@@ -429,7 +444,7 @@ function BaseContent() {
                                                         </div>
                                                         <div>
                                                             <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">New Knowledge</h2>
-                                                            <p className="text-foreground/50 text-sm font-medium mt-1">Abstracted from planet computer intelligence</p>
+                                                            <p className="text-foreground/50 text-sm font-medium mt-1">saved by artificial general intelligence</p>
                                                         </div>
                                                     </div>
                                                     <button
@@ -528,6 +543,8 @@ function BaseContent() {
                                                 initial={{ opacity: 0, y: 10, scale: 0.98 }}
                                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                                 exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                                onClick={(e) => e.stopPropagation()}
                                                 className="w-full space-y-8"
                                             >
                                                 <div className="flex items-center justify-between">
