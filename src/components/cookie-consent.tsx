@@ -36,17 +36,17 @@ export function CookieConsent() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="fixed bottom-0 left-0 right-0 z-[100] p-4 md:p-6 pointer-events-none"
         >
-          <div className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-stone-200 bg-stone-50/95 shadow-2xl backdrop-blur-md pointer-events-auto">
+          <div className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-white/50 bg-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-md pointer-events-auto font-sans" style={{ fontFamily: 'var(--font-plus-jakarta-sans)' }}>
             <div className="flex flex-col items-center gap-4 p-6 md:flex-row md:justify-between">
               <div className="flex items-start gap-4">
-                <div className="rounded-full bg-stone-100 p-2 text-stone-600 shrink-0">
+                <div className="rounded-full bg-white/20 p-2 text-emerald-700 shrink-0">
                   <Cookie className="h-5 w-5" />
                 </div>
                 <div className="space-y-1">
-                  <h3 className="font-serif text-lg font-medium text-stone-900" style={{ fontFamily: 'var(--font-instrument-serif)' }}>
+                  <h3 className="text-lg font-medium text-emerald-900">
                     Cookie Policy
                   </h3>
-                  <p className="text-sm text-stone-600 leading-relaxed max-w-xl">
+                  <p className="text-sm text-emerald-800 leading-relaxed max-w-xl">
                     We use cookies to enhance your experience and analyze our traffic.
                     Please choose whether you accept or decline our use of cookies.
                   </p>
@@ -56,7 +56,7 @@ export function CookieConsent() {
                 <Button
                   variant="outline"
                   onClick={handleDecline}
-                  className="flex-1 border-stone-200 bg-transparent text-stone-600 hover:bg-stone-100 md:flex-none"
+                  className="flex-1 border-white/40 bg-white/20 text-stone-700 hover:bg-white/30 backdrop-blur-sm md:flex-none"
                 >
                   Decline
                 </Button>
