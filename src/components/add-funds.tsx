@@ -30,7 +30,7 @@ export function AddFunds({ className, variant = "card" }: AddFundsProps) {
 
     setIsLoading(true);
     try {
-      const response = await fetch("/api/stripe/checkout", {
+      const response = await fetch("/api/py/payments/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount: numAmount }),

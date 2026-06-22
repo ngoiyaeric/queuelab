@@ -1,5 +1,5 @@
 import stripe
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Union
 from app.core.config import settings
 
 class PaymentsService:
@@ -23,10 +23,13 @@ class PaymentsService:
         )
         return customer.id
 
-    async def create_checkout_session(self, customer_id: str, amount: int) -> Dict[str, Any]:
+    async def create_checkout_session(self, customer_id: str, amount: Union[int, float]) -> Dict[str, Any]:
         """
         Creates a Stripe Checkout session for topping up balance.
         """
+        # Convert dollar amount to cents for Stripe
+        unit_amount = int(round(amount * 100))
+
         session = stripe.checkout.Session.create(
             customer=customer_id,
             payment_method_types=["card"],
@@ -34,13 +37,13 @@ class PaymentsService:
                 "price_data": {
                     "currency": "usd",
                     "product_data": {"name": "Credit Balance Top-up"},
-                    "unit_amount": amount,
+                    "unit_amount": unit_amount,
                 },
                 "quantity": 1,
             }],
             mode="payment",
-            success_url=f"{settings.CORS_ORIGINS[0]}/dashboard?success=true",
-            cancel_url=f"{settings.CORS_ORIGINS[0]}/dashboard?canceled=true",
+            success_url=f"{settings.CORS_ORIGINS[0]}/base?checkout=success",
+            cancel_url=f"{settings.CORS_ORIGINS[0]}/base?checkout=canceled",
         )
         return {"url": session.url, "id": session.id}
 

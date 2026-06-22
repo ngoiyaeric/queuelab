@@ -1,0 +1,54 @@
+
+> QCX-location-intelligence@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 1750ms
+ ○ Compiling /src/middleware ...
+ ✓ Compiled /src/middleware in 1400ms (232 modules)
+ ○ Compiling /base ...
+
+warn - The class `duration-[3000ms]` is ambiguous and matches multiple utilities.
+warn - If this is content and not a class, replace it with `duration-&lsqb;3000ms&rsqb;` to silence this warning.
+ ✓ Compiled /base in 18.3s (3100 modules)
+ ⨯ Internal error: Error: @clerk/clerk-react: Missing publishableKey. You can get your key at https://dashboard.clerk.com/last-active?path=api-keys.
+    at Object.throwMissingPublishableKeyError (./node_modules/@clerk/shared/dist/runtime/error-Dl9xmUf3.mjs:314:10)
+    at ClerkProviderBase (./node_modules/@clerk/clerk-react/dist/index.mjs:1945:69)
+    at au (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:10446)
+    at /app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:15122
+    at aw (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:16908)
+    at a_ (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:49776)
+    at ab (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:11808)
+    at /app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:16871
+    at aw (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:16908)
+    at a_ (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:49776)
+    at aw (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:45321)
+    at a_ (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:49776)
+    at ab (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:11808)
+    at /app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:16871
+    at aw (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:16908)
+    at a_ (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:49776)
+    at ab (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:11808)
+    at /app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:16871
+    at aw (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:16908)
+    at a_ (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:49776)
+    at ab (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:11808)
+    at /app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:16871
+    at aw (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:16908)
+    at aw (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:46505)
+    at a_ (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:49776)
+    at a_ (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:50067)
+    at /app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:58612
+    at /app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:59270
+    at aN (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:59278)
+    at Timeout._onTimeout (/app/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:6939)
+    at listOnTimeout (node:internal/timers:585:17)
+    at process.processTimers (node:internal/timers:521:7)
+digest: "485727719"
+ GET /base 500 in 19797ms
+ ✓ Compiled in 1488ms (1391 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (192kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+[?25h

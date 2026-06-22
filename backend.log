@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/app/backend/app/main.py", line 3, in <module>
+    from app.api.routes import router as api_router
+  File "/app/backend/app/api/routes.py", line 3, in <module>
+    from app.services.agent_service import agent_service
+  File "/app/backend/app/services/agent_service.py", line 114, in <module>
+    agent_service = AgentService()
+                    ^^^^^^^^^^^^^^
+  File "/app/backend/app/services/agent_service.py", line 16, in __init__
+    self.llm = ChatOpenAI(
+               ^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.13/lib/python3.12/site-packages/langchain_core/load/serializable.py", line 118, in __init__
+    super().__init__(*args, **kwargs)
+  File "/home/jules/.pyenv/versions/3.12.13/lib/python3.12/site-packages/pydantic/main.py", line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.13/lib/python3.12/site-packages/langchain_openai/chat_models/base.py", line 1263, in validate_environment
+    self.root_client = openai.OpenAI(**client_params, **sync_specific)  # type: ignore[arg-type]
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.13/lib/python3.12/site-packages/openai/_client.py", line 194, in __init__
+    raise OpenAIError(
+openai.OpenAIError: Missing credentials. Please pass an `api_key`, `workload_identity`, `admin_api_key`, or set the `OPENAI_API_KEY` or `OPENAI_ADMIN_KEY` environment variable.

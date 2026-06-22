@@ -2,6 +2,7 @@ from fastapi import APIRouter, Header, HTTPException, Request
 from typing import Optional
 from app.services.payments_service import payments_service
 from app.core.config import settings
+from app.schemas.payments import CheckoutRequest
 import stripe
 
 router = APIRouter(prefix="/payments", tags=["payments"])
@@ -12,9 +13,9 @@ async def get_customer(x_user_id: str = Header(...), x_user_email: str = Header(
     return {"customer_id": customer_id}
 
 @router.post("/checkout")
-async def create_checkout(amount: int, x_user_id: str = Header(...), x_user_email: str = Header(...)):
+async def create_checkout(request: CheckoutRequest, x_user_id: str = Header(...), x_user_email: str = Header(...)):
     customer_id = await payments_service.get_or_create_customer(x_user_id, x_user_email)
-    session = await payments_service.create_checkout_session(customer_id, amount)
+    session = await payments_service.create_checkout_session(customer_id, request.amount)
     return session
 
 @router.get("/balance")
