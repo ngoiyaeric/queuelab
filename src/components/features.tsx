@@ -134,8 +134,8 @@ export function Features({ id }: { id: string }) {
     <>
       <section className="bg-background" id={id}>
         <div ref={containerRef} className="h-[350vh] relative">
-          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-20 lg:pt-28">
-            {/* Added padding-top classes (pt-20 lg:pt-28) to push content down */}
+          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-32 lg:pt-40">
+            {/* Increased padding to pt-32 lg:pt-40 for more clearance */}
             <div className="container px-1 md:px-4 lg:px-8 relative">
               <motion.div style={{ x, touchAction: "pan-y" }} className="flex w-[300%]">
                 {tabs.map((tab, index) => (
