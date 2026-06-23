@@ -82,7 +82,9 @@ export const AnimatedText = () => {
                                     style={{
                                         display: "inline-block",
                                         marginRight: "0.5em",
-                                        color: isRed ? "#ef4444" : "inherit", fontSize: isRed ? "1.15em" : "inherit", fontWeight: isRed ? "700" : "inherit"
+                                        color: isRed ? "#ef4444" : "inherit",
+                                        fontSize: isRed ? "1.15em" : "inherit",
+                                        fontWeight: isRed ? "700" : "inherit"
                                     }}
                                 >
                                     {word}

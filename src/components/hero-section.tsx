@@ -19,7 +19,8 @@ export function HeroSection() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setIsLocked(false); setIsAnimationVisible(true);
+            setIsLocked(false);
+            setIsAnimationVisible(true);
         }, 3000);
         return () => clearTimeout(timer);
     }, []);

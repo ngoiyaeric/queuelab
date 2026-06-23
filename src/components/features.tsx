@@ -132,9 +132,9 @@ export function Features({ id }: { id: string }) {
 
   return (
     <>
-      <section className="bg-background snap-start scroll-mt-0" id={id}>
+      <section className="bg-background snap-start scroll-mt-24" id={id}>
         <div ref={containerRef} className="h-[350vh] relative">
-          <div className="sticky top-0 h-screen flex flex-col justify-start overflow-hidden pt-16 lg:pt-24">
+          <div className="sticky top-0 h-screen flex flex-col justify-start overflow-hidden pt-24 lg:pt-32">
             <div className="w-full px-0 md:px-1 lg:px-2 relative">
               <motion.div style={{ x, touchAction: "pan-y" }} className="flex w-[300%]">
                 {tabs.map((tab, index) => (
