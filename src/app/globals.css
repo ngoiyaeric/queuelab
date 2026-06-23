@@ -79,7 +79,11 @@
   }
 }
 
-/* Removed non-standard zoom property as per CodeRabbit recommendation */
+@media (min-width: 1024px) {
+  body {
+    zoom: 0.75;
+  }
+}
 
 .season-font {
   font-family: 'Inter', sans-serif;
