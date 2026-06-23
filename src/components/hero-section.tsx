@@ -29,7 +29,7 @@ export function HeroSection() {
 
     return (
         <motion.section
-            className={"h-[492px] md:h-[800px] flex items-center overflow-hidden relative"}
+            className={"h-[492px] md:min-h-[calc(100dvh-80px)] flex items-center overflow-hidden relative"}
             ref={sectionRef}
         >
 
