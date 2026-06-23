@@ -134,13 +134,13 @@ export function Features({ id }: { id: string }) {
     <>
       <section className="bg-background" id={id}>
         <div ref={containerRef} className="h-[350vh] relative">
-          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-[294px] lg:pt-[368px]">
-            {/* 15% more than pt-64 (256px) = 294px, and 15% more than lg:pt-80 (320px) = 368px */}
-            <div className="container px-1 md:px-4 lg:px-8 relative">
-              <motion.div style={{ x, touchAction: "pan-y" }} className="flex w-[300%]">
+          <div className="sticky top-0 h-screen flex flex-col justify-start overflow-hidden pt-[294px] lg:pt-[368px] pb-8">
+            {/* Changed justify-center to justify-start and added pb-8 for bottom padding */}
+            <div className="container px-1 md:px-4 lg:px-8 relative flex-1">
+              <motion.div style={{ x, touchAction: "pan-y" }} className="flex w-[300%] h-full">
                 {tabs.map((tab, index) => (
-                  <div key={index} className="w-full px-0 md:px-4">
-                    <div className="max-w-5xl mx-auto relative">
+                  <div key={index} className="w-full px-0 md:px-4 flex items-center">
+                    <div className="max-w-5xl mx-auto relative w-full">
                       <PrefixWord word={tab.prefix} index={index} scrollYProgress={scrollYProgress} />
                       <div className={`rounded-3xl p-2 md:p-6 lg:p-8 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700 shadow-sm`}>
                         <div className="flex flex-col items-center gap-3 md:gap-4 mb-6 md:mb-8 text-center">
@@ -202,7 +202,7 @@ export function Features({ id }: { id: string }) {
                 ))}
               </motion.div>
 
-              <div className="flex justify-center gap-3 mt-6 md:mt-12">
+              <div className="flex justify-center gap-3 mt-6 md:mt-12 pb-4">
                 {tabs.map((_, index) => (
                   <DotIndicator key={index} index={index} scrollYProgress={scrollYProgress} />
                 ))}
