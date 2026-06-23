@@ -79,9 +79,20 @@
   }
 }
 
+/* Accurate Browser Zoom Simulation for Desktop */
 @media (min-width: 1024px) {
+  html {
+    overflow-x: hidden;
+  }
   body {
-    zoom: 0.75;
+    /* Scale the body to 75% */
+    transform: scale(0.75);
+    /* Transform from the top-left corner */
+    transform-origin: top left;
+    /* Increase the width to 133.33% to fill the 75% scaled viewport (100 / 0.75) */
+    width: 133.333333% !important;
+    /* Increase height similarly if needed, but usually width is the main concern for layout */
+    min-height: 133.333333vh !important;
   }
 }
 
