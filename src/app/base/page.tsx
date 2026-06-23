@@ -10,6 +10,7 @@ import QCXLogo from "@/assets/logo-qcx.png";
 import QIcon from "@/assets/q-logo.png";
 import FIXLogo from "@/assets/logo-fi.png";
 import EVALogo from "@/assets/logo-ea.png";
+import AGIDiagram from '@/assets/agi-diagram.jpeg';
 import { useUser, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import { BalanceDisplay } from "@/components/balance-display";
@@ -544,6 +545,19 @@ function BaseContent() {
                                                                         <p className="text-[10px] font-bold uppercase tracking-widest">Waiting for Signal...</p>
                                                                     </div>
                                                                 )}
+                                                                <motion.div
+                                                                    initial={{ opacity: 0, y: 10 }}
+                                                                    animate={{ opacity: 1, y: 0 }}
+                                                                    transition={{ duration: 0.5, delay: 0.2 }}
+                                                                    className="mb-6 rounded-xl overflow-hidden border border-black/5 shadow-sm"
+                                                                >
+                                                                    <Image
+                                                                        src={AGIDiagram}
+                                                                        alt="AGI Architecture Diagram"
+                                                                        className="w-full h-auto object-cover"
+                                                                        priority
+                                                                    />
+                                                                </motion.div>
                                                                 <AnimatePresence initial={false}>
                                                                     {knowledge.map((msg) => (
                                                                         <motion.div
