@@ -111,3 +111,9 @@ html, body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.2);
 }
+
+@media (min-width: 768px) {
+  html {
+    zoom: 0.75;
+  }
+}
