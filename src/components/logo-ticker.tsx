@@ -8,7 +8,8 @@ import github from "@iconify/icons-logos/github";
 import nvidia from "@iconify/icons-logos/nvidia";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
+import QIcon from "@/assets/q-logo.png";
 
 interface IconLogo {
   src: object;
@@ -16,22 +17,25 @@ interface IconLogo {
 }
 
 interface LocalLogo {
-  src: string;
+  src: string | StaticImageData;
   type: "local";
   height: number;
   width: number;
   className?: string;
+  name?: string;
 }
 
 type Logo = IconLogo | LocalLogo;
 
 const logos: Logo[] = [
+  { src: QIcon, type: "local", height: 40, width: 40, className: "h-10", name: "QCX" },
   { src: googleCloud, type: "icon" },
   { src: microsoft, type: "icon" },
   { src: aws, type: "icon" },
   { src: github, type: "icon" },
   { src: nvidia, type: "icon" },
   { src: "/assets/logos/mit-logo.png", type: "local", height: 56, width: 168, className: "h-14" },
+  { src: QIcon, type: "local", height: 40, width: 40, className: "h-10", name: "QCX" },
   { src: googleCloud, type: "icon" },
   { src: microsoft, type: "icon" },
   { src: aws, type: "icon" },
@@ -58,7 +62,7 @@ export function LogoTicker() {
 
   return (
     <>
-      <section className={"py-20 md:py-24 scroll-mt-20 md:scroll-mt-24"}>
+      <section className={"py-20 md:py-24 scroll-mt-32 md:scroll-mt-40 snap-start"}>
         <div className={"container"}>
           <div className={"flex flex-col md:flex-row items-center gap-5"}>
             <div className={"flex-none"}>
@@ -89,14 +93,19 @@ export function LogoTicker() {
                       className={"w-auto flex-none"}
                     />
                   ) : (
-                    <div key={index} className="flex-none">
+                    <div key={index} className="flex-none flex items-center gap-2">
                       <Image
                         src={logo.src}
-                        alt="Partner Logo"
+                        alt={logo.name || "Partner Logo"}
                         height={logo.height}
                         width={logo.width}
                         className={`object-contain w-auto ${logo.className || "h-8"}`}
                       />
+                      {logo.name && (
+                        <span className="font-bold text-xl tracking-tighter">
+                          {logo.name}
+                        </span>
+                      )}
                     </div>
                   )
                 ))}
