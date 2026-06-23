@@ -1,5 +1,4 @@
 "use client";
-
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { FileText } from "lucide-react";
 import { useRef, useState } from "react";
@@ -8,10 +7,10 @@ import dynamic from "next/dynamic";
 import productGif from "@/assets/product-gif.gif";
 import evaScreenshot from "@/assets/eva-screenshot.webp";
 import fixScreenshot from "@/assets/fix-screenshot.webp";
-
 import logoFi from "@/assets/logo-fi.png";
 import logoQcx from "@/assets/logo-qcx.png";
 import logoEa from "@/assets/logo-ea.png";
+
 // Dynamically import heavy components
 const DotLottiePlayer = dynamic(() => import("@dotlottie/react-player").then(mod => mod.DotLottiePlayer), { ssr: false });
 const VimeoPlayer = dynamic(() => import("./vimeo-player"), { ssr: false });
@@ -60,14 +59,12 @@ const handleImageError = (e: any) => {
   }
 };
 
-const DotIndicator = ({ index, scrollYProgress }: { index: number, scrollYProgress: MotionValue<number> }) => {
-  // Ranges adjusted to match the stepped horizontal scroll x transform plateaus
+const DotIndicator = ({ index, scrollYProgress }: { index: number; scrollYProgress: MotionValue<number> }) => {
   const ranges = [
-    [0, 0.075, 0.15],      // Tab 0 active plateau
-    [0.25, 0.325, 0.4],    // Tab 1 active plateau
-    [0.5, 0.575, 0.65]     // Tab 2 active plateau
+    [0, 0.1, 0.3],   // Tab 0
+    [0.35, 0.5, 0.7], // Tab 1
+    [0.75, 0.85, 1],  // Tab 2
   ];
-
   const currentRange = ranges[index];
   const opacity = useTransform(scrollYProgress,
     [currentRange[0] - 0.05, currentRange[1], currentRange[2] + 0.05],
@@ -77,19 +74,17 @@ const DotIndicator = ({ index, scrollYProgress }: { index: number, scrollYProgre
     [currentRange[0] - 0.05, currentRange[1], currentRange[2] + 0.05],
     [1, 1.5, 1]
   );
-
   return (
     <motion.div style={{ opacity, scale }} className="size-2.5 rounded-full bg-gray-400" />
   );
 };
 
-const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: number, scrollYProgress: MotionValue<number> }) => {
+const PrefixWord = ({ word, index, scrollYProgress }: { word: string; index: number; scrollYProgress: MotionValue<number> }) => {
   const ranges = [
-    [0, 0.075, 0.15],
-    [0.25, 0.325, 0.4],
-    [0.5, 0.575, 0.65]
+    [0, 0.1, 0.3],
+    [0.35, 0.5, 0.7],
+    [0.75, 0.85, 1],
   ];
-
   const currentRange = ranges[index];
   const opacity = useTransform(scrollYProgress,
     [currentRange[0] - 0.05, currentRange[1], currentRange[2] + 0.05],
@@ -105,27 +100,24 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: num
   );
 };
 
-type FeatureTab = (typeof tabs)[number];
-
 export function Features({ id }: { id: string }) {
-  const [selectedTab, setSelectedTab] = useState<FeatureTab | null>(null);
+  const [selectedTab, setSelectedTab] = useState<(typeof tabs)[number] | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  
+
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"]
+    offset: ["start start", "end end"],
   });
 
-  // Create a stepped transition to allow descriptions to be read
-  // Each tab stays stationary for a while (the plateaus) before sliding to the next
+  // Better stepped scroll — longer plateaus for each section
   const x = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.25, 0.4, 0.5, 0.65, 0.75],
+    [0, 0.28, 0.32, 0.62, 0.66, 0.95, 1],
     ["0%", "0%", "-33.33%", "-33.33%", "-66.66%", "-66.66%", "-66.66%"]
   );
 
-  const handleImageClick = (tab: FeatureTab) => {
+  const handleImageClick = (tab: (typeof tabs)[number]) => {
     setSelectedTab(tab);
     setIsDialogOpen(true);
   };
@@ -133,10 +125,14 @@ export function Features({ id }: { id: string }) {
   return (
     <>
       <section className="bg-background scroll-mt-48 md:scroll-mt-64" id={id}>
-        <div ref={containerRef} className="h-[350vh] relative">
+        {/* Increased height + better distribution */}
+        <div ref={containerRef} className="h-[420vh] relative">
           <div className="sticky top-0 h-screen flex flex-col justify-start overflow-hidden pt-40 lg:pt-64">
             <div className="w-full px-1 md:px-4 lg:px-8 relative">
-              <motion.div style={{ x, touchAction: "pan-y" }} className="flex w-[300%]">
+              <motion.div 
+                style={{ x, touchAction: "pan-y" }} 
+                className="flex w-[300%]"
+              >
                 {tabs.map((tab, index) => (
                   <div key={index} className="w-full px-0 md:px-4">
                     <div className="max-w-[95%] mx-auto relative">
@@ -173,7 +169,6 @@ export function Features({ id }: { id: string }) {
                             )}
                           </p>
                         </div>
-
                         <div className="border border-muted/20 rounded-xl md:rounded-2xl p-0.5 md:p-3 bg-white/40 backdrop-blur-sm shadow-xl overflow-hidden w-full">
                           <div className="relative rounded-xl overflow-hidden shadow-2xl w-full">
                             {tab.component ? (
@@ -211,6 +206,7 @@ export function Features({ id }: { id: string }) {
         </div>
       </section>
 
+      {/* Dialog remains unchanged */}
       {isDialogOpen && selectedTab && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
           <div className="relative bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
