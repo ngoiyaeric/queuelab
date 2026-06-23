@@ -135,11 +135,11 @@ export function Features({ id }: { id: string }) {
       <section className="bg-background scroll-mt-48 md:scroll-mt-64" id={id}>
         <div ref={containerRef} className="h-[350vh] relative">
           <div className="sticky top-0 h-screen flex flex-col justify-start overflow-hidden pt-40 lg:pt-64">
-            <div className="container px-1 md:px-4 lg:px-8 relative">
+            <div className="w-full px-1 md:px-4 lg:px-8 relative">
               <motion.div style={{ x, touchAction: "pan-y" }} className="flex w-[300%]">
                 {tabs.map((tab, index) => (
                   <div key={index} className="w-full px-0 md:px-4">
-                    <div className="max-w-5xl mx-auto relative">
+                    <div className="max-w-[95%] mx-auto relative">
                       <PrefixWord word={tab.prefix} index={index} scrollYProgress={scrollYProgress} />
                       <div className={`rounded-3xl p-2 md:p-6 lg:p-8 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700 shadow-sm`}>
                         <div className="flex flex-col items-center gap-3 md:gap-4 mb-6 md:mb-8 text-center">
@@ -174,8 +174,8 @@ export function Features({ id }: { id: string }) {
                           </p>
                         </div>
 
-                        <div className="border border-muted/20 rounded-xl md:rounded-2xl p-0.5 md:p-3 bg-white/40 backdrop-blur-sm shadow-xl overflow-hidden">
-                          <div className="relative rounded-xl overflow-hidden shadow-2xl">
+                        <div className="border border-muted/20 rounded-xl md:rounded-2xl p-0.5 md:p-3 bg-white/40 backdrop-blur-sm shadow-xl overflow-hidden w-full">
+                          <div className="relative rounded-xl overflow-hidden shadow-2xl w-full">
                             {tab.component ? (
                               <div className="w-full h-full scale-[1.01] md:scale-[1.01]">
                                 <VimeoPlayer />
