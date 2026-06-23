@@ -32,13 +32,13 @@ const VimeoPlayer = () => {
   }, []);
 
   return (
-    <div style={{ padding: '56.25% 0 0 0', position: 'relative' }}>
+    <div className="relative w-full">
       <iframe
         ref={iframeRef}
         src="https://player.vimeo.com/video/1014706363?badge=0&autopause=0&player_id=0&app_id=58479&muted=1"
         frameBorder="0"
         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+        className="w-full aspect-video"
         title="QCX Demo"
       ></iframe>
     </div>
