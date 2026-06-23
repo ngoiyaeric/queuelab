@@ -98,7 +98,7 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: num
   return (
     <motion.span
       style={{ opacity, fontFamily: "var(--font-instrument-serif)" }}
-      className="hidden lg:block text-2xl xl:text-4xl italic text-muted-foreground/80 absolute left-[-24px] top-1/2 -translate-y-1/2 -translate-x-full whitespace-nowrap pointer-events-none select-none z-10"
+      className="hidden lg:block text-2xl xl:text-4xl italic text-muted-foreground/80 absolute left-[-60px] top-1/2 -translate-y-1/2 whitespace-nowrap pointer-events-none select-none z-10"
     >
       {word}
     </motion.span>
@@ -140,8 +140,8 @@ export function Features({ id }: { id: string }) {
                 {tabs.map((tab, index) => (
                   <div key={index} className="w-full px-0 md:px-4">
                     <div className="max-w-5xl mx-auto relative">
-                      <PrefixWord word={tab.prefix} index={index} scrollYProgress={scrollYProgress} />
-                      <div className={`rounded-3xl p-2 md:p-6 lg:p-8 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700 shadow-sm`}>
+                      <div className={`rounded-3xl p-2 md:p-6 lg:p-8 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700 shadow-sm relative`}>
+                        <PrefixWord word={tab.prefix} index={index} scrollYProgress={scrollYProgress} />
                         <div className="flex flex-col items-center gap-3 md:gap-4 mb-6 md:mb-8 text-center">
                           <div className="flex flex-col items-center gap-2 md:gap-3">
                             <div className="size-12 md:size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm p-2 overflow-hidden">

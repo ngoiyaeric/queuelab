@@ -83,6 +83,7 @@
 @media (min-width: 1024px) {
   html {
     overflow-x: hidden;
+    height: 100%;
   }
   body {
     /* Scale the body to 75% */
@@ -91,8 +92,18 @@
     transform-origin: top left;
     /* Increase the width to 133.33% to fill the 75% scaled viewport (100 / 0.75) */
     width: 133.333333% !important;
-    /* Increase height similarly if needed, but usually width is the main concern for layout */
-    min-height: 133.333333vh !important;
+    /* Adjust height to ensure full content coverage */
+    min-height: 133.333333% !important;
+    height: auto !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  /* Ensure sticky elements stay relative to the scaled body */
+  header.sticky {
+    width: 100% !important;
+    left: 0 !important;
   }
 }
 
