@@ -1,9 +1,11 @@
 "use client";
+
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
-import { FileText } from "lucide-react";
+import { FileText, X } from "lucide-react";
 import { useRef, useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+
 import productGif from "@/assets/product-gif.gif";
 import evaScreenshot from "@/assets/eva-screenshot.webp";
 import fixScreenshot from "@/assets/fix-screenshot.webp";
@@ -59,11 +61,11 @@ const handleImageError = (e: any) => {
   }
 };
 
-const DotIndicator = ({ index, scrollYProgress }: { index: number; scrollYProgress: MotionValue<number> }) => {
+const DotIndicator = ({ index, scrollYProgress }: { index: number, scrollYProgress: MotionValue }) => {
   const ranges = [
-    [0, 0.1, 0.3],   // Tab 0
-    [0.35, 0.5, 0.7], // Tab 1
-    [0.75, 0.85, 1],  // Tab 2
+    [0, 0.075, 0.15],
+    [0.25, 0.325, 0.4],
+    [0.5, 0.575, 0.65]
   ];
   const currentRange = ranges[index];
   const opacity = useTransform(scrollYProgress,
@@ -75,15 +77,18 @@ const DotIndicator = ({ index, scrollYProgress }: { index: number; scrollYProgre
     [1, 1.5, 1]
   );
   return (
-    <motion.div style={{ opacity, scale }} className="size-2.5 rounded-full bg-gray-400" />
+    <motion.div
+      className="w-3 h-3 rounded-full bg-white/50 transition-all"
+      style={{ opacity, scale }}
+    />
   );
 };
 
-const PrefixWord = ({ word, index, scrollYProgress }: { word: string; index: number; scrollYProgress: MotionValue<number> }) => {
+const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: number, scrollYProgress: MotionValue }) => {
   const ranges = [
-    [0, 0.1, 0.3],
-    [0.35, 0.5, 0.7],
-    [0.75, 0.85, 1],
+    [0, 0.075, 0.15],
+    [0.25, 0.325, 0.4],
+    [0.5, 0.575, 0.65]
   ];
   const currentRange = ranges[index];
   const opacity = useTransform(scrollYProgress,
@@ -91,153 +96,171 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string; index: num
     [0, 1, 0]
   );
   return (
-    <motion.span
-      style={{ opacity, fontFamily: "var(--font-instrument-serif)" }}
-      className="hidden lg:block text-2xl xl:text-4xl italic text-muted-foreground/80 absolute left-[-24px] top-1/2 -translate-y-1/2 -translate-x-full whitespace-nowrap pointer-events-none select-none z-10"
+    <motion.div
+      style={{ opacity }}
+      className="text-4xl md:text-6xl font-light text-foreground/70"
     >
       {word}
-    </motion.span>
+    </motion.div>
   );
 };
 
-export function Features({ id }: { id: string }) {
-  const [selectedTab, setSelectedTab] = useState<(typeof tabs)[number] | null>(null);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+type FeatureTab = (typeof tabs)[number];
 
+export function Features({ id }: { id: string }) {
+  const [selectedTab, setSelectedTab] = useState<FeatureTab | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"],
+    offset: ["start start", "end end"]
   });
 
-  // Better stepped scroll — longer plateaus for each section
   const x = useTransform(
     scrollYProgress,
-    [0, 0.28, 0.32, 0.62, 0.66, 0.95, 1],
+    [0, 0.15, 0.25, 0.4, 0.5, 0.65, 0.75],
     ["0%", "0%", "-33.33%", "-33.33%", "-66.66%", "-66.66%", "-66.66%"]
   );
 
-  const handleImageClick = (tab: (typeof tabs)[number]) => {
+  const handleImageClick = (tab: FeatureTab) => {
     setSelectedTab(tab);
     setIsDialogOpen(true);
   };
 
   return (
     <>
-      <section className="bg-background scroll-mt-48 md:scroll-mt-64" id={id}>
-        {/* Increased height + better distribution */}
-        <div ref={containerRef} className="h-[420vh] relative">
-          <div className="sticky top-0 h-screen flex flex-col justify-start overflow-hidden pt-40 lg:pt-64">
-            <div className="w-full px-1 md:px-4 lg:px-8 relative">
-              <motion.div 
-                style={{ x, touchAction: "pan-y" }} 
-                className="flex w-[300%]"
-              >
-                {tabs.map((tab, index) => (
-                  <div key={index} className="w-full px-0 md:px-4">
-                    <div className="max-w-[95%] mx-auto relative">
-                      <PrefixWord word={tab.prefix} index={index} scrollYProgress={scrollYProgress} />
-                      <div className={`rounded-3xl p-2 md:p-6 lg:p-8 bg-gradient-to-r ${tab.slideBackground} transition-all duration-700 shadow-sm`}>
-                        <div className="flex flex-col items-center gap-3 md:gap-4 mb-6 md:mb-8 text-center">
-                          <div className="flex flex-col items-center gap-2 md:gap-3">
-                            <div className="size-12 md:size-16 border border-muted rounded-2xl inline-flex items-center justify-center bg-white/60 backdrop-blur-sm shadow-sm p-2 overflow-hidden">
-                              {tab.logo ? (
-                                <Image
-                                  src={tab.logo}
-                                  alt={`${tab.title} logo`}
-                                  width={48}
-                                  height={48}
-                                  className="w-full h-full object-contain"
-                                />
-                              ) : (
-                                <DotLottiePlayer src={tab.icon} className="size-6 md:size-8" />
-                              )}
-                            </div>
-                            <h3 className="text-3xl md:text-4xl font-bold tracking-tight">{tab.title}</h3>
-                          </div>
-                          <p className="text-muted-foreground text-base md:text-xl italic max-w-2xl px-2" style={{ fontFamily: "var(--font-instrument-serif)" }}>
-                            {tab.description}
-                            {tab.title === "Fluidity Index" && (
-                              <a
-                                href="https://arxiv.org/abs/2510.20636"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center ml-2 text-muted-foreground hover:text-black transition-colors"
-                              >
-                                <FileText className="size-5" />
-                              </a>
-                            )}
-                          </p>
-                        </div>
-                        <div className="border border-muted/20 rounded-xl md:rounded-2xl p-0.5 md:p-3 bg-white/40 backdrop-blur-sm shadow-xl overflow-hidden w-full">
-                          <div className="relative rounded-xl overflow-hidden shadow-2xl w-full">
-                            {tab.component ? (
-                              <div className="w-full h-full scale-[1.01] md:scale-[1.01]">
-                                <VimeoPlayer />
-                              </div>
-                            ) : (
-                              <Image
-                                src={tab.image.src}
-                                alt={tab.title}
-                                className="w-full h-auto cursor-pointer hover:scale-[1.02] transition-transform duration-500"
-                                onClick={() => handleImageClick(tab)}
-                                width={1920}
-                                height={1080}
-                                priority
-                                quality={100}
-                                onError={handleImageError}
-                              />
-                            )}
-                          </div>
-                        </div>
+      <section id={id} className="relative py-24 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col items-center mb-16">
+            <div className="flex gap-12 mb-8">
+              {tabs.map((tab, index) => (
+                <PrefixWord
+                  key={index}
+                  word={tab.prefix}
+                  index={index}
+                  scrollYProgress={scrollYProgress}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Main scroll container with consistent height */}
+          <div ref={containerRef} className="relative h-[800px] md:h-[900px] overflow-hidden">
+            <motion.div
+              className="flex h-full w-[300%] absolute"
+              style={{ x }}
+            >
+              {tabs.map((tab, index) => (
+                <div
+                  key={index}
+                  className={`w-1/3 flex-shrink-0 px-4 flex flex-col ${tab.slideBackground}`}
+                >
+                  <div className="flex-1 flex flex-col">
+                    {/* Header */}
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 rounded-2xl bg-white/90 flex items-center justify-center flex-shrink-0">
+                        {tab.logo ? (
+                          <Image
+                            src={tab.logo}
+                            alt={tab.title}
+                            width={48}
+                            height={48}
+                            className="object-contain"
+                          />
+                        ) : (
+                          <DotLottiePlayer
+                            src={tab.icon}
+                            autoplay
+                            loop
+                            className="w-8 h-8"
+                          />
+                        )}
                       </div>
+                      <div>
+                        <h3 className="text-3xl font-semibold tracking-tight">{tab.title}</h3>
+                        <p className="text-sm text-muted-foreground mt-1">{tab.description}</p>
+                      </div>
+                      {tab.isNew && (
+                        <div className="ml-auto px-3 py-1 text-xs rounded-full bg-amber-100 text-amber-700 font-medium">NEW</div>
+                      )}
+                    </div>
+
+                    {/* App Preview - Fixed vertical scale */}
+                    <div className="relative flex-1 min-h-0 rounded-3xl overflow-hidden border border-black/10 shadow-2xl bg-black">
+                      {tab.component ? (
+                        <div className="w-full h-full flex items-center justify-center p-8 bg-gradient-to-br from-zinc-950 to-black">
+                          <div className="text-white text-center">
+                            QCX Interactive Demo
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="relative w-full h-full">
+                          <Image
+                            src={tab.image}
+                            alt={`${tab.title} screenshot`}
+                            fill
+                            className="object-cover object-top"
+                            priority
+                            quality={100}
+                            onError={handleImageError}
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
-                ))}
-              </motion.div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
 
-              <div className="flex justify-center gap-3 mt-6 md:mt-12">
-                {tabs.map((_, index) => (
-                  <DotIndicator key={index} index={index} scrollYProgress={scrollYProgress} />
-                ))}
-              </div>
-            </div>
+          {/* Dot Indicators */}
+          <div className="flex justify-center gap-3 mt-12">
+            {tabs.map((_, index) => (
+              <DotIndicator
+                key={index}
+                index={index}
+                scrollYProgress={scrollYProgress}
+              />
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Dialog remains unchanged */}
+      {/* Modal */}
       {isDialogOpen && selectedTab && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="relative bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
-            <div className="relative aspect-video">
-              <Image
-                src={selectedTab.image.src}
-                alt="Preview"
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                quality={100}
-                onError={handleImageError}
-              />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
+          <div className="relative max-w-7xl w-full max-h-[95vh] bg-white rounded-3xl overflow-hidden">
+            <button
+              onClick={() => { setIsDialogOpen(false); setSelectedTab(null); }}
+              className="absolute top-6 right-6 bg-black/10 hover:bg-black/20 rounded-full p-3 transition-all z-10"
+            >
+              <X className="w-6 h-6 text-white" />
+            </button>
+
+            <div className="p-8">
               {selectedTab.logo && (
                 <Image
                   src={selectedTab.logo}
-                  alt={`${selectedTab.title} logo`}
-                  width={200}
-                  height={60}
-                  className="absolute top-4 left-4 h-14 w-auto z-10 object-contain"
+                  alt={selectedTab.title}
+                  width={120}
+                  height={120}
+                  className="mx-auto mb-6"
                 />
               )}
+              <h2 className="text-4xl font-semibold text-center mb-2">{selectedTab.title}</h2>
+              <p className="text-center text-muted-foreground mb-8">{selectedTab.description}</p>
             </div>
-            <button
-              onClick={() => { setIsDialogOpen(false); setSelectedTab(null); }}
-              className="absolute top-6 right-6 bg-black/10 hover:bg-black/20 rounded-full p-3 transition-all"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+
+            {/* Enlarged view with consistent scale */}
+            <div className="relative h-[70vh] bg-black rounded-b-3xl overflow-hidden">
+              <Image
+                src={selectedTab.image}
+                alt={`${selectedTab.title} full view`}
+                fill
+                className="object-contain"
+                quality={100}
+              />
+            </div>
           </div>
         </div>
       )}
