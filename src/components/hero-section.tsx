@@ -19,14 +19,14 @@ export function HeroSection() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setIsLocked(false);
+            setIsLocked(false); setIsAnimationVisible(true);
         }, 3000);
         return () => clearTimeout(timer);
     }, []);
 
     const { scrollY } = useScroll();
     useMotionValueEvent(scrollY, "change", (latest) => {
-        if (isLocked) return;
+
         // Reduced threshold for mobile to show descriptions earlier
         const threshold = typeof window !== 'undefined' && window.innerWidth < 768 ? 20 : 50;
         if (latest > threshold && !isAnimationVisible) {
@@ -53,7 +53,7 @@ export function HeroSection() {
                             onClick={() => {
                                 if (!isLocked) setIsAnimationVisible(true);
                             }}
-                            className="w-full h-full"
+                            className="w-[115%] h-[115%]"
                         />
                     </div>
                 </div>            )}
