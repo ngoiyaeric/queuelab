@@ -58,7 +58,7 @@ export function LogoTicker() {
 
   return (
     <>
-      <section className={"py-20 md:py-24"}>
+      <section className={"py-20 md:py-24 scroll-mt-32 md:scroll-mt-40 snap-start"}>
         <div className={"container"}>
           <div className={"flex flex-col md:flex-row items-center gap-5"}>
             <div className={"flex-none"}>

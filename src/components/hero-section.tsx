@@ -4,7 +4,7 @@ import MapAnimation from "./map-animation";
 import { ActionButton } from "./action-button";
 import BackgroundStars from "@/assets/stars.webp";
 import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
 import { AnimatedText } from "./animated-text";
@@ -14,10 +14,19 @@ const WebGLGlobe = dynamic(() => import("./webgl-globe"), { ssr: false });
 
 export function HeroSection() {
     const [isAnimationVisible, setIsAnimationVisible] = useState(false);
+    const [isLocked, setIsLocked] = useState(true);
     const sectionRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLocked(false);
+        }, 3000);
+        return () => clearTimeout(timer);
+    }, []);
 
     const { scrollY } = useScroll();
     useMotionValueEvent(scrollY, "change", (latest) => {
+        if (isLocked) return;
         // Reduced threshold for mobile to show descriptions earlier
         const threshold = typeof window !== 'undefined' && window.innerWidth < 768 ? 20 : 50;
         if (latest > threshold && !isAnimationVisible) {
@@ -29,7 +38,7 @@ export function HeroSection() {
 
     return (
         <motion.section
-            className={"h-[492px] md:h-[800px] flex items-center overflow-hidden relative"}
+            className={"h-[492px] md:h-[85dvh] snap-start flex items-center overflow-hidden relative"}
             ref={sectionRef}
         >
 
@@ -41,7 +50,9 @@ export function HeroSection() {
                 >
                     <div className="w-full h-full pointer-events-auto">
                         <WebGLGlobe
-                            onClick={() => setIsAnimationVisible(true)}
+                            onClick={() => {
+                                if (!isLocked) setIsAnimationVisible(true);
+                            }}
                             className="w-full h-full"
                         />
                     </div>

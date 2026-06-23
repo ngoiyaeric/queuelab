@@ -262,7 +262,7 @@ function BaseContent() {
                                     if (view === 'voice') return;
                                     // Threshold for view switching
                                     const threshold = 20;
-                                    if ((view === 'greeting' || view === 'financials') && e.deltaY > threshold) {
+                                    if ((view === 'financials') && e.deltaY > threshold) {
                                         setView('knowledge');
                                         if (knowledge.length === 0) {
                                             sendMessage("Initiate knowledge discovery", false);
@@ -280,7 +280,7 @@ function BaseContent() {
                                 dragConstraints={{ top: 0, bottom: 0 }}
                                 onDragEnd={(e, info) => {
                                     const dragThreshold = 50;
-                                    if ((view === 'greeting' || view === 'financials') && info.offset.y < -dragThreshold) {
+                                    if ((view === 'financials') && info.offset.y < -dragThreshold) {
                                         setView('knowledge');
                                         if (knowledge.length === 0) {
                                             sendMessage("Initiate knowledge discovery", false);
