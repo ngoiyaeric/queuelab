@@ -26,7 +26,7 @@ const pricingTiers = [
 
 export function PricingSection({ id }: { id: string }) {
   return (
-    <section className="py-20 md:py-24 snap-start scroll-mt-24 md:scroll-mt-32" id={id}>
+    <section className="py-20 md:py-24 scroll-mt-24 md:scroll-mt-32" id={id}>
       <div className="container">
         <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter">
           Pricing Plans

@@ -132,7 +132,7 @@ export function Features({ id }: { id: string }) {
 
   return (
     <>
-      <section className="bg-background snap-start scroll-mt-48 md:scroll-mt-64" id={id}>
+      <section className="bg-background scroll-mt-48 md:scroll-mt-64" id={id}>
         <div ref={containerRef} className="h-[350vh] relative">
           <div className="sticky top-0 h-screen flex flex-col justify-start overflow-hidden pt-40 lg:pt-64">
             <div className="container px-1 md:px-4 lg:px-8 relative">
@@ -175,7 +175,7 @@ export function Features({ id }: { id: string }) {
                         </div>
 
                         <div className="border border-muted/20 rounded-xl md:rounded-2xl p-0.5 md:p-3 bg-white/40 backdrop-blur-sm shadow-xl overflow-hidden">
-                          <div className="relative aspect-[16/10] md:aspect-video rounded-xl overflow-hidden shadow-2xl">
+                          <div className="relative rounded-xl overflow-hidden shadow-2xl">
                             {tab.component ? (
                               <div className="w-full h-full scale-[1.01] md:scale-[1.01]">
                                 <VimeoPlayer />
@@ -184,10 +184,10 @@ export function Features({ id }: { id: string }) {
                               <Image
                                 src={tab.image.src}
                                 alt={tab.title}
-                                fill
-                                className="object-contain cursor-pointer hover:scale-[1.02] transition-transform duration-500"
+                                className="w-full h-auto cursor-pointer hover:scale-[1.02] transition-transform duration-500"
                                 onClick={() => handleImageClick(tab)}
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                                width={1920}
+                                height={1080}
                                 priority
                                 quality={100}
                                 onError={handleImageError}

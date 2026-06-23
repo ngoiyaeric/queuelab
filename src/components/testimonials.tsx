@@ -33,7 +33,7 @@ interface TestimonialsProps {
 export function Testimonials({ id }: TestimonialsProps) {
     return (
         <>
-            <section id={id} className={"py-20 md:py-24 snap-start scroll-mt-24 md:scroll-mt-32"}>
+            <section id={id} className={"py-20 md:py-24 scroll-mt-24 md:scroll-mt-32"}>
                 <div className={"container"}>
                     <h2 className={"text-5xl md:text-6xl font-medium text-center tracking-tighter"} style={{ fontFamily: "var(--font-instrument-serif)" }}>Autonomous Adaptability, Artificial Creativity</h2>
                     <p className={"text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5"}>Our entire suite of products collectively function as an Artificial General Intelligence, starting with QCX.</p>
