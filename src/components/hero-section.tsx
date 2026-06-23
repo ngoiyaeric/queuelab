@@ -20,7 +20,7 @@ export function HeroSection() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsLocked(false);
-        }, 3000);
+        }, 2000);
         return () => clearTimeout(timer);
     }, []);
 
@@ -48,7 +48,7 @@ export function HeroSection() {
                     className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
                     data-testid="webgl-globe-container"
                 >
-                    <div className="w-full h-full pointer-events-auto">
+                    <div className="w-full h-full max-w-4xl max-h-4xl mx-auto pointer-events-auto">
                         <WebGLGlobe
                             onClick={() => {
                                 if (!isLocked) setIsAnimationVisible(true);

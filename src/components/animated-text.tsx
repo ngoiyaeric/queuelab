@@ -30,7 +30,7 @@ export const AnimatedText = () => {
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.08,
+                staggerChildren: 0.06,
             },
         },
     };
@@ -38,8 +38,8 @@ export const AnimatedText = () => {
     const wordVariants = {
         hidden: {
             opacity: 0,
-            y: 20,
-            filter: "blur(5px)"
+            y: 10,
+            filter: "blur(4px)"
         },
         visible: {
             opacity: 1,
@@ -57,7 +57,7 @@ export const AnimatedText = () => {
         <div className="season-font text-center p-4">
             <h1
                 onClick={handleClick}
-                className="cursor-pointer select-none"
+                className="cursor-pointer select-none text-4xl md:text-[80px] font-bold tracking-tighter leading-tight"
             >
                 <AnimatePresence mode="wait">
                     <motion.div
@@ -82,7 +82,7 @@ export const AnimatedText = () => {
                                     style={{
                                         display: "inline-block",
                                         marginRight: "0.5em",
-                                        color: isRed ? "#ef4444" : "inherit"
+                                        color: isRed ? "#ef4444" : "inherit", transform: isRed ? "scale(1.15)" : "none", fontWeight: isRed ? "bold" : "inherit"
                                     }}
                                 >
                                     {word}
