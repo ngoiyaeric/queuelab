@@ -98,7 +98,7 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: num
   return (
     <motion.span
       style={{ opacity, fontFamily: "var(--font-instrument-serif)" }}
-      className="hidden lg:block text-2xl xl:text-4xl italic text-muted-foreground/80 absolute left-[-24px] top-1/2 -translate-y-1/2 -translate-x-full whitespace-nowrap pointer-events-none select-none z-10"
+      className="block text-4xl lg:text-2xl xl:text-4xl italic text-muted-foreground/80 relative lg:absolute text-center lg:text-left mb-8 lg:mb-0 lg:left-[-24px] lg:top-1/2 lg:-translate-y-1/2 lg:-translate-x-full whitespace-nowrap pointer-events-none select-none z-10 w-full lg:w-auto"
     >
       {word}
     </motion.span>
