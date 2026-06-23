@@ -77,7 +77,7 @@ export function HeroSection() {
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
+                        transition={{ duration: 0.5, delay: 2.5 }}
                         className="text-center pointer-events-auto"
                     >
                         <p className={"font-handwriting text-lg md:text-xl max-w-xl mx-auto text-muted-foreground mt-5"}>
