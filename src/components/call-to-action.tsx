@@ -92,7 +92,7 @@ const CallToAction = ({ id }: { id?: string }) => {
 
     return (
         <>
-            <section className={"py-20 md:py-24 scroll-mt-24 md:scroll-mt-32"} ref={sectionRef} id={id}>
+            <section className={"py-20 md:py-24"} ref={sectionRef} id={id}>
                 <div className={"container"}>
                     <motion.div
                         animate={{backgroundPositionX: BackgroundStars.width,}}

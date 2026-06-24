@@ -98,7 +98,7 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: num
   return (
     <motion.span
       style={{ opacity, fontFamily: "var(--font-instrument-serif)" }}
-      className="block text-4xl lg:text-2xl xl:text-4xl italic text-muted-foreground/80 relative lg:absolute text-center lg:text-left mb-8 lg:mb-0 lg:left-[-24px] lg:top-1/2 lg:-translate-y-1/2 lg:-translate-x-full whitespace-nowrap pointer-events-none select-none z-10 w-full lg:w-auto"
+      className="hidden lg:block text-2xl xl:text-4xl italic text-muted-foreground/80 absolute left-[-24px] top-1/2 -translate-y-1/2 -translate-x-full whitespace-nowrap pointer-events-none select-none z-10"
     >
       {word}
     </motion.span>
@@ -134,8 +134,7 @@ export function Features({ id }: { id: string }) {
     <>
       <section className="bg-background" id={id}>
         <div ref={containerRef} className="h-[350vh] relative">
-          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-[294px] lg:pt-[368px]">
-            {/* 15% more than pt-64 (256px) = 294px, and 15% more than lg:pt-80 (320px) = 368px */}
+          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-20 lg:pt-28">
             <div className="container px-1 md:px-4 lg:px-8 relative">
               <motion.div style={{ x, touchAction: "pan-y" }} className="flex w-[300%]">
                 {tabs.map((tab, index) => (
