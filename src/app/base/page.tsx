@@ -10,6 +10,7 @@ import QCXLogo from "@/assets/logo-qcx.png";
 import QIcon from "@/assets/q-logo.png";
 import FIXLogo from "@/assets/logo-fi.png";
 import EVALogo from "@/assets/logo-ea.png";
+import EarthDayQ2 from "@/assets/earth-day-q2.jpeg";
 import { useUser, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import { BalanceDisplay } from "@/components/balance-display";
@@ -538,6 +539,18 @@ function BaseContent() {
                                                                 ref={logContainerRef}
                                                                 className="flex-1 overflow-y-auto p-4 md:p-6 space-y-3 md:space-y-4 custom-scrollbar flex flex-col"
                                                             >
+                                                                <motion.div
+                                                                    initial={{ opacity: 0, y: 10 }}
+                                                                    animate={{ opacity: 1, y: 0 }}
+                                                                    className="w-full mb-4"
+                                                                >
+                                                                    <Image
+                                                                        src={EarthDayQ2}
+                                                                        alt="AGI Abstraction Map"
+                                                                        className="w-full h-auto rounded-xl border border-black/5 shadow-sm"
+                                                                        priority
+                                                                    />
+                                                                </motion.div>
                                                                 {knowledge.length === 0 && (
                                                                     <div className="flex-1 flex flex-col items-center justify-center text-foreground/20 space-y-4">
                                                                         <div className="w-12 h-12 rounded-full border-2 border-current border-dashed animate-[spin_10s_linear_infinite]" />

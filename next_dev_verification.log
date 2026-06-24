@@ -1,0 +1,42 @@
+
+> QCX-location-intelligence@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 1765ms
+ ○ Compiling /src/middleware ...
+ ✓ Compiled /src/middleware in 1420ms (232 modules)
+ ○ Compiling /base ...
+
+warn - The class `duration-[3000ms]` is ambiguous and matches multiple utilities.
+warn - If this is content and not a class, replace it with `duration-&lsqb;3000ms&rsqb;` to silence this warning.
+ ✓ Compiled /base in 19.1s (3102 modules)
+ ✓ Compiled in 1375ms (1392 modules)
+
+[35m
+[Clerk]:[0m You are running in keyless mode.
+You can [35mclaim your keys[0m by visiting https://dashboard.clerk.com/apps/claim?token=qcxhs9qzoar57s3xbhe344jxxel3zvvqgotko8ve&return_url=http%3A%2F%2Flocalhost%3A3000%2F
+
+ GET /base 200 in 20745ms
+ POST /base 200 in 113ms
+ POST /base 200 in 102ms
+ ○ Compiling / ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (192kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ✓ Compiled / in 14.7s (3327 modules)
+ GET /base 200 in 690ms
+ POST /base 200 in 29ms
+ POST /base 200 in 16ms
+ GET /base 200 in 37ms
+ POST /base 200 in 27ms
+ POST /base 200 in 25ms
+ ✓ Compiled in 2s (3341 modules)
+ GET /base 200 in 401ms
+ POST /base 200 in 24ms
+ POST /base 200 in 20ms
+ ✓ Compiled in 1340ms (3341 modules)
+ ✓ Compiled in 1012ms (1741 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (192kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+[?25h
