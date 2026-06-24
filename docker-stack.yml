@@ -1,0 +1,87 @@
+services:
+  # === Queuelab (Main App) ===
+  queuelab-frontend:
+    image: queuelab-frontend:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - FASTAPI_BASE_URL=http://queuelab-backend:8000
+      - CLERK_SECRET_KEY=${CLERK_SECRET_KEY}
+      - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
+      - CORE_SERVICE_URL=http://core:8000
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+    networks:
+      - app-network
+
+  queuelab-backend:
+    image: queuelab-backend:latest
+    environment:
+      - DEBUG=False
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MODEL_NAME=${MODEL_NAME}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+    networks:
+      - app-network
+
+  # === Core (Backend API - QCX) ===
+  core:
+    image: qcx-core:latest
+    environment:
+      - DATABASE_URL=${CORE_DATABASE_URL}
+      - FIX_SERVICE_URL=http://fluidity-index-benchmark:8000
+      - EVA_SERVICE_URL=http://eva:8000
+    deploy:
+      replicas: 2
+    networks:
+      - app-network
+
+  # === EVA (Agent Service) ===
+  eva:
+    image: eva:latest
+    environment:
+      - DATABASE_URL=${EVA_DATABASE_URL}
+      - CORE_SERVICE_URL=http://core:8000
+    deploy:
+      replicas: 1
+    networks:
+      - app-network
+
+  # === Fluidity Index Benchmark (FIX) ===
+  fluidity-index-benchmark:
+    image: fix-benchmark:latest
+    environment:
+      - DATABASE_URL=${FIX_DATABASE_URL}
+      - CORE_SERVICE_URL=http://core:8000
+    deploy:
+      replicas: 1
+    networks:
+      - app-network
+
+  # === Prototype ===
+  prototype:
+    image: queuelab-prototype:latest
+    deploy:
+      replicas: 1
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: overlay
+    attachable: true
