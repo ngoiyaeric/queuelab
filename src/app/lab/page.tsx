@@ -52,7 +52,7 @@ export default function LabPage() {
           <div className="text-gray-800 space-y-10 text-lg leading-relaxed bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10">
             <section>
               <p>
-                We build general intelligence interfaces for our system that are currently in market with <a href="https://www.core.queue.cx" target="_blank" className="text-black font-medium underline underline-offset-4 hover:text-black/80 transition-colors">www.qcx.world</a> being our premier product with enterprise pilots currently in route and hundreds of open source community members and contributors working on it everyday.
+                We build general intelligence interfaces for our system that are currently in market with <a href="https://www.core.queue.cx" target="_blank" className="text-black font-medium underline underline-offset-4 hover:text-black/80 transition-colors">https://www.core.queue.cx</a> being our premier product with enterprise pilots currently in route and hundreds of open source community members and contributors working on it everyday.
               </p>
             </section>
 

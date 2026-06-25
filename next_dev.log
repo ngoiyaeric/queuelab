@@ -2,12 +2,30 @@
 > QCX-location-intelligence@0.1.0 dev
 > next dev
 
- ⚠ Port 3000 is in use, trying 3001 instead.
- ⚠ Port 3001 is in use, trying 3002 instead.
- ⚠ Port 3002 is in use, trying 3003 instead.
- ⚠ Port 3003 is in use, trying 3004 instead.
   ▲ Next.js 14.2.35
-  - Local:        http://localhost:3004
+  - Local:        http://localhost:3000
 
  ✓ Starting...
- ✓ Ready in 1744ms
+ ✓ Ready in 1827ms
+ ○ Compiling /src/middleware ...
+ ✓ Compiled /src/middleware in 1451ms (232 modules)
+ ○ Compiling / ...
+
+warn - The class `duration-[3000ms]` is ambiguous and matches multiple utilities.
+warn - If this is content and not a class, replace it with `duration-&lsqb;3000ms&rsqb;` to silence this warning.
+ ✓ Compiled / in 22.8s (3341 modules)
+
+[35m
+[Clerk]:[0m You are running in keyless mode.
+You can [35mclaim your keys[0m by visiting https://dashboard.clerk.com/apps/claim?token=0bitk510awn5coxxikc8nsty8od9s2x5rfak3rqt&return_url=http%3A%2F%2Flocalhost%3A3000%2F
+
+ ✓ Compiled in 1367ms (1492 modules)
+ GET / 200 in 24339ms
+ POST / 200 in 166ms
+ POST / 200 in 143ms
+ ○ Compiling /lab ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (192kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ✓ Compiled /lab in 17.7s (3299 modules)
+ GET /lab 200 in 18685ms
+ POST /lab 200 in 19ms
+ POST /lab 200 in 22ms
