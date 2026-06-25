@@ -86,7 +86,7 @@ export function HeroSection() {
                         <span className={"text-sm font-bold tracking-wider text-black block mt-2"}>                            QUALITY COMPUTER EXPERIENCES
                         </span>
                         <div className={"flex justify-center mt-5 relative z-10"}>
-                            <ActionButton label={"core"} href={"https://www.qcx.world"} />
+                            <ActionButton label={"core"} href={"https://www.core.queue.cx"} />
                         </div>
                     </motion.div>
                 )}
