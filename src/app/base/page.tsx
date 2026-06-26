@@ -6,10 +6,11 @@ import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { FlowerScene } from "@/components/flower-scene";
 import Image from "next/image";
-import QCXLogo from "@/assets/logo-qcx.png";
-import QIcon from "@/assets/q-logo.png";
-import FIXLogo from "@/assets/logo-fi.png";
-import EVALogo from "@/assets/logo-ea.png";
+import QCXLogo from "@/assets/logo-qcx-new.png";
+import QIcon from "@/assets/q-logo-new.png";
+import FIXLogo from "@/assets/logo-fi-new.png";
+import EVALogo from "@/assets/logo-ea-new.png";
+import AbstractionDiagram from "@/assets/abstraction-diagram.png";
 import { useUser, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import { BalanceDisplay } from "@/components/balance-display";
@@ -538,6 +539,14 @@ function BaseContent() {
                                                                 ref={logContainerRef}
                                                                 className="flex-1 overflow-y-auto p-4 md:p-6 space-y-3 md:space-y-4 custom-scrollbar flex flex-col"
                                                             >
+                                                                <div className="mb-4 rounded-xl overflow-hidden border border-black/5 shrink-0 bg-white/5">
+                                                                    <Image
+                                                                        src={AbstractionDiagram}
+                                                                        alt="Abstraction Diagram"
+                                                                        className="w-full h-auto"
+                                                                        priority
+                                                                    />
+                                                                </div>
                                                                 {knowledge.length === 0 && (
                                                                     <div className="flex-1 flex flex-col items-center justify-center text-foreground/20 space-y-4">
                                                                         <div className="w-12 h-12 rounded-full border-2 border-current border-dashed animate-[spin_10s_linear_infinite]" />
