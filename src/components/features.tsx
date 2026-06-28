@@ -9,9 +9,9 @@ import productGif from "@/assets/product-gif.gif";
 import evaScreenshot from "@/assets/eva-screenshot.webp";
 import fixScreenshot from "@/assets/fix-screenshot.webp";
 
-import logoFi from "@/assets/logo-fi-new.png";
-import logoQcx from "@/assets/logo-qcx-new.png";
-import logoEa from "@/assets/logo-ea-new.png";
+import logoFi from "@/assets/logo-fi.png";
+import logoQcx from "@/assets/logo-qcx.png";
+import logoEa from "@/assets/logo-ea.png";
 // Dynamically import heavy components
 const DotLottiePlayer = dynamic(() => import("@dotlottie/react-player").then(mod => mod.DotLottiePlayer), { ssr: false });
 const VimeoPlayer = dynamic(() => import("./vimeo-player"), { ssr: false });
@@ -98,7 +98,7 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: num
   return (
     <motion.span
       style={{ opacity, fontFamily: "var(--font-instrument-serif)" }}
-      className="text-3xl md:text-4xl italic text-muted-foreground/80 absolute left-1/2 -translate-x-1/2 top-[-44px] lg:left-[-24px] lg:top-1/2 lg:-translate-x-full lg:-translate-y-1/2 whitespace-nowrap pointer-events-none select-none z-10"
+      className="text-4xl md:text-5xl italic text-muted-foreground/90 absolute left-1/2 -translate-x-1/2 top-[-52px] lg:left-[-24px] lg:top-1/2 lg:-translate-x-full lg:-translate-y-1/2 whitespace-nowrap pointer-events-none select-none z-10"
     >
       {word}
     </motion.span>
