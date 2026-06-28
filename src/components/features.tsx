@@ -24,7 +24,7 @@ const tabs = [
     logo: logoFi,
     description: "FIX is a signal abstraction energy based evaluation and alignment system.",
     isNew: true,
-    image: fixScreenshot,
+    image: evaScreenshot,
     slideBackground: "from-yellow-50 via-amber-50 to-yellow-100",
   },
   {
@@ -45,7 +45,7 @@ const tabs = [
     logo: logoEa,
     description: "EVA is a vibrational interface autonomous new knowledge discovery system.",
     isNew: false,
-    image: evaScreenshot,
+    image: fixScreenshot,
     slideBackground: "from-sky-50 via-blue-50 to-cyan-50",
   },
 ];
