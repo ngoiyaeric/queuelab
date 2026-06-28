@@ -24,7 +24,7 @@ const tabs = [
     logo: logoFi,
     description: "FIX is a signal abstraction energy based evaluation and alignment system.",
     isNew: true,
-    image: evaScreenshot,
+    image: fixScreenshot,
     slideBackground: "from-yellow-50 via-amber-50 to-yellow-100",
   },
   {
@@ -45,7 +45,7 @@ const tabs = [
     logo: logoEa,
     description: "EVA is a vibrational interface autonomous new knowledge discovery system.",
     isNew: false,
-    image: fixScreenshot,
+    image: evaScreenshot,
     slideBackground: "from-sky-50 via-blue-50 to-cyan-50",
   },
 ];
@@ -98,7 +98,7 @@ const PrefixWord = ({ word, index, scrollYProgress }: { word: string, index: num
   return (
     <motion.span
       style={{ opacity, fontFamily: "var(--font-instrument-serif)" }}
-      className="hidden lg:block text-2xl xl:text-4xl italic text-muted-foreground/80 absolute left-[-24px] top-1/2 -translate-y-1/2 -translate-x-full whitespace-nowrap pointer-events-none select-none z-10"
+      className="text-4xl md:text-5xl italic text-muted-foreground/90 absolute left-1/2 -translate-x-1/2 top-[-52px] lg:left-[-24px] lg:top-1/2 lg:-translate-x-full lg:-translate-y-1/2 whitespace-nowrap pointer-events-none select-none z-10"
     >
       {word}
     </motion.span>
