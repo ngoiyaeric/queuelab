@@ -50,6 +50,8 @@ export default function RootLayout({
             elements: {
               card: 'shadow-xl border border-border',
               navbar: 'hidden',
+              socialButtonsBlockButton__google: 'hidden',
+              socialButtonsIconButton__google: 'hidden',
             }
           }}
         >

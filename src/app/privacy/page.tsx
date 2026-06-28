@@ -98,9 +98,9 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4 tracking-tight">Google and X Data</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4 tracking-tight">X Data</h2>
               <p>
-                If you choose to sign in with Google or X, we will receive your basic profile information (name, email, account ID) which we will use to authenticate you when signing in and for contacting you with product updates.
+                If you choose to sign in with X, we will receive your basic profile information (name, email, account ID) which we will use to authenticate you when signing in and for contacting you with product updates.
               </p>
             </section>
 

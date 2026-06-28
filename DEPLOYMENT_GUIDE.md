@@ -120,7 +120,6 @@ The project includes three GitHub Actions workflows:
 The project includes:
 
 - **Email/Password Authentication**
-- **Google OAuth Sign-In**
 - **Protected Dashboard** (requires login)
 - **Auth Context Provider** for global state management
 
@@ -178,8 +177,7 @@ The project includes:
 **Solution:**
 1. Verify Firebase credentials in `.env.local`
 2. Check Firebase Console → Authentication → Sign-in methods
-3. Ensure Google OAuth is enabled if using Google sign-in
-4. Check browser console for Firebase errors
+3. Check browser console for Firebase errors
 
 ## 7. Local Development
 
