@@ -356,7 +356,7 @@ function BaseContent() {
                                                     <div className="flex flex-col items-center md:items-end gap-3 md:gap-4 shrink-0">
                                                         <div className="flex items-center gap-3 md:gap-4 px-5 py-2 md:px-8 md:py-3 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md">
                                                             <span className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-blue-500 animate-pulse" />
-                                                            <span className="text-lg md:text-2xl font-semibold text-foreground tracking-tight">
+                                                            <span className="text-lg md:text-2xl font-semibold text-blue-500 tracking-tight">
                                                                 {currentTime || "00:00"}
                                                             </span>
                                                         </div>
