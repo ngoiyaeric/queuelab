@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 
-const FASTAPI_BASE_URL = process.env.FASTAPI_BASE_URL ?? "http://localhost:8000";
+// Normalize FASTAPI_BASE_URL to ensure it doesn't have a trailing slash
+let FASTAPI_BASE_URL = process.env.FASTAPI_BASE_URL ?? "http://localhost:8000";
+if (FASTAPI_BASE_URL.endsWith('/')) {
+    FASTAPI_BASE_URL = FASTAPI_BASE_URL.slice(0, -1);
+}
 
 if (!process.env.FASTAPI_BASE_URL && process.env.NODE_ENV === "production") {
     console.warn(
@@ -12,10 +16,6 @@ if (!process.env.FASTAPI_BASE_URL && process.env.NODE_ENV === "production") {
 const isStandalone = process.env.NEXT_STANDALONE === "true";
 
 const nextConfig = {
-    // Reverting static export as it conflicts with Clerk's server-side needs
-    // and this project seems to prefer a dynamic runtime.
-    // To support Firebase Hosting, we'll ensure the build output is handled.
-
     ...(isStandalone ? { output: "standalone" } : {}),
 
     images: {
@@ -37,24 +37,26 @@ const nextConfig = {
             rule.test?.test?.(".svg")
         );
 
-        config.module.rules.push(
-            // Reapply the existing rule, but only for svg imports ending in ?url
-            {
-                ...fileLoaderRule,
-                test: /\.svg$/i,
-                resourceQuery: /url/, // *.svg?url
-            },
-            // Convert all other *.svg imports to React components
-            {
-                test: /\.svg$/i,
-                issuer: fileLoaderRule.issuer,
-                resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
-                use: ["@svgr/webpack"],
-            }
-        );
+        if (fileLoaderRule) {
+            config.module.rules.push(
+                // Reapply the existing rule, but only for svg imports ending in ?url
+                {
+                    ...fileLoaderRule,
+                    test: /\.svg$/i,
+                    resourceQuery: /url/, // *.svg?url
+                },
+                // Convert all other *.svg imports to React components
+                {
+                    test: /\.svg$/i,
+                    issuer: fileLoaderRule.issuer,
+                    resourceQuery: { not: [...(fileLoaderRule.resourceQuery?.not || []), /url/] }, // exclude if *.svg?url
+                    use: ["@svgr/webpack"],
+                }
+            );
 
-        // Modify the file loader rule to ignore *.svg, since we have it handled now.
-        fileLoaderRule.exclude = /\.svg$/i;
+            // Modify the file loader rule to ignore *.svg, since we have it handled now.
+            fileLoaderRule.exclude = /\.svg$/i;
+        }
 
         return config;
     },
