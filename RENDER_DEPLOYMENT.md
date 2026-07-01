@@ -45,3 +45,31 @@ The application has migrated from Firebase Hosting to a containerized deployment
 
 ## Code Integration
 The `next.config.mjs` file is already configured to read `FASTAPI_BASE_URL` from the environment. No code changes are required for production deployment, only correct configuration in the Render dashboard.
+## Blueprints as Orchestration (Infrastructure as Code)
+
+While `docker-compose.yml` is used for local development and `docker-stack.yml` for Swarm, Render **Blueprints** (`render.yaml`) are the primary orchestration model for the Render ecosystem.
+
+### Comparison: Docker Compose vs. Blueprints
+
+| Feature | Docker Compose | Render Blueprints (`render.yaml`) |
+|---------|----------------|----------------------------------|
+| **Service Discovery** | Service names as hostnames | Internal hostnames injected via env vars |
+| **Networking** | Virtual bridge/overlay networks | Private Network (automatic within region) |
+| **State Management** | Docker Volumes | Managed Databases & Key-Value stores |
+| **Dependencies** | `depends_on` | Implicit via `fromService` or `fromDatabase` |
+| **Configuration** | `.env` files | Environment Groups & Secret Management |
+
+### Interfacing Code with Blueprints
+
+The "interface" between your code and the Blueprint is abstracted through **Environment Variables** and **Internal DNS**.
+
+1. **Service Discovery via Env Vars**: Instead of hardcoding hostnames, your code should read configuration from environment variables. In `render.yaml`, these are dynamically populated:
+   ```yaml
+   envVars:
+     - key: CORE_SERVICE_URL
+       fromService:
+         name: Core
+         property: host
+   ```
+2. **Internal Networking**: Services within the same Blueprint (and region) communicate over a private network. A service named `queuelab-backend` is reachable internally at `http://queuelab-backend:8000` without exposure to the public internet.
+3. **Programmatic Management**: There is no official `blueprint.py` package for defining infra in Python code. Render follows a declarative YAML approach. For programmatic control (e.g., triggering deploys or updating env vars), use the [Render API](https://api-docs.render.com/).
