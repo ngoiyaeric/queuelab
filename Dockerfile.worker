@@ -4,7 +4,7 @@ FROM python:3.11-slim AS builder
 WORKDIR /app
 
 # Install dependencies separately to leverage cache
-COPY requirements.txt .
+COPY backend/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir --user -r requirements.txt
 
 # Runtime stage
@@ -12,17 +12,14 @@ FROM python:3.11-slim AS runtime
 
 WORKDIR /app
 
-# Install curl for healthcheck
-RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
-
 # Create non-root user
 RUN addgroup --system --gid 1001 python &&     adduser --system --uid 1001 --gid 1001 appuser
 
 # Copy installed dependencies from builder
 COPY --from=builder --chown=appuser:python /root/.local /home/appuser/.local
 
-# Copy application code
-COPY --chown=appuser:python . .
+# Copy application code (context is root, so we copy backend folder)
+COPY --chown=appuser:python backend/ .
 
 # Set environment variables
 ENV PATH=/home/appuser/.local/bin:$PATH
@@ -30,7 +27,6 @@ ENV PYTHONUNBUFFERED=1
 
 USER appuser
 
-EXPOSE 8000
-
-# Run uvicorn
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
+# CMD should be overridden by the specific worker task,
+# but we provide a default that runs nothing or a simple check
+CMD ["python", "-m", "app.main"]

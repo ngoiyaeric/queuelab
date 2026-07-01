@@ -6,6 +6,8 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "FastAPI Backend"
     DEBUG: bool = False
     CORS_ORIGINS: List[str] = ["http://localhost:3000"]
+    DATABASE_URL: Optional[str] = None
+    REDIS_URL: Optional[str] = None
 
     # AI Config
     OPENAI_API_KEY: str = ""

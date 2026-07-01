@@ -1,45 +1,31 @@
-version: "1"
-
-projects:
-- name: queue.cx
-  environments:
-  - name: Production
-    services:
-    # === Prototype (Frontend/Prototype Web) ===
-    - type: web
-      name: Prototype
-      runtime: docker
-      repo: https://github.com/QueueLab/Prototype
+services:
+    # === Managed Redis (Shared State) ===
+    - type: kv
+      name: shared-redis
       plan: free
       region: virginia
-      dockerContext: .
-      dockerfilePath: ./Dockerfile
-      autoDeployTrigger: commit
-      healthCheckPath: /health
-      previews:
-        generation: automatic
 
-    # === Core (Backend API - QCX) ===
+    # === Core Service ===
     - type: web
       name: Core
       runtime: docker
       repo: https://github.com/QueueLab/QCX
-      plan: free
+      plan: starter
       region: virginia
       dockerContext: .
       dockerfilePath: ./Dockerfile
       autoDeployTrigger: commit
+      envVarGroups:
+        - name: shared-secrets
       envVars:
-      - key: EXECUTE_MIGRATIONS
-        sync: false
-      - key: EXECUTE_MIGRATIONS_TRIGGER
-        sync: false
       - key: DATABASE_URL
         fromDatabase:
           name: Core-DB
           property: connectionString
-      - key: PORT
-        sync: false
+      - key: REDIS_URL
+        fromKeyValue:
+          name: shared-redis
+          property: connectionString
       - key: FIX_SERVICE_URL
         fromService:
           name: fluidity-index-benchmark
@@ -67,18 +53,16 @@ projects:
       - benchmark.queue.cx
       - www.opensaucy.xyz
       autoDeployTrigger: "off"
+      envVarGroups:
+        - name: shared-secrets
       envVars:
-      - key: BASE_API_KEY
-        sync: false
-      - key: CLERK_SECRET_KEY
-        sync: false
-      - key: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-        sync: false
-      - key: PORT
-        sync: false
       - key: DATABASE_URL
         fromDatabase:
           name: FIX-DB
+          property: connectionString
+      - key: REDIS_URL
+        fromKeyValue:
+          name: shared-redis
           property: connectionString
       - key: CORE_SERVICE_URL
         fromService:
@@ -101,10 +85,16 @@ projects:
       dockerContext: .
       dockerfilePath: ./Dockerfile
       autoDeployTrigger: commit
+      envVarGroups:
+        - name: shared-secrets
       envVars:
       - key: DATABASE_URL
         fromDatabase:
           name: EVA-DB
+          property: connectionString
+      - key: REDIS_URL
+        fromKeyValue:
+          name: shared-redis
           property: connectionString
       - key: CORE_SERVICE_URL
         fromService:
@@ -124,18 +114,16 @@ projects:
       dockerContext: .
       dockerfilePath: ./Dockerfile
       autoDeployTrigger: commit
+      envVarGroups:
+        - name: shared-secrets
       envVars:
-      - key: XAI_API_KEY
-        sync: false
-      - key: CLERK_SECRET_KEY
-        sync: false
-      - key: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-        sync: false
-      - key: PORT
-        sync: false
       - key: DATABASE_URL
         fromDatabase:
           name: Queuelab-DB
+          property: connectionString
+      - key: REDIS_URL
+        fromKeyValue:
+          name: shared-redis
           property: connectionString
       - key: FASTAPI_BASE_URL
         fromService:
@@ -159,10 +147,17 @@ projects:
       dockerContext: ./backend
       dockerfilePath: ./Dockerfile
       autoDeployTrigger: commit
+      preDeployCommand: echo "Starting Backend Pre-deployment (Migrations, etc)..."
+      envVarGroups:
+        - name: shared-secrets
       envVars:
       - key: DATABASE_URL
         fromDatabase:
           name: Queuelab-DB
+          property: connectionString
+      - key: REDIS_URL
+        fromKeyValue:
+          name: shared-redis
           property: connectionString
       - key: PORT
         value: 8000
@@ -172,66 +167,64 @@ projects:
     - type: worker
       name: background-worker
       runtime: docker
-      repo: https://github.com/QueueLab/QCX
+      repo: https://github.com/ngoiyaeric/queuelab
       dockerContext: .
       dockerfilePath: ./Dockerfile.worker
       plan: free
       region: virginia
+      envVarGroups:
+        - name: shared-secrets
       envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: Core-DB
+          name: Queuelab-DB
           property: connectionString
-      - key: FIX_DB_URL
-        fromDatabase:
-          name: FIX-DB
-          property: connectionString
-      - key: EVA_DB_URL
-        fromDatabase:
-          name: EVA-DB
+      - key: REDIS_URL
+        fromKeyValue:
+          name: shared-redis
           property: connectionString
 
-    databases:
-    - name: FIX-DB
-      databaseName: fix_mvfs
-      user: fix_mvfs_user
-      plan: basic-256mb
-      region: virginia
-      ipAllowList:
-      - source: 0.0.0.0/0
-        description: everywhere
-      postgresMajorVersion: "18"
-      diskSizeGB: 15
+databases:
+  - name: FIX-DB
+    databaseName: fix_mvfs
+    user: fix_mvfs_user
+    plan: basic-256mb
+    region: virginia
+    ipAllowList:
+    - source: 0.0.0.0/0
+      description: everywhere
+    postgresMajorVersion: "18"
+    diskSizeGB: 15
 
-    - name: Core-DB
-      databaseName: core_db_1snu
-      user: core_db_1snu_user
-      plan: free
-      region: virginia
-      ipAllowList:
-      - source: 0.0.0.0/0
-        description: everywhere
-      postgresMajorVersion: "18"
+  - name: Core-DB
+    databaseName: core_db_1snu
+    user: core_db_1snu_user
+    plan: free
+    region: virginia
+    ipAllowList:
+    - source: 0.0.0.0/0
+      description: everywhere
+    postgresMajorVersion: "18"
 
-    - name: EVA-DB
-      databaseName: eva_db
-      user: eva_user
-      plan: free
-      region: virginia
-      ipAllowList:
-      - source: 0.0.0.0/0
-        description: everywhere
-      postgresMajorVersion: "18"
+  - name: EVA-DB
+    databaseName: eva_db
+    user: eva_user
+    plan: free
+    region: virginia
+    ipAllowList:
+    - source: 0.0.0.0/0
+      description: everywhere
+    postgresMajorVersion: "18"
 
-    - name: Queuelab-DB
-      databaseName: queuelab_db
-      user: queuelab_user
-      plan: free
-      region: virginia
-      ipAllowList:
-      - source: 0.0.0.0/0
-        description: everywhere
-      postgresMajorVersion: "18"
+  - name: Queuelab-DB
+    databaseName: queuelab_db
+    user: queuelab_user
+    plan: free
+    region: virginia
+    ipAllowList:
+    - source: 0.0.0.0/0
+      description: everywhere
+    postgresMajorVersion: "18"
 
 envVarGroups:
   - name: shared-secrets
@@ -245,4 +238,6 @@ envVarGroups:
     - key: OPENAI_API_KEY
       sync: false
     - key: XAI_API_KEY
+      sync: false
+    - key: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
       sync: false
