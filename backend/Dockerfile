@@ -16,8 +16,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
 
 # Create non-root user
-RUN addgroup --system --gid 1001 python && \
-    adduser --system --uid 1001 --gid 1001 fastapi
+RUN addgroup --system --gid 1001 python &&     adduser --system --uid 1001 --gid 1001 fastapi
 
 # Copy installed dependencies from builder
 COPY --from=builder --chown=fastapi:python /root/.local /home/fastapi/.local
@@ -33,5 +32,6 @@ USER fastapi
 
 EXPOSE 8000
 
-# Run uvicorn
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
+# Run with gunicorn for production
+# Using 2 workers as a sane default for small instances
+CMD ["gunicorn", "app.main:app", "--workers", "2", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000", "--timeout", "0"]

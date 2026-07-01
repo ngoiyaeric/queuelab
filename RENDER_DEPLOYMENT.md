@@ -1,47 +1,39 @@
-# Render Production Deployment
+# Render Production Deployment (Optimized)
 
-This document describes the configuration requirements and environment differences for deploying the application to Render.
+This document describes the optimized container orchestration for deploying the QueueLab microservices to Render.
+
+## Orchestration Strategy
+
+We use a multi-service approach on Render:
+1.  **Frontend (Next.js)**: Deployed as a `web` service. Uses standalone output.
+2.  **Backend (FastAPI)**: Deployed as a `web` service (or `pserv` for private). Uses `gunicorn` with `uvicorn` workers.
+3.  **Worker (FastAPI/Task)**: Deployed as a `worker` service. Shares the same backend image but runs async background tasks.
+4.  **Redis**: Managed Render Redis for task queuing and caching.
 
 ## Environment Variable Injection
 
-Render environment variables are configured via the **Render Dashboard**, not through `.env` files. You must manually set all required variables for both the frontend and backend services in their respective Render service settings.
+Render environment variables are configured via the **Render Dashboard**.
 
-### Required Backend Environment Variables
-Set these in the Render dashboard for the **Backend** service:
-- `OPENAI_API_KEY` (Secret)
-- `MODEL_NAME` (e.g., `gpt-4o`)
-- `ELEVENLABS_API_KEY` (Secret)
-- `ELEVENLABS_VOICE_ID`
-- `STRIPE_SECRET_KEY` (Secret)
-- `STRIPE_WEBHOOK_SECRET` (Secret)
-- `STRIPE_API_VERSION` (e.g., `2024-06-20`)
-- `DEBUG` (set to `False`)
-
-### Required Frontend Environment Variables
-Set these in the Render dashboard for the **Frontend** service:
-- `CLERK_SECRET_KEY` (Secret)
+### Build-time Variables (Frontend)
+Next.js bakes `NEXT_PUBLIC_` variables into the client-side bundle at build time. In our `Dockerfile`, we use `ARG` and `ENV` to handle this. You **must** set these as Environment Variables in the Render Dashboard for the Frontend service:
 - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
 - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
-- `STRIPE_SECRET_KEY` (Secret)
-- `FASTAPI_BASE_URL` (Internal backend URL)
-- `NEXT_PUBLIC_WS_URL` (Public backend WebSocket URL)
-- `BACKEND_URL` (Internal or Public backend URL)
-- `NEXT_PUBLIC_APP_URL` (Public frontend URL for Stripe redirects)
+- `FASTAPI_BASE_URL` (e.g., `http://queuelab-backend:10000`)
 
-## Service URL Configuration Differences
+### Runtime Variables (Backend/Worker)
+- `REDIS_URL`: Internal connection string from the Render Redis instance.
+- `DATABASE_URL`: Managed Postgres connection string.
+- `OPENAI_API_KEY`, `STRIPE_SECRET_KEY`, etc.
 
-### Internal Communication
-Render services within the same workspace and region can communicate via **internal hostnames**.
+## Async Microservices Pattern
 
-- **FASTAPI_BASE_URL**: Should be set to the Render internal hostname of the backend service (e.g., `http://backend:10000`). Note that Render's default internal port might differ from Docker's `8000`.
-- **BACKEND_URL**: For internal server-side requests, use the internal hostname.
+The backend includes a sample async task pattern at `/api/tasks/async`. This uses FastAPI's `BackgroundTasks` for simple handoffs. For more complex microservices, the `queuelab-worker` service can be scaled independently to process messages from the `REDIS_URL`.
 
-### Public Communication
-- **NEXT_PUBLIC_WS_URL**: WebSockets initiated from the client browser must use the **Render public URL** (e.g., `wss://your-backend.onrender.com`).
-- **NEXT_PUBLIC_APP_URL**: Used for Stripe checkout redirect URLs (e.g., `https://your-frontend.onrender.com`).
+## Internal Communication
+Render services communicate via **internal hostnames**.
+- **FASTAPI_BASE_URL**: Use the internal name (e.g., `http://queuelab-backend:10000`).
+- **NEXT_PUBLIC_WS_URL**: Use the **public** URL for browser-side WebSockets (e.g., `wss://queuelab-backend.onrender.com`).
 
-## Migration from Firebase Hosting
-The application has migrated from Firebase Hosting to a containerized deployment (e.g., on Render). All Firebase-related configuration files and build scripts have been removed.
-
-## Code Integration
-The `next.config.mjs` file is already configured to read `FASTAPI_BASE_URL` from the environment. No code changes are required for production deployment, only correct configuration in the Render dashboard.
+## Docker Optimizations
+- **Backend**: Now uses `gunicorn` for process management and better stability.
+- **Frontend**: Optimized `node:20-alpine` multi-stage build with standalone mode for minimal image size.

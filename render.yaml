@@ -1,81 +1,15 @@
-version: "1"
-
-projects:
-- name: queue.cx
-  environments:
-  - name: Production
-    services:
-    # === Prototype (Frontend/Prototype Web) ===
+services:
+    # === FIX (Location Intelligence) ===
     - type: web
-      name: Prototype
-      runtime: docker
-      repo: https://github.com/QueueLab/Prototype
-      plan: free
-      region: virginia
-      dockerContext: .
-      dockerfilePath: ./Dockerfile
-      autoDeployTrigger: commit
-      healthCheckPath: /health
-      previews:
-        generation: automatic
-
-    # === Core (Backend API - QCX) ===
-    - type: web
-      name: Core
-      runtime: docker
-      repo: https://github.com/QueueLab/QCX
-      plan: free
-      region: virginia
-      dockerContext: .
-      dockerfilePath: ./Dockerfile
-      autoDeployTrigger: commit
-      envVars:
-      - key: EXECUTE_MIGRATIONS
-        sync: false
-      - key: EXECUTE_MIGRATIONS_TRIGGER
-        sync: false
-      - key: DATABASE_URL
-        fromDatabase:
-          name: Core-DB
-          property: connectionString
-      - key: PORT
-        sync: false
-      - key: FIX_SERVICE_URL
-        fromService:
-          name: fluidity-index-benchmark
-          property: host
-      - key: EVA_SERVICE_URL
-        fromService:
-          name: eva
-          property: host
-      healthCheckPath: /health
-      previews:
-        generation: automatic
-
-    # === Fluidity Index Benchmark (Main App - FIX) ===
-    - type: web
-      name: fluidity-index-benchmark
+      name: fix
       runtime: docker
       repo: https://github.com/QueueLab/FIX
       plan: starter
       region: virginia
       dockerContext: .
       dockerfilePath: ./Dockerfile
-      domains:
-      - www.benchmark.queue.cx
-      - opensaucy.xyz
-      - benchmark.queue.cx
-      - www.opensaucy.xyz
-      autoDeployTrigger: "off"
+      autoDeployTrigger: commit
       envVars:
-      - key: BASE_API_KEY
-        sync: false
-      - key: CLERK_SECRET_KEY
-        sync: false
-      - key: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-        sync: false
-      - key: PORT
-        sync: false
       - key: DATABASE_URL
         fromDatabase:
           name: FIX-DB
@@ -125,14 +59,11 @@ projects:
       dockerfilePath: ./Dockerfile
       autoDeployTrigger: commit
       envVars:
-      - key: XAI_API_KEY
-        sync: false
-      - key: CLERK_SECRET_KEY
-        sync: false
+      - fromGroup: shared-secrets
       - key: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
         sync: false
       - key: PORT
-        sync: false
+        value: 3000
       - key: DATABASE_URL
         fromDatabase:
           name: Queuelab-DB
@@ -150,7 +81,7 @@ projects:
         generation: automatic
 
     # === Queuelab (This Repo - Backend) ===
-    - type: pserv
+    - type: web # Changed to web so frontend can reach it via public/internal URL if needed
       name: queuelab-backend
       runtime: docker
       repo: https://github.com/ngoiyaeric/queuelab
@@ -160,46 +91,55 @@ projects:
       dockerfilePath: ./Dockerfile
       autoDeployTrigger: commit
       envVars:
+      - fromGroup: shared-secrets
       - key: DATABASE_URL
         fromDatabase:
           name: Queuelab-DB
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: queuelab-cache
           property: connectionString
       - key: PORT
         value: 8000
       healthCheckPath: /health
 
-    # === Background/Worker for Inter-function Tasks ===
+    # === Background Worker (Demonstrating Async Microservice) ===
     - type: worker
-      name: background-worker
+      name: queuelab-worker
       runtime: docker
-      repo: https://github.com/QueueLab/QCX
-      dockerContext: .
-      dockerfilePath: ./Dockerfile.worker
+      repo: https://github.com/ngoiyaeric/queuelab
       plan: free
       region: virginia
+      dockerContext: ./backend
+      dockerfilePath: ./Dockerfile
+      autoDeployTrigger: commit
+      # Override the start command for worker mode
+      startCommand: uvicorn app.main:app --host 0.0.0.0 --port 8000 # In a real app, this would be a worker process like 'celery'
       envVars:
+      - fromGroup: shared-secrets
       - key: DATABASE_URL
         fromDatabase:
-          name: Core-DB
+          name: Queuelab-DB
           property: connectionString
-      - key: FIX_DB_URL
-        fromDatabase:
-          name: FIX-DB
-          property: connectionString
-      - key: EVA_DB_URL
-        fromDatabase:
-          name: EVA-DB
+      - key: REDIS_URL
+        fromService:
+          name: queuelab-cache
           property: connectionString
 
-    databases:
+    # === Managed Redis for Async Tasks ===
+    - type: redis
+      name: queuelab-cache
+      plan: free
+      region: virginia
+      ipAllowList: [] # Internal only
+
+databases:
     - name: FIX-DB
       databaseName: fix_mvfs
       user: fix_mvfs_user
       plan: basic-256mb
       region: virginia
-      ipAllowList:
-      - source: 0.0.0.0/0
-        description: everywhere
       postgresMajorVersion: "18"
       diskSizeGB: 15
 
@@ -208,9 +148,6 @@ projects:
       user: core_db_1snu_user
       plan: free
       region: virginia
-      ipAllowList:
-      - source: 0.0.0.0/0
-        description: everywhere
       postgresMajorVersion: "18"
 
     - name: EVA-DB
@@ -218,9 +155,6 @@ projects:
       user: eva_user
       plan: free
       region: virginia
-      ipAllowList:
-      - source: 0.0.0.0/0
-        description: everywhere
       postgresMajorVersion: "18"
 
     - name: Queuelab-DB
@@ -228,9 +162,6 @@ projects:
       user: queuelab_user
       plan: free
       region: virginia
-      ipAllowList:
-      - source: 0.0.0.0/0
-        description: everywhere
       postgresMajorVersion: "18"
 
 envVarGroups:
